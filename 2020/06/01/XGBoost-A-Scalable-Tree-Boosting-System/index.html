@@ -27,15 +27,12 @@
 <meta property="og:site_name" content="Adline125&#39;s Blog">
 <meta property="og:description" content="本文是对XGBoost的经典论文XGBoost: A Scalable Tree Boosting System的总结。XGBoost 的全称是 eXtreme Gradient Boosting。作者为华盛顿大学研究机器学习的大牛陈天奇，其最大的特点在于，它能够自动利用 CPU 的多线程进行并行，同时在算法上加以改进提高了精度。本文更多关注算法。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://www.zhihu.com/equation?tex=O(N)">
-<meta property="og:image" content="https://www.zhihu.com/equation?tex=O(%5Clog+N)">
 <meta property="article:published_time" content="2020-06-01T06:55:26.000Z">
-<meta property="article:modified_time" content="2020-06-02T19:44:07.489Z">
+<meta property="article:modified_time" content="2020-06-02T19:46:45.916Z">
 <meta property="article:author" content="Adline125">
 <meta property="article:tag" content="XGBoost">
 <meta property="article:tag" content="Machine leanring">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.zhihu.com/equation?tex=O(N)">
 
 <link rel="canonical" href="http://yoursite.com/2020/06/01/XGBoost-A-Scalable-Tree-Boosting-System/">
 
@@ -230,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-03 03:44:07" itemprop="dateModified" datetime="2020-06-03T03:44:07+08:00">2020-06-03</time>
+                <time title="Modified: 2020-06-03 03:46:45" itemprop="dateModified" datetime="2020-06-03T03:46:45+08:00">2020-06-03</time>
               </span>
 
           
@@ -349,8 +346,8 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
 <li><p>分列存放，便于按列切片，实施 "列采样"</p></li>
 <li><p>按照特征值事先排好序，便于执行切分</p></li>
 <li><ul>
-<li>在乱序列表上查一个数，只能是线性扫描，复杂度 <img src="https://www.zhihu.com/equation?tex=O%28N%29" alt="[公式]" /></li>
-<li>在有序列表上可以做二分查找， <img src="https://www.zhihu.com/equation?tex=O%28%5Clog+N%29" alt="[公式]" /></li>
+<li>在乱序列表上查一个数，只能是线性扫描，复杂度 <span class="math inline">\(O ( N )\)</span></li>
+<li>在有序列表上可以做二分查找， <span class="math inline">\(O ( \log N )\)</span></li>
 </ul></li>
 </ul></li>
 <li><p>针对 cpu缓存优化</p>
