@@ -27,12 +27,15 @@
 <meta property="og:site_name" content="Adline125&#39;s Blog">
 <meta property="og:description" content="本文是对XGBoost的经典论文XGBoost: A Scalable Tree Boosting System的总结。XGBoost 的全称是 eXtreme Gradient Boosting。作者为华盛顿大学研究机器学习的大牛陈天奇，其最大的特点在于，它能够自动利用 CPU 的多线程进行并行，同时在算法上加以改进提高了精度。本文更多关注算法。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=O(N)">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=O(%5Clog+N)">
 <meta property="article:published_time" content="2020-06-01T06:55:26.000Z">
-<meta property="article:modified_time" content="2020-06-02T18:06:14.396Z">
+<meta property="article:modified_time" content="2020-06-02T19:44:07.489Z">
 <meta property="article:author" content="Adline125">
 <meta property="article:tag" content="XGBoost">
 <meta property="article:tag" content="Machine leanring">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.zhihu.com/equation?tex=O(N)">
 
 <link rel="canonical" href="http://yoursite.com/2020/06/01/XGBoost-A-Scalable-Tree-Boosting-System/">
 
@@ -227,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-03 02:06:14" itemprop="dateModified" datetime="2020-06-03T02:06:14+08:00">2020-06-03</time>
+                <time title="Modified: 2020-06-03 03:44:07" itemprop="dateModified" datetime="2020-06-03T03:44:07+08:00">2020-06-03</time>
               </span>
 
           
@@ -300,7 +303,7 @@ w _ { j } ^ { * } = - \frac { \sum _ { i \in I _ { j } } g _ { i } } { \sum _ { 
 <li>权重衰减（Shrinkage）: 在每次迭代中对树的每个叶子结点的分数乘上一个缩减权重η，这可以使得每一棵树的影响力不会太大，留下更大的空间给后面生成的树去优化模型。</li>
 <li>列采样（Column subsampling）: 同对数据集做有放回的采样可以防止拟合一样，对特征做有放回的采样也可以防止过拟合。有两种方式：建树前采样和节点分裂之前采样。不仅如此，此方法还可以加快模型计算速度。</li>
 </ul>
-<h3 id="节点切分点搜索算法">节点切分点搜索算法</h3>
+<h3 id="切分搜索算法">切分搜索算法</h3>
 <hr />
 <p>当我们把一个节点做了切分后，我们需要一个评估这个切分是好是坏的标准。一个朴素的思想就是切分前节点的目标函数的得分<strong>减去</strong>切分后左右两节点目标函数之和的得分，如果两者的差距较大，说明切分后的损失较小。计算公式如下： <span class="math display">\[
 \begin{split}
@@ -340,9 +343,26 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
 <h3 id="xgboost系统优化">XGBoost系统优化</h3>
 <hr />
 <ul>
-<li>针对内存优化（列分块）</li>
-<li>针对 cpu缓存优化</li>
-<li>针对IO优化</li>
+<li><p>针对并行计算的列块</p>
+<ul>
+<li><p>分<code>block</code>，便于并行化</p></li>
+<li><p>分列存放，便于按列切片，实施 "列采样"</p></li>
+<li><p>按照特征值事先排好序，便于执行切分</p></li>
+<li><ul>
+<li>在乱序列表上查一个数，只能是线性扫描，复杂度 <img src="https://www.zhihu.com/equation?tex=O%28N%29" alt="[公式]" /></li>
+<li>在有序列表上可以做二分查找， <img src="https://www.zhihu.com/equation?tex=O%28%5Clog+N%29" alt="[公式]" /></li>
+</ul></li>
+</ul></li>
+<li><p>针对 cpu缓存优化</p>
+<ul>
+<li>贪心算法：缓存预取缓解缓存未命中问题</li>
+<li>近似算法：减小块的大小来解决缓存未命中问题</li>
+</ul></li>
+<li><p>针对IO优化</p>
+<ul>
+<li>Block Compression：block按列压缩，在加载到内存的过程中完成解压缩。</li>
+<li>Block Sharding：将数据分片到多个磁盘上。 将预取线程分配给每个磁盘，并将数据取入内存缓冲区中。 然后，训练线程可以从每个缓冲区读取数据。 当有多个磁盘可用时，这有助于提高磁盘读取的吞吐量。</li>
+</ul></li>
 </ul>
 <h3 id="最后">最后</h3>
 <hr />
@@ -435,7 +455,7 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost目标函数推导"><span class="nav-number">1.</span> <span class="nav-text">XGboost目标函数推导</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#预测值"><span class="nav-number">1.1.</span> <span class="nav-text">预测值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数"><span class="nav-number">1.2.</span> <span class="nav-text">目标函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#训练方法"><span class="nav-number">1.3.</span> <span class="nav-text">训练方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数近似形式"><span class="nav-number">1.4.</span> <span class="nav-text">目标函数近似形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数求最优"><span class="nav-number">1.5.</span> <span class="nav-text">目标函数求最优</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防止过拟合策略"><span class="nav-number">2.</span> <span class="nav-text">防止过拟合策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点切分点搜索算法"><span class="nav-number">3.</span> <span class="nav-text">节点切分点搜索算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#贪心算法"><span class="nav-number">3.1.</span> <span class="nav-text">贪心算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#近似算法"><span class="nav-number">3.2.</span> <span class="nav-text">近似算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加权分位点"><span class="nav-number">3.3.</span> <span class="nav-text">加权分位点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稀疏问题的处理方法"><span class="nav-number">4.</span> <span class="nav-text">稀疏问题的处理方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost系统优化"><span class="nav-number">5.</span> <span class="nav-text">XGBoost系统优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost目标函数推导"><span class="nav-number">1.</span> <span class="nav-text">XGboost目标函数推导</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#预测值"><span class="nav-number">1.1.</span> <span class="nav-text">预测值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数"><span class="nav-number">1.2.</span> <span class="nav-text">目标函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#训练方法"><span class="nav-number">1.3.</span> <span class="nav-text">训练方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数近似形式"><span class="nav-number">1.4.</span> <span class="nav-text">目标函数近似形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数求最优"><span class="nav-number">1.5.</span> <span class="nav-text">目标函数求最优</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防止过拟合策略"><span class="nav-number">2.</span> <span class="nav-text">防止过拟合策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切分搜索算法"><span class="nav-number">3.</span> <span class="nav-text">切分搜索算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#贪心算法"><span class="nav-number">3.1.</span> <span class="nav-text">贪心算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#近似算法"><span class="nav-number">3.2.</span> <span class="nav-text">近似算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加权分位点"><span class="nav-number">3.3.</span> <span class="nav-text">加权分位点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稀疏问题的处理方法"><span class="nav-number">4.</span> <span class="nav-text">稀疏问题的处理方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost系统优化"><span class="nav-number">5.</span> <span class="nav-text">XGBoost系统优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
