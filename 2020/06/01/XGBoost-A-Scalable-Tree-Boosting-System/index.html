@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文是对XGBoost的经典论文XGBoost: A Scalable Tree Boosting System的总结。XGBoost 的全称是 eXtreme Gradient Boosting。作者为华盛顿大学研究机器学习的大牛陈天奇，其最大的特点在于，它能够自动利用 CPU 的多线程进行并行，同时在算法上加以改进提高了精度。本文更多关注算法。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-06-01T06:55:26.000Z">
-<meta property="article:modified_time" content="2020-06-02T17:41:25.961Z">
+<meta property="article:modified_time" content="2020-06-02T17:43:52.428Z">
 <meta property="article:author" content="Adline125">
 <meta property="article:tag" content="XGBoost">
 <meta property="article:tag" content="Machine leanring">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-03 01:41:25" itemprop="dateModified" datetime="2020-06-03T01:41:25+08:00">2020-06-03</time>
+                <time title="Modified: 2020-06-03 01:43:52" itemprop="dateModified" datetime="2020-06-03T01:43:52+08:00">2020-06-03</time>
               </span>
 
           
@@ -243,49 +243,113 @@
       
         <p>本文是对XGBoost的经典论文<a href="https://dl.acm.org/doi/pdf/10.1145/2939672.2939785" target="_blank" rel="noopener">XGBoost: A Scalable Tree Boosting System</a>的总结。<a href="https://github.com/dmlc/xgboost" target="_blank" rel="noopener">XGBoost</a> 的全称是 eXtreme Gradient Boosting。作者为华盛顿大学研究机器学习的大牛<a href="http://homes.cs.washington.edu/~tqchen/" target="_blank" rel="noopener">陈天奇</a>，其最大的特点在于，它能够自动利用 CPU 的多线程进行并行，同时在算法上加以改进提高了精度。本文更多关注算法。</p>
 <a id="more"></a>
-
-<h3 id="XGboost目标函数推导"><a href="#XGboost目标函数推导" class="headerlink" title="XGboost目标函数推导"></a>XGboost目标函数推导</h3><hr>
-<h4 id="预测值"><a href="#预测值" class="headerlink" title="预测值"></a>预测值</h4><p>XGboost是基于回归树的集成学习模型。集成学习主要有两种方式：bagging和boosting。XGboost属于boosting, 其预测值通过对各弱分类器的结果求和得到。对于输入 $x _ {i}$：</p>
-<p>$$<br>\begin{split}\hat { y } _ { i } = \phi ( x _ { i } ) = \sum _ { k = 1 } ^ { K } f _ { k } ( x _ { i } ) , \quad f _ { k } \in F  \qquad (1)<br>\end{split}<br>$$<br>其中，$f _ {k}$ 即为一个弱分类器，在XGboost中，弱分类器为 CART。<em>F</em> 为 CART 空间。  </p>
-<h4 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h4><p>为了学习得到上式中的K个$f _ {k}$,  我们需要通过最小化模型的目标函数来获得。目标函数通常由损失+正则项表示。损失指示离真实值的差距，正则防止过拟合。这里损失为$\sum _{ i } l ( \hat y _ { i }, y)$, 是个可微凸函数。正则项则是K个$f _ {k}$中的参数。由于XGBoost的$f _ {k}$是回归树，该目标函数如下：</p>
-<p>$$<br>\begin{align}O b j = \sum _ { i } l ( \hat { y } _ { i } , y _ { i } ) + \sum _ { k } \Omega ( f _ { k } ) \nonumber \ where\quad\Omega ( f ) = \gamma T + \frac { 1 } { 2 } \lambda | w | ^ { 2 } \nonumber \end{align}  \qquad (2)<br>$$<br>其中，$\Omega( f ) $ 是惩罚项。$f _ { k }$做为回归树，影响其复杂度的参数为叶子节点的个数$, T ,$及叶子节点的权重$, w ,$.</p>
-<h4 id="训练方法"><a href="#训练方法" class="headerlink" title="训练方法"></a>训练方法</h4><p>由于$f _ { k }$是树，与其他模型$f$ 可以由数值型向量表示不同，我们不能使用往常的优化算法，如SGD，来寻找$f$。这里的解决方案是Additive Training（Boosting）。</p>
-<p>$$<br>\begin{split} &amp;\hat { y } _ { i } ^ { ( 0 ) } = 0  \<br>&amp;\hat { y } _ { i } ^ { ( 1 ) } = f _ { 1 } ( x _ { i } ) = \hat { y } _ { i } ^ { ( 0 ) } + f _ { 1 } ( x _ { i } )  \<br>&amp;\hat { y } _ { i } ^ { ( 2 ) } = f _ { 1 } ( x _ { i } ) + f _ { 2 } ( x _ { i } ) = \hat { y } _ { i } ^ { ( 1 ) } + f _ { 2 } ( x _ { i } )  \<br>&amp; …  \<br>&amp;\hat { y } _ { i } ^ { ( t ) } = \sum _ { k = 1 } ^ { t } f _ { k } ( x _ { i } ) = \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } )  \end{split}<br>$$<br>其中，每一轮添加的$f$ 是最优化目标函数的结果。</p>
-<h4 id="目标函数近似形式"><a href="#目标函数近似形式" class="headerlink" title="目标函数近似形式"></a>目标函数近似形式</h4><p>根据Additive Training方式，在第$t$ 轮，$\hat { y } _ { i } ^ { ( t ) } = \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } )$。 由此在第$t$轮的目标函数可以改写为：</p>
-<p>$$<br>\begin{split}<br>O b j ^ { ( t ) } &amp;= \sum _ { i = 1 } ^ { n } l ( y _ { i } , \hat { y } _ { i } ^ { ( t ) } ) + \sum _ { i = 1 } ^ { t } \Omega ( f _ { i } )  \<br>&amp;= \sum _ { i = 1 } ^ { n } l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } ) ) + \Omega ( f _ { t } ) + constant<br>\end{split}<br>$$<br>这个目标函数仍然很难求最优。我们用泰勒展开取其近似如下：</p>
-<p>$$<br>O b j ^ { ( t ) } \simeq \sum _ { i = 1 } ^ { n } [ l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } ) + g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant<br>$$<br>其中，$g _ { i } = \partial _ { \hat { y } ^ { ( t - 1 ) } } l ( y _ { i } , \hat { y } ^ { ( t - 1 ) } ) , \quad h _ { i } = \partial _ { \hat { y } ^ { ( t - 1 ) } } ^ { 2 } l ( y _ { i } , \hat { y } ^ { ( t - 1 ) } )$,  $g _ {i}$, $h _ {i}$分别为 $l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } )$对$\hat y ^ {(t - 1)}$求偏导的一阶和二阶导数。把上式中的常数项去掉，得：</p>
-<p>$$<br>\tilde {  O b j ^ { ( t ) } } = \sum _ { i = 1 } ^ { n } [ g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { Z } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) \qquad (3)<br>$$<br>这里要注意理解上式是针对每一个样本$x_{i}$求损失，然后求所有样本损失和。我们将要在接下来的计算中为了方便计算$\tilde {  O b j ^ { ( t ) } }$的最优值而换一种对这波操作的形式化表达方式。</p>
-<h4 id="目标函数求最优"><a href="#目标函数求最优" class="headerlink" title="目标函数求最优"></a>目标函数求最优</h4><p>这里定义 $I _ { j } = { i | q ( x _ { i } ) = j }$。$I_{j}$为被树分配到叶子节点$j$ 上的样本集。$q ( x _ { i } )$为样本$x _ {i}$通过q这个树结构到达叶子节点$j$。 $w_ {j}$为第$j$个叶子节点的权重。则 $f _ { t } ( x _ { i } ) = w _ { q ( x _ { i } ) }$。因此式 $(3)$ 可以表示为：<br>$$<br>\begin{split}<br>O b j ^ { ( t ) } &amp;\simeq \sum _ { i = 1 } ^ { n } [ g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) \<br>&amp;= \sum _ { i = 1 } ^ { n } [ g _ { i } w _ { q ( x _ { i } ) } + \frac { 1 } { 2 } h _ { i } w _ { q ( x _ { i } ) } ^ { 2 } ] + \gamma T + \lambda \frac { 1 } { 2 } \sum _ { j = 1 } ^ { T } w _ { j } ^ { 2 } \<br>&amp;= \sum _ { j = 1 } ^ { T } [ ( \sum _ { i \in I _ { j } } g _ { i } ) w _ { j } + \frac { 1 } { 2 } ( \sum _ { i \in I _ { j } } h _ { i } + \lambda ) w _ { j } ^ { 2 } ] + \gamma T<br>\end{split}<br>$$<br>中括号里为我们求最优解时最喜欢形式$ax ^ 2 + bx$。显然，当</p>
-<p>$$<br>w _ { j } ^ { * } = - \frac { \sum _ { i \in I _ { j } } g _ { i } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda }<br>$$<br>时，得到最优的$\tilde {O b j ^ { ( t ) }}$:</p>
-<p>$$<br>\tilde { Obj } ^ { ( t ) }  = - \frac { 1 } { 2 } \sum _ { j = 1 } ^ { T } \frac { ( \sum _ { i \in I _ { j } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda } + \gamma T \qquad (4)<br>$$<br>至此，我们完成了求第$t$轮时目标函数的最优值。这个值可以用来衡量树结构的好坏。也就是说，判断一棵树的质量，我们只要算出$g _ {i}$, $h_{i}$，然后代入式子$(4)$即可算出。</p>
-<h3 id="防止过拟合策略"><a href="#防止过拟合策略" class="headerlink" title="防止过拟合策略"></a>防止过拟合策略</h3><hr>
+<h3 id="xgboost目标函数推导">XGboost目标函数推导</h3>
+<hr />
+<h4 id="预测值">预测值</h4>
+<p>XGboost是基于回归树的集成学习模型。集成学习主要有两种方式：bagging和boosting。XGboost属于boosting, 其预测值通过对各弱分类器的结果求和得到。对于输入 <span class="math inline">\(x _ {i}\)</span>：</p>
+<p><span class="math display">\[
+\begin{split}\hat { y } _ { i } = \phi ( x _ { i } ) = \sum _ { k = 1 } ^ { K } f _ { k } ( x _ { i } ) , \quad f _ { k } \in F  \qquad (1)
+\end{split}
+\]</span> 其中，<span class="math inline">\(f _ {k}\)</span> 即为一个弱分类器，在XGboost中，弱分类器为 CART。<em>F</em> 为 CART 空间。</p>
+<h4 id="目标函数">目标函数</h4>
+<p>为了学习得到上式中的K个<span class="math inline">\(f _ {k}\)</span>, 我们需要通过最小化模型的目标函数来获得。目标函数通常由损失+正则项表示。损失指示离真实值的差距，正则防止过拟合。这里损失为<span class="math inline">\(\begin{split}\sum _{ i } l ( \hat y _ { i }, y)\end{split}\)</span>, 是个可微凸函数。正则项则是K个<span class="math inline">\(f _ {k}\)</span>中的参数。由于XGBoost的<span class="math inline">\(f _ {k}\)</span>是回归树，该目标函数如下：</p>
+<p><span class="math display">\[
+\begin{split}O b j = \sum _ { i } l ( \hat { y } _ { i } , y _ { i } ) + \sum _ { k } \Omega ( f _ { k } ) \\
+where\quad\Omega ( f ) = \gamma T + \frac { 1 } { 2 } \lambda | w | ^ { 2 } \nonumber \end{split}  \qquad (2)
+\]</span> 其中，$( f ) $ 是惩罚项。<span class="math inline">\(f _ { k }\)</span>做为回归树，影响其复杂度的参数为叶子节点的个数<span class="math inline">\(\, T \,\)</span>及叶子节点的权重<span class="math inline">\(\, w \,\)</span>.</p>
+<h4 id="训练方法">训练方法</h4>
+<p>由于<span class="math inline">\(f _ { k }\)</span>是树，与其他模型<span class="math inline">\(f\)</span> 可以由数值型向量表示不同，我们不能使用往常的优化算法，如SGD，来寻找<span class="math inline">\(f\)</span>。这里的解决方案是Additive Training（Boosting）。</p>
+<p><span class="math display">\[
+\begin{split} &amp;\hat { y } _ { i } ^ { ( 0 ) } = 0  \\ 
+&amp;\hat { y } _ { i } ^ { ( 1 ) } = f _ { 1 } ( x _ { i } ) = \hat { y } _ { i } ^ { ( 0 ) } + f _ { 1 } ( x _ { i } )  \\
+&amp;\hat { y } _ { i } ^ { ( 2 ) } = f _ { 1 } ( x _ { i } ) + f _ { 2 } ( x _ { i } ) = \hat { y } _ { i } ^ { ( 1 ) } + f _ { 2 } ( x _ { i } )  \\
+&amp; …  \\ 
+&amp;\hat { y } _ { i } ^ { ( t ) } = \sum _ { k = 1 } ^ { t } f _ { k } ( x _ { i } ) = \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } )  \end{split}
+\]</span> 其中，每一轮添加的<span class="math inline">\(f\)</span> 是最优化目标函数的结果。</p>
+<h4 id="目标函数近似形式">目标函数近似形式</h4>
+<p>根据Additive Training方式，在第<span class="math inline">\(t\)</span> 轮，<span class="math inline">\(\hat { y } _ { i } ^ { ( t ) } = \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } )\)</span>。 由此在第<span class="math inline">\(t\)</span>轮的目标函数可以改写为：</p>
+<p><span class="math display">\[
+\begin{split}
+O b j ^ { ( t ) } &amp;= \sum _ { i = 1 } ^ { n } l ( y _ { i } , \hat { y } _ { i } ^ { ( t ) } ) + \sum _ { i = 1 } ^ { t } \Omega ( f _ { i } )  \\ 
+&amp;= \sum _ { i = 1 } ^ { n } l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } ) ) + \Omega ( f _ { t } ) + constant 
+\end{split}
+\]</span> 这个目标函数仍然很难求最优。我们用泰勒展开取其近似如下：</p>
+<p><span class="math display">\[
+O b j ^ { ( t ) } \simeq \sum _ { i = 1 } ^ { n } [ l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } ) + g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant
+\]</span> 其中，<span class="math inline">\(g _ { i } = \partial _ { \hat { y } ^ { ( t - 1 ) } } l ( y _ { i } , \hat { y } ^ { ( t - 1 ) } ) , \quad h _ { i } = \partial _ { \hat { y } ^ { ( t - 1 ) } } ^ { 2 } l ( y _ { i } , \hat { y } ^ { ( t - 1 ) } )\)</span>, <span class="math inline">\(g _ {i}\)</span>, <span class="math inline">\(h _ {i}\)</span>分别为 <span class="math inline">\(l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } )\)</span>对<span class="math inline">\(\hat y ^ {(t - 1)}\)</span>求偏导的一阶和二阶导数。把上式中的常数项去掉，得：</p>
+<p><span class="math display">\[
+\tilde {  O b j ^ { ( t ) } } = \sum _ { i = 1 } ^ { n } [ g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { Z } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) \qquad (3)
+\]</span> 这里要注意理解上式是针对每一个样本<span class="math inline">\(x_{i}\)</span>求损失，然后求所有样本损失和。我们将要在接下来的计算中为了方便计算<span class="math inline">\(\tilde { O b j ^ { ( t ) } }\)</span>的最优值而换一种对这波操作的形式化表达方式。</p>
+<h4 id="目标函数求最优">目标函数求最优</h4>
+<p>这里定义 <span class="math inline">\(I _ { j } = \{ i | q ( x _ { i } ) = j \}\)</span>。<span class="math inline">\(I_{j}\)</span>为被树分配到叶子节点<span class="math inline">\(j\)</span> 上的样本集。<span class="math inline">\(q ( x _ { i } )\)</span>为样本<span class="math inline">\(x _ {i}\)</span>通过q这个树结构到达叶子节点<span class="math inline">\(j\)</span>。 <span class="math inline">\(w_ {j}\)</span>为第<span class="math inline">\(j\)</span>个叶子节点的权重。则 <span class="math inline">\(f _ { t } ( x _ { i } ) = w _ { q ( x _ { i } ) }\)</span>。因此式 <span class="math inline">\((3)\)</span> 可以表示为： <span class="math display">\[
+\begin{split}
+O b j ^ { ( t ) } &amp;\simeq \sum _ { i = 1 } ^ { n } [ g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) \\ 
+&amp;= \sum _ { i = 1 } ^ { n } [ g _ { i } w _ { q ( x _ { i } ) } + \frac { 1 } { 2 } h _ { i } w _ { q ( x _ { i } ) } ^ { 2 } ] + \gamma T + \lambda \frac { 1 } { 2 } \sum _ { j = 1 } ^ { T } w _ { j } ^ { 2 } \\ 
+&amp;= \sum _ { j = 1 } ^ { T } [ ( \sum _ { i \in I _ { j } } g _ { i } ) w _ { j } + \frac { 1 } { 2 } ( \sum _ { i \in I _ { j } } h _ { i } + \lambda ) w _ { j } ^ { 2 } ] + \gamma T
+\end{split}
+\]</span> 中括号里为我们求最优解时最喜欢形式<span class="math inline">\(ax ^ 2 + bx\)</span>。显然，当</p>
+<p><span class="math display">\[
+w _ { j } ^ { * } = - \frac { \sum _ { i \in I _ { j } } g _ { i } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda }
+\]</span> 时，得到最优的<span class="math inline">\(\tilde {O b j ^ { ( t ) }}\)</span>:</p>
+<p><span class="math display">\[
+\tilde { Obj } ^ { ( t ) }  = - \frac { 1 } { 2 } \sum _ { j = 1 } ^ { T } \frac { ( \sum _ { i \in I _ { j } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda } + \gamma T \qquad (4)
+\]</span> 至此，我们完成了求第<span class="math inline">\(t\)</span>轮时目标函数的最优值。这个值可以用来衡量树结构的好坏。也就是说，判断一棵树的质量，我们只要算出<span class="math inline">\(g _ {i}\)</span>, <span class="math inline">\(h_{i}\)</span>，然后代入式子<span class="math inline">\((4)\)</span>即可算出。</p>
+<h3 id="防止过拟合策略">防止过拟合策略</h3>
+<hr />
 <ul>
 <li>权重衰减（Shrinkage）: 在每次迭代中对树的每个叶子结点的分数乘上一个缩减权重η，这可以使得每一棵树的影响力不会太大，留下更大的空间给后面生成的树去优化模型。</li>
 <li>列采样（Column subsampling）: 同对数据集做有放回的采样可以防止拟合一样，对特征做有放回的采样也可以防止过拟合。有两种方式：建树前采样和节点分裂之前采样。不仅如此，此方法还可以加快模型计算速度。</li>
 </ul>
-<h3 id="节点切分点搜索算法"><a href="#节点切分点搜索算法" class="headerlink" title="节点切分点搜索算法"></a>节点切分点搜索算法</h3><hr>
-<p>当我们把一个节点做了切分后，我们需要一个评估这个切分是好是坏的标准。一个朴素的思想就是切分前节点的目标函数的得分<strong>减去</strong>切分后左右两节点目标函数之和的得分，如果两者的差距较大，说明切分后的损失较小。计算公式如下：<br>$$<br>\begin{split}<br>L _ { s p l i t } &amp;= L ^ { ( t ) } - ( L _ { l } ^ { ( t ) } + L _ { r } ^ { ( t ) } ) \<br>&amp;= - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { j } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda } + \gamma - ( - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { I } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { l } } h _ { i } + \lambda } + - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { r } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { r } } h _ { i } + \lambda } + 2 \gamma )\<br>&amp;= \frac { 1 } { 2 } [ \frac { ( \sum _ { i \in I _ { L } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { L } } h _ { i } + \lambda } + \frac { ( \sum _ { i \in I _ { R } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { R } } h _ { i } + \lambda } - \frac { ( \sum _ { i \in I } g _ { i } ) ^ { 2 } } { \sum _ { i \in I } h _ { i } + \lambda } ] - \gamma<br>\end{split} \qquad (5)<br>$$</p>
-<h4 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h4><p>遍历所有特征的所有可能切分点，计算（5）式，取得分最高的切分点进行切分。</p>
-<h4 id="近似算法"><a href="#近似算法" class="headerlink" title="近似算法"></a>近似算法</h4><p>近似算法按特征分布的百分位提出候选切分点，相当于将特征的特征值分桶后再遍历。按提出候选切分点的时间不同，有两种切分的方式：全局切分和局部切分。</p>
+<h3 id="节点切分点搜索算法">节点切分点搜索算法</h3>
+<hr />
+<p>当我们把一个节点做了切分后，我们需要一个评估这个切分是好是坏的标准。一个朴素的思想就是切分前节点的目标函数的得分<strong>减去</strong>切分后左右两节点目标函数之和的得分，如果两者的差距较大，说明切分后的损失较小。计算公式如下： <span class="math display">\[
+\begin{split}
+L _ { s p l i t } &amp;= L ^ { ( t ) } - ( L _ { l } ^ { ( t ) } + L _ { r } ^ { ( t ) } ) \\
+&amp;= - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { j } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda } + \gamma - ( - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { I } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { l } } h _ { i } + \lambda } + - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { r } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { r } } h _ { i } + \lambda } + 2 \gamma )\\
+&amp;= \frac { 1 } { 2 } [ \frac { ( \sum _ { i \in I _ { L } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { L } } h _ { i } + \lambda } + \frac { ( \sum _ { i \in I _ { R } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { R } } h _ { i } + \lambda } - \frac { ( \sum _ { i \in I } g _ { i } ) ^ { 2 } } { \sum _ { i \in I } h _ { i } + \lambda } ] - \gamma
+\end{split} \qquad (5)
+\]</span></p>
+<h4 id="贪心算法">贪心算法</h4>
+<p>遍历所有特征的所有可能切分点，计算（5）式，取得分最高的切分点进行切分。</p>
+<h4 id="近似算法">近似算法</h4>
+<p>近似算法按特征分布的百分位提出候选切分点，相当于将特征的特征值分桶后再遍历。按提出候选切分点的时间不同，有两种切分的方式：全局切分和局部切分。</p>
 <p>全局切分就是在建树之初就提出了每个特征的候选切分点，之后对树的所有节点做切分时都从这些节点对应的特征候选切分点中选择。</p>
 <p>局部切分是在每次节点切分后优化提出候选切分点。候选切分点提出较全局切分频繁，较全局切分需要较少切分点。适合生成较深的树。</p>
 <p>全局切分候选切分点足够多时，可以达到和局部切分差不多的效果。</p>
-<h4 id="加权分位点"><a href="#加权分位点" class="headerlink" title="加权分位点"></a>加权分位点</h4><p>加权分位点是近似算法的一种。上面提到的近似算法通常是将切分点设在使数据均匀分布的位置。而加权分位点则是将切分点设在使分桶后的数据对loss产生均衡影响的位置。如果分4个桶，加权分位点使得每个桶内的样本集对loss的影响持平为25%。</p>
-<p>样本对loss的影响计算方法如下：<br>$$<br>\begin{split}<br>L ^ { ( t ) } &amp;\simeq \sum _ { i = 1 }^ { n } [ l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } ) + g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \<br>&amp;= \sum _ { i = 1 } ^ { n } [ \frac { 1 } { 2 } h _ { i } \cdot \frac { 2 \cdot g _ { i } f _ { t } ( x _ { i } ) } { h _ { i } } + \frac { 1 } { 2 } h _ { i } \cdot f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \<br>&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ 2 \cdot \frac { g _ { i } } { h _ { i } } \cdot f _ { t } ( x _ { i } ) + f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \<br>&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ ( 2 \cdot \frac { g _ { i } } { h _ { i } } \cdot f _ { t } ( x _ { i } ) + f _ { t } ^ { 2 } ( x _ { i } ) + ( \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ) - ( \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ] + \Omega ( f _ { t } ) + constant \<br>&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ ( f _ { t } ( x _ { i } ) + \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ] + \Omega ( f _ { t } ) + constant \<br>&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } ( f _ { t } ( x _ { i } ) - ( - g _ { i } / h _ { i } ) ) ^ { 2 } + \Omega ( f _ { t } )<br>\end{split}<br>$$<br>这里和原文给出的公式差个负号，欢迎想明白的小伙伴留言。</p>
-<p>从上式中我们可以看到样本$x _ {i}$的预测值$f _ { t } ( x _ { i })$对 $y = - g _ { i } / h _ { i }$的加权平方损失。权重即为$h _ {i}$，表示样本对loss的影响。</p>
-<p>节点上特征值小于 $z$ 的样本集相对于节点上总样本集对loss影响的比重为：<br>$$<br>r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { ( x , h ) \in D _ { k } , x &lt; z } h<br>$$<br>我们的目标是要找到这样一组切分点${ s _ { k 1 } , s _ { k 2 } , \cdots s _ { k l } }$, 使用任意两个切分点之间的样本集对loss影响的比重小于一个数值$\epsilon$。比如 $\epsilon = 10%$，意思就是将特征值分为10桶，每桶内对应的样本集对loss的影响小于10%。形式化表示如下：<br>$$<br>| r _ { k } ( s _ { k , j } ) - r _ { k } ( s _ { k , j + 1 } ) | &lt; \epsilon , \quad s _ { k 1 } = \min _ { i } x _ { i k } , s _ { k l } = \max _ { i } x _ { i k }<br>$$</p>
-<h3 id="稀疏问题的处理方法"><a href="#稀疏问题的处理方法" class="headerlink" title="稀疏问题的处理方法"></a>稀疏问题的处理方法</h3><hr>
+<h4 id="加权分位点">加权分位点</h4>
+<p>加权分位点是近似算法的一种。上面提到的近似算法通常是将切分点设在使数据均匀分布的位置。而加权分位点则是将切分点设在使分桶后的数据对loss产生均衡影响的位置。如果分4个桶，加权分位点使得每个桶内的样本集对loss的影响持平为25%。</p>
+<p>样本对loss的影响计算方法如下： <span class="math display">\[
+\begin{split} 
+L ^ { ( t ) } &amp;\simeq \sum _ { i = 1 }^ { n } [ l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } ) + g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \\
+&amp;= \sum _ { i = 1 } ^ { n } [ \frac { 1 } { 2 } h _ { i } \cdot \frac { 2 \cdot g _ { i } f _ { t } ( x _ { i } ) } { h _ { i } } + \frac { 1 } { 2 } h _ { i } \cdot f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \\
+&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ 2 \cdot \frac { g _ { i } } { h _ { i } } \cdot f _ { t } ( x _ { i } ) + f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \\
+&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ ( 2 \cdot \frac { g _ { i } } { h _ { i } } \cdot f _ { t } ( x _ { i } ) + f _ { t } ^ { 2 } ( x _ { i } ) + ( \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ) - ( \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ] + \Omega ( f _ { t } ) + constant \\
+&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ ( f _ { t } ( x _ { i } ) + \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ] + \Omega ( f _ { t } ) + constant \\
+&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } ( f _ { t } ( x _ { i } ) - ( - g _ { i } / h _ { i } ) ) ^ { 2 } + \Omega ( f _ { t } )
+\end{split}
+\]</span> 这里和原文给出的公式差个负号，欢迎想明白的小伙伴留言。</p>
+<p>从上式中我们可以看到样本<span class="math inline">\(x _ {i}\)</span>的预测值<span class="math inline">\(f _ { t } ( x _ { i })\)</span>对 <span class="math inline">\(y = - g _ { i } / h _ { i }\)</span>的加权平方损失。权重即为<span class="math inline">\(h _ {i}\)</span>，表示样本对loss的影响。</p>
+<p>节点上特征值小于 <span class="math inline">\(z\)</span> 的样本集相对于节点上总样本集对loss影响的比重为： <span class="math display">\[
+r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { ( x , h ) \in D _ { k } , x &lt; z } h
+\]</span> 我们的目标是要找到这样一组切分点<span class="math inline">\(\{ s _ { k 1 } , s _ { k 2 } , \cdots s _ { k l } \}\)</span>, 使用任意两个切分点之间的样本集对loss影响的比重小于一个数值<span class="math inline">\(\epsilon\)</span>。比如 <span class="math inline">\(\epsilon = 10\%\)</span>，意思就是将特征值分为10桶，每桶内对应的样本集对loss的影响小于10%。形式化表示如下： <span class="math display">\[
+| r _ { k } ( s _ { k , j } ) - r _ { k } ( s _ { k , j + 1 } ) | &lt; \epsilon , \quad s _ { k 1 } = \min _ { i } x _ { i k } , s _ { k l } = \max _ { i } x _ { i k }
+\]</span></p>
+<h3 id="稀疏问题的处理方法">稀疏问题的处理方法</h3>
+<hr />
 <p>在实践中经常遇到的数据稀疏，某些样本的某些特征值是缺失的（NULL）或大量特征的特征值为0。对这种情况论文提出统一将这种数据划分到一个默认的分支，或左树或右树，然后分别计算损失，选择较优的那一个。</p>
-<h3 id="XGBoost系统优化"><a href="#XGBoost系统优化" class="headerlink" title="XGBoost系统优化"></a>XGBoost系统优化</h3><hr>
+<h3 id="xgboost系统优化">XGBoost系统优化</h3>
+<hr />
 <ul>
 <li>针对内存优化（列分块）</li>
 <li>针对 cpu缓存优化</li>
 <li>针对IO优化</li>
 </ul>
-<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><hr>
+<h3 id="最后">最后</h3>
+<hr />
 <p>XGBoost 是 GBDT 的改良，在XGBoost之后又陆续出现了<a href="https://lightgbm.readthedocs.io/en/latest/" target="_blank" rel="noopener">LightGBM</a>和 <a href="https://catboost.yandex/" target="_blank" rel="noopener">CatBoost</a>。</p>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><hr>
-<ol>
+<h3 id="参考文献">参考文献</h3>
+<hr />
+<ol type="1">
 <li><a href="https://dl.acm.org/doi/pdf/10.1145/2939672.2939785" target="_blank" rel="noopener">XGBoost: A Scalable Tree Boosting System</a></li>
 <li><a href="https://netman.aiops.org/~peidan/ANM2018/3.MachineLearningBasics/LectureCoverage/18.xgboost.pdf" target="_blank" rel="noopener">PPT</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/89546007" target="_blank" rel="noopener">详解《XGBoost: A Scalable Tree Boosting System》</a></li>
@@ -371,7 +435,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#XGboost目标函数推导"><span class="nav-number">1.</span> <span class="nav-text">XGboost目标函数推导</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#预测值"><span class="nav-number">1.1.</span> <span class="nav-text">预测值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数"><span class="nav-number">1.2.</span> <span class="nav-text">目标函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#训练方法"><span class="nav-number">1.3.</span> <span class="nav-text">训练方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数近似形式"><span class="nav-number">1.4.</span> <span class="nav-text">目标函数近似形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数求最优"><span class="nav-number">1.5.</span> <span class="nav-text">目标函数求最优</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防止过拟合策略"><span class="nav-number">2.</span> <span class="nav-text">防止过拟合策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点切分点搜索算法"><span class="nav-number">3.</span> <span class="nav-text">节点切分点搜索算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#贪心算法"><span class="nav-number">3.1.</span> <span class="nav-text">贪心算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#近似算法"><span class="nav-number">3.2.</span> <span class="nav-text">近似算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加权分位点"><span class="nav-number">3.3.</span> <span class="nav-text">加权分位点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稀疏问题的处理方法"><span class="nav-number">4.</span> <span class="nav-text">稀疏问题的处理方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XGBoost系统优化"><span class="nav-number">5.</span> <span class="nav-text">XGBoost系统优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost目标函数推导"><span class="nav-number">1.</span> <span class="nav-text">XGboost目标函数推导</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#预测值"><span class="nav-number">1.1.</span> <span class="nav-text">预测值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数"><span class="nav-number">1.2.</span> <span class="nav-text">目标函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#训练方法"><span class="nav-number">1.3.</span> <span class="nav-text">训练方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数近似形式"><span class="nav-number">1.4.</span> <span class="nav-text">目标函数近似形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数求最优"><span class="nav-number">1.5.</span> <span class="nav-text">目标函数求最优</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防止过拟合策略"><span class="nav-number">2.</span> <span class="nav-text">防止过拟合策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点切分点搜索算法"><span class="nav-number">3.</span> <span class="nav-text">节点切分点搜索算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#贪心算法"><span class="nav-number">3.1.</span> <span class="nav-text">贪心算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#近似算法"><span class="nav-number">3.2.</span> <span class="nav-text">近似算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加权分位点"><span class="nav-number">3.3.</span> <span class="nav-text">加权分位点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稀疏问题的处理方法"><span class="nav-number">4.</span> <span class="nav-text">稀疏问题的处理方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost系统优化"><span class="nav-number">5.</span> <span class="nav-text">XGBoost系统优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
