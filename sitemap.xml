@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/06/01/XGBoost-A-Scalable-Tree-Boosting-System/</loc>
+    
+    <lastmod>2020-06-02T17:04:58.107Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2020/05/23/hello-world/</loc>
+    
+    <lastmod>2020-06-01T08:30:04.581Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/tags/index.html</loc>
     
     <lastmod>2020-05-23T17:33:49.700Z</lastmod>
@@ -26,13 +40,6 @@
     <loc>http://yoursite.com/about/index.html</loc>
     
     <lastmod>2020-05-23T17:11:44.488Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2020/05/23/hello-world/</loc>
-    
-    <lastmod>2020-05-23T13:51:29.815Z</lastmod>
     
   </url>
   
