@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文是对XGBoost的经典论文XGBoost: A Scalable Tree Boosting System的总结。XGBoost 的全称是 eXtreme Gradient Boosting。作者为华盛顿大学研究机器学习的大牛陈天奇，其最大的特点在于，它能够自动利用 CPU 的多线程进行并行，同时在算法上加以改进提高了精度。本文更多关注算法。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-06-01T06:55:26.000Z">
-<meta property="article:modified_time" content="2020-06-02T17:39:09.086Z">
+<meta property="article:modified_time" content="2020-06-02T17:41:25.961Z">
 <meta property="article:author" content="Adline125">
 <meta property="article:tag" content="XGBoost">
 <meta property="article:tag" content="Machine leanring">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-03 01:39:09" itemprop="dateModified" datetime="2020-06-03T01:39:09+08:00">2020-06-03</time>
+                <time title="Modified: 2020-06-03 01:41:25" itemprop="dateModified" datetime="2020-06-03T01:41:25+08:00">2020-06-03</time>
               </span>
 
           
@@ -246,7 +246,7 @@
 
 <h3 id="XGboost目标函数推导"><a href="#XGboost目标函数推导" class="headerlink" title="XGboost目标函数推导"></a>XGboost目标函数推导</h3><hr>
 <h4 id="预测值"><a href="#预测值" class="headerlink" title="预测值"></a>预测值</h4><p>XGboost是基于回归树的集成学习模型。集成学习主要有两种方式：bagging和boosting。XGboost属于boosting, 其预测值通过对各弱分类器的结果求和得到。对于输入 $x _ {i}$：</p>
-<p>$$<br>\hat { y } _ { i } = \phi ( x _ { i } ) = \sum _ { k = 1 } ^ { K } f _ { k } ( x _ { i } ) , \quad f _ { k } \in F  \qquad<br>$$<br>其中，$f _ {k}$ 即为一个弱分类器，在XGboost中，弱分类器为 CART。<em>F</em> 为 CART 空间。  </p>
+<p>$$<br>\begin{split}\hat { y } _ { i } = \phi ( x _ { i } ) = \sum _ { k = 1 } ^ { K } f _ { k } ( x _ { i } ) , \quad f _ { k } \in F  \qquad (1)<br>\end{split}<br>$$<br>其中，$f _ {k}$ 即为一个弱分类器，在XGboost中，弱分类器为 CART。<em>F</em> 为 CART 空间。  </p>
 <h4 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h4><p>为了学习得到上式中的K个$f _ {k}$,  我们需要通过最小化模型的目标函数来获得。目标函数通常由损失+正则项表示。损失指示离真实值的差距，正则防止过拟合。这里损失为$\sum _{ i } l ( \hat y _ { i }, y)$, 是个可微凸函数。正则项则是K个$f _ {k}$中的参数。由于XGBoost的$f _ {k}$是回归树，该目标函数如下：</p>
 <p>$$<br>\begin{align}O b j = \sum _ { i } l ( \hat { y } _ { i } , y _ { i } ) + \sum _ { k } \Omega ( f _ { k } ) \nonumber \ where\quad\Omega ( f ) = \gamma T + \frac { 1 } { 2 } \lambda | w | ^ { 2 } \nonumber \end{align}  \qquad (2)<br>$$<br>其中，$\Omega( f ) $ 是惩罚项。$f _ { k }$做为回归树，影响其复杂度的参数为叶子节点的个数$, T ,$及叶子节点的权重$, w ,$.</p>
 <h4 id="训练方法"><a href="#训练方法" class="headerlink" title="训练方法"></a>训练方法</h4><p>由于$f _ { k }$是树，与其他模型$f$ 可以由数值型向量表示不同，我们不能使用往常的优化算法，如SGD，来寻找$f$。这里的解决方案是Additive Training（Boosting）。</p>
