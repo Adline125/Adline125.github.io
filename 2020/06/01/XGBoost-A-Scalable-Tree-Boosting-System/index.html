@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文是对XGBoost的经典论文XGBoost: A Scalable Tree Boosting System的总结。XGBoost 的全称是 eXtreme Gradient Boosting。作者为华盛顿大学研究机器学习的大牛陈天奇，其最大的特点在于，它能够自动利用 CPU 的多线程进行并行，同时在算法上加以改进提高了精度。本文更多关注算法。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-06-01T06:55:26.000Z">
-<meta property="article:modified_time" content="2020-06-02T19:46:45.916Z">
+<meta property="article:modified_time" content="2020-06-03T15:40:37.014Z">
 <meta property="article:author" content="Adline125">
 <meta property="article:tag" content="XGBoost">
 <meta property="article:tag" content="Machine leanring">
@@ -227,17 +227,10 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-03 03:46:45" itemprop="dateModified" datetime="2020-06-03T03:46:45+08:00">2020-06-03</time>
+                <time title="Modified: 2020-06-03 23:40:37" itemprop="dateModified" datetime="2020-06-03T23:40:37+08:00">2020-06-03</time>
               </span>
 
           
-            <span id="/2020/06/01/XGBoost-A-Scalable-Tree-Boosting-System/" class="post-meta-item leancloud_visitors" data-flag-title="XGBoost: A Scalable Tree Boosting System" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
 
         </div>
       </header>
@@ -368,9 +361,15 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
 <li>Block Sharding：将数据分片到多个磁盘上。 将预取线程分配给每个磁盘，并将数据取入内存缓冲区中。 然后，训练线程可以从每个缓冲区读取数据。 当有多个磁盘可用时，这有助于提高磁盘读取的吞吐量。</li>
 </ul></li>
 </ul>
-<h3 id="最后">最后</h3>
-<hr />
-<p>XGBoost 是 GBDT 的改良，在XGBoost之后又陆续出现了<a href="https://lightgbm.readthedocs.io/en/latest/" target="_blank" rel="noopener">LightGBM</a>和 <a href="https://catboost.yandex/" target="_blank" rel="noopener">CatBoost</a>。</p>
+<h3 id="总结">总结</h3>
+<p>个人觉得XGBoost在面对目标函数很难被计算时的思路很有些意思。在看论文的过程中几次被这种奇思妙想击中，总结一下时不时拿出来感叹一下：</p>
+<ul>
+<li>惩罚项是个树时的处理</li>
+<li>泰勒展示恰到好处的应用</li>
+<li><span class="math inline">\(I_{j}\)</span> 的定义把<span class="math inline">\(Obj\)</span> 神奇地转化成了二次表达式</li>
+</ul>
+<p>此外，在给特征值分桶时，用对loss的影响做为标准也是个不错的想法，并且找到用<span class="math inline">\(h\)</span>做为权重也是漂亮的一波操作。</p>
+<p>以上是个人觉得这篇论文最为出彩的地方，欢迎小伙伴留言分享你的心得。</p>
 <h3 id="参考文献">参考文献</h3>
 <hr />
 <ol type="1">
@@ -461,7 +460,7 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost目标函数推导"><span class="nav-number">1.</span> <span class="nav-text">XGboost目标函数推导</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#预测值"><span class="nav-number">1.1.</span> <span class="nav-text">预测值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数"><span class="nav-number">1.2.</span> <span class="nav-text">目标函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#训练方法"><span class="nav-number">1.3.</span> <span class="nav-text">训练方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数近似形式"><span class="nav-number">1.4.</span> <span class="nav-text">目标函数近似形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数求最优"><span class="nav-number">1.5.</span> <span class="nav-text">目标函数求最优</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防止过拟合策略"><span class="nav-number">2.</span> <span class="nav-text">防止过拟合策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切分搜索算法"><span class="nav-number">3.</span> <span class="nav-text">切分搜索算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#贪心算法"><span class="nav-number">3.1.</span> <span class="nav-text">贪心算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#近似算法"><span class="nav-number">3.2.</span> <span class="nav-text">近似算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加权分位点"><span class="nav-number">3.3.</span> <span class="nav-text">加权分位点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稀疏问题的处理方法"><span class="nav-number">4.</span> <span class="nav-text">稀疏问题的处理方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost系统优化"><span class="nav-number">5.</span> <span class="nav-text">XGBoost系统优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost目标函数推导"><span class="nav-number">1.</span> <span class="nav-text">XGboost目标函数推导</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#预测值"><span class="nav-number">1.1.</span> <span class="nav-text">预测值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数"><span class="nav-number">1.2.</span> <span class="nav-text">目标函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#训练方法"><span class="nav-number">1.3.</span> <span class="nav-text">训练方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数近似形式"><span class="nav-number">1.4.</span> <span class="nav-text">目标函数近似形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数求最优"><span class="nav-number">1.5.</span> <span class="nav-text">目标函数求最优</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防止过拟合策略"><span class="nav-number">2.</span> <span class="nav-text">防止过拟合策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切分搜索算法"><span class="nav-number">3.</span> <span class="nav-text">切分搜索算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#贪心算法"><span class="nav-number">3.1.</span> <span class="nav-text">贪心算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#近似算法"><span class="nav-number">3.2.</span> <span class="nav-text">近似算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加权分位点"><span class="nav-number">3.3.</span> <span class="nav-text">加权分位点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稀疏问题的处理方法"><span class="nav-number">4.</span> <span class="nav-text">稀疏问题的处理方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost系统优化"><span class="nav-number">5.</span> <span class="nav-text">XGBoost系统优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -541,92 +540,6 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
 
 
 
-<script>
-  (function() {
-    function leancloudSelector(url) {
-      url = encodeURI(url);
-      return document.getElementById(url).querySelector('.leancloud-visitors-count');
-    }
-
-    function addCount(Counter) {
-      var visitors = document.querySelector('.leancloud_visitors');
-      var url = decodeURI(visitors.id);
-      var title = visitors.dataset.flagTitle;
-
-      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
-        .then(response => response.json())
-        .then(({ results }) => {
-          if (results.length > 0) {
-            var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
-            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
-              .catch(error => {
-                console.error('Failed to save visitor count', error);
-              });
-          } else {
-              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
-              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
-            
-          }
-        })
-        .catch(error => {
-          console.error('LeanCloud Counter Error', error);
-        });
-    }
-
-    function showTime(Counter) {
-      var visitors = document.querySelectorAll('.leancloud_visitors');
-      var entries = [...visitors].map(element => {
-        return decodeURI(element.id);
-      });
-
-      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
-        .then(response => response.json())
-        .then(({ results }) => {
-          for (let url of entries) {
-            let target = results.find(item => item.url === url);
-            leancloudSelector(url).innerText = target ? target.time : 0;
-          }
-        })
-        .catch(error => {
-          console.error('LeanCloud Counter Error', error);
-        });
-    }
-
-    let { app_id, app_key, server_url } = {"enable":true,"app_id":"h3IaBaQMgJKsxucSzTDRAPs5-MdYXbMMI","app_key":"oUMwm3a6AtpslJFjnLsMgxk5","server_url":null,"security":true};
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${api_server}/1.1${url}`, {
-          method,
-          headers: {
-            'X-LC-Id'     : app_id,
-            'X-LC-Key'    : app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-      if (CONFIG.page.isPost) {
-        if (CONFIG.hostname !== location.hostname) return;
-        addCount(Counter);
-      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
-        showTime(Counter);
-      }
-    }
-
-    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({ api_server }) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
 
 
       </div>
