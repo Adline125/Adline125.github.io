@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>WMD: From Word Embeddings To Document Distances</title>
-    <url>/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/</url>
-    <content><![CDATA[<p>本文是对论文<a href="http://proceedings.mlr.press/v37/kusnerb15.pdf" target="_blank" rel="noopener">From Word Embeddings To Document Distances</a>的总结。该论文基于word2vec embedding 和EMD（Earth Mover's Distance）提出了一种新的计算文档距离的算法WMD（Word Mover's Distance）。旨在解决 <em>Obama speaks to the media in Illinois</em> 和 <em>The President greets the press in Chicago</em> 仅仅因词语拼写不同而导致距离很远的不合理现象。尽管这两个句子对应的词语在语义上是相近的。</p>
-<a id="more"></a>
-<p>本文的主要内容包括：</p>
-<ul>
-<li>WMD模型</li>
-<li>WMD模型的速度优化</li>
-</ul>
-<h3 id="wmd模型">WMD模型</h3>
-]]></content>
-      <categories>
-        <category>machine learning</category>
-      </categories>
-      <tags>
-        <tag>document distance</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>XGBoost: A Scalable Tree Boosting System</title>
     <url>/2020/06/01/XGBoost-A-Scalable-Tree-Boosting-System/</url>
     <content><![CDATA[<p>本文是对XGBoost的经典论文<a href="https://dl.acm.org/doi/pdf/10.1145/2939672.2939785" target="_blank" rel="noopener">XGBoost: A Scalable Tree Boosting System</a>的总结。<a href="https://github.com/dmlc/xgboost" target="_blank" rel="noopener">XGBoost</a> 的全称是 eXtreme Gradient Boosting。作者为华盛顿大学研究机器学习的大牛<a href="http://homes.cs.washington.edu/~tqchen/" target="_blank" rel="noopener">陈天奇</a>，其最大的特点在于，它能够自动利用 CPU 的多线程进行并行，同时在算法上加以改进提高了精度。</p>
@@ -192,5 +173,24 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>WMD: From Word Embeddings To Document Distances</title>
+    <url>/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/</url>
+    <content><![CDATA[<p>本文是对论文<a href="http://proceedings.mlr.press/v37/kusnerb15.pdf" target="_blank" rel="noopener">From Word Embeddings To Document Distances</a>的总结。该论文基于word2vec embedding 和EMD（Earth Mover's Distance）提出了一种新的计算文档距离的算法WMD（Word Mover's Distance）。旨在解决 <em>Obama speaks to the media in Illinois</em> 和 <em>The President greets the press in Chicago</em> 仅仅因词语拼写不同而导致距离很远的不合理现象。尽管这两个句子对应的词语在语义上是相近的。</p>
+<a id="more"></a>
+<p>本文的主要内容包括：</p>
+<ul>
+<li>WMD模型</li>
+<li>WMD模型的速度优化</li>
+</ul>
+<h3 id="wmd模型">WMD模型</h3>
+]]></content>
+      <categories>
+        <category>machine learning</category>
+      </categories>
+      <tags>
+        <tag>document distance</tag>
+      </tags>
   </entry>
 </search>
