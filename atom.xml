@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-06-04T04:49:18.844Z</updated>
+  <updated>2020-06-05T00:44:49.045Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,9 +21,13 @@
     <link href="http://yoursite.com/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/"/>
     <id>http://yoursite.com/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/</id>
     <published>2020-06-03T16:02:19.000Z</published>
-    <updated>2020-06-04T04:49:18.844Z</updated>
+    <updated>2020-06-05T00:44:49.045Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文是对论文<a href="http://proceedings.mlr.press/v37/kusnerb15.pdf" target="_blank" rel="noopener">From Word Embeddings To Document Distances</a>的总结。该论文基于word2vec embedding 和EMD（Earth Mover's Distance）提出了一种新的计算文档距离的算法WMD（Word Mover's Distance）。旨在解决 <em>Obama speaks to the media in Illinois</em> 和 <em>The President greets the press in Chicago</em> 仅仅因词语拼写不同而导致距离很远的不合理现象。尽管这两个句子对应的词语在义语上是相近的。</p><a id="more"></a><p>本文的主要内容包括：</p><ul><li>WMD模型</li><li>WMD模型的速度优化</li></ul><h3 id="wmd模型">WMD模型</h3>]]></content>
     
     <summary type="html">
+    
+      &lt;p&gt;本文是对论文&lt;a href=&quot;http://proceedings.mlr.press/v37/kusnerb15.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;From Word Embeddings To Document Distances&lt;/a&gt;的总结。该论文基于word2vec embedding 和EMD（Earth Mover&#39;s Distance）提出了一种新的计算文档距离的算法WMD（Word Mover&#39;s Distance）。旨在解决 &lt;em&gt;Obama speaks to the media in Illinois&lt;/em&gt; 和 &lt;em&gt;The President greets the press in Chicago&lt;/em&gt; 仅仅因词语拼写不同而导致距离很远的不合理现象。尽管这两个句子对应的词语在义语上是相近的。&lt;/p&gt;
     
     </summary>
     
