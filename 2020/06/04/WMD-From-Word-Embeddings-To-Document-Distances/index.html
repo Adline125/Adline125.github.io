@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://miro.medium.com/max/650/1*YAha4YMJYYMy6-iHdmlB_g.png">
 <meta property="article:published_time" content="2020-06-03T16:02:19.000Z">
-<meta property="article:modified_time" content="2020-06-09T03:58:08.815Z">
+<meta property="article:modified_time" content="2020-06-09T04:00:10.679Z">
 <meta property="article:author" content="Adline125">
 <meta property="article:tag" content="document distance">
 <meta name="twitter:card" content="summary">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-09 11:58:08" itemprop="dateModified" datetime="2020-06-09T11:58:08+08:00">2020-06-09</time>
+                <time title="Modified: 2020-06-09 12:00:10" itemprop="dateModified" datetime="2020-06-09T12:00:10+08:00">2020-06-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -335,7 +335,8 @@ subject\ to: &amp;\sum _ { j = 1 } ^ { n } T _ { i j } = d _ { i } \quad \forall
 <p>得到两个文档的WMD下限<span class="math inline">\(\| X d - X d ^ { \prime } \| _ { 2 }\)</span>，可知这两个文档的距离一定大于这个值。在很多情况下，可以直接排除掉这些下限都已经很大的文档，免去进一步的运算，减少计算量。</p>
 <h4 id="relaxed-word-moving-distance-rwmd">Relaxed word moving distance （RWMD）</h4>
 <p>虽然WCD速度很快，但计算出来的下限相比真实值还是差距比较大的。RWMD通过分别去掉WMD中的一个条件来得到两个下限<span class="math inline">\(\ell _ { 1 } ( d , d ^ { \prime } )\)</span>和<span class="math inline">\(\ell _ { 2 } ( d , d ^ { \prime } )\)</span>, 然后取<span class="math inline">\(\ell _ { r } ( d , d ^ { \prime } ) = \max ( \ell _ { 1 } ( d , d ^ { \prime } ) , \ell _ { 2 } ( d , d ^ { \prime } ) )\)</span>。当去掉的是条件（2）时，RMWD形式化表示如下： <span class="math display">\[
-\begin{split}\min _ { T \geq 0 } &amp;\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j ) \\
+\begin{split}
+\min _ { T \geq 0 } &amp;\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j ) \\
 subject\ to: &amp;\sum _ { j = 1 } ^ { n } T _ { i j } = d _ { i } \quad \forall i \in \{ 1 , \ldots , n \} \\
 \end{split} \\
 \]</span> RWMD的复杂度为<span class="math inline">\(O(p^2)\)</span>。<strong>（Figure 2的情况满足RWMD）</strong></p>
