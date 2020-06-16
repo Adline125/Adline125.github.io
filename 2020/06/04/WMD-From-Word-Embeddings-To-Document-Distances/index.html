@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="Adline125&#39;s Blog">
 <meta property="og:description" content="本文是对论文From Word Embeddings To Document Distances的总结。该论文基于word2vec embedding 和EMD（Earth Mover&#39;s Distance）提出了一种新的计算文档距离的算法WMD（Word Mover&#39;s Distance）。旨在解决 Obama speaks to the media in Illinois 和 The Pres">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://miro.medium.com/max/650/1*YAha4YMJYYMy6-iHdmlB_g.png">
+<meta property="og:image" content="http://yoursite.com/Users/adline/hexo/blog/source/_posts/1*YAha4YMJYYMy6-iHdmlB_g.png">
 <meta property="article:published_time" content="2020-06-03T16:02:19.000Z">
-<meta property="article:modified_time" content="2020-06-16T09:35:13.253Z">
+<meta property="article:modified_time" content="2020-06-16T10:00:34.612Z">
 <meta property="article:author" content="Adline125">
 <meta property="article:tag" content="document distance">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://miro.medium.com/max/650/1*YAha4YMJYYMy6-iHdmlB_g.png">
+<meta name="twitter:image" content="http://yoursite.com/Users/adline/hexo/blog/source/_posts/1*YAha4YMJYYMy6-iHdmlB_g.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/">
 
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 17:35:13" itemprop="dateModified" datetime="2020-06-16T17:35:13+08:00">2020-06-16</time>
+                <time title="Modified: 2020-06-16 18:00:34" itemprop="dateModified" datetime="2020-06-16T18:00:34+08:00">2020-06-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -278,7 +278,7 @@ c ( i , j ) = \| x _ { i } - x _ { j } \| _ { 2 }
 \]</span> $c ( i , j ) $表示一个词转化为另一个词的损失。</p>
 <h4 id="文档距离">文档距离</h4>
 <p>WMD文档距离是由文档表示（nBow）和词转化损失（word travel cost）共同作用得到的，计算方法为寻找两个文档中对应的词，累加各组对应词的（词转化损失 * nBow对应的分量）。对应词的标准是<span class="math inline">\(c(i, j)\)</span>最小的词，如Figure 1所示。</p>
-<p><img src="https://miro.medium.com/max/650/1*YAha4YMJYYMy6-iHdmlB_g.png" /></p>
+<p><img src="/Users/adline/hexo/blog/source/_posts/1*YAha4YMJYYMy6-iHdmlB_g.png" /></p>
 <center>
 Figure 1. (Top:) The components of the WMD metric between a query D0 and two sentences D1, D2 (with equal BOW distance). The arrows represent flow between two words and are labeled with their distance contribution. (Bottom:) The flow between two sentences D3 and D0 with different numbers of words. This mismatch causes the WMD to move words to multiple similar words.
 </center>
