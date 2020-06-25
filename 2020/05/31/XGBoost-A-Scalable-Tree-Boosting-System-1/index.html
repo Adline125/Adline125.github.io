@@ -20,19 +20,17 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2020/05/23/hello-world/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="XGBoost: A Scalable Tree Boosting System">
+<meta property="og:url" content="http://yoursite.com/2020/05/31/XGBoost-A-Scalable-Tree-Boosting-System-1/index.html">
 <meta property="og:site_name" content="Adline125&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-05-23T10:36:20.384Z">
-<meta property="article:modified_time" content="2020-06-01T08:30:04.581Z">
+<meta property="article:published_time" content="2020-05-31T10:53:49.000Z">
+<meta property="article:modified_time" content="2020-05-31T10:53:49.310Z">
 <meta property="article:author" content="Adline125">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/05/23/hello-world/">
+<link rel="canonical" href="http://yoursite.com/2020/05/31/XGBoost-A-Scalable-Tree-Boosting-System-1/">
 
 
 <script id="page-configurations">
@@ -45,7 +43,7 @@
   };
 </script>
 
-  <title>Hello World | Adline125's Blog</title>
+  <title>XGBoost: A Scalable Tree Boosting System | Adline125's Blog</title>
   
 
 
@@ -195,7 +193,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/23/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/31/XGBoost-A-Scalable-Tree-Boosting-System-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/icon.png">
@@ -208,7 +206,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello World
+          XGBoost: A Scalable Tree Boosting System
         </h1>
 
         <div class="post-meta">
@@ -218,15 +216,8 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-05-23 18:36:20" itemprop="dateCreated datePublished" datetime="2020-05-23T18:36:20+08:00">2020-05-23</time>
+              <time title="Created: 2020-05-31 18:53:49" itemprop="dateCreated datePublished" datetime="2020-05-31T18:53:49+08:00">2020-05-31</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-01 16:30:04" itemprop="dateModified" datetime="2020-06-01T16:30:04+08:00">2020-06-01</time>
-              </span>
 
           
 
@@ -239,21 +230,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        
 
     </div>
 
@@ -268,9 +245,12 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/05/31/XGBoost-A-Scalable-Tree-Boosting-System-1/" rel="next" title="XGBoost: A Scalable Tree Boosting System">
+    <a href="/2020/05/23/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/01/XGBoost-A-Scalable-Tree-Boosting-System/" rel="next" title="XGBoost: A Scalable Tree Boosting System">
       XGBoost: A Scalable Tree Boosting System <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -340,7 +320,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#quick-start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -531,9 +510,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "http://yoursite.com/2020/05/23/hello-world/";
-    this.page.identifier = "2020/05/23/hello-world/";
-    this.page.title = "Hello World";
+    this.page.url = "http://yoursite.com/2020/05/31/XGBoost-A-Scalable-Tree-Boosting-System-1/";
+    this.page.identifier = "2020/05/31/XGBoost-A-Scalable-Tree-Boosting-System-1/";
+    this.page.title = "XGBoost: A Scalable Tree Boosting System";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
