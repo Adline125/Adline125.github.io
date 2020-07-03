@@ -1,103 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Evaluation methods for unsupervised word embeddings</title>
-    <url>/2020/07/04/Evaluation%20methods%20for%20unsupervised%20word%20embeddings/</url>
-    <content><![CDATA[<p>本文是对论文<a href="https://www.aclweb.org/anthology/D15-1036.pdf" target="_blank" rel="noopener">Evaluation methods for unsupervised word embeddings</a>的总结。相较于大量生成词嵌入模型的研究，评估词嵌入模型的工作相对较少。 该论文是第一篇对词嵌入评估进行深入研究的论文，发表于2015年，涵盖了广泛的评估标准和当时流行的嵌入技术。其目的并非是证明某个词嵌入方法优于其他方法，而是要对词嵌入的评估方法本身做较深入的探讨。</p>
-<a id="more"></a>
-
-<p>本文的主要内容包括：</p>
-<ul>
-<li>评估方法概述</li>
-<li>评估方法比较</li>
-<li>总结</li>
-</ul>
-<h3 id="评估方法概述"><a href="#评估方法概述" class="headerlink" title="评估方法概述"></a>评估方法概述</h3><hr>
-<p>现有词嵌入评估方案分为两大类：外部评估（extrinsic evaluation）和内部评估（intrinsic evaluation）。</p>
-<p><strong>外部评估</strong>：词向量被用作下游任务的输入特征，好的词向量应该对使用其的任务有正面影响。但是不同的任务对词向量的偏好可能是不同的，因此外部评估是否有效一直是一个存在争论。</p>
-<p><strong>内部评估</strong>：直接测试单词之间的句法或语义关系。内部评估通常涉及一组预先选择的查询词和与语义相关的目标词，称为查询清单。文章中内部评估进一步分成两类：<em>绝对内在评估</em>和<em>比较内在评估</em>。其中比较内在评估由文章提出，并应用在相关性评估和一致性评估中。</p>
-<h3 id="评估方法比较"><a href="#评估方法比较" class="headerlink" title="评估方法比较"></a>评估方法比较</h3><hr>
-<p>论文从单词相关性，连贯性，下游表现三个不同评估标准入手，分析了三种标准下各词嵌入模型排序结果之间的联系。</p>
-<h4 id="相关性评估"><a href="#相关性评估" class="headerlink" title="相关性评估"></a>相关性评估</h4><h5 id="绝对内在评估"><a href="#绝对内在评估" class="headerlink" title="绝对内在评估"></a>绝对内在评估</h5><p>绝对内在评估使用通常用作嵌入方法基准的<strong><em>14</em></strong>个数据集（如Table1），对<strong><em>6</em></strong>个词嵌入模型从如下<strong><em>4</em></strong>个范畴进行评估：</p>
-<ul>
-<li>相关性(relatedness): 两个单词的词嵌入的余弦相似度应与人类相关性得分具有高度相关性</li>
-<li>类比性(analogy): 对给定的单词y, 能否找到一个对应的单词x, 使得x与y的关系能够类比另外两个已知词a与b的关系</li>
-<li>类别化(categorization): 对词向量进行聚类, 看每个簇与有标记数据集各类相比纯度如何</li>
-<li>选择倾向(selectinal preference): 判断某名词是更倾向做某个动词的主语还是宾语, 例如一般顺序是 he runs 而不是 runs he</li>
-</ul>
-<p>评估结果如下：</p>
-<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY8o30.JeVyVeSNkIfkVr.WboP0vthqj1HtMwST13Gj5gIdrAJIjK*G08N7YeeiVEDv8EctvynwHtdkQ2nKOGOAg!/b&bo=agjwAgAAAAADF6I!&rf=viewer_4" alt=""></p>
-<p>绝对内在评估在设计上有两点缺陷：</p>
-<ul>
-<li><p>查询清单（query inventory）：上述的14个数据集在设计上都没能考虑以下几个方面，</p>
-<ul>
-<li><p>the frequency of the words in the English language </p>
-</li>
-<li><p>the parts of speech of the words </p>
-</li>
-<li><p>abstractness vs. concreteness</p>
-</li>
-</ul>
-</li>
-<li><p>度量指标（metric aggregation）：我们找不到一种对完全无关的单词对进行排序的方式（metric）。 例如，我们如何确定（狗，猫）是否比（香蕉，苹果）更相似</p>
-</li>
-</ul>
-<h5 id="比较内在评估"><a href="#比较内在评估" class="headerlink" title="比较内在评估"></a>比较内在评估</h5><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3MqrJW4KFs9LfY7hWZuGX8iNCm.6EnpWmizCKEv9OfRL8YlJdeZOH4tn917Flf7Tng!!/b&amp;bo=cgSOAgAAAAADB9g!&amp;rf=viewer_4" style="zoom: 33%;" />
-
-<p>针对绝对内在评估存在的缺陷，文章提出了<em>比较内在评估</em>方法。即，给出一个查询词，将6个词嵌入模型产生的结果呈现给用户，让用户选出最相关的，然后统计结果。如Table 2.</p>
-<ul>
-<li><p>文章采用用户直接反馈的形式避免了需要定义指标（metric）的问题。</p>
-</li>
-<li><p>文章定义制作了更符合词嵌入评估任务的查询清单。考虑了词频、词性、类别、是否是抽象词四个方面。并对这四个方面分别做了评估。</p>
-</li>
-</ul>
-<p>比较内在评估结果如下：</p>
-<img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaYyIUYreKyNC7qTzjk..xcAsEAIzcwCsJzMOIVOYmwCVdpMa3bxvaEMZn6vH18MQa253IJxDg*NSe0Qn0joRqpPE!/b&amp;bo=7gU4BAAAAAADN8U!&amp;rf=viewer_4" style="zoom: 50%;" />
-
-<center>Figure 1: Direct comparison task</center>
-
-
-
-
-
-
-<h4 id="一致性评估"><a href="#一致性评估" class="headerlink" title="一致性评估"></a>一致性评估</h4><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3P8cCoVC1A7.3Yyr*hKVdUi3*bS3XnEmd4JdP4qZnRWjpGaQ5Omu4ijHfhZz4tKBrw!!/b&amp;bo=rAhkAwAAAAADB.E!&amp;rf=viewer_4" style="zoom:25%;" />
-
-<p>一致性评估将查询词及词嵌入模型计算出来的两个相近词再加上一个不相关的词组成一道选择题。由测试人选出不相关的词。由此判定词嵌入模型选出的词与查询词是否具有一致性。</p>
-<p>一致性评估结果如下：</p>
-<img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3HkOUPptF0rYckWfjgSj3wfDacq9Q7HuwQzQDiNkGn8kPelkhqUdsQOxR2f0wqiiYA!!/b&amp;bo=hAY4BAAAAAADB5w!&amp;rf=viewer_4" style="zoom:25%;" />
-
-<center> Figure 2: Intrusion task: average precision by global word frequency</center>
-
-
-<p>到目前为止，对比$Table1, Figure1$和$Figure2$，6个词嵌入模型从一致性任务获得的排名与从相关性任务获得的排名产生了出入。</p>
-<h4 id="下游表现（外在评估）"><a href="#下游表现（外在评估）" class="headerlink" title="下游表现（外在评估）"></a>下游表现（外在评估）</h4><p>外在评估评估单词嵌入模型对特定任务的贡献。 </p>
-<p>使用此类评估存在一个隐含的假设，即单词嵌入质量是有固定排名的。也就是说，嵌入模型无论在什么任务里的表现排名应该是基本一致的。因此，更高质量的嵌入将必定会改善任何下游任务的结果。 </p>
-<p>但文章发现上述假设不成立：不同的任务倾向于不同的嵌入。</p>
-<p>在文章试验的两个任务：名词短语分块和情感分类中证实了上述观点。并且建议对词嵌入进行针对项目的训练，以优化特定目标。</p>
-<img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3H1dtYybh1w4r.wPapYRLqvr0LSVsW7wvqjAqJrbZU*vQDSxRc9z2.fuk52*9GM.5A!!/b&amp;bo=OATIBgAAAAADB9A!&amp;rf=viewer_4" style="zoom:25%;" />
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><hr>
-<p>本论文的主要贡献总结如下：</p>
-<ul>
-<li>提出了由于使用不同的评估标准会导致嵌入效果排序的不同，对嵌入方法进行比较应在特定任务的上下文中进行</li>
-<li>证实了自动相似性评估与直接人工评估之间存在很强的相关性。说明至少在相似性任务中使用离线数据是合理的。</li>
-<li>提出了一种模型驱动和数据驱动的方法来构建查询清单。</li>
-<li>发现了所有词嵌入模型都编码了大量的单词频率信息，对使用余弦相似度作为嵌入空间中的相似度度量的普遍做法提出了质疑</li>
-</ul>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><hr>
-<p><a href="https://www.aclweb.org/anthology/D15-1036.pdf" target="_blank" rel="noopener">[Schnabel2015] Schnabel, T., Labutov, I., Mimno, D., &amp; Joachims, T. Evaluation methods for unsupervised word embeddings. In <em>Proceedings of the 2015 Conference on Empirical Methods in Natural Language Processing (EMNLP)</em> (pp. 298-307). 2015</a></p>
-<h3 id="评估相关其他资料"><a href="#评估相关其他资料" class="headerlink" title="评估相关其他资料"></a>评估相关其他资料</h3><hr>
-<p><a href="https://arxiv.org/abs/1801.09536" target="_blank" rel="noopener">[Bakarov2018] Bakarov, Amir. “A Survey of Word Embeddings Evaluation Methods.” <em>arXiv preprint arXiv:1801.09536</em>. 2018</a></p>
-]]></content>
-      <categories>
-        <category>NLP</category>
-      </categories>
-      <tags>
-        <tag>embedding evaluation</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>WMD论文总结及代码实现:  From Word Embeddings To Document Distances</title>
     <url>/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/</url>
     <content><![CDATA[<p>本文是对论文<a href="http://proceedings.mlr.press/v37/kusnerb15.pdf" target="_blank" rel="noopener">From Word Embeddings To Document Distances</a>的总结和<a href="https://github.com/Adline125/Similarity" target="_blank" rel="noopener">code</a>实现。该论文基于word2vec embedding 和EMD（Earth Mover's Distance）提出了一种新的计算文档距离的算法WMD（Word Mover's Distance）。旨在解决 <em>Obama speaks to the media in Illinois</em> 和 <em>The President greets the press in Chicago</em> 仅仅因词语拼写不同而导致距离很远的不合理现象。尽管这两个句子对应的词语在语义上是相近的。</p>
@@ -221,32 +124,11 @@ subject\ to: &amp;\sum _ { j = 1 } ^ { n } T _ { i j } = d _ { i } \quad \forall
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/05/23/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>XGBoost: A Scalable Tree Boosting System</title>
     <url>/2020/06/01/XGBoost-A-Scalable-Tree-Boosting-System/</url>
     <content><![CDATA[<p>本文是对XGBoost的经典论文<a href="https://dl.acm.org/doi/pdf/10.1145/2939672.2939785" target="_blank" rel="noopener">XGBoost: A Scalable Tree Boosting System</a>的总结。<a href="https://github.com/dmlc/xgboost" target="_blank" rel="noopener">XGBoost</a> 的全称是 eXtreme Gradient Boosting。作者为华盛顿大学研究机器学习的大牛<a href="http://homes.cs.washington.edu/~tqchen/" target="_blank" rel="noopener">陈天奇</a>，其最大的特点在于，它能够自动利用 CPU 的多线程进行并行，同时在算法上加以改进提高了精度。</p>
 <p>本文更多关注算法，主要内容如下：</p>
 <a id="more"></a>
-
 <ul>
 <li>XGBoost目标函数推导</li>
 <li>XGBoost防止过拟合策略</li>
@@ -254,78 +136,137 @@ subject\ to: &amp;\sum _ { j = 1 } ^ { n } T _ { i j } = d _ { i } \quad \forall
 <li>XGBoost针对稀疏问题的处理</li>
 <li>系统速度优化</li>
 </ul>
-<h3 id="XGboost目标函数推导"><a href="#XGboost目标函数推导" class="headerlink" title="XGboost目标函数推导"></a>XGboost目标函数推导</h3><hr>
-<h4 id="预测值"><a href="#预测值" class="headerlink" title="预测值"></a>预测值</h4><p>XGboost是基于回归树的集成学习模型。集成学习主要有两种方式：bagging和boosting。XGboost属于boosting, 其预测值通过对各弱分类器的结果求和得到。对于输入$x_{i}$：<br>$$<br>\begin{split}\hat { y } _ { i } = \phi ( x _ { i } ) = \sum _ { k = 1 } ^ { K } f _ { k } ( x _ { i } ) , \quad f _ { k } \in F  \qquad (1)<br>\end{split}<br>$$<br>其中，$f _ {k}$即为一个弱分类器，在XGboost中，弱分类器为 CART。<em>F</em> 为 CART 空间。  </p>
-<h4 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h4><p>为了学习得到上式中的K个$f_{k}$,  我们需要通过最小化模型的目标函数来获得。目标函数通常由损失+正则项表示。损失指示离真实值的差距，正则防止过拟合。这里损失为$\begin{split}\sum _{ i } l ( \hat y _ { i }, y)\end{split}$, 是个可微凸函数。正则项则是K个$f _ {k}$中的参数。由于XGBoost的$f _ {k}$是回归树，该目标函数如下：</p>
-<p>$$<br>\begin{split}&amp;O b j = \sum _ { i } l ( \hat { y } _ { i } , y _ { i } ) + \sum _ { k } \Omega ( f _ { k } ) \<br>&amp;where\quad\Omega ( f ) = \gamma T + \frac { 1 } { 2 } \lambda | w | ^ { 2 } \nonumber \end{split} \qquad (2)<br>$$<br>其中，$\Omega( f ) $ 是惩罚项。$f_{ k }$做为回归树，影响其复杂度的参数为叶子节点的个数$, T ,$及叶子节点的权重$w$.</p>
-<h4 id="训练方法"><a href="#训练方法" class="headerlink" title="训练方法"></a>训练方法</h4><p>由于$f _ { k }$是树，与其他模型$f$ 可以由数值型向量表示不同，我们不能使用往常的优化算法，如SGD，来寻找$f$。这里的解决方案是Additive Training（Boosting）。</p>
-<p>$$<br>\begin{split} &amp;\hat { y } _ { i } ^ { ( 0 ) } = 0  \<br>&amp;\hat { y } _ { i } ^ { ( 1 ) } = f _ { 1 } ( x _ { i } ) = \hat { y } _ { i } ^ { ( 0 ) } + f _ { 1 } ( x _ { i } )  \<br>&amp;\hat { y } _ { i } ^ { ( 2 ) } = f _ { 1 } ( x _ { i } ) + f _ { 2 } ( x _ { i } ) = \hat { y } _ { i } ^ { ( 1 ) } + f _ { 2 } ( x _ { i } )  \<br>&amp; …  \<br>&amp;\hat { y } _ { i } ^ { ( t ) } = \sum _ { k = 1 } ^ { t } f _ { k } ( x _ { i } ) = \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } )<br>\end{split}<br>$$<br>其中，每一轮添加的$f$ 是最优化目标函数的结果。</p>
-<h4 id="目标函数近似形式"><a href="#目标函数近似形式" class="headerlink" title="目标函数近似形式"></a>目标函数近似形式</h4><p>根据Additive Training方式，在第$t$ 轮，$\hat { y } _ { i } ^ { ( t ) } = \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } )$。 由此在第$t$轮的目标函数可以改写为：</p>
-<p>$$<br>\begin{split}<br>O b j ^ { ( t ) } &amp;= \sum _ { i = 1 } ^ { n } l ( y _ { i } , \hat { y } _ { i } ^ { ( t ) } ) + \sum _ { i = 1 } ^ { t } \Omega ( f _ { i } )  \<br>&amp;= \sum _ { i = 1 } ^ { n } l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } ) ) + \Omega ( f _ { t } ) + constant<br>\end{split}<br>$$<br>这个目标函数仍然很难求最优。我们用泰勒展开取其近似如下：</p>
-<p>$$<br>O b j ^ { ( t ) } \simeq \sum _ { i = 1 } ^ { n } [ l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } ) + g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant<br>$$<br>其中，$g _ { i } = \partial _ { \hat { y } ^ { ( t - 1 ) } } l ( y _ { i } , \hat { y } ^ { ( t - 1 ) } ) , \quad h _ { i } = \partial _ { \hat { y } ^ { ( t - 1 ) } } ^ { 2 } l ( y _ { i } , \hat { y } ^ { ( t - 1 ) } )$,  $g _ {i}$, $h _ {i}$分别为 $l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } )$对$\hat y ^ {(t - 1)}$求偏导的一阶和二阶导数。把上式中的常数项去掉，得：</p>
-<p>$$<br>\tilde {  O b j ^ { ( t ) } } = \sum _ { i = 1 } ^ { n } [ g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { Z } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) \qquad (3)<br>$$<br>这里要注意理解上式是针对每一个样本$x_{i}$求损失，然后求所有样本损失和。我们将要在接下来的计算中为了方便计算$\tilde {  O b j ^ { ( t ) } }$的最优值而换一种对这波操作的形式化表达方式。</p>
-<h4 id="目标函数求最优"><a href="#目标函数求最优" class="headerlink" title="目标函数求最优"></a>目标函数求最优</h4><p>这里定义 $I _ { j } = { i | q ( x _ { i } ) = j }$。$I_{j}$为被树分配到叶子节点$j$ 上的样本集。$q ( x _ { i } )$为样本$x _ {i}$通过q这个树结构到达叶子节点$j$。 $w_ {j}$为第$j$个叶子节点的权重。则 $f _ { t } ( x _ { i } ) = w _ { q ( x _ { i } ) }$。因此式 $(3)$ 可以表示为：<br>$$<br>\begin{split}<br>O b j ^ { ( t ) } &amp;\simeq \sum _ { i = 1 } ^ { n } [ g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) \<br>&amp;= \sum _ { i = 1 } ^ { n } [ g _ { i } w _ { q ( x _ { i } ) } + \frac { 1 } { 2 } h _ { i } w _ { q ( x _ { i } ) } ^ { 2 } ] + \gamma T + \lambda \frac { 1 } { 2 } \sum _ { j = 1 } ^ { T } w _ { j } ^ { 2 } \<br>&amp;= \sum _ { j = 1 } ^ { T } [ ( \sum _ { i \in I _ { j } } g _ { i } ) w _ { j } + \frac { 1 } { 2 } ( \sum _ { i \in I _ { j } } h _ { i } + \lambda ) w _ { j } ^ { 2 } ] + \gamma T<br>\end{split}<br>$$<br>中括号里为我们求最优解时最喜欢形式$ax ^ 2 + bx$。显然，当</p>
-<p>$$<br>w _ { j } ^ { * } = - \frac { \sum _ { i \in I _ { j } } g _ { i } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda }<br>$$<br>时，得到最优的$\tilde {O b j ^ { ( t ) }}$:</p>
-<p>$$<br>\tilde { Obj } ^ { ( t ) }  = - \frac { 1 } { 2 } \sum _ { j = 1 } ^ { T } \frac { ( \sum _ { i \in I _ { j } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda } + \gamma T \qquad (4)<br>$$<br>至此，我们完成了求第$t$轮时目标函数的最优值。这个值可以用来衡量树结构的好坏。也就是说，判断一棵树的质量，我们只要算出$g _ {i}$, $h_{i}$，然后代入式子$(4)$即可算出。</p>
-<h3 id="防止过拟合策略"><a href="#防止过拟合策略" class="headerlink" title="防止过拟合策略"></a>防止过拟合策略</h3><hr>
+<h3 id="xgboost目标函数推导">XGboost目标函数推导</h3>
+<hr />
+<h4 id="预测值">预测值</h4>
+<p>XGboost是基于回归树的集成学习模型。集成学习主要有两种方式：bagging和boosting。XGboost属于boosting, 其预测值通过对各弱分类器的结果求和得到。对于输入<span class="math inline">\(x_{i}\)</span>： <span class="math display">\[
+\begin{split}\hat { y } _ { i } = \phi ( x _ { i } ) = \sum _ { k = 1 } ^ { K } f _ { k } ( x _ { i } ) , \quad f _ { k } \in F  \qquad (1)
+\end{split}
+\]</span> 其中，<span class="math inline">\(f _ {k}\)</span>即为一个弱分类器，在XGboost中，弱分类器为 CART。<em>F</em> 为 CART 空间。</p>
+<h4 id="目标函数">目标函数</h4>
+<p>为了学习得到上式中的K个<span class="math inline">\(f_{k}\)</span>, 我们需要通过最小化模型的目标函数来获得。目标函数通常由损失+正则项表示。损失指示离真实值的差距，正则防止过拟合。这里损失为<span class="math inline">\(\begin{split}\sum _{ i } l ( \hat y _ { i }, y)\end{split}\)</span>, 是个可微凸函数。正则项则是K个<span class="math inline">\(f _ {k}\)</span>中的参数。由于XGBoost的<span class="math inline">\(f _ {k}\)</span>是回归树，该目标函数如下：</p>
+<p><span class="math display">\[
+\begin{split}&amp;O b j = \sum _ { i } l ( \hat { y } _ { i } , y _ { i } ) + \sum _ { k } \Omega ( f _ { k } ) \\
+&amp;where\quad\Omega ( f ) = \gamma T + \frac { 1 } { 2 } \lambda | w | ^ { 2 } \nonumber \end{split} \qquad (2)
+\]</span> 其中，$( f ) $ 是惩罚项。<span class="math inline">\(f_{ k }\)</span>做为回归树，影响其复杂度的参数为叶子节点的个数<span class="math inline">\(\, T \,\)</span>及叶子节点的权重<span class="math inline">\(w\)</span>.</p>
+<h4 id="训练方法">训练方法</h4>
+<p>由于<span class="math inline">\(f _ { k }\)</span>是树，与其他模型<span class="math inline">\(f\)</span> 可以由数值型向量表示不同，我们不能使用往常的优化算法，如SGD，来寻找<span class="math inline">\(f\)</span>。这里的解决方案是Additive Training（Boosting）。</p>
+<p><span class="math display">\[
+\begin{split} &amp;\hat { y } _ { i } ^ { ( 0 ) } = 0  \\ 
+&amp;\hat { y } _ { i } ^ { ( 1 ) } = f _ { 1 } ( x _ { i } ) = \hat { y } _ { i } ^ { ( 0 ) } + f _ { 1 } ( x _ { i } )  \\
+&amp;\hat { y } _ { i } ^ { ( 2 ) } = f _ { 1 } ( x _ { i } ) + f _ { 2 } ( x _ { i } ) = \hat { y } _ { i } ^ { ( 1 ) } + f _ { 2 } ( x _ { i } )  \\
+&amp; …  \\ 
+&amp;\hat { y } _ { i } ^ { ( t ) } = \sum _ { k = 1 } ^ { t } f _ { k } ( x _ { i } ) = \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } )  
+\end{split}
+\]</span> 其中，每一轮添加的<span class="math inline">\(f\)</span> 是最优化目标函数的结果。</p>
+<h4 id="目标函数近似形式">目标函数近似形式</h4>
+<p>根据Additive Training方式，在第<span class="math inline">\(t\)</span> 轮，<span class="math inline">\(\hat { y } _ { i } ^ { ( t ) } = \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } )\)</span>。 由此在第<span class="math inline">\(t\)</span>轮的目标函数可以改写为：</p>
+<p><span class="math display">\[
+\begin{split}
+O b j ^ { ( t ) } &amp;= \sum _ { i = 1 } ^ { n } l ( y _ { i } , \hat { y } _ { i } ^ { ( t ) } ) + \sum _ { i = 1 } ^ { t } \Omega ( f _ { i } )  \\ 
+&amp;= \sum _ { i = 1 } ^ { n } l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } ) ) + \Omega ( f _ { t } ) + constant 
+\end{split}
+\]</span> 这个目标函数仍然很难求最优。我们用泰勒展开取其近似如下：</p>
+<p><span class="math display">\[
+O b j ^ { ( t ) } \simeq \sum _ { i = 1 } ^ { n } [ l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } ) + g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant
+\]</span> 其中，<span class="math inline">\(g _ { i } = \partial _ { \hat { y } ^ { ( t - 1 ) } } l ( y _ { i } , \hat { y } ^ { ( t - 1 ) } ) , \quad h _ { i } = \partial _ { \hat { y } ^ { ( t - 1 ) } } ^ { 2 } l ( y _ { i } , \hat { y } ^ { ( t - 1 ) } )\)</span>, <span class="math inline">\(g _ {i}\)</span>, <span class="math inline">\(h _ {i}\)</span>分别为 <span class="math inline">\(l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } )\)</span>对<span class="math inline">\(\hat y ^ {(t - 1)}\)</span>求偏导的一阶和二阶导数。把上式中的常数项去掉，得：</p>
+<p><span class="math display">\[
+\tilde {  O b j ^ { ( t ) } } = \sum _ { i = 1 } ^ { n } [ g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { Z } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) \qquad (3)
+\]</span> 这里要注意理解上式是针对每一个样本<span class="math inline">\(x_{i}\)</span>求损失，然后求所有样本损失和。我们将要在接下来的计算中为了方便计算<span class="math inline">\(\tilde { O b j ^ { ( t ) } }\)</span>的最优值而换一种对这波操作的形式化表达方式。</p>
+<h4 id="目标函数求最优">目标函数求最优</h4>
+<p>这里定义 <span class="math inline">\(I _ { j } = \{ i | q ( x _ { i } ) = j \}\)</span>。<span class="math inline">\(I_{j}\)</span>为被树分配到叶子节点<span class="math inline">\(j\)</span> 上的样本集。<span class="math inline">\(q ( x _ { i } )\)</span>为样本<span class="math inline">\(x _ {i}\)</span>通过q这个树结构到达叶子节点<span class="math inline">\(j\)</span>。 <span class="math inline">\(w_ {j}\)</span>为第<span class="math inline">\(j\)</span>个叶子节点的权重。则 <span class="math inline">\(f _ { t } ( x _ { i } ) = w _ { q ( x _ { i } ) }\)</span>。因此式 <span class="math inline">\((3)\)</span> 可以表示为： <span class="math display">\[
+\begin{split}
+O b j ^ { ( t ) } &amp;\simeq \sum _ { i = 1 } ^ { n } [ g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) \\ 
+&amp;= \sum _ { i = 1 } ^ { n } [ g _ { i } w _ { q ( x _ { i } ) } + \frac { 1 } { 2 } h _ { i } w _ { q ( x _ { i } ) } ^ { 2 } ] + \gamma T + \lambda \frac { 1 } { 2 } \sum _ { j = 1 } ^ { T } w _ { j } ^ { 2 } \\ 
+&amp;= \sum _ { j = 1 } ^ { T } [ ( \sum _ { i \in I _ { j } } g _ { i } ) w _ { j } + \frac { 1 } { 2 } ( \sum _ { i \in I _ { j } } h _ { i } + \lambda ) w _ { j } ^ { 2 } ] + \gamma T
+\end{split}
+\]</span> 中括号里为我们求最优解时最喜欢形式<span class="math inline">\(ax ^ 2 + bx\)</span>。显然，当</p>
+<p><span class="math display">\[
+w _ { j } ^ { * } = - \frac { \sum _ { i \in I _ { j } } g _ { i } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda }
+\]</span> 时，得到最优的<span class="math inline">\(\tilde {O b j ^ { ( t ) }}\)</span>:</p>
+<p><span class="math display">\[
+\tilde { Obj } ^ { ( t ) }  = - \frac { 1 } { 2 } \sum _ { j = 1 } ^ { T } \frac { ( \sum _ { i \in I _ { j } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda } + \gamma T \qquad (4)
+\]</span> 至此，我们完成了求第<span class="math inline">\(t\)</span>轮时目标函数的最优值。这个值可以用来衡量树结构的好坏。也就是说，判断一棵树的质量，我们只要算出<span class="math inline">\(g _ {i}\)</span>, <span class="math inline">\(h_{i}\)</span>，然后代入式子<span class="math inline">\((4)\)</span>即可算出。</p>
+<h3 id="防止过拟合策略">防止过拟合策略</h3>
+<hr />
 <ul>
 <li>权重衰减（Shrinkage）: 在每次迭代中对树的每个叶子结点的分数乘上一个缩减权重η，这可以使得每一棵树的影响力不会太大，留下更大的空间给后面生成的树去优化模型。</li>
 <li>列采样（Column subsampling）: 同对数据集做有放回的采样可以防止拟合一样，对特征做有放回的采样也可以防止过拟合。有两种方式：建树前采样和节点分裂之前采样。不仅如此，此方法还可以加快模型计算速度。</li>
 </ul>
-<h3 id="切分搜索算法"><a href="#切分搜索算法" class="headerlink" title="切分搜索算法"></a>切分搜索算法</h3><hr>
-<p>当我们把一个节点做了切分后，我们需要一个评估这个切分是好是坏的标准。一个朴素的思想就是切分前节点的目标函数的得分<strong>减去</strong>切分后左右两节点目标函数之和的得分，如果两者的差距较大，说明切分后的损失较小。计算公式如下：<br>$$<br>\begin{split}<br>L _ { s p l i t } &amp;= L ^ { ( t ) } - ( L _ { l } ^ { ( t ) } + L _ { r } ^ { ( t ) } ) \<br>&amp;= - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { j } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda } + \gamma - ( - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { I } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { l } } h _ { i } + \lambda } + - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { r } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { r } } h _ { i } + \lambda } + 2 \gamma )\<br>&amp;= \frac { 1 } { 2 } [ \frac { ( \sum _ { i \in I _ { L } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { L } } h _ { i } + \lambda } + \frac { ( \sum _ { i \in I _ { R } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { R } } h _ { i } + \lambda } - \frac { ( \sum _ { i \in I } g _ { i } ) ^ { 2 } } { \sum _ { i \in I } h _ { i } + \lambda } ] - \gamma<br>\end{split} \qquad (5)<br>$$</p>
-<h4 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h4><p>遍历所有特征的所有可能切分点，计算（5）式，取得分最高的切分点进行切分。</p>
-<h4 id="近似算法"><a href="#近似算法" class="headerlink" title="近似算法"></a>近似算法</h4><p>近似算法按特征分布的百分位提出候选切分点，相当于将特征的特征值分桶后再遍历。按提出候选切分点的时间不同，有两种切分的方式：全局切分和局部切分。</p>
+<h3 id="切分搜索算法">切分搜索算法</h3>
+<hr />
+<p>当我们把一个节点做了切分后，我们需要一个评估这个切分是好是坏的标准。一个朴素的思想就是切分前节点的目标函数的得分<strong>减去</strong>切分后左右两节点目标函数之和的得分，如果两者的差距较大，说明切分后的损失较小。计算公式如下： <span class="math display">\[
+\begin{split}
+L _ { s p l i t } &amp;= L ^ { ( t ) } - ( L _ { l } ^ { ( t ) } + L _ { r } ^ { ( t ) } ) \\
+&amp;= - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { j } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda } + \gamma - ( - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { I } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { l } } h _ { i } + \lambda } + - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { r } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { r } } h _ { i } + \lambda } + 2 \gamma )\\
+&amp;= \frac { 1 } { 2 } [ \frac { ( \sum _ { i \in I _ { L } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { L } } h _ { i } + \lambda } + \frac { ( \sum _ { i \in I _ { R } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { R } } h _ { i } + \lambda } - \frac { ( \sum _ { i \in I } g _ { i } ) ^ { 2 } } { \sum _ { i \in I } h _ { i } + \lambda } ] - \gamma
+\end{split} \qquad (5)
+\]</span></p>
+<h4 id="贪心算法">贪心算法</h4>
+<p>遍历所有特征的所有可能切分点，计算（5）式，取得分最高的切分点进行切分。</p>
+<h4 id="近似算法">近似算法</h4>
+<p>近似算法按特征分布的百分位提出候选切分点，相当于将特征的特征值分桶后再遍历。按提出候选切分点的时间不同，有两种切分的方式：全局切分和局部切分。</p>
 <p>全局切分就是在建树之初就提出了每个特征的候选切分点，之后对树的所有节点做切分时都从这些节点对应的特征候选切分点中选择。</p>
 <p>局部切分是在每次节点切分后优化提出候选切分点。候选切分点提出较全局切分频繁，较全局切分需要较少切分点。适合生成较深的树。</p>
 <p>全局切分候选切分点足够多时，可以达到和局部切分差不多的效果。</p>
-<h4 id="加权分位点"><a href="#加权分位点" class="headerlink" title="加权分位点"></a>加权分位点</h4><p>加权分位点是近似算法的一种。上面提到的近似算法通常是将切分点设在使数据均匀分布的位置。而加权分位点则是将切分点设在使分桶后的数据对loss产生均衡影响的位置。如果分4个桶，加权分位点使得每个桶内的样本集对loss的影响持平为25%。</p>
-<p>样本对loss的影响计算方法如下：<br>$$<br>\begin{split}<br>L ^ { ( t ) } &amp;\simeq \sum _ { i = 1 }^ { n } [ l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } ) + g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \<br>&amp;= \sum _ { i = 1 } ^ { n } [ \frac { 1 } { 2 } h _ { i } \cdot \frac { 2 \cdot g _ { i } f _ { t } ( x _ { i } ) } { h _ { i } } + \frac { 1 } { 2 } h _ { i } \cdot f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \<br>&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ 2 \cdot \frac { g _ { i } } { h _ { i } } \cdot f _ { t } ( x _ { i } ) + f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \<br>&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ ( 2 \cdot \frac { g _ { i } } { h _ { i } } \cdot f _ { t } ( x _ { i } ) + f _ { t } ^ { 2 } ( x _ { i } ) + ( \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ) - ( \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ] + \Omega ( f _ { t } ) + constant \<br>&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ ( f _ { t } ( x _ { i } ) + \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ] + \Omega ( f _ { t } ) + constant \<br>&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } ( f _ { t } ( x _ { i } ) - ( - g _ { i } / h _ { i } ) ) ^ { 2 } + \Omega ( f _ { t } )<br>\end{split}<br>$$<br>这里和原文给出的公式差个负号，欢迎想明白的小伙伴留言。</p>
-<p>从上式中我们可以看到样本$x _ {i}$的预测值$f _ { t } ( x _ { i })$对 $y = - g _ { i } / h _ { i }$的加权平方损失。权重即为$h _ {i}$，表示样本对loss的影响。</p>
-<p>节点上特征值小于 $z$ 的样本集相对于节点上总样本集对loss影响的比重为：<br>$$<br>r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { ( x , h ) \in D _ { k } , x &lt; z } h<br>$$<br>我们的目标是要找到这样一组切分点${ s _ { k 1 } , s _ { k 2 } , \cdots s _ { k l } }$, 使用任意两个切分点之间的样本集对loss影响的比重小于一个数值$\epsilon$。比如 $\epsilon = 10%$，意思就是将特征值分为10桶，每桶内对应的样本集对loss的影响小于10%。形式化表示如下：<br>$$<br>| r _ { k } ( s _ { k , j } ) - r _ { k } ( s _ { k , j + 1 } ) | &lt; \epsilon , \quad s _ { k 1 } = \min _ { i } x _ { i k } , s _ { k l } = \max _ { i } x _ { i k }<br>$$</p>
-<h3 id="稀疏问题的处理方法"><a href="#稀疏问题的处理方法" class="headerlink" title="稀疏问题的处理方法"></a>稀疏问题的处理方法</h3><hr>
+<h4 id="加权分位点">加权分位点</h4>
+<p>加权分位点是近似算法的一种。上面提到的近似算法通常是将切分点设在使数据均匀分布的位置。而加权分位点则是将切分点设在使分桶后的数据对loss产生均衡影响的位置。如果分4个桶，加权分位点使得每个桶内的样本集对loss的影响持平为25%。</p>
+<p>样本对loss的影响计算方法如下： <span class="math display">\[
+\begin{split} 
+L ^ { ( t ) } &amp;\simeq \sum _ { i = 1 }^ { n } [ l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } ) + g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \\
+&amp;= \sum _ { i = 1 } ^ { n } [ \frac { 1 } { 2 } h _ { i } \cdot \frac { 2 \cdot g _ { i } f _ { t } ( x _ { i } ) } { h _ { i } } + \frac { 1 } { 2 } h _ { i } \cdot f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \\
+&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ 2 \cdot \frac { g _ { i } } { h _ { i } } \cdot f _ { t } ( x _ { i } ) + f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \\
+&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ ( 2 \cdot \frac { g _ { i } } { h _ { i } } \cdot f _ { t } ( x _ { i } ) + f _ { t } ^ { 2 } ( x _ { i } ) + ( \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ) - ( \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ] + \Omega ( f _ { t } ) + constant \\
+&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ ( f _ { t } ( x _ { i } ) + \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ] + \Omega ( f _ { t } ) + constant \\
+&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } ( f _ { t } ( x _ { i } ) - ( - g _ { i } / h _ { i } ) ) ^ { 2 } + \Omega ( f _ { t } )
+\end{split}
+\]</span> 这里和原文给出的公式差个负号，欢迎想明白的小伙伴留言。</p>
+<p>从上式中我们可以看到样本<span class="math inline">\(x _ {i}\)</span>的预测值<span class="math inline">\(f _ { t } ( x _ { i })\)</span>对 <span class="math inline">\(y = - g _ { i } / h _ { i }\)</span>的加权平方损失。权重即为<span class="math inline">\(h _ {i}\)</span>，表示样本对loss的影响。</p>
+<p>节点上特征值小于 <span class="math inline">\(z\)</span> 的样本集相对于节点上总样本集对loss影响的比重为： <span class="math display">\[
+r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { ( x , h ) \in D _ { k } , x &lt; z } h
+\]</span> 我们的目标是要找到这样一组切分点<span class="math inline">\(\{ s _ { k 1 } , s _ { k 2 } , \cdots s _ { k l } \}\)</span>, 使用任意两个切分点之间的样本集对loss影响的比重小于一个数值<span class="math inline">\(\epsilon\)</span>。比如 <span class="math inline">\(\epsilon = 10\%\)</span>，意思就是将特征值分为10桶，每桶内对应的样本集对loss的影响小于10%。形式化表示如下： <span class="math display">\[
+| r _ { k } ( s _ { k , j } ) - r _ { k } ( s _ { k , j + 1 } ) | &lt; \epsilon , \quad s _ { k 1 } = \min _ { i } x _ { i k } , s _ { k l } = \max _ { i } x _ { i k }
+\]</span></p>
+<h3 id="稀疏问题的处理方法">稀疏问题的处理方法</h3>
+<hr />
 <p>在实践中经常遇到的数据稀疏，某些样本的某些特征值是缺失的（NULL）或大量特征的特征值为0。对这种情况论文提出统一将这种数据划分到一个默认的分支，或左树或右树，然后分别计算损失，选择较优的那一个。</p>
-<h3 id="XGBoost系统优化"><a href="#XGBoost系统优化" class="headerlink" title="XGBoost系统优化"></a>XGBoost系统优化</h3><hr>
+<h3 id="xgboost系统优化">XGBoost系统优化</h3>
+<hr />
 <ul>
 <li><p>针对并行计算的列块</p>
 <ul>
-<li><p>分<code>block</code>，便于并行化</p>
-</li>
-<li><p>分列存放，便于按列切片，实施 “列采样”</p>
-</li>
-<li><p>按照特征值事先排好序，便于执行切分</p>
-</li>
+<li><p>分<code>block</code>，便于并行化</p></li>
+<li><p>分列存放，便于按列切片，实施 "列采样"</p></li>
+<li><p>按照特征值事先排好序，便于执行切分</p></li>
 <li><ul>
-<li>在乱序列表上查一个数，只能是线性扫描，复杂度 $O ( N )$</li>
-<li>在有序列表上可以做二分查找， $O ( \log N )$</li>
-</ul>
-</li>
-</ul>
-</li>
+<li>在乱序列表上查一个数，只能是线性扫描，复杂度 <span class="math inline">\(O ( N )\)</span></li>
+<li>在有序列表上可以做二分查找， <span class="math inline">\(O ( \log N )\)</span></li>
+</ul></li>
+</ul></li>
 <li><p>针对 cpu缓存优化</p>
 <ul>
 <li>贪心算法：缓存预取缓解缓存未命中问题</li>
 <li>近似算法：减小块的大小来解决缓存未命中问题</li>
-</ul>
-</li>
+</ul></li>
 <li><p>针对IO优化</p>
 <ul>
 <li>Block Compression：block按列压缩，在加载到内存的过程中完成解压缩。</li>
 <li>Block Sharding：将数据分片到多个磁盘上。 将预取线程分配给每个磁盘，并将数据取入内存缓冲区中。 然后，训练线程可以从每个缓冲区读取数据。 当有多个磁盘可用时，这有助于提高磁盘读取的吞吐量。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><hr>
+<h3 id="总结">总结</h3>
+<hr />
 <p>个人觉得XGBoost在面对目标函数很难被计算时的思路很有些意思。在看论文的过程中几次被这种奇思妙想击中，总结一下以便时不时回顾感叹一下：</p>
 <ul>
 <li>惩罚项是棵树时的处理</li>
 <li>泰勒展示恰到好处的应用</li>
-<li>$I_{j}$ 的定义把$Obj$ 神奇地转化成了二次表达式</li>
+<li><span class="math inline">\(I_{j}\)</span> 的定义把<span class="math inline">\(Obj\)</span> 神奇地转化成了二次表达式</li>
 </ul>
-<p>此外，在给特征值分桶时，用对loss的影响做为标准也是个不错的想法，并且找到用$h$做为权重也是漂亮的一波操作。</p>
+<p>此外，在给特征值分桶时，用对loss的影响做为标准也是个不错的想法，并且找到用<span class="math inline">\(h\)</span>做为权重也是漂亮的一波操作。</p>
 <p>以上是个人觉得这篇论文最为出彩的地方，欢迎小伙伴留言分享你的心得。</p>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><hr>
-<ol>
+<h3 id="参考文献">参考文献</h3>
+<hr />
+<ol type="1">
 <li><a href="https://dl.acm.org/doi/pdf/10.1145/2939672.2939785" target="_blank" rel="noopener">XGBoost: A Scalable Tree Boosting System</a></li>
 <li><a href="https://netman.aiops.org/~peidan/ANM2018/3.MachineLearningBasics/LectureCoverage/18.xgboost.pdf" target="_blank" rel="noopener">PPT</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/89546007" target="_blank" rel="noopener">详解《XGBoost: A Scalable Tree Boosting System》</a></li>
@@ -335,5 +276,115 @@ subject\ to: &amp;\sum _ { j = 1 } ^ { n } T _ { i j } = d _ { i } \quad \forall
         <tag>XGBoost</tag>
         <tag>Machine leanring</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Evaluation methods for unsupervised word embeddings</title>
+    <url>/2020/07/04/Evaluation%20methods%20for%20unsupervised%20word%20embeddings/</url>
+    <content><![CDATA[<p>本文是对论文<a href="https://www.aclweb.org/anthology/D15-1036.pdf" target="_blank" rel="noopener">Evaluation methods for unsupervised word embeddings</a>的总结。相较于大量生成词嵌入模型的研究，评估词嵌入模型的工作相对较少。 该论文是第一篇对词嵌入评估进行深入研究的论文，发表于2015年，涵盖了广泛的评估标准和当时流行的嵌入技术。其目的并非是证明某个词嵌入方法优于其他方法，而是要对词嵌入的评估方法本身做较深入的探讨。</p>
+<a id="more"></a>
+<p>本文的主要内容包括：</p>
+<ul>
+<li>评估方法概述</li>
+<li>评估方法比较</li>
+<li>总结</li>
+</ul>
+<h3 id="评估方法概述">评估方法概述</h3>
+<hr />
+<p>现有词嵌入评估方案分为两大类：外部评估（extrinsic evaluation）和内部评估（intrinsic evaluation）。</p>
+<p><strong>外部评估</strong>：词向量被用作下游任务的输入特征，好的词向量应该对使用其的任务有正面影响。但是不同的任务对词向量的偏好可能是不同的，因此外部评估是否有效一直是一个存在争论。</p>
+<p><strong>内部评估</strong>：直接测试单词之间的句法或语义关系。内部评估通常涉及一组预先选择的查询词和与语义相关的目标词，称为查询清单。文章中内部评估进一步分成两类：<em>绝对内在评估</em>和<em>比较内在评估</em>。其中比较内在评估由文章提出，并应用在相关性评估和一致性评估中。</p>
+<h3 id="评估方法比较">评估方法比较</h3>
+<hr />
+<p>论文从单词相关性，连贯性，下游表现三个不同评估标准入手，分析了三种标准下各词嵌入模型排序结果之间的联系。</p>
+<h4 id="相关性评估">相关性评估</h4>
+<h5 id="绝对内在评估">绝对内在评估</h5>
+<p>绝对内在评估使用通常用作嵌入方法基准的<strong><em>14</em></strong>个数据集（如Table1），对<strong><em>6</em></strong>个词嵌入模型从如下<strong><em>4</em></strong>个范畴进行评估：</p>
+<ul>
+<li>相关性(relatedness): 两个单词的词嵌入的余弦相似度应与人类相关性得分具有高度相关性</li>
+<li>类比性(analogy): 对给定的单词y, 能否找到一个对应的单词x, 使得x与y的关系能够类比另外两个已知词a与b的关系</li>
+<li>类别化(categorization): 对词向量进行聚类, 看每个簇与有标记数据集各类相比纯度如何</li>
+<li>选择倾向(selectinal preference): 判断某名词是更倾向做某个动词的主语还是宾语, 例如一般顺序是 he runs 而不是 runs he</li>
+</ul>
+<p>评估结果如下：</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY8o30.JeVyVeSNkIfkVr.WboP0vthqj1HtMwST13Gj5gIdrAJIjK*G08N7YeeiVEDv8EctvynwHtdkQ2nKOGOAg!/b&amp;bo=agjwAgAAAAADF6I!&amp;rf=viewer_4" /></p>
+<p>绝对内在评估在设计上有两点缺陷：</p>
+<ul>
+<li><p>查询清单（query inventory）：上述的14个数据集在设计上都没能考虑以下几个方面，</p>
+<ul>
+<li><p>the frequency of the words in the English language</p></li>
+<li><p>the parts of speech of the words</p></li>
+<li><p>abstractness vs. concreteness</p></li>
+</ul></li>
+<li><p>度量指标（metric aggregation）：我们找不到一种对完全无关的单词对进行排序的方式（metric）。 例如，我们如何确定（狗，猫）是否比（香蕉，苹果）更相似</p></li>
+</ul>
+<h5 id="比较内在评估">比较内在评估</h5>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3MqrJW4KFs9LfY7hWZuGX8iNCm.6EnpWmizCKEv9OfRL8YlJdeZOH4tn917Flf7Tng!!/b&amp;bo=cgSOAgAAAAADB9g!&amp;rf=viewer_4" style="zoom: 33%;" /></p>
+<p>针对绝对内在评估存在的缺陷，文章提出了<em>比较内在评估</em>方法。即，给出一个查询词，将6个词嵌入模型产生的结果呈现给用户，让用户选出最相关的，然后统计结果。如Table 2.</p>
+<ul>
+<li><p>文章采用用户直接反馈的形式避免了需要定义指标（metric）的问题。</p></li>
+<li><p>文章定义制作了更符合词嵌入评估任务的查询清单。考虑了词频、词性、类别、是否是抽象词四个方面。并对这四个方面分别做了评估。</p></li>
+</ul>
+<p>比较内在评估结果如下：</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaYyIUYreKyNC7qTzjk..xcAsEAIzcwCsJzMOIVOYmwCVdpMa3bxvaEMZn6vH18MQa253IJxDg*NSe0Qn0joRqpPE!/b&amp;bo=7gU4BAAAAAADN8U!&amp;rf=viewer_4" style="zoom: 50%;" /></p>
+<center>
+Figure 1: Direct comparison task
+</center>
+<h4 id="一致性评估">一致性评估</h4>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3P8cCoVC1A7.3Yyr*hKVdUi3*bS3XnEmd4JdP4qZnRWjpGaQ5Omu4ijHfhZz4tKBrw!!/b&amp;bo=rAhkAwAAAAADB.E!&amp;rf=viewer_4" style="zoom:25%;" /></p>
+<p>一致性评估将查询词及词嵌入模型计算出来的两个相近词再加上一个不相关的词组成一道选择题。由测试人选出不相关的词。由此判定词嵌入模型选出的词与查询词是否具有一致性。</p>
+<p>一致性评估结果如下：</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3HkOUPptF0rYckWfjgSj3wfDacq9Q7HuwQzQDiNkGn8kPelkhqUdsQOxR2f0wqiiYA!!/b&amp;bo=hAY4BAAAAAADB5w!&amp;rf=viewer_4" style="zoom:25%;" /></p>
+<center>
+Figure 2: Intrusion task: average precision by global word frequency
+</center>
+<p>到目前为止，对比<span class="math inline">\(Table1, Figure1\)</span>和<span class="math inline">\(Figure2\)</span>，6个词嵌入模型从一致性任务获得的排名与从相关性任务获得的排名产生了出入。</p>
+<h4 id="下游表现外在评估">下游表现（外在评估）</h4>
+<p>外在评估评估单词嵌入模型对特定任务的贡献。</p>
+<p>使用此类评估存在一个隐含的假设，即单词嵌入质量是有固定排名的。也就是说，嵌入模型无论在什么任务里的表现排名应该是基本一致的。因此，更高质量的嵌入将必定会改善任何下游任务的结果。</p>
+<p>但文章发现上述假设不成立：不同的任务倾向于不同的嵌入。</p>
+<p>在文章试验的两个任务：名词短语分块和情感分类中证实了上述观点。并且建议对词嵌入进行针对项目的训练，以优化特定目标。</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3H1dtYybh1w4r.wPapYRLqvr0LSVsW7wvqjAqJrbZU*vQDSxRc9z2.fuk52*9GM.5A!!/b&amp;bo=OATIBgAAAAADB9A!&amp;rf=viewer_4" style="zoom:25%;" /></p>
+<h3 id="总结">总结</h3>
+<hr />
+<p>本论文的主要贡献总结如下：</p>
+<ul>
+<li>提出了由于使用不同的评估标准会导致嵌入效果排序的不同，对嵌入方法进行比较应在特定任务的上下文中进行</li>
+<li>证实了自动相似性评估与直接人工评估之间存在很强的相关性。说明至少在相似性任务中使用离线数据是合理的。</li>
+<li>提出了一种模型驱动和数据驱动的方法来构建查询清单。</li>
+<li>发现了所有词嵌入模型都编码了大量的单词频率信息，对使用余弦相似度作为嵌入空间中的相似度度量的普遍做法提出了质疑</li>
+</ul>
+<h3 id="参考文献">参考文献</h3>
+<hr />
+<p><a href="https://www.aclweb.org/anthology/D15-1036.pdf" target="_blank" rel="noopener">[Schnabel2015] Schnabel, T., Labutov, I., Mimno, D., &amp; Joachims, T. Evaluation methods for unsupervised word embeddings. In <em>Proceedings of the 2015 Conference on Empirical Methods in Natural Language Processing (EMNLP)</em> (pp. 298-307). 2015</a></p>
+<h3 id="评估相关其他资料">评估相关其他资料</h3>
+<hr />
+<p><a href="https://arxiv.org/abs/1801.09536" target="_blank" rel="noopener">[Bakarov2018] Bakarov, Amir. "A Survey of Word Embeddings Evaluation Methods." <em>arXiv preprint arXiv:1801.09536</em>. 2018</a></p>
+]]></content>
+      <categories>
+        <category>NLP</category>
+      </categories>
+      <tags>
+        <tag>embedding evaluation</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/05/23/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
   </entry>
 </search>
