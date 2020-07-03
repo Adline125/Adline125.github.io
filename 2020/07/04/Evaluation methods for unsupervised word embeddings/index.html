@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3HkOUPptF0rYckWfjgSj3wfDacq9Q7HuwQzQDiNkGn8kPelkhqUdsQOxR2f0wqiiYA!!/b&amp;bo=hAY4BAAAAAADB5w!&amp;rf=viewer_4">
 <meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3H1dtYybh1w4r.wPapYRLqvr0LSVsW7wvqjAqJrbZU*vQDSxRc9z2.fuk52*9GM.5A!!/b&amp;bo=OATIBgAAAAADB9A!&amp;rf=viewer_4">
 <meta property="article:published_time" content="2020-07-03T16:02:19.000Z">
-<meta property="article:modified_time" content="2020-07-03T18:34:09.101Z">
+<meta property="article:modified_time" content="2020-07-03T18:42:16.533Z">
 <meta property="article:author" content="Adline125">
 <meta property="article:tag" content="embedding evaluation">
 <meta name="twitter:card" content="summary">
@@ -227,7 +227,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-07-04 00:02:19 / Modified: 02:34:09" itemprop="dateCreated datePublished" datetime="2020-07-04T00:02:19+08:00">2020-07-04</time>
+              <time title="Created: 2020-07-04 00:02:19 / Modified: 02:42:16" itemprop="dateCreated datePublished" datetime="2020-07-04T00:02:19+08:00">2020-07-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,7 +262,7 @@
 <h3 id="评估方法概述"><a href="#评估方法概述" class="headerlink" title="评估方法概述"></a>评估方法概述</h3><hr>
 <p>现有词嵌入评估方案分为两大类：外部评估（extrinsic evaluation）和内部评估（intrinsic evaluation）。</p>
 <p><strong>外部评估</strong>：词向量被用作下游任务的输入特征，好的词向量应该对使用其的任务有正面影响。但是不同的任务对词向量的偏好可能是不同的，因此外部评估是否有效一直是一个存在争论。</p>
-<p><strong>内部评估</strong>：直接测试单词之间的句法或语义关系，观察词向量承载了多少这种联系。内部评估通常涉及一组预先选择的查询词和与语义相关的目标词，称为查询清单。内部评估进一步分成两类：<em>比较评估法</em>和<em>绝对评估法</em>。</p>
+<p><strong>内部评估</strong>：直接测试单词之间的句法或语义关系。内部评估通常涉及一组预先选择的查询词和与语义相关的目标词，称为查询清单。文章中内部评估进一步分成两类：<em>绝对内在评估</em>和<em>比较内在评估</em>。其中比较内在评估由文章提出，并应用在相关性评估和一致性评估中。</p>
 <h3 id="评估方法比较"><a href="#评估方法比较" class="headerlink" title="评估方法比较"></a>评估方法比较</h3><hr>
 <p>论文从单词相关性，连贯性，下游表现三个不同评估标准入手，分析了三种标准下各词嵌入模型排序结果之间的联系。</p>
 <h4 id="相关性评估"><a href="#相关性评估" class="headerlink" title="相关性评估"></a>相关性评估</h4><h5 id="绝对内在评估"><a href="#绝对内在评估" class="headerlink" title="绝对内在评估"></a>绝对内在评估</h5><p>绝对内在评估使用通常用作嵌入方法基准的<strong><em>14</em></strong>个数据集（如Table1），对<strong><em>6</em></strong>个词嵌入模型从如下<strong><em>4</em></strong>个范畴进行评估：</p>
