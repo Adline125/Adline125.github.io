@@ -342,16 +342,14 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
 <p>比较内在评估结果如下：</p>
 <p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaYyIUYreKyNC7qTzjk..xcAsEAIzcwCsJzMOIVOYmwCVdpMa3bxvaEMZn6vH18MQa253IJxDg*NSe0Qn0joRqpPE!/b&amp;bo=7gU4BAAAAAADN8U!&amp;rf=viewer_4" style="zoom: 50%;" /></p>
 <center>
-Figure 1: Direct comparison task
-<center>
+<p>Figure 1: Direct comparison task</p>
 <h4 id="一致性评估">一致性评估</h4>
 <p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3P8cCoVC1A7.3Yyr*hKVdUi3*bS3XnEmd4JdP4qZnRWjpGaQ5Omu4ijHfhZz4tKBrw!!/b&amp;bo=rAhkAwAAAAADB.E!&amp;rf=viewer_4" style="zoom:25%;" /></p>
 <p>一致性评估将查询词及词嵌入模型计算出来的两个相近词再加上一个不相关的词组成一道选择题。由测试人选出不相关的词。由此判定词嵌入模型选出的词与查询词是否具有一致性。</p>
 <p>一致性评估结果如下：</p>
 <p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3HkOUPptF0rYckWfjgSj3wfDacq9Q7HuwQzQDiNkGn8kPelkhqUdsQOxR2f0wqiiYA!!/b&amp;bo=hAY4BAAAAAADB5w!&amp;rf=viewer_4" style="zoom:25%;" /></p>
 <center>
-Figure 2: Intrusion task: average precision by global word frequency
-<center>
+<p>Figure 2: Intrusion task: average precision by global word frequency</p>
 <p>到目前为止，对比<span class="math inline">\(Table1, Figure1\)</span>和<span class="math inline">\(Figure2\)</span>，6个词嵌入模型从一致性任务获得的排名与从相关性任务获得的排名产生了出入。</p>
 <h4 id="下游表现外在评估">下游表现（外在评估）</h4>
 <p>外在评估评估单词嵌入模型对特定任务的贡献。</p>
