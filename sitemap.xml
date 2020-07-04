@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/07/04/Evaluation%20methods%20for%20unsupervised%20word%20embeddings/</loc>
+    
+    <lastmod>2020-07-04T02:05:46.355Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2020/06/01/XGBoost-A-Scalable-Tree-Boosting-System/</loc>
     
     <lastmod>2020-07-04T01:49:38.500Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://yoursite.com/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/</loc>
     
     <lastmod>2020-07-03T19:33:49.905Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2020/07/04/Evaluation%20methods%20for%20unsupervised%20word%20embeddings/</loc>
-    
-    <lastmod>2020-07-03T18:42:16.533Z</lastmod>
     
   </url>
   
