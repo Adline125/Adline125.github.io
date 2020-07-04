@@ -33,8 +33,9 @@
 <meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3P8cCoVC1A7.3Yyr*hKVdUi3*bS3XnEmd4JdP4qZnRWjpGaQ5Omu4ijHfhZz4tKBrw!!/b&amp;bo=rAhkAwAAAAADB.E!&amp;rf=viewer_4">
 <meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3HkOUPptF0rYckWfjgSj3wfDacq9Q7HuwQzQDiNkGn8kPelkhqUdsQOxR2f0wqiiYA!!/b&amp;bo=hAY4BAAAAAADB5w!&amp;rf=viewer_4">
 <meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3H1dtYybh1w4r.wPapYRLqvr0LSVsW7wvqjAqJrbZU*vQDSxRc9z2.fuk52*9GM.5A!!/b&amp;bo=OATIBgAAAAADB9A!&amp;rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3MxBRn.X0eEGkRNPoxsXnqzLc0Usoz7oujbllJnRtldyQAM5AiCOe0o5jlLL0zNc9A!!/b&amp;bo=PAiGAwAAAAADB5M!&amp;rf=viewer_4">
 <meta property="article:published_time" content="2020-07-03T16:02:19.000Z">
-<meta property="article:modified_time" content="2020-07-04T02:05:46.355Z">
+<meta property="article:modified_time" content="2020-07-04T17:28:57.341Z">
 <meta property="article:author" content="Adline125">
 <meta property="article:tag" content="embedding evaluation">
 <meta name="twitter:card" content="summary">
@@ -225,10 +226,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-07-04 00:02:19 / Modified: 10:05:46" itemprop="dateCreated datePublished" datetime="2020-07-04T00:02:19+08:00">2020-07-04</time>
+              <time title="Created: 2020-07-04 00:02:19" itemprop="dateCreated datePublished" datetime="2020-07-04T00:02:19+08:00">2020-07-04</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-05 01:28:57" itemprop="dateModified" datetime="2020-07-05T01:28:57+08:00">2020-07-05</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -301,24 +308,27 @@ Figure 1: Direct comparison task
 </center>
 <h4 id="一致性评估">一致性评估</h4>
 <p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3P8cCoVC1A7.3Yyr*hKVdUi3*bS3XnEmd4JdP4qZnRWjpGaQ5Omu4ijHfhZz4tKBrw!!/b&amp;bo=rAhkAwAAAAADB.E!&amp;rf=viewer_4" style="zoom:25%;" /></p>
-<p>文章中一致性评估直接采用比较内在评估方法，将查询词本身及词嵌入模型计算出来的两个相近词再加上一个不相关的词组成一道选择题。由测试人选出不相关的词。由此判定词嵌入模型选出的词与查询词是否具有一致性。</p>
+<p>文章中一致性评估直接采用比较内在评估方法。一致性评估是文章提出的评估方法。将查询词本身及词嵌入模型计算出来的两个相近词再加上一个不相关的词组成一道选择题。由测试人选出不相关的词。由此判定词嵌入模型选出的词与查询词是否具有一致性。</p>
 <p>一致性评估结果如下：</p>
 <p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3HkOUPptF0rYckWfjgSj3wfDacq9Q7HuwQzQDiNkGn8kPelkhqUdsQOxR2f0wqiiYA!!/b&amp;bo=hAY4BAAAAAADB5w!&amp;rf=viewer_4" style="zoom:25%;" /></p>
 <center>
 Figure 2: Intrusion task: average precision by global word frequency
 </center>
 <p>到目前为止，对比<span class="math inline">\(Table1, Figure1\)</span>和<span class="math inline">\(Figure2\)</span>，6个词嵌入模型从一致性任务获得的排名与从相关性任务获得的排名产生了出入。</p>
-<h4 id="下游表现外在评估">下游表现（外在评估）</h4>
+<h4 id="外在评估下游表现">外在评估（下游表现）</h4>
 <p>外在评估评估单词嵌入模型对特定任务的贡献。</p>
 <p>使用此类评估存在一个隐含的假设，即单词嵌入质量是有固定排名的。也就是说，嵌入模型无论在什么任务里的表现排名应该是基本一致的。因此，更高质量的嵌入将必定会改善任何下游任务的结果。</p>
 <p>但文章发现上述假设不成立：不同的任务倾向于不同的嵌入。</p>
 <p>在文章试验的两个任务：名词短语分块和情感分类中证实了上述观点。文章建议对词嵌入进行针对项目的训练，以优化特定目标。</p>
 <p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3H1dtYybh1w4r.wPapYRLqvr0LSVsW7wvqjAqJrbZU*vQDSxRc9z2.fuk52*9GM.5A!!/b&amp;bo=OATIBgAAAAADB9A!&amp;rf=viewer_4" style="zoom:25%;" /></p>
+<h3 id="embedding中的词频信息">Embedding中的词频信息</h3>
+<p>文章用两个小实验证实了embedding中编码了大量的词频信息。两个小实验的情况如下：</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3MxBRn.X0eEGkRNPoxsXnqzLc0Usoz7oujbllJnRtldyQAM5AiCOe0o5jlLL0zNc9A!!/b&amp;bo=PAiGAwAAAAADB5M!&amp;rf=viewer_4" style="zoom:67%;" /></p>
 <h3 id="总结">总结</h3>
 <hr />
 <p>本论文的主要贡献总结如下：</p>
 <ul>
-<li>提出了由于使用不同的评估标准会导致嵌入效果排序的不同，对嵌入方法进行比较应在特定任务的上下文中进行</li>
+<li>提出了由于使用不同的评估标准会导致嵌入效果排序的不同，对嵌入方法进行比较应在特定任务的上下文中进行，不提倡使用外部评估评测embedding。</li>
 <li>证实了自动相似性评估与直接人工评估之间存在很强的相关性。说明至少在相似性任务中使用离线数据是合理的。</li>
 <li>提出了一种模型驱动和数据驱动的方法来构建查询清单。</li>
 <li>发现了所有词嵌入模型都编码了大量的单词频率信息，对使用余弦相似度作为嵌入空间中的相似度度量的普遍做法提出了质疑</li>
@@ -418,7 +428,7 @@ Figure 2: Intrusion task: average precision by global word frequency
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#评估方案概述"><span class="nav-number">1.</span> <span class="nav-text">评估方案概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不同评估标准下模型表现比较"><span class="nav-number">2.</span> <span class="nav-text">不同评估标准下模型表现比较</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#相关性评估"><span class="nav-number">2.1.</span> <span class="nav-text">相关性评估</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#绝对内在评估"><span class="nav-number">2.1.1.</span> <span class="nav-text">绝对内在评估</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#比较内在评估"><span class="nav-number">2.1.2.</span> <span class="nav-text">比较内在评估</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一致性评估"><span class="nav-number">2.2.</span> <span class="nav-text">一致性评估</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下游表现外在评估"><span class="nav-number">2.3.</span> <span class="nav-text">下游表现（外在评估）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#评估相关其他资料"><span class="nav-number">5.</span> <span class="nav-text">评估相关其他资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#评估方案概述"><span class="nav-number">1.</span> <span class="nav-text">评估方案概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不同评估标准下模型表现比较"><span class="nav-number">2.</span> <span class="nav-text">不同评估标准下模型表现比较</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#相关性评估"><span class="nav-number">2.1.</span> <span class="nav-text">相关性评估</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#绝对内在评估"><span class="nav-number">2.1.1.</span> <span class="nav-text">绝对内在评估</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#比较内在评估"><span class="nav-number">2.1.2.</span> <span class="nav-text">比较内在评估</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一致性评估"><span class="nav-number">2.2.</span> <span class="nav-text">一致性评估</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外在评估下游表现"><span class="nav-number">2.3.</span> <span class="nav-text">外在评估（下游表现）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#embedding中的词频信息"><span class="nav-number">3.</span> <span class="nav-text">Embedding中的词频信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#评估相关其他资料"><span class="nav-number">6.</span> <span class="nav-text">评估相关其他资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
