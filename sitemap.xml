@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/</loc>
+    
+    <lastmod>2020-07-15T09:15:39.351Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2020/07/15/Bidirectional%20LSTM-CRF%20Models%20for%20Sequence%20Tagging/</loc>
     
-    <lastmod>2020-07-15T09:08:03.071Z</lastmod>
+    <lastmod>2020-07-15T09:15:37.656Z</lastmod>
     
   </url>
   
@@ -19,13 +26,6 @@
     <loc>http://yoursite.com/2020/06/01/XGBoost-A-Scalable-Tree-Boosting-System/</loc>
     
     <lastmod>2020-07-04T01:49:38.500Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/</loc>
-    
-    <lastmod>2020-07-03T19:33:49.905Z</lastmod>
     
   </url>
   
