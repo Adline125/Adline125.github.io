@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文是对论文Bidirectional LSTM-CRF Models for Sequence Tagging的总结。文章系统地比较了基于LSTM网络的各种序列标记模型的性能。 并在当时首次将BI-LSTM-CRF模型应用于NLP基准序列标记任务。 其中，BI-LSTM-CRF模型在词性标注，分块和命名实体识别任务上表现最优。模型具有鲁棒性且对单词嵌入的依赖性较小，甚至可以无需借助词嵌入达到一定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bidirectional LSTM-CRF Models for Sequence Tagging">
+<meta property="og:url" content="http://yoursite.com/2020/07/15/Bidirectional%20LSTM-CRF%20Models%20for%20Sequence%20Tagging/index.html">
+<meta property="og:site_name" content="Adline125&#39;s Blog">
+<meta property="og:description" content="本文是对论文Bidirectional LSTM-CRF Models for Sequence Tagging的总结。文章系统地比较了基于LSTM网络的各种序列标记模型的性能。 并在当时首次将BI-LSTM-CRF模型应用于NLP基准序列标记任务。 其中，BI-LSTM-CRF模型在词性标注，分块和命名实体识别任务上表现最优。模型具有鲁棒性且对单词嵌入的依赖性较小，甚至可以无需借助词嵌入达到一定">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3HwUsITeHuXVtzX1ZS5rLZ..Hrtcfk0V84DB9eKfT3OOI7QpR9rSLQvhNjnuJkwJtQ!!/b&amp;bo=OgTCAgAAAAADB9w!&amp;rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3K6yjEyF3D1Rq.kUnElZmBPsDTlWY78KZTgCtLHw7lWx5W8QJrGijQlmamMOHGx5VQ!!/b&amp;bo=fATKAgAAAAADB5I!&amp;rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY*b4M.jf8mtmeO1a4mBliFpVsNjtp2z.xlEzdgQniKlU3H2kzsdpGISNwD*Mb93XvZJZisBGlTSxpEZGsjesQ70!/b&amp;bo=CgSGAgAAAAADF7g!&amp;rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaYwtafhcQrEiYVk4KojfCDocds.cW2nwy2hoHG1ffQnSF7i3K*Xh0OGQ8*DNG3S6J0bIAMbf7CBpf9*9rtQ0JHzs!/b&amp;bo=ZgTEAgAAAAADF5Y!&amp;rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY735vNnTzKc89nnFFq7myydvShikC*8ilxfyLFRkW8gjuBd*xnFFciMXn8Vg82aVss8V6d29RuEyoKgz5RVxoFQ!/b&amp;bo=WATQAgAAAAADF7w!&amp;rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3HqR4GLXCSB8cXTogTTEzdMYIzA.*ahxBCmqHjVvf0GdUTM337RxB06rZRKVjzI.tw!!/b&amp;bo=lAT8AgAAAAADB0w!&amp;rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY2AqS4uWtKlg9XQn2VKzqbOCzvvElTySw9eaHkbpc4uk3AK2SwXiXrsAHb8o6KBxSGCAliqbPSlr6CrncFRtLCk!/b&amp;bo=wAeqAgAAAAADF10!&amp;rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3LFWXhKSDP9co7Jb7PPUAVil9g0yQjwXKtNShO1.g4*qMZ0wgLMPz1B8lmuNL1HLgA!!/b&amp;bo=tgTUAgAAAAADB0Y!&amp;rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY*fUauSN0L7NpfoyMVmUMoN3z5XEnYLXYeK0GLtKS0D6ieUVduzw2wId8GAgGnecdegjozAc5YAUptf4b0aPCao!/b&amp;bo=rgjKAwAAAAADF10!&amp;rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY9dt8feZUghcG3Z7LrSRluq5*J2S9JRq3yxrMJ9OUTlbuJxmb95RPibQXyba9ylqYfgPTbJWI9F*b46sI0VCZ6g!/b&amp;bo=Lgj.AQAAAAADF.s!&amp;rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY5JLTWbbIqCCH8*URg2T4ijGUEGUo3rEdQWRnHblS9ffhl34sbGtyPfDjwAnx2CDfvrs2geYx6esGbbofJGseZc!/b&amp;bo=FwU4BAAAAAADJyw!&amp;rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY1p2S.PY3NG6.7nig5peCNYGbkE4LNLhsJAuLO1VO*t2tW0.wa12K.e1tq20gBLqhGVJVE*VMZTRHBcgZ.HFxVc!/b&amp;bo=xgauAgAAAAADF14!&amp;rf=viewer_4">
+<meta property="article:published_time" content="2020-07-14T16:02:19.000Z">
+<meta property="article:modified_time" content="2020-07-15T09:08:03.071Z">
+<meta property="article:author" content="Adline125">
+<meta property="article:tag" content="LSTM">
+<meta property="article:tag" content="CRF">
+<meta property="article:tag" content="sequence tagging">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3HwUsITeHuXVtzX1ZS5rLZ..Hrtcfk0V84DB9eKfT3OOI7QpR9rSLQvhNjnuJkwJtQ!!/b&amp;bo=OgTCAgAAAAADB9w!&amp;rf=viewer_4">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/15/Bidirectional%20LSTM-CRF%20Models%20for%20Sequence%20Tagging/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Bidirectional LSTM-CRF Models for Sequence Tagging | Adline125's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Adline125's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Adline125's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">NLP Engineer, Google Developers Expert</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/15/Bidirectional%20LSTM-CRF%20Models%20for%20Sequence%20Tagging/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.png">
+      <meta itemprop="name" content="Adline125">
+      <meta itemprop="description" content="北京程序媛一枚，主攻NLP.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Adline125's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Bidirectional LSTM-CRF Models for Sequence Tagging
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-07-15 00:02:19 / Modified: 17:08:03" itemprop="dateCreated datePublished" datetime="2020-07-15T00:02:19+08:00">2020-07-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文是对论文<a href="https://arxiv.org/abs/1508.01991" target="_blank" rel="noopener">Bidirectional LSTM-CRF Models for Sequence Tagging</a>的总结。文章系统地比较了基于LSTM网络的各种序列标记模型的性能。 并在当时首次将BI-LSTM-CRF模型应用于NLP基准序列标记任务。 其中，BI-LSTM-CRF模型在词性标注，分块和命名实体识别任务上表现最优。模型具有鲁棒性且对单词嵌入的依赖性较小，甚至可以无需借助词嵌入达到一定的精度。</p>
+<a id="more"></a>
+<p>本文的主要内容包括：</p>
+<ul>
+<li>基于LSTM的序列标模型</li>
+<li>模型训练</li>
+<li>数据和特征</li>
+<li>结论</li>
+</ul>
+<h3 id="基于lstm的序列标模型">基于LSTM的序列标模型</h3>
+<hr />
+<p>RNN模型：对每一个时刻 <span class="math display">\[
+\left. 
+{ h ( t ) = f ( U x ( t ) + W h ( t - 1 ) ) }\quad\quad\quad(1)\\
+{ y ( t ) = g ( V h ( t ) ) }\quad\quad\quad\quad\quad\quad\quad\quad\quad(2) \\
+f ( z ) = \frac { 1 } { 1 + e ^ { - z } }\quad\quad\quad\quad\quad\quad\quad\quad\quad(3)\\
+g ( z _ { m } ) = \frac { e ^ { z _ { m } } } { \sum _ { k } e ^ { z _ { k } } }\quad\quad\quad\quad\quad\quad\quad\quad\quad(4)
+\right.
+\]</span></p>
+<p>LSTM模型：对每一个时刻 <span class="math display">\[
+\left. { i _ { t } = \sigma ( W _ { x i } x _ { t } + W _ { h i } h _ { t - 1 } + W _ { c i } c _ { t - 1 } + b _ { i } ) }\quad\quad\quad(5)\\
+{ f _ { t } = \sigma ( W _ { x f } x _ { t } + W _ { h f } h _ { t - 1 } + W _ { c f } c _ { t - 1 } + b _ { f } ) }\quad\quad(6)\\
+{ c _ { t } = f _ { t } c _ { t - 1 } + i _ { t } \tanh ( W _ { x c } x _ { t } + W _ { h c } h _ { t - 1 } + b _ { c } ) }\quad(7)\\
+{o _ { t } = \sigma ( W _ { x o } x _ { t } + W _ { h o } h _ { t - 1 } + W _ { c o } c _ { t } + b _ { o } ) } \quad\quad\quad(8)\right.
+\]</span></p>
+<h4 id="lstm-networks">LSTM Networks</h4>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3HwUsITeHuXVtzX1ZS5rLZ..Hrtcfk0V84DB9eKfT3OOI7QpR9rSLQvhNjnuJkwJtQ!!/b&amp;bo=OgTCAgAAAAADB9w!&amp;rf=viewer_4" style="zoom:50%;" /></p>
+<h4 id="bidirectional-lstm-networks">Bidirectional LSTM Networks</h4>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3K6yjEyF3D1Rq.kUnElZmBPsDTlWY78KZTgCtLHw7lWx5W8QJrGijQlmamMOHGx5VQ!!/b&amp;bo=fATKAgAAAAADB5I!&amp;rf=viewer_4" style="zoom:50%;" /></p>
+<p>####CRF networks</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY*b4M.jf8mtmeO1a4mBliFpVsNjtp2z.xlEzdgQniKlU3H2kzsdpGISNwD*Mb93XvZJZisBGlTSxpEZGsjesQ70!/b&amp;bo=CgSGAgAAAAADF7g!&amp;rf=viewer_4" style="zoom:50%;" /></p>
+<h4 id="lstm-crf-network">LSTM-CRF network</h4>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaYwtafhcQrEiYVk4KojfCDocds.cW2nwy2hoHG1ffQnSF7i3K*Xh0OGQ8*DNG3S6J0bIAMbf7CBpf9*9rtQ0JHzs!/b&amp;bo=ZgTEAgAAAAADF5Y!&amp;rf=viewer_4" style="zoom:50%;" /></p>
+<h4 id="bi-lstm-crf-networks">BI-LSTM-CRF networks</h4>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY735vNnTzKc89nnFFq7myydvShikC*8ilxfyLFRkW8gjuBd*xnFFciMXn8Vg82aVss8V6d29RuEyoKgz5RVxoFQ!/b&amp;bo=WATQAgAAAAADF7w!&amp;rf=viewer_4" style="zoom:50%;" /></p>
+<h3 id="模型训练">模型训练</h3>
+<hr />
+<p>模型训练过程如下：</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3HqR4GLXCSB8cXTogTTEzdMYIzA.*ahxBCmqHjVvf0GdUTM337RxB06rZRKVjzI.tw!!/b&amp;bo=lAT8AgAAAAADB0w!&amp;rf=viewer_4" style="zoom:50%;" /></p>
+<p>其中，batch_size = 100.</p>
+<h3 id="数据和特征">数据和特征</h3>
+<hr />
+<h4 id="数据">数据</h4>
+<p>文章通过三个任务来比较模型，三个任务对应的数据为：</p>
+<ul>
+<li>POS tagging：Penn TreeBank (PTB)</li>
+<li>chunking：CoNLL 2000</li>
+<li>named entity tagging：CoNLL 2003</li>
+</ul>
+<p>具体如下：</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY2AqS4uWtKlg9XQn2VKzqbOCzvvElTySw9eaHkbpc4uk3AK2SwXiXrsAHb8o6KBxSGCAliqbPSlr6CrncFRtLCk!/b&amp;bo=wAeqAgAAAAADF10!&amp;rf=viewer_4" style="zoom:50%;" /></p>
+<p>####特征</p>
+<p>文章中使用的特征主要有三类：</p>
+<ul>
+<li>Spelling features</li>
+<li>Context features</li>
+<li>Word embedding</li>
+</ul>
+<p>其中，拼写特征和上下文特征是直接加在输出层的，如下图：</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3LFWXhKSDP9co7Jb7PPUAVil9g0yQjwXKtNShO1.g4*qMZ0wgLMPz1B8lmuNL1HLgA!!/b&amp;bo=tgTUAgAAAAADB0Y!&amp;rf=viewer_4" style="zoom:50%;" /></p>
+<h3 id="实验对比结果">实验对比结果</h3>
+<hr />
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY*fUauSN0L7NpfoyMVmUMoN3z5XEnYLXYeK0GLtKS0D6ieUVduzw2wId8GAgGnecdegjozAc5YAUptf4b0aPCao!/b&amp;bo=rgjKAwAAAAADF10!&amp;rf=viewer_4" style="zoom:38%;" /></p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY9dt8feZUghcG3Z7LrSRluq5*J2S9JRq3yxrMJ9OUTlbuJxmb95RPibQXyba9ylqYfgPTbJWI9F*b46sI0VCZ6g!/b&amp;bo=Lgj.AQAAAAADF.s!&amp;rf=viewer_4" style="zoom:38%;" /></p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY5JLTWbbIqCCH8*URg2T4ijGUEGUo3rEdQWRnHblS9ffhl34sbGtyPfDjwAnx2CDfvrs2geYx6esGbbofJGseZc!/b&amp;bo=FwU4BAAAAAADJyw!&amp;rf=viewer_4" style="zoom:60%;" /></p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY1p2S.PY3NG6.7nig5peCNYGbkE4LNLhsJAuLO1VO*t2tW0.wa12K.e1tq20gBLqhGVJVE*VMZTRHBcgZ.HFxVc!/b&amp;bo=xgauAgAAAAADF14!&amp;rf=viewer_4" style="zoom:40%;" /></p>
+<h3 id="结论">结论</h3>
+<hr />
+<p>文章的主要贡献：</p>
+<ul>
+<li>系统对比了基于LSTM的各种模型在序列标注任务中的表现</li>
+<li>首次应用双向LSTM+CRF模型在NLP序列标注语料集上</li>
+<li>实验证明双向LSTM+CRF在序列标注任务上较其他模型表现最优</li>
+</ul>
+<h3 id="参考文献">参考文献</h3>
+<hr />
+<p><a href="https://arxiv.org/abs/1508.01991" target="_blank" rel="noopener">Bidirectional LSTM-CRF Models for Sequence Tagging</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/LSTM/" rel="tag"># LSTM</a>
+              <a href="/tags/CRF/" rel="tag"># CRF</a>
+              <a href="/tags/sequence-tagging/" rel="tag"># sequence tagging</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/04/Evaluation%20methods%20for%20unsupervised%20word%20embeddings/" rel="prev" title="Evaluation methods for unsupervised word embeddings">
+      <i class="fa fa-chevron-left"></i> Evaluation methods for unsupervised word embeddings
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+
+  
+  
+  
+
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于lstm的序列标模型"><span class="nav-number">1.</span> <span class="nav-text">基于LSTM的序列标模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lstm-networks"><span class="nav-number">1.1.</span> <span class="nav-text">LSTM Networks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bidirectional-lstm-networks"><span class="nav-number">1.2.</span> <span class="nav-text">Bidirectional LSTM Networks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lstm-crf-network"><span class="nav-number">1.3.</span> <span class="nav-text">LSTM-CRF network</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bi-lstm-crf-networks"><span class="nav-number">1.4.</span> <span class="nav-text">BI-LSTM-CRF networks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型训练"><span class="nav-number">2.</span> <span class="nav-text">模型训练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据和特征"><span class="nav-number">3.</span> <span class="nav-text">数据和特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据"><span class="nav-number">3.1.</span> <span class="nav-text">数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验对比结果"><span class="nav-number">4.</span> <span class="nav-text">实验对比结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-number">5.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Adline125"
+      src="/images/icon.png">
+  <p class="site-author-name" itemprop="name">Adline125</p>
+  <div class="site-description" itemprop="description">北京程序媛一枚，主攻NLP.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Adline125" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Adline125" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:gglfxsld@gmail.com" title="E-Mail → mailto:gglfxsld@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Adline125</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+<br/>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次 | 本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2020/07/15/Bidirectional%20LSTM-CRF%20Models%20for%20Sequence%20Tagging/";
+    this.page.identifier = "2020/07/15/Bidirectional LSTM-CRF Models for Sequence Tagging/";
+    this.page.title = "Bidirectional LSTM-CRF Models for Sequence Tagging";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://Adline125.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
