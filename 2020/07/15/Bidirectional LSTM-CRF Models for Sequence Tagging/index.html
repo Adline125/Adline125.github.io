@@ -40,7 +40,7 @@
 <meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY5JLTWbbIqCCH8*URg2T4ijGUEGUo3rEdQWRnHblS9ffhl34sbGtyPfDjwAnx2CDfvrs2geYx6esGbbofJGseZc!/b&amp;bo=FwU4BAAAAAADJyw!&amp;rf=viewer_4">
 <meta property="og:image" content="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaY1p2S.PY3NG6.7nig5peCNYGbkE4LNLhsJAuLO1VO*t2tW0.wa12K.e1tq20gBLqhGVJVE*VMZTRHBcgZ.HFxVc!/b&amp;bo=xgauAgAAAAADF14!&amp;rf=viewer_4">
 <meta property="article:published_time" content="2020-07-14T16:02:19.000Z">
-<meta property="article:modified_time" content="2020-07-15T09:16:45.310Z">
+<meta property="article:modified_time" content="2020-07-20T07:30:49.082Z">
 <meta property="article:author" content="Adline125">
 <meta property="article:tag" content="LSTM">
 <meta property="article:tag" content="CRF">
@@ -233,10 +233,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-07-15 00:02:19 / Modified: 17:16:45" itemprop="dateCreated datePublished" datetime="2020-07-15T00:02:19+08:00">2020-07-15</time>
+              <time title="Created: 2020-07-15 00:02:19" itemprop="dateCreated datePublished" datetime="2020-07-15T00:02:19+08:00">2020-07-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-20 15:30:49" itemprop="dateModified" datetime="2020-07-20T15:30:49+08:00">2020-07-20</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -282,7 +288,8 @@ g ( z _ { m } ) = \frac { e ^ { z _ { m } } } { \sum _ { k } e ^ { z _ { k } } }
 { i _ { t } = \sigma ( W _ { x i } x _ { t } + W _ { h i } h _ { t - 1 } + W _ { c i } c _ { t - 1 } + b _ { i } ) }\quad\quad\quad(5)\\
 { f _ { t } = \sigma ( W _ { x f } x _ { t } + W _ { h f } h _ { t - 1 } + W _ { c f } c _ { t - 1 } + b _ { f } ) }\quad\quad(6)\\
 { c _ { t } = f _ { t } c _ { t - 1 } + i _ { t } \tanh ( W _ { x c } x _ { t } + W _ { h c } h _ { t - 1 } + b _ { c } ) }\quad(7)\\
-{o _ { t } = \sigma ( W _ { x o } x _ { t } + W _ { h o } h _ { t - 1 } + W _ { c o } c _ { t } + b _ { o } ) } \quad\quad\quad(8)
+{o _ { t } = \sigma ( W _ { x o } x _ { t } + W _ { h o } h _ { t - 1 } + W _ { c o } c _ { t } + b _ { o } ) } \quad\quad\quad(8) \\
+h _ { t } = o _ { t } \tanh ( c _ { t } )\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad(9)
 \end{split} \\
 \]</span></p>
 <h4 id="lstm-networks">LSTM Networks</h4>
