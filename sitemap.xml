@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/10/21/Rasa%20NLU%20classifier%E8%A7%A3%E6%9E%90/</loc>
+    
+    <lastmod>2022-10-21T03:54:40.414Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2022/10/21/Rasa%20NLU%20DIET%20Classifier%E8%A7%A3%E6%9E%90/</loc>
+    
+    <lastmod>2022-10-21T03:50:01.522Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2022/10/21/Rasa%20NLU%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/</loc>
+    
+    <lastmod>2022-10-21T03:37:43.328Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2020/07/15/Bidirectional%20LSTM-CRF%20Models%20for%20Sequence%20Tagging/</loc>
     
     <lastmod>2020-07-20T07:30:49.082Z</lastmod>

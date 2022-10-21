@@ -96,6 +96,232 @@ Figure 2: Intrusion task: average precision by global word frequency
       </tags>
   </entry>
   <entry>
+    <title>Rasa NLU classifier解析</title>
+    <url>/2020/10/21/Rasa%20NLU%20classifier%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU classifier架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU classifier 做总体上的说明。</p>
+<p>本文更多关注算法，主要内容如下：</p>
+<a id="more"></a>
+<ul>
+<li>Rasa NLU Classifier架构</li>
+<li>主流技术支持情况</li>
+</ul>
+<h3 id="rasa-nlu-classifier架构">Rasa NLU Classifier架构</h3>
+<figure>
+<img src="https://docimg4.docs.qq.com/image/0AsTb8CbzcIGX9DpO37vZg.png?w=1280&amp;h=336" alt="" /><figcaption>img</figcaption>
+</figure>
+<h3 id="主流技术支持情况">主流技术支持情况</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 10%" />
+<col style="width: 15%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>主流技术</strong></th>
+<th><strong>是否支持</strong></th>
+<th><strong>支持模块</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Huggingface Transformer</td>
+<td>部分</td>
+<td>DIETClassifier</td>
+<td>见2.1.3.2</td>
+</tr>
+<tr class="even">
+<td>Wide&amp;Deep</td>
+<td>是</td>
+<td>DIETClassifier</td>
+<td>稀疏和稠密特征融合</td>
+</tr>
+<tr class="odd">
+<td>transformer</td>
+<td>是</td>
+<td>DIETClassifier</td>
+<td>transformer层数可配置</td>
+</tr>
+<tr class="even">
+<td>DNN</td>
+<td>是</td>
+<td>DIETClassifier</td>
+<td>DNN层数固定不可配置</td>
+</tr>
+<tr class="odd">
+<td>SVM</td>
+<td>是</td>
+<td>SKLearnClassifier</td>
+<td>支持网络搜索优化配置</td>
+</tr>
+<tr class="even">
+<td>其他传统机器学习模型</td>
+<td>是</td>
+<td>SKLearnClassifier</td>
+<td>SKLearn支持的所有模型</td>
+</tr>
+<tr class="odd">
+<td>Mitie Linear SVM</td>
+<td>是</td>
+<td>MitieClassifier</td>
+<td>使用自有的稀疏线性核</td>
+</tr>
+<tr class="even">
+<td>字符串匹配</td>
+<td>是</td>
+<td>KeywordClassifier</td>
+<td>不是关键词而是样例句完全匹配</td>
+</tr>
+<tr class="odd">
+<td>CNN</td>
+<td>否</td>
+<td>无</td>
+<td>DIET只支持在预训练模型后添加transformer层，现有rasa无法搭建诸如textCNN, bert+bilsm+crf这类经典模型</td>
+</tr>
+<tr class="even">
+<td>单双向RNN ( LSTM, GRU )</td>
+<td>否</td>
+<td>无</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>GCN</td>
+<td>否</td>
+<td>无</td>
+<td>图卷积神经网络</td>
+</tr>
+<tr class="even">
+<td>正则分类</td>
+<td>否</td>
+<td>无</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>...</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>问题：pipeline中可以叠加使用多个classifier吗（除fallback）？如果被KeywordClassifier模块命中，可不可以直接跳过其他 classifier）</p>
+<p>回答：单个pipeline中classifier可以叠加，例如KeywordIntentClassifier可以添加在主classifier后，这样Keyword的结果将覆盖classifier结果。<a href="https://forum.rasa.com/t/keyword-based-intent-classification/22027/7" target="_blank" rel="noopener">参考资料</a></p>
+]]></content>
+      <tags>
+        <tag>Rasa</tag>
+        <tag>Machine leanring</tag>
+        <tag>[object Object]</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Rasa NLU DIET Classifier解析</title>
+    <url>/2022/10/21/Rasa%20NLU%20DIET%20Classifier%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU classifier中最受欢迎的DIET Classifier的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU classifier 中的DIET Classifier做详细的说明。</p>
+<p>本文更多关注算法，主要内容如下：</p>
+<a id="more"></a>
+<ul>
+<li>Rasa NLU Classifier架构</li>
+<li>主流技术支持情况</li>
+</ul>
+<h3 id="diet-classifier架构">DIET Classifier架构</h3>
+<h4 id="img"><img src="https://docimg8.docs.qq.com/image/KI5NjAOn8Ig8iz3aiZROgw.png?w=1280&amp;h=739.5149786019972" alt="img" /></h4>
+<h3 id="模型支持说明">模型支持说明</h3>
+<p>DIET支持的Huggingface模型类型如下表：</p>
+<table>
+<thead>
+<tr class="header">
+<th><strong>模型类型</strong></th>
+<th><strong>模型名称</strong></th>
+<th><strong>默认加载的预训练模型</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>BERT</td>
+<td>bert</td>
+<td>rasa/LaBSE ( bert-base-uncased )</td>
+</tr>
+<tr class="even">
+<td>GPT</td>
+<td>gpt</td>
+<td>openai-gpt</td>
+</tr>
+<tr class="odd">
+<td>GPT2</td>
+<td>gpt2</td>
+<td>gpt2</td>
+</tr>
+<tr class="even">
+<td>XLNet</td>
+<td>xlnet</td>
+<td>xlnet-base-cased</td>
+</tr>
+<tr class="odd">
+<td>DistilBERT</td>
+<td>distilbert</td>
+<td>distilbert-base-uncased</td>
+</tr>
+<tr class="even">
+<td>RoBERTa</td>
+<td>roberta</td>
+<td>roberta-base</td>
+</tr>
+</tbody>
+</table>
+<p>对在HuggingFace 中上传的所有预训练模型（<a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>），Rasa DIET可以支持满足以下条件的所有模型：</p>
+<p>点击<a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>-&gt;选中一个模型-&gt;点击进入模型页面-&gt;点击Files and version</p>
+<ul>
+<li>检查 config.json 中的 model_type 是否列在上表的 <strong>模型名称</strong> 列中</li>
+<li>检查文件 tf_model.h5 是否存在</li>
+<li>模型使用默认tokenizer, config.json 中不包含支持自定义的 tokenizer_class</li>
+</ul>
+<p>对满足上述条件的模型，通过2.1.3.3中描述的方式可开箱即用。</p>
+<h3 id="diet支持huggingface的配置样例">DIET支持Huggingface的配置样例</h3>
+<p>在Rasa2.0中，若想在DIET架构中使用Huggingface提供的预训练模型，除在rasa的config文件中指定使用DIETClassifier外，还需要配合使用对应的模块：</p>
+<ol type="1">
+<li>HFTransformersNLP</li>
+</ol>
+<p>主要参数：model_name: 预训练模型config.json 中的 model_type的值</p>
+<p>​ model_weights: <a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>提供的预训练模型名称</p>
+<ol type="1">
+<li>LanguageModelTokenizer：确保训练数据token对应的token_id与预训练模型的token_id保持一致</li>
+<li>LanguageModelFeaturizer：生成经预训练模型转换后的特征向量，做为架构后续模块的输入。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">language: en</span><br><span class="line">pipeline:</span><br><span class="line">- name: HFTransformersNLP</span><br><span class="line">  model_weights: &quot;rasa&#x2F;LaBSE&quot;</span><br><span class="line">  model_name: &quot;bert&quot;</span><br><span class="line">- name: LanguageModelTokenizer</span><br><span class="line">- name: LanguageModelFeaturizer</span><br><span class="line">- name: DIETClassifier</span><br><span class="line">  epochs: 20</span><br><span class="line">  num_transformer_layers: 2</span><br><span class="line">  transfomer_size: 256</span><br><span class="line">  use_masked_language_model: True</span><br><span class="line">  drop_rate: 0.25</span><br><span class="line">  weight_sparsity: 0.7</span><br><span class="line">  batch_size: [64, 256]</span><br><span class="line">  embedding_dimension: 100</span><br><span class="line">  hidden_layer_sizes:</span><br><span class="line">    text: [512, 128]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>DIET样例代码包位置：examples/hf_demo</li>
+<li>DIET样例代码调用方式：项目根目录/main.py</li>
+<li>涉及的源码改动：</li>
+</ul>
+<p>如按 ‘样例代码调用方式’ 直接跑报错... set from_pt=true, 请修改: 项目根目录/rasa/nlu/utils/hugging_face/hf_transformers.py: class HFTransformersNLP中的def _load_model_instance中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">self.model &#x3D; model_class_dict[self.model_name].from_pretrained(self.model_weights, cache_dir&#x3D;self.cache_dir)</span><br></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">self.model &#x3D; model_class_dict[self.model_name].from_pretrained(self.model_weights, cache_dir&#x3D;self.cache_dir, from_pt&#x3D;True)</span><br></pre></td></tr></table></figure>
+<h3 id="diet核心代码解析">DIET核心代码解析</h3>
+<p><strong>rasa.nlu.model.Trainer.train：</strong>遍历pipeline所有components，对每个component调用component.train方法完成训练。在component遍历到DIETClassifier之前，HFTransformersNLP等组件已经提取好了DIETClassifier训练需要的特征。遍历至DIETClassifier后，DIETClassifier开始利用已经提取好的特征进入训练。</p>
+<p><strong>rasa.nlu.classifiers.DIETClassifier.train:</strong> 该方法主要完成三件事：</p>
+<ul>
+<li><p>语料准备：通过DIETClassifier类中的方法preprocess_train_data，将训练数据和之前提取的特征整理成符合RasaModelData格式的model_data。RasaModelData格式为。。。。。之后将整理好的model_data按batch_size整理成data_generator供batch训练用。</p></li>
+<li><p>指定模型：将DIETClassifier类的成员self.model通过初始化DIET类完成指定DIET模型训练。</p></li>
+<li><ul>
+<li><p>DIET模型类继承自TransformerRasaModel类：自定义了</p></li>
+<li><p>TransformerRasaModel继承自RasaModel：自定义了。。。 要求实现。。。</p></li>
+<li><p>RasaModel继承自TmpKerasModel：通过重写tf.keras.Model中的train_step(), test_step(), predict_step(), save()和load()方法，实现自定义的Rasa模型.</p></li>
+<li><ul>
+<li>train_step()使用自定义的batch_loss并对该loss做了正则化。batch_loss需由其子类实现。</li>
+<li>predict_step()使用自定义的batch_predict()。需由其子类实现。</li>
+<li>save()只使用tf.keras.Model.save_weights()。</li>
+<li>load()生成模型结构后加载weights.</li>
+</ul></li>
+<li><p>TmpKerasModel继承自tf.keras.models.Model：重写了tf.keras.models.Model的fit方法来使用自定义的数据适配器。将数据转写成CustomDataHandler后由其处理迭代 epoch 级别的 <code>tf.data.Iterator</code> 对象。</p></li>
+</ul></li>
+<li><p>训练</p></li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
     <title>Bidirectional LSTM-CRF Models for Sequence Tagging</title>
     <url>/2020/07/15/Bidirectional%20LSTM-CRF%20Models%20for%20Sequence%20Tagging/</url>
     <content><![CDATA[<p>本文是对论文<a href="https://arxiv.org/abs/1508.01991" target="_blank" rel="noopener">Bidirectional LSTM-CRF Models for Sequence Tagging</a>的总结。文章系统地比较了基于LSTM网络的各种序列标记模型的性能。 并在当时首次将BI-LSTM-CRF模型应用于NLP基准序列标记任务。 其中，BI-LSTM-CRF模型在词性标注，分块和命名实体识别任务上表现最优。模型具有鲁棒性且对单词嵌入的依赖性较小，甚至可以无需借助词嵌入达到一定的精度。</p>
@@ -189,23 +415,164 @@ h _ { t } = o _ { t } \tanh ( c _ { t } )\quad\quad\quad\quad\quad\quad\quad\qua
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/05/23/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+    <title>WMD论文总结及代码实现:  From Word Embeddings To Document Distances</title>
+    <url>/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/</url>
+    <content><![CDATA[<p>本文是对论文<a href="http://proceedings.mlr.press/v37/kusnerb15.pdf" target="_blank" rel="noopener">From Word Embeddings To Document Distances</a>的总结和<a href="https://github.com/Adline125/Similarity" target="_blank" rel="noopener">code</a>实现。该论文基于word2vec embedding 和EMD（Earth Mover's Distance）提出了一种新的计算文档距离的算法WMD（Word Mover's Distance）。旨在解决 <em>Obama speaks to the media in Illinois</em> 和 <em>The President greets the press in Chicago</em> 仅仅因词语拼写不同而导致距离很远的不合理现象。尽管这两个句子对应的词语在语义上是相近的。</p>
 <a id="more"></a>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>本文的主要内容包括：</p>
+<ul>
+<li>WMD模型</li>
+<li>WMD模型的速度优化</li>
+<li>总结</li>
+<li>Code</li>
+</ul>
+<p>在WMD模型提出以前，计算文档相似度主要是使用词袋模型或TF-IDF。这两种方法都存在严重的数据稀疏问题，而且完成没有考虑词与词之间的语义关系。对意义相近但用词不同的文档无能为力。</p>
+<h3 id="word-movers-distancewmd模型">Word Mover’s Distance（WMD）模型</h3>
+<hr />
+<p>MWD既考虑了词袋模型的词频也考虑了词与词之间的距离：</p>
+<h4 id="文档表示nbow">文档表示（nBOW）</h4>
+<p>WMD中文档表示就是归一化的词袋模型，文档向量各分量值形式化表示为： <span class="math display">\[
+d _ { i } = \frac { c _ { i } } { \sum _ { i = 1 } ^ { n } c _ { j } }
+\]</span> 分子为词频，分母为文档总词数。以论文中的例句为例，去停后可表示为：</p>
+<ul>
+<li>D0：President greets press Chicago [0.25, 0.25, 0.25, 0.25, 0, 0, ...]</li>
+<li>D1：Obama speaks media Illinois [0, ..., 0.25, 0.25, 0.25, 0.25, 0, ...]</li>
+<li>D3：Obama speaks Illinois [0, .., 0.33, 0.33, 0.33, 0, ..., 0]</li>
+</ul>
+<h4 id="词转化损失word-travel-cost">词转化损失（word travel cost）</h4>
+<p>利用word2vec词向量计算欧式距离得到： <span class="math display">\[
+c ( i , j ) = \| x _ { i } - x _ { j } \| _ { 2 }
+\]</span> $c ( i , j ) $表示一个词转化为另一个词的损失。</p>
+<h4 id="文档距离">文档距离</h4>
+<p>WMD文档距离是由文档表示（nBow）和词转化损失（word travel cost）共同作用得到的，计算方法为寻找两个文档中对应的词，累加各组对应词对的（词转化损失 * nBow对应的分量分到该词上的权重）。对应词的标准是<span class="math inline">\(c(i, j)\)</span>最小的词，如Figure 1所示。</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3CGkx6DnFyk.q1oiK0VT4CmULupL1*P.hj8AixoE7E5DXkt*fqv09R0MTU0jgh9CAA!!/b&amp;bo=igL1AYoC9QEDByI!&amp;rf=viewer_4" style="zoom:67%;" /></p>
+<center>
+Figure 1. (Top:) The components of the WMD metric between a query D0 and two sentences D1, D2 (with equal BOW distance). The arrows represent flow between two words and are labeled with their distance contribution. (Bottom:) The flow between two sentences D3 and D0 with different numbers of words. This mismatch causes the WMD to move words to multiple similar words.
+</center>
+<p>当比较的两个文档长度相同时，文档距离可以简单理解为： <span class="math display">\[
+W\!M\!D \  document \ distance = \sum _ {i=1}^ {n} d_{i} * min(c(i, j))
+\]</span> 但更通用的表示，即当比较的两个文档长度不同时，我们需要引入矩阵<span class="math inline">\(T \in R ^ { n \times n }\)</span>来表示文档距离： <span class="math display">\[
+\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j )
+\]</span> 其中 <span class="math inline">\(T _ { i j } \geq 0\)</span>，表示文档中的词<span class="math inline">\(i\)</span>在多大程度上转化为另一个文档中的词 <span class="math inline">\(j\)</span>，也可理解为文档中的词<span class="math inline">\(i\)</span>在文档nBow表示中对应的分量有多少权重被分到另一个文档中的词<span class="math inline">\(j\)</span>上。</p>
+<p>举个例子，Figure 1中的<span class="math inline">\(D_{0}\)</span>和<span class="math inline">\(D_{3}\)</span>，当<span class="math inline">\(T\)</span> 矩阵为如下情况时，<span class="math inline">\(D_{0}\)</span>和<span class="math inline">\(D_{3}\)</span>会产生如图中所示的对应关系： <span class="math display">\[
+\begin{array}{c|cccc}
+         &amp; \text{President} &amp; \text{greets} &amp; \text{press} &amp; \text{Chicago}\\
+\hline
+Obama    &amp; 0.25             &amp; 0.08           &amp; 0.          &amp; 0.             \\
+speaks   &amp; 0.08             &amp; 0.             &amp; 0.25        &amp; 0.            \\
+Illinois &amp; 0.08             &amp; 0.             &amp; 0.          &amp; 0.25          \\
+\end{array}
+\]</span></p>
+<center>
+Figure 2
+</center>
+<p>还记得<span class="math inline">\(D_3\)</span>的nBow表示，<em>Obama</em>对应的分量值为0.33，这里<em>Obama</em>被距离最近的词<em>President</em> 分走了0.25, 还剩0.08需要分配出去。图中的情况，<em>greets</em>是距离<em>Obama</em>第二近的词，于是0.08被分配给了<em>greets</em>。以此类推。</p>
+<p>显然，两个文档长度相同时，<span class="math inline">\(T\)</span> 除一一对应的词的位置是nbow分量值外，其他位置都是0.</p>
+<p><em>注：Figure 1中<span class="math inline">\(D_0\)</span>和<span class="math inline">\(D_3\)</span>只是众多可能的对应关系的一种，并不是最优的对应关系。最优的对应关系如前面所说，寻找<span class="math inline">\(c(i, j)\)</span>尽可能小的词对。一对多的情况下，按<span class="math inline">\(c(i, j)\)</span>由小到大顺位取。</em></p>
+<h4 id="wmd模型">WMD模型</h4>
+<p>WMD模型的<span class="math inline">\(Obj\)</span>： <span class="math display">\[
+\begin{split}
+\min _ { T \geq 0 } &amp;\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j ) \\
+subject\ to: &amp;\sum _ { j = 1 } ^ { n } T _ { i j } = d _ { i } \quad \forall i \in \{ 1 , \ldots , n \} \qquad (1)\\
+&amp;\sum _ { i = 1 } ^ { n } T _ { i j } = d _ { j } ^ { \prime } \quad \forall j \in \{ 1 , \ldots , n \} \qquad (2)
+\end{split} \\
+\]</span> 条件（1）就是<span class="math inline">\(T\)</span>的行元素相加和等于<span class="math inline">\(d_i\)</span> <em>。如 Obama (0.33)</em> = <em>President (0.25)</em> + <em>greets (0.08)</em> + <em>press (0.)</em> + <em>Chicago (0.)</em>。</p>
+<p>条件（2）就是<span class="math inline">\(T\)</span>的列元素相加和等于<span class="math inline">\(d_j\)</span>。如<em>Press (0.25)</em> = <em>Obama (0.)</em> + <em>speak (0.25)</em> + <em>Illinois (0.)</em>。</p>
+<p><strong><em>（Figure2中例子<span class="math inline">\(president\)</span>是不满足条件（2）的，下面优化部分会提到，其实只满足一个条件就可以）</em></strong></p>
+<p>从<span class="math inline">\(\min _ { T \geq 0 } \sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j )\)</span>可以看出，这是一个有条件的线性规划问题。所有线性规划问题都有最优解。</p>
+<h3 id="wmd模型的速度优化">WMD模型的速度优化</h3>
+<hr />
+<h4 id="word-centroid-distancewcd">Word centroid distance（WCD）</h4>
+<p>计算WMD的复杂度太高，为<span class="math inline">\(O ( p ^ { 3 } \log p )\)</span>。WCD的结果是WMD的下限，它是一些简单的矩阵运算，复杂度为<span class="math inline">\(O (dp)\)</span>。其推导过程如下： <span class="math display">\[
+\begin{split}
+&amp;\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j ) = \sum _ { i , j = 1 } ^ { n } T _ { i j } \| x _ { i } - x _ { j } ^ { \prime } \| _ { 2 } \\
+= &amp;\sum ^ { n } \| T _ { i j } ( x _ { i } - x _ { j } ^ { \prime } ) \| _ { 2 } \geq \| \sum ^ { n } T _ { i j } ( x _ { i } - x _ { j } ^ { \prime } ) \| _{2} \\
+= &amp;\| \sum _ { i = 1 } ^ { n } ( \sum _ { j = 1 } ^ { n } T _ { i j } ) x _ { i } - \sum _ { j = 1 } ^ { n } ( \sum _ { i = 1 } ^ { n } T _ { i j } ) x _ { j } ^ { \prime } \| _ { 2 } \\ 
+= &amp;\| \sum _ { i = 1 } ^ { n } d _ { i } x _ { i } - \sum _ { j = 1 } ^ { n } d _ { j } ^ { \prime } x _ { j } ^ { \prime } \| _ { 2 } = \| X d - X d ^ { \prime } \| _ { 2 } \\
+\end{split}
+\]</span></p>
+<p>WCD的推导相对容易，上面推导中不等式的步骤是利用<span class="math inline">\(\sqrt a + \sqrt b \geq \sqrt{a+b}\)</span> 得到的。</p>
+<p>得到两个文档的WMD下限<span class="math inline">\(\| X d - X d ^ { \prime } \| _ { 2 }\)</span>，可知这两个文档的距离一定大于这个值。在很多情况下，可以直接排除掉这些下限都已经很大的文档，免去进一步的运算，减少计算量。</p>
+<h4 id="relaxed-word-moving-distance-rwmd">Relaxed word moving distance （RWMD）</h4>
+<p>虽然WCD速度很快，但计算出来的下限相比真实值还是差距比较大的。RWMD通过分别去掉WMD中的一个条件来得到两个下限<span class="math inline">\(\ell _ { 1 } ( d , d ^ { \prime } )\)</span>和<span class="math inline">\(\ell _ { 2 } ( d , d ^ { \prime } )\)</span>, 然后取<span class="math inline">\(\ell _ { r } ( d , d ^ { \prime } ) = \max ( \ell _ { 1 } ( d , d ^ { \prime } ) , \ell _ { 2 } ( d , d ^ { \prime } ) )\)</span>。当去掉的是条件（2）时，RMWD形式化表示如下： <span class="math display">\[
+\begin{split}
+\min _ { T \geq 0 } &amp;\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j ) \\
+subject\ to: &amp;\sum _ { j = 1 } ^ { n } T _ { i j } = d _ { i } \quad \forall i \in \{ 1 , \ldots , n \} \\
+\end{split} \\
+\]</span> RWMD的复杂度为<span class="math inline">\(O(p^2)\)</span>。<strong>（Figure 2的情况满足RWMD）</strong></p>
+<h4 id="prefetch-and-prune">Prefetch and prune</h4>
+<ol type="1">
+<li>计算所有文档与目标文档的WCD并对结果进行排序，选择前k个文档作为k-nearest-neighbour。</li>
+<li>计算这k个文档与目标文档的具体WMD。</li>
+<li>依次计算其他文档与目标文档的RWMD，并将其与第k个文档WMD进行对比，超过的可以直接prune掉。</li>
+<li>如果没超过，计算该文档与目标文档的WMD并对k-nearest-neighbour进行更新。</li>
+</ol>
+<h3 id="总结">总结</h3>
+<hr />
+<ul>
+<li>WMD完美地将word2vec与传统的Bow结合起来，这在深度学习与传统机器学习算法结合方面做得都不是很好的今天，无疑是个很novel的idea.</li>
+<li>在解决WMD复杂度过高的问题上，利用复杂度低很多的两个下限配合使用，既大大提高了速度，又没有损失精度。</li>
+</ul>
+<h3 id="代码实现">代码实现</h3>
+<hr />
+<p>本文实现代码请见 <a href="https://github.com/Adline125/Similarity" target="_blank" rel="noopener">https://github.com/Adline125/Similarity</a></p>
+<p>开源的WMD实现有：</p>
+<ul>
+<li><a href="https://github.com/RaRe-Technologies/gensim" target="_blank" rel="noopener">gensim</a>（python）调用<a href="https://github.com/wmayner/pyemd" target="_blank" rel="noopener">pyemd</a>的c扩展，使用fast EMD算法。</li>
+<li><a href="https://github.com/mkusner/wmd" target="_blank" rel="noopener">Word Mover's Distance (WMD) from Matthew J Kusner</a> 单纯形法实现</li>
+<li><a href="https://github.com/src-d/wmd-relax" target="_blank" rel="noopener">Fast WMD</a>有RWMD的实现。</li>
+</ul>
+<h3 id="参考文献">参考文献</h3>
+<hr />
+<p><a href="http://proceedings.mlr.press/v37/kusnerb15.pdf" target="_blank" rel="noopener">From Word Embeddings To Document Distances</a></p>
+<h3 id="文本距离类的其他资料">文本距离类的其他资料</h3>
+<hr />
+<p><a href="http://www.deepsmart.ai/76.html" target="_blank" rel="noopener">CIKM Cup 2018阿里小蜜短文本匹配算法竞赛 – 冠军DeepSmart团队分享</a></p>
+<p><a href="https://arxiv.org/pdf/1908.10084.pdf" target="_blank" rel="noopener">Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks</a></p>
+]]></content>
+      <categories>
+        <category>NLP</category>
+      </categories>
+      <tags>
+        <tag>document distance</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Rasa NLU架构解析</title>
+    <url>/2022/10/21/Rasa%20NLU%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU各部分做细节上的说明。</p>
+<p>本文更多关注算法，主要内容如下：</p>
+<a id="more"></a>
+<ul>
+<li>Rasa NLU总体架构图</li>
+<li>Rasa NLU训练流程解析</li>
+<li>Rasa NLU推理流程解析</li>
+</ul>
+<h1 id="rasa-nlu-总体架构图">Rasa NLU 总体架构图</h1>
+<figure>
+<img src="https://docimg8.docs.qq.com/image/98V-UBk-_5TpiCGi8fTu0g.jpeg?w=1280&amp;h=864.395061728395" alt="" /><figcaption>img</figcaption>
+</figure>
+<p><strong>注：（1）FallbackClassifier应出现在某一个意图分类器之后，利用其输出的结果，即intent、confidence、intent ranking，如果意图的置信度比预设的threshold低，或排名前两位的意图的置信度的差距小于预设的ambiguity_threshold，则将该输入的意图分类为“nlu_fallback”</strong></p>
+<h1 id="rasa-nlu训练流程解析"><strong>Rasa NLU训练流程解析</strong></h1>
+<figure>
+<img src="https://docimg2.docs.qq.com/image/IPcD4Z5_39cYSyVNGX9jkw.png?w=1280&amp;h=739.4174757281553" alt="" /><figcaption>img</figcaption>
+</figure>
+<p><strong>rasa.model_training.train_async</strong>: 读取config, domain和训练data到file_importer: TrainingDataImporter, 并输入到_train_async_internal训练Rasa model (nlu and core).</p>
+<p><strong>rasa.model_training._train_async_internal:</strong> 判定模型需要重新训练的部分并将判定结果写入fingerprint_comparison作为_do_training方法的参数fingerprint_comparison_result的值输入_do_training完成相应部分的训练, 训练结束后将模型打包成trained_model，通过trained_model输入TrainingResult返回回至上层。</p>
+<p><strong>rasa.model_training._do_training:</strong> 通过fingerprint_comparison_result带入的结果判断是否重新训练nlu, core和nlg, 并进入相应模块进行训练。</p>
+<p><strong>rasa.model_training._train_nlu_with_validated_data：</strong>按rasa.nlu.train.train各参数要求读取和整理参数值，输入rasa.nlu.train.train开始nlu模块的训练。</p>
+<p><strong>rasa.nlu.train.train:</strong> 通过初始化trainer=rasa.nlu.model.Trainer(...), 构建config.yml中pipeline下的所有组件。读取TrainingDataImporter中的nlu数据后，将数据输入trainer.train开始训练。</p>
+<p><strong>rasa.nlu.model.Trainer.train:</strong> 遍历pipeline所有components，对每个component调用component.train方法完成训练。</p>
+<h1 id="rasa-nlu推理流程解析">Rasa NLU推理流程解析</h1>
+<figure>
+<img src="https://docimg2.docs.qq.com/image/hemNiPZoMubPJc-GNKLofw.jpeg?w=1135&amp;h=1023" alt="" /><figcaption>img</figcaption>
+</figure>
+<p><strong>rasa.model_testing.test_nlu：</strong>nlu测试入口，使用get_model函数加载model并解压（unpack），创建结果输出目录，调用测试过程</p>
+<p><strong>rasa.nlu.test.run_evaluation：</strong>测试过程入口函数，加载nlu模型初始化Interpreter实例，加载测试数据，调用get_eval_data进行测试</p>
+<p><strong>rasa.nlu.test.get_eval_data：</strong>在测试数据上运行模型，并提取真实标签和预测结果，输入interpreter实例和测试数据，返回意图测试结果（包括意图的标签和预测结果，原始消息，即message，及预测结果的置信度），response测试结果（包括response的目标值和预测结果），还有实体测试结果（实体的目标值，预测结果，和对应的token）</p>
+<p><strong>rasa.nlu.model.Interpreter.parse：</strong>一个interpreter对应一个训好的pipeline，其parse方法依次调用pipeline中的每一个component的process方法，来对输入文本一次进行解析和分类等操作，并返回处理结果（包括意图和实体）</p>
+<p>每个component都有一个process入口方法，用于测试和实际预测，在process方法中再调用各component的内部方法（包含真正的处理逻辑），上图虚线框中即展示了一个基本的pipeline预测示例。</p>
+<p>pipeline中Rasa自带的classifiers和extractors各组件（component）的具体介绍后续文章中介绍。</p>
 ]]></content>
   </entry>
   <entry>
@@ -358,131 +725,28 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
 </ol>
 ]]></content>
       <tags>
-        <tag>XGBoost</tag>
         <tag>Machine leanring</tag>
+        <tag>XGBoost</tag>
       </tags>
   </entry>
   <entry>
-    <title>WMD论文总结及代码实现:  From Word Embeddings To Document Distances</title>
-    <url>/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/</url>
-    <content><![CDATA[<p>本文是对论文<a href="http://proceedings.mlr.press/v37/kusnerb15.pdf" target="_blank" rel="noopener">From Word Embeddings To Document Distances</a>的总结和<a href="https://github.com/Adline125/Similarity" target="_blank" rel="noopener">code</a>实现。该论文基于word2vec embedding 和EMD（Earth Mover's Distance）提出了一种新的计算文档距离的算法WMD（Word Mover's Distance）。旨在解决 <em>Obama speaks to the media in Illinois</em> 和 <em>The President greets the press in Chicago</em> 仅仅因词语拼写不同而导致距离很远的不合理现象。尽管这两个句子对应的词语在语义上是相近的。</p>
+    <title>Hello World</title>
+    <url>/2020/05/23/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <a id="more"></a>
-<p>本文的主要内容包括：</p>
-<ul>
-<li>WMD模型</li>
-<li>WMD模型的速度优化</li>
-<li>总结</li>
-<li>Code</li>
-</ul>
-<p>在WMD模型提出以前，计算文档相似度主要是使用词袋模型或TF-IDF。这两种方法都存在严重的数据稀疏问题，而且完成没有考虑词与词之间的语义关系。对意义相近但用词不同的文档无能为力。</p>
-<h3 id="word-movers-distancewmd模型">Word Mover’s Distance（WMD）模型</h3>
-<hr />
-<p>MWD既考虑了词袋模型的词频也考虑了词与词之间的距离：</p>
-<h4 id="文档表示nbow">文档表示（nBOW）</h4>
-<p>WMD中文档表示就是归一化的词袋模型，文档向量各分量值形式化表示为： <span class="math display">\[
-d _ { i } = \frac { c _ { i } } { \sum _ { i = 1 } ^ { n } c _ { j } }
-\]</span> 分子为词频，分母为文档总词数。以论文中的例句为例，去停后可表示为：</p>
-<ul>
-<li>D0：President greets press Chicago [0.25, 0.25, 0.25, 0.25, 0, 0, ...]</li>
-<li>D1：Obama speaks media Illinois [0, ..., 0.25, 0.25, 0.25, 0.25, 0, ...]</li>
-<li>D3：Obama speaks Illinois [0, .., 0.33, 0.33, 0.33, 0, ..., 0]</li>
-</ul>
-<h4 id="词转化损失word-travel-cost">词转化损失（word travel cost）</h4>
-<p>利用word2vec词向量计算欧式距离得到： <span class="math display">\[
-c ( i , j ) = \| x _ { i } - x _ { j } \| _ { 2 }
-\]</span> $c ( i , j ) $表示一个词转化为另一个词的损失。</p>
-<h4 id="文档距离">文档距离</h4>
-<p>WMD文档距离是由文档表示（nBow）和词转化损失（word travel cost）共同作用得到的，计算方法为寻找两个文档中对应的词，累加各组对应词对的（词转化损失 * nBow对应的分量分到该词上的权重）。对应词的标准是<span class="math inline">\(c(i, j)\)</span>最小的词，如Figure 1所示。</p>
-<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3CGkx6DnFyk.q1oiK0VT4CmULupL1*P.hj8AixoE7E5DXkt*fqv09R0MTU0jgh9CAA!!/b&amp;bo=igL1AYoC9QEDByI!&amp;rf=viewer_4" style="zoom:67%;" /></p>
-<center>
-Figure 1. (Top:) The components of the WMD metric between a query D0 and two sentences D1, D2 (with equal BOW distance). The arrows represent flow between two words and are labeled with their distance contribution. (Bottom:) The flow between two sentences D3 and D0 with different numbers of words. This mismatch causes the WMD to move words to multiple similar words.
-</center>
-<p>当比较的两个文档长度相同时，文档距离可以简单理解为： <span class="math display">\[
-W\!M\!D \  document \ distance = \sum _ {i=1}^ {n} d_{i} * min(c(i, j))
-\]</span> 但更通用的表示，即当比较的两个文档长度不同时，我们需要引入矩阵<span class="math inline">\(T \in R ^ { n \times n }\)</span>来表示文档距离： <span class="math display">\[
-\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j )
-\]</span> 其中 <span class="math inline">\(T _ { i j } \geq 0\)</span>，表示文档中的词<span class="math inline">\(i\)</span>在多大程度上转化为另一个文档中的词 <span class="math inline">\(j\)</span>，也可理解为文档中的词<span class="math inline">\(i\)</span>在文档nBow表示中对应的分量有多少权重被分到另一个文档中的词<span class="math inline">\(j\)</span>上。</p>
-<p>举个例子，Figure 1中的<span class="math inline">\(D_{0}\)</span>和<span class="math inline">\(D_{3}\)</span>，当<span class="math inline">\(T\)</span> 矩阵为如下情况时，<span class="math inline">\(D_{0}\)</span>和<span class="math inline">\(D_{3}\)</span>会产生如图中所示的对应关系： <span class="math display">\[
-\begin{array}{c|cccc}
-         &amp; \text{President} &amp; \text{greets} &amp; \text{press} &amp; \text{Chicago}\\
-\hline
-Obama    &amp; 0.25             &amp; 0.08           &amp; 0.          &amp; 0.             \\
-speaks   &amp; 0.08             &amp; 0.             &amp; 0.25        &amp; 0.            \\
-Illinois &amp; 0.08             &amp; 0.             &amp; 0.          &amp; 0.25          \\
-\end{array}
-\]</span></p>
-<center>
-Figure 2
-</center>
-<p>还记得<span class="math inline">\(D_3\)</span>的nBow表示，<em>Obama</em>对应的分量值为0.33，这里<em>Obama</em>被距离最近的词<em>President</em> 分走了0.25, 还剩0.08需要分配出去。图中的情况，<em>greets</em>是距离<em>Obama</em>第二近的词，于是0.08被分配给了<em>greets</em>。以此类推。</p>
-<p>显然，两个文档长度相同时，<span class="math inline">\(T\)</span> 除一一对应的词的位置是nbow分量值外，其他位置都是0.</p>
-<p><em>注：Figure 1中<span class="math inline">\(D_0\)</span>和<span class="math inline">\(D_3\)</span>只是众多可能的对应关系的一种，并不是最优的对应关系。最优的对应关系如前面所说，寻找<span class="math inline">\(c(i, j)\)</span>尽可能小的词对。一对多的情况下，按<span class="math inline">\(c(i, j)\)</span>由小到大顺位取。</em></p>
-<h4 id="wmd模型">WMD模型</h4>
-<p>WMD模型的<span class="math inline">\(Obj\)</span>： <span class="math display">\[
-\begin{split}
-\min _ { T \geq 0 } &amp;\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j ) \\
-subject\ to: &amp;\sum _ { j = 1 } ^ { n } T _ { i j } = d _ { i } \quad \forall i \in \{ 1 , \ldots , n \} \qquad (1)\\
-&amp;\sum _ { i = 1 } ^ { n } T _ { i j } = d _ { j } ^ { \prime } \quad \forall j \in \{ 1 , \ldots , n \} \qquad (2)
-\end{split} \\
-\]</span> 条件（1）就是<span class="math inline">\(T\)</span>的行元素相加和等于<span class="math inline">\(d_i\)</span> <em>。如 Obama (0.33)</em> = <em>President (0.25)</em> + <em>greets (0.08)</em> + <em>press (0.)</em> + <em>Chicago (0.)</em>。</p>
-<p>条件（2）就是<span class="math inline">\(T\)</span>的列元素相加和等于<span class="math inline">\(d_j\)</span>。如<em>Press (0.25)</em> = <em>Obama (0.)</em> + <em>speak (0.25)</em> + <em>Illinois (0.)</em>。</p>
-<p><strong><em>（Figure2中例子<span class="math inline">\(president\)</span>是不满足条件（2）的，下面优化部分会提到，其实只满足一个条件就可以）</em></strong></p>
-<p>从<span class="math inline">\(\min _ { T \geq 0 } \sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j )\)</span>可以看出，这是一个有条件的线性规划问题。所有线性规划问题都有最优解。</p>
-<h3 id="wmd模型的速度优化">WMD模型的速度优化</h3>
-<hr />
-<h4 id="word-centroid-distancewcd">Word centroid distance（WCD）</h4>
-<p>计算WMD的复杂度太高，为<span class="math inline">\(O ( p ^ { 3 } \log p )\)</span>。WCD的结果是WMD的下限，它是一些简单的矩阵运算，复杂度为<span class="math inline">\(O (dp)\)</span>。其推导过程如下： <span class="math display">\[
-\begin{split}
-&amp;\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j ) = \sum _ { i , j = 1 } ^ { n } T _ { i j } \| x _ { i } - x _ { j } ^ { \prime } \| _ { 2 } \\
-= &amp;\sum ^ { n } \| T _ { i j } ( x _ { i } - x _ { j } ^ { \prime } ) \| _ { 2 } \geq \| \sum ^ { n } T _ { i j } ( x _ { i } - x _ { j } ^ { \prime } ) \| _{2} \\
-= &amp;\| \sum _ { i = 1 } ^ { n } ( \sum _ { j = 1 } ^ { n } T _ { i j } ) x _ { i } - \sum _ { j = 1 } ^ { n } ( \sum _ { i = 1 } ^ { n } T _ { i j } ) x _ { j } ^ { \prime } \| _ { 2 } \\ 
-= &amp;\| \sum _ { i = 1 } ^ { n } d _ { i } x _ { i } - \sum _ { j = 1 } ^ { n } d _ { j } ^ { \prime } x _ { j } ^ { \prime } \| _ { 2 } = \| X d - X d ^ { \prime } \| _ { 2 } \\
-\end{split}
-\]</span></p>
-<p>WCD的推导相对容易，上面推导中不等式的步骤是利用<span class="math inline">\(\sqrt a + \sqrt b \geq \sqrt{a+b}\)</span> 得到的。</p>
-<p>得到两个文档的WMD下限<span class="math inline">\(\| X d - X d ^ { \prime } \| _ { 2 }\)</span>，可知这两个文档的距离一定大于这个值。在很多情况下，可以直接排除掉这些下限都已经很大的文档，免去进一步的运算，减少计算量。</p>
-<h4 id="relaxed-word-moving-distance-rwmd">Relaxed word moving distance （RWMD）</h4>
-<p>虽然WCD速度很快，但计算出来的下限相比真实值还是差距比较大的。RWMD通过分别去掉WMD中的一个条件来得到两个下限<span class="math inline">\(\ell _ { 1 } ( d , d ^ { \prime } )\)</span>和<span class="math inline">\(\ell _ { 2 } ( d , d ^ { \prime } )\)</span>, 然后取<span class="math inline">\(\ell _ { r } ( d , d ^ { \prime } ) = \max ( \ell _ { 1 } ( d , d ^ { \prime } ) , \ell _ { 2 } ( d , d ^ { \prime } ) )\)</span>。当去掉的是条件（2）时，RMWD形式化表示如下： <span class="math display">\[
-\begin{split}
-\min _ { T \geq 0 } &amp;\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j ) \\
-subject\ to: &amp;\sum _ { j = 1 } ^ { n } T _ { i j } = d _ { i } \quad \forall i \in \{ 1 , \ldots , n \} \\
-\end{split} \\
-\]</span> RWMD的复杂度为<span class="math inline">\(O(p^2)\)</span>。<strong>（Figure 2的情况满足RWMD）</strong></p>
-<h4 id="prefetch-and-prune">Prefetch and prune</h4>
-<ol type="1">
-<li>计算所有文档与目标文档的WCD并对结果进行排序，选择前k个文档作为k-nearest-neighbour。</li>
-<li>计算这k个文档与目标文档的具体WMD。</li>
-<li>依次计算其他文档与目标文档的RWMD，并将其与第k个文档WMD进行对比，超过的可以直接prune掉。</li>
-<li>如果没超过，计算该文档与目标文档的WMD并对k-nearest-neighbour进行更新。</li>
-</ol>
-<h3 id="总结">总结</h3>
-<hr />
-<ul>
-<li>WMD完美地将word2vec与传统的Bow结合起来，这在深度学习与传统机器学习算法结合方面做得都不是很好的今天，无疑是个很novel的idea.</li>
-<li>在解决WMD复杂度过高的问题上，利用复杂度低很多的两个下限配合使用，既大大提高了速度，又没有损失精度。</li>
-</ul>
-<h3 id="代码实现">代码实现</h3>
-<hr />
-<p>本文实现代码请见 <a href="https://github.com/Adline125/Similarity" target="_blank" rel="noopener">https://github.com/Adline125/Similarity</a></p>
-<p>开源的WMD实现有：</p>
-<ul>
-<li><a href="https://github.com/RaRe-Technologies/gensim" target="_blank" rel="noopener">gensim</a>（python）调用<a href="https://github.com/wmayner/pyemd" target="_blank" rel="noopener">pyemd</a>的c扩展，使用fast EMD算法。</li>
-<li><a href="https://github.com/mkusner/wmd" target="_blank" rel="noopener">Word Mover's Distance (WMD) from Matthew J Kusner</a> 单纯形法实现</li>
-<li><a href="https://github.com/src-d/wmd-relax" target="_blank" rel="noopener">Fast WMD</a>有RWMD的实现。</li>
-</ul>
-<h3 id="参考文献">参考文献</h3>
-<hr />
-<p><a href="http://proceedings.mlr.press/v37/kusnerb15.pdf" target="_blank" rel="noopener">From Word Embeddings To Document Distances</a></p>
-<h3 id="文本距离类的其他资料">文本距离类的其他资料</h3>
-<hr />
-<p><a href="http://www.deepsmart.ai/76.html" target="_blank" rel="noopener">CIKM Cup 2018阿里小蜜短文本匹配算法竞赛 – 冠军DeepSmart团队分享</a></p>
-<p><a href="https://arxiv.org/pdf/1908.10084.pdf" target="_blank" rel="noopener">Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks</a></p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
-      <categories>
-        <category>NLP</category>
-      </categories>
-      <tags>
-        <tag>document distance</tag>
-      </tags>
   </entry>
 </search>

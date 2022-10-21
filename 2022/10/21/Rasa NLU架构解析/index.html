@@ -20,17 +20,23 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="北京程序媛一枚，主攻NLP.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Adline125&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/CRF/index.html">
+  <meta name="description" content="本文是对著名对话机器人开源框架Rasa NLU架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU各部分做细节上的说明。 本文更多关注算法，主要内容如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rasa NLU架构解析">
+<meta property="og:url" content="http://yoursite.com/2022/10/21/Rasa%20NLU%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="Adline125&#39;s Blog">
-<meta property="og:description" content="北京程序媛一枚，主攻NLP.">
+<meta property="og:description" content="本文是对著名对话机器人开源框架Rasa NLU架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU各部分做细节上的说明。 本文更多关注算法，主要内容如下：">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://docimg8.docs.qq.com/image/98V-UBk-_5TpiCGi8fTu0g.jpeg?w=1280&amp;h=864.395061728395">
+<meta property="og:image" content="https://docimg2.docs.qq.com/image/IPcD4Z5_39cYSyVNGX9jkw.png?w=1280&amp;h=739.4174757281553">
+<meta property="og:image" content="https://docimg2.docs.qq.com/image/hemNiPZoMubPJc-GNKLofw.jpeg?w=1135&amp;h=1023">
+<meta property="article:published_time" content="2022-10-21T03:20:31.880Z">
+<meta property="article:modified_time" content="2022-10-21T03:37:43.328Z">
 <meta property="article:author" content="Adline125">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://docimg8.docs.qq.com/image/98V-UBk-_5TpiCGi8fTu0g.jpeg?w=1280&amp;h=864.395061728395">
 
-<link rel="canonical" href="http://yoursite.com/tags/CRF/">
+<link rel="canonical" href="http://yoursite.com/2022/10/21/Rasa%20NLU%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/">
 
 
 <script id="page-configurations">
@@ -38,12 +44,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Tag: CRF | Adline125's Blog</title>
+  <title>Rasa NLU架构解析 | Adline125's Blog</title>
   
 
 
@@ -186,57 +192,127 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">CRF
-          <small>Tag</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/21/Rasa%20NLU%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.png">
+      <meta itemprop="name" content="Adline125">
+      <meta itemprop="description" content="北京程序媛一枚，主攻NLP.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Adline125's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Rasa NLU架构解析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-21 11:20:31 / Modified: 11:37:43" itemprop="dateCreated datePublished" datetime="2022-10-21T11:20:31+08:00">2022-10-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+        <p>本文是对著名对话机器人开源框架Rasa NLU架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU各部分做细节上的说明。</p>
+<p>本文更多关注算法，主要内容如下：</p>
+<a id="more"></a>
+<ul>
+<li>Rasa NLU总体架构图</li>
+<li>Rasa NLU训练流程解析</li>
+<li>Rasa NLU推理流程解析</li>
+</ul>
+<h1 id="rasa-nlu-总体架构图">Rasa NLU 总体架构图</h1>
+<figure>
+<img src="https://docimg8.docs.qq.com/image/98V-UBk-_5TpiCGi8fTu0g.jpeg?w=1280&amp;h=864.395061728395" alt="" /><figcaption>img</figcaption>
+</figure>
+<p><strong>注：（1）FallbackClassifier应出现在某一个意图分类器之后，利用其输出的结果，即intent、confidence、intent ranking，如果意图的置信度比预设的threshold低，或排名前两位的意图的置信度的差距小于预设的ambiguity_threshold，则将该输入的意图分类为“nlu_fallback”</strong></p>
+<h1 id="rasa-nlu训练流程解析"><strong>Rasa NLU训练流程解析</strong></h1>
+<figure>
+<img src="https://docimg2.docs.qq.com/image/IPcD4Z5_39cYSyVNGX9jkw.png?w=1280&amp;h=739.4174757281553" alt="" /><figcaption>img</figcaption>
+</figure>
+<p><strong>rasa.model_training.train_async</strong>: 读取config, domain和训练data到file_importer: TrainingDataImporter, 并输入到_train_async_internal训练Rasa model (nlu and core).</p>
+<p><strong>rasa.model_training._train_async_internal:</strong> 判定模型需要重新训练的部分并将判定结果写入fingerprint_comparison作为_do_training方法的参数fingerprint_comparison_result的值输入_do_training完成相应部分的训练, 训练结束后将模型打包成trained_model，通过trained_model输入TrainingResult返回回至上层。</p>
+<p><strong>rasa.model_training._do_training:</strong> 通过fingerprint_comparison_result带入的结果判断是否重新训练nlu, core和nlg, 并进入相应模块进行训练。</p>
+<p><strong>rasa.model_training._train_nlu_with_validated_data：</strong>按rasa.nlu.train.train各参数要求读取和整理参数值，输入rasa.nlu.train.train开始nlu模块的训练。</p>
+<p><strong>rasa.nlu.train.train:</strong> 通过初始化trainer=rasa.nlu.model.Trainer(...), 构建config.yml中pipeline下的所有组件。读取TrainingDataImporter中的nlu数据后，将数据输入trainer.train开始训练。</p>
+<p><strong>rasa.nlu.model.Trainer.train:</strong> 遍历pipeline所有components，对每个component调用component.train方法完成训练。</p>
+<h1 id="rasa-nlu推理流程解析">Rasa NLU推理流程解析</h1>
+<figure>
+<img src="https://docimg2.docs.qq.com/image/hemNiPZoMubPJc-GNKLofw.jpeg?w=1135&amp;h=1023" alt="" /><figcaption>img</figcaption>
+</figure>
+<p><strong>rasa.model_testing.test_nlu：</strong>nlu测试入口，使用get_model函数加载model并解压（unpack），创建结果输出目录，调用测试过程</p>
+<p><strong>rasa.nlu.test.run_evaluation：</strong>测试过程入口函数，加载nlu模型初始化Interpreter实例，加载测试数据，调用get_eval_data进行测试</p>
+<p><strong>rasa.nlu.test.get_eval_data：</strong>在测试数据上运行模型，并提取真实标签和预测结果，输入interpreter实例和测试数据，返回意图测试结果（包括意图的标签和预测结果，原始消息，即message，及预测结果的置信度），response测试结果（包括response的目标值和预测结果），还有实体测试结果（实体的目标值，预测结果，和对应的token）</p>
+<p><strong>rasa.nlu.model.Interpreter.parse：</strong>一个interpreter对应一个训好的pipeline，其parse方法依次调用pipeline中的每一个component的process方法，来对输入文本一次进行解析和分类等操作，并返回处理结果（包括意图和实体）</p>
+<p>每个component都有一个process入口方法，用于测试和实际预测，在process方法中再调用各component的内部方法（包含真正的处理逻辑），上图虚线框中即展示了一个基本的pipeline预测示例。</p>
+<p>pipeline中Rasa自带的classifiers和extractors各组件（component）的具体介绍后续文章中介绍。</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-15T00:02:19+08:00"
-              content="2020-07-15">
-          07-15
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/15/Bidirectional%20LSTM-CRF%20Models%20for%20Sequence%20Tagging/" itemprop="url">
-            <span itemprop="name">Bidirectional LSTM-CRF Models for Sequence Tagging</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/21/Rasa%20NLU%20classifier%E8%A7%A3%E6%9E%90/" rel="prev" title="Rasa NLU classifier解析">
+      <i class="fa fa-chevron-left"></i> Rasa NLU classifier解析
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/21/Rasa%20NLU%20DIET%20Classifier%E8%A7%A3%E6%9E%90/" rel="next" title="Rasa NLU DIET Classifier解析">
+      Rasa NLU DIET Classifier解析 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
 
-    </div>
-  </div>
   
   
   
 
-  
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -283,6 +359,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#rasa-nlu-总体架构图"><span class="nav-number">1.</span> <span class="nav-text">Rasa NLU 总体架构图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rasa-nlu训练流程解析"><span class="nav-number">2.</span> <span class="nav-text">Rasa NLU训练流程解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rasa-nlu推理流程解析"><span class="nav-number">3.</span> <span class="nav-text">Rasa NLU推理流程解析</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -471,6 +548,26 @@
 
   
 
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2022/10/21/Rasa%20NLU%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/";
+    this.page.identifier = "2022/10/21/Rasa NLU架构解析/";
+    this.page.title = "Rasa NLU架构解析";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://Adline125.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>
