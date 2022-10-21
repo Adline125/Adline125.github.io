@@ -20,17 +20,23 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="北京程序媛一枚，主攻NLP.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Adline125&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/Rasa/index.html">
+  <meta name="description" content="本文是对著名对话机器人开源框架Rasa NLU Sklearn classifier架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU Sklearn classifier做细节上的说明">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rasa NLU SKLearn Classifier解析">
+<meta property="og:url" content="http://yoursite.com/2022/10/21/Rasa%20NLU%20SKLearn%20Classifier%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="Adline125&#39;s Blog">
-<meta property="og:description" content="北京程序媛一枚，主攻NLP.">
+<meta property="og:description" content="本文是对著名对话机器人开源框架Rasa NLU Sklearn classifier架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU Sklearn classifier做细节上的说明">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://docimg6.docs.qq.com/image/a5TXrrWcUlB5TcG7pS9qxA.png?w=646&amp;h=155">
+<meta property="og:image" content="https://docimg2.docs.qq.com/image/lUqxUTUHFswKoHebSM7gYg.png?w=262&amp;h=172">
+<meta property="og:image" content="https://docimg7.docs.qq.com/image/ncGvpEmMYA3EwyX89w4tWQ.png?w=400&amp;h=466">
+<meta property="article:published_time" content="2022-10-21T05:05:18.440Z">
+<meta property="article:modified_time" content="2022-10-21T05:14:12.238Z">
 <meta property="article:author" content="Adline125">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://docimg6.docs.qq.com/image/a5TXrrWcUlB5TcG7pS9qxA.png?w=646&amp;h=155">
 
-<link rel="canonical" href="http://yoursite.com/tags/Rasa/">
+<link rel="canonical" href="http://yoursite.com/2022/10/21/Rasa%20NLU%20SKLearn%20Classifier%E8%A7%A3%E6%9E%90/">
 
 
 <script id="page-configurations">
@@ -38,12 +44,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Tag: Rasa | Adline125's Blog</title>
+  <title>Rasa NLU SKLearn Classifier解析 | Adline125's Blog</title>
   
 
 
@@ -186,57 +192,164 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">Rasa
-          <small>Tag</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/21/Rasa%20NLU%20SKLearn%20Classifier%E8%A7%A3%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.png">
+      <meta itemprop="name" content="Adline125">
+      <meta itemprop="description" content="北京程序媛一枚，主攻NLP.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Adline125's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Rasa NLU SKLearn Classifier解析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-21 13:05:18 / Modified: 13:14:12" itemprop="dateCreated datePublished" datetime="2022-10-21T13:05:18+08:00">2022-10-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+        <p>本文是对著名对话机器人开源框架Rasa NLU Sklearn classifier架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU Sklearn classifier做细节上的说明。</p>
+<p>本文更多关注算法，主要内容如下：</p>
+<a id="more"></a>
+<ul>
+<li>Sklearn classifier架构</li>
+<li>模型支持说明</li>
+<li>配置样例</li>
+<li>核心代码解析</li>
+</ul>
+<h3 id="sklearn-classifier架构">Sklearn classifier架构</h3>
+<figure>
+<img src="https://docimg6.docs.qq.com/image/a5TXrrWcUlB5TcG7pS9qxA.png?w=646&amp;h=155" alt="" /><figcaption>img</figcaption>
+</figure>
+<h3 id="模型支持说明">模型支持说明</h3>
+<p>Rasa 对 Sklearn中的所有分类器都支持，包括并不限于以下：</p>
+<table>
+<thead>
+<tr class="header">
+<th>模型名称</th>
+<th>是否支持</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LogisticRegression</td>
+<td>支持</td>
+</tr>
+<tr class="even">
+<td>RandomForestClassifier</td>
+<td>支持</td>
+</tr>
+<tr class="odd">
+<td>DecisionTreeClassifier</td>
+<td>支持</td>
+</tr>
+<tr class="even">
+<td>MultinomialNB</td>
+<td>支持</td>
+</tr>
+<tr class="odd">
+<td>GradientBoostingClassifier</td>
+<td>支持</td>
+</tr>
+</tbody>
+</table>
+<p>SVM原理简介：</p>
+<p>SVM是找到不同类别之间的分界面，使得两类样本尽量落在面的两边，而且离分界面尽量远。SVM是平面的，局限很大， 这时就利用到核函数。</p>
+<p>核函数在解决线性不可分问题的时候，采取的方式是：使用低维特征空间上的计算来避免在高维特征空间中向量内积的恐怖计算量；也就是说此时SVM模型可以应用在高维特征空间中数据可线性分割的优点，同时又避免了引入这个高维特征空间恐怖的内积计算量。</p>
+<p>本质： 核函数是一个低纬的计算结果，并没有采用低纬到高维的映射。只不过核函数低纬运算的结果等价于映射到高维时向量点积的值。</p>
+<p>1、多项式核函数</p>
+<p>对传入的样本数据点添加多项式项；新的样本数据点进行点乘，返回点乘结果；</p>
+<p>多项式特征的基本原理：依靠升维使得原本线性不可分的数据线性可分；</p>
+<p>2、高斯核函数</p>
+<p>思想：按一定规律统一改变样本的特征数据得到新的样本，新的样本按新的特征数据能更好的分类，由于新的样本的特征数据与原始样本的特征数据呈一定规律的对应关系，因此根据新的样本的分布及分类情况，得出原始样本的分类情况。</p>
+<p>高斯核本质是在衡量样本和样本之间的“相似度”，在一个刻画“相似度”的空间中，让同类样本更好的聚在一起，进而线性可分。</p>
+<p><strong>限制：</strong>(1) SVM算法对大规模训练样本难以实施*</p>
+<p>​ <em>(2) 用SVM解决多分类问题存在困难</em></p>
+<h3 id="配置样例">配置样例</h3>
+<figure>
+<img src="https://docimg2.docs.qq.com/image/lUqxUTUHFswKoHebSM7gYg.png?w=262&amp;h=172" alt="" /><figcaption>img</figcaption>
+</figure>
+<figure>
+<img src="https://docimg7.docs.qq.com/image/ncGvpEmMYA3EwyX89w4tWQ.png?w=400&amp;h=466" alt="" /><figcaption>img</figcaption>
+</figure>
+<h3 id="核心代码解析">核心代码解析</h3>
+<ul>
+<li><p>LabelEncoder()函数： 标签编码，类别标签数值化</p></li>
+<li><p>transform_labels_str2num() 函数： 标签到数值</p></li>
+<li><p>transform_labels_() 函数： 输入数值，输出标签文本</p></li>
+<li><p>GridSearchCV() 函数：网格搜索参数，通过循环遍历，尝试每一种参数组合，返回最好的得分值的参数组合。</p></li>
+<li><p>SVC() 函数： 创建模型训练器</p></li>
+<li><p>process()函数： 模型推理</p></li>
+</ul>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-10-21T14:55:26+08:00"
-              content="2020-10-21">
-          10-21
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/10/21/Rasa%20NLU%20classifier%E8%A7%A3%E6%9E%90/" itemprop="url">
-            <span itemprop="name">Rasa NLU classifier解析</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/21/Rasa%20NLU%20DIET%20Classifier%E8%A7%A3%E6%9E%90/" rel="prev" title="Rasa NLU DIET Classifier解析">
+      <i class="fa fa-chevron-left"></i> Rasa NLU DIET Classifier解析
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
 
-    </div>
-  </div>
   
   
   
 
-  
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -283,6 +396,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#sklearn-classifier架构"><span class="nav-number">1.</span> <span class="nav-text">Sklearn classifier架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型支持说明"><span class="nav-number">2.</span> <span class="nav-text">模型支持说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置样例"><span class="nav-number">3.</span> <span class="nav-text">配置样例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心代码解析"><span class="nav-number">4.</span> <span class="nav-text">核心代码解析</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -471,6 +585,26 @@
 
   
 
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2022/10/21/Rasa%20NLU%20SKLearn%20Classifier%E8%A7%A3%E6%9E%90/";
+    this.page.identifier = "2022/10/21/Rasa NLU SKLearn Classifier解析/";
+    this.page.title = "Rasa NLU SKLearn Classifier解析";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://Adline125.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>
