@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2023-07-24T05:28:11.659Z</updated>
+  <updated>2023-07-24T06:16:28.872Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Paper Reading: Cramming- Training a Language Model on a Single GPU in One Day</title>
+    <link href="http://yoursite.com/2023/07/24/Paper%20Reading:%20Cramming-%20Training%20a%20Language%20Model%20on%20a%20Single%20GPU%20in%20One%20Day/"/>
+    <id>http://yoursite.com/2023/07/24/Paper%20Reading:%20Cramming-%20Training%20a%20Language%20Model%20on%20a%20Single%20GPU%20in%20One%20Day/</id>
+    <published>2023-07-24T06:05:15.839Z</published>
+    <updated>2023-07-24T06:16:28.872Z</updated>
+    
+    <content type="html"><![CDATA[<p>IBM's NLP research expert Leshem Choshen commented on Twitter, "This paper summarizes all the big model training trips you can think of.</p><a id="more"></a><p>###Limited resources</p><p>In order to simulate the resource environment of ordinary practitioners and researchers, this study first constructed a resource constrained research environment:</p><ul><li><p>A transformer based language model of any size, trained entirely from scratch using masked language modeling;</p></li><li><p>The pipeline cannot contain existing pre trained models;</p></li><li><p>Any raw text (excluding downstream data) can be included in the training, which means that acceleration can be achieved by wisely selecting how and when to sample the data, provided that the sampling mechanism does not require pre training the model;</p></li><li><p>The download and pre-processing of original data are not included in the total budget. The pre-processing here includes CPU based tokenizer construction, tokenization and filtering, but does not include Feature learning;</p></li><li><p>Training is only conducted on a single GPU for 24 hours;</p></li><li><p>Downstream performance is evaluated on GLUE, and downstream fine-tuning on GLUE is limited to simple training using only training data from downstream tasks (5 epochs or less), and requires the use of global hyperparameters set for all GLUE tasks. Downstream fine-tuning is not included in the total budget.</p></li></ul><p>###Improvement methods</p><p>The researchers implemented and tested some modification directions proposed by existing work, including general implementation and initial data settings, and attempted to modify the architecture, train, and modify the dataset methods.</p><p>The experiment was conducted in PyTorch, without using idiosyncratic implementations to be as fair as possible. All content was kept at the implementation level of the PyTorch framework, and only automatic operator fusion that could be applied to all components was allowed. In addition, the efficient attention kernel would only be re enabled after selecting the final architectural variant.</p><p>The first method we think of to improve performance is definitely modifying the model architecture. Intuitively, smaller/lower capacity models seem to be optimal in a one card per day training session. However, after studying the relationship between model type and training efficiency, researchers found that the scaling law poses a huge obstacle to scaling down. The training efficiency of each token largely depends on the model size, rather than the type of transformer.</p><p>In addition, smaller models have lower learning efficiency, which largely slows down the increase in throughput. Fortunately, the fact that training efficiency remains almost constant in models of the same size means that we can find suitable designs in architectures with similar parameter quantities, mainly based on the calculation time that affects individual gradient steps.</p><p>###summary</p><p>Overall, using the method in the paper, the training results are already very close to the original BERT, but it should be noted that the total FLOPS used by the latter is 45-136 times that of the new method (which takes four days on 16 TPUs). When the training time was extended by 16 times (trained on 8 GPUs for two days), the performance of the new method actually improved significantly compared to the original BERT, reaching the level of RoBERTA.</p><p>In this work, people discussed how much performance a transformer based language model can achieve in environments with very limited computational complexity. Fortunately, several modification directions can enable us to achieve good downstream performance on GLUE. Researchers expressed the hope that this work can provide a baseline for further improvement and provide theoretical support for many improvements and techniques proposed for Transformer architecture in recent years.</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;IBM&#39;s NLP research expert Leshem Choshen commented on Twitter, &quot;This paper summarizes all the big model training trips you can think of.&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>6 Artificial Intelligence Tools for Chat</title>
