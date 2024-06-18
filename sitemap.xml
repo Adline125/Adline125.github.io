@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/</loc>
+    
+    <lastmod>2024-06-18T05:15:23.957Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2024/05/10/%E5%9F%BA%E4%BA%8E%20LangChain%20%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D%20AI%20Agent%20%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/</loc>
     
     <lastmod>2024-06-18T05:00:39.290Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>http://yoursite.com/2020/07/15/Bidirectional%20LSTM-CRF%20Models%20for%20Sequence%20Tagging/</loc>
     
     <lastmod>2020-07-20T07:30:49.082Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/</loc>
-    
-    <lastmod>2020-07-15T09:15:39.351Z</lastmod>
     
   </url>
   
