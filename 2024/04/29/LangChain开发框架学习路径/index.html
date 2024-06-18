@@ -20,17 +20,29 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="北京程序媛一枚，主攻NLP.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Adline125&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/sequence-tagging/index.html">
+  <meta name="description" content="本文是对LangChain应用开发框架的总体架构和关键技术的解读。以大纲的形式，辅以图形展示出LangChain开发框架的主要技术学习路径，做为初始接触该技术的学习者的入门指南。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LangChain开发框架学习路径">
+<meta property="og:url" content="http://yoursite.com/2024/04/29/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/index.html">
 <meta property="og:site_name" content="Adline125&#39;s Blog">
-<meta property="og:description" content="北京程序媛一枚，主攻NLP.">
+<meta property="og:description" content="本文是对LangChain应用开发框架的总体架构和关键技术的解读。以大纲的形式，辅以图形展示出LangChain开发框架的主要技术学习路径，做为初始接触该技术的学习者的入门指南。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618112519688.png">
+<meta property="og:image" content="http://yoursite.com/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618112809604.png">
+<meta property="og:image" content="http://yoursite.com/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618113123519.png">
+<meta property="og:image" content="http://yoursite.com/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618113218406.png">
+<meta property="og:image" content="http://yoursite.com/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618113330215.png">
+<meta property="og:image" content="http://yoursite.com/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618113624028.png">
+<meta property="og:image" content="http://yoursite.com/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618113733790.png">
+<meta property="og:image" content="http://yoursite.com/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618113857413.png">
+<meta property="article:published_time" content="2024-04-28T16:02:19.000Z">
+<meta property="article:modified_time" content="2024-06-18T04:24:27.520Z">
 <meta property="article:author" content="Adline125">
+<meta property="article:tag" content="LangChain">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618112519688.png">
 
-<link rel="canonical" href="http://yoursite.com/tags/sequence-tagging/">
+<link rel="canonical" href="http://yoursite.com/2024/04/29/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/">
 
 
 <script id="page-configurations">
@@ -38,12 +50,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Tag: sequence tagging | Adline125's Blog</title>
+  <title>LangChain开发框架学习路径 | Adline125's Blog</title>
   
 
 
@@ -186,57 +198,217 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">sequence tagging
-          <small>Tag</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/04/29/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.png">
+      <meta itemprop="name" content="Adline125">
+      <meta itemprop="description" content="北京程序媛一枚，主攻NLP.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Adline125's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LangChain开发框架学习路径
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-04-29 00:02:19" itemprop="dateCreated datePublished" datetime="2024-04-29T00:02:19+08:00">2024-04-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-06-18 12:24:27" itemprop="dateModified" datetime="2024-06-18T12:24:27+08:00">2024-06-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+        <p>本文是对LangChain应用开发框架的总体架构和关键技术的解读。以大纲的形式，辅以图形展示出LangChain开发框架的主要技术学习路径，做为初始接触该技术的学习者的入门指南。</p>
+<a id="more"></a>
+<p>本文的主要内容包括：</p>
+<ul>
+<li><strong>LangChain 总体架构深度剖析</strong></li>
+<li><strong>LangChain 核心模块关键技术解读</strong></li>
+<li><strong>基于 LangChain 构建智能客服 AI Agent 案例实践</strong></li>
+</ul>
+<h3 id="langchain-总体架构深度剖析"><strong>LangChain 总体架构深度剖析</strong></h3>
+<hr />
+<p>LangChian是将 LLM 模型、向量数据库、交互层 Prompt、外部知识、外部工具整合到一起，进而可以自由构建 LLM 应用的应用开发框架。</p>
+<p><strong>为什么需要 LangChain？</strong></p>
+<ul>
+<li><p>提供了RAG过程中的所需模块的支持</p></li>
+<li><p>帮助开发者快速开发LLM应用</p></li>
+<li><p>Model I/O、 Retrieval、Chains、 Memory、Agents、Callbacks</p></li>
+</ul>
+<p><strong>LangChain 整体组成部分</strong></p>
+<p><img src="/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618112519688.png" alt="图片"  /></p>
+<ul>
+<li><strong>LangSmith</strong></li>
+</ul>
+<p>​ l <strong>LLMOPS 平台</strong></p>
+<ul>
+<li><strong>LangServe</strong></li>
+</ul>
+<p>​ l <strong>快速将应用部署为 REST API 的服务</strong></p>
+<ul>
+<li><strong>Templates</strong></li>
+</ul>
+<p>​ l <strong>Langchain 的应用模版</strong></p>
+<p><strong>LangChain 整体架构剖析</strong></p>
+<figure>
+<img src="/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618112809604.png" alt="" /><figcaption>图片</figcaption>
+</figure>
+<ul>
+<li><p><strong>模块更加独立</strong></p></li>
+<li><p><strong>职责更加明确</strong></p></li>
+<li><p><strong>保证核心部分的稳定性</strong></p></li>
+<li><p><strong>减少外部依赖</strong></p></li>
+<li><p><strong>维护更为容易</strong></p></li>
+</ul>
+<h3 id="langchain-核心模块关键技术解读"><strong>LangChain 核心模块关键技术解读</strong></h3>
+<hr />
+<p><strong>LangChain 关键技术之—Retrieval</strong></p>
+<figure>
+<img src="/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618113123519.png" alt="" /><figcaption>图片</figcaption>
+</figure>
+<ul>
+<li><strong>文档加载器（Document loaders）</strong></li>
+</ul>
+<p>​ l <strong>csv、html、json、md、PDF文件读取</strong></p>
+<p>​ l <strong>转化为document格式</strong></p>
+<figure>
+<img src="/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618113218406.png" alt="" /><figcaption>图片</figcaption>
+</figure>
+<ul>
+<li><strong>文档转换器（Document transformers）</strong></li>
+</ul>
+<p>​ l <strong>将文档数据结构化/分块(Text Splitter</strong>)</p>
+<figure>
+<img src="/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618113330215.png" alt="" /><figcaption>图片</figcaption>
+</figure>
+<ul>
+<li><strong>文档转换器（Document transformers)</strong></li>
+</ul>
+<p>​ l <strong>自定义字符</strong></p>
+<p>​ l <strong>基于句子</strong></p>
+<p>​ l <strong>基于语义</strong></p>
+<ul>
+<li><strong>文本嵌入模型（Embed）</strong></li>
+</ul>
+<p>​ l <strong>将文档向量化</strong></p>
+<figure>
+<img src="/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618113624028.png" alt="" /><figcaption>图片</figcaption>
+</figure>
+<ul>
+<li><strong>文本嵌入模型（Embed）</strong></li>
+</ul>
+<p>​ l <strong>将文档向量化</strong></p>
+<figure>
+<img src="/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618113733790.png" alt="" /><figcaption>图片</figcaption>
+</figure>
+<ul>
+<li><p><strong>向量存储&amp;检索（Vector stores）</strong></p></li>
+<li><figure>
+<img src="/Users/adline/hexo/blog/source/_posts/HexoPics/image-20240618113857413.png" alt="" /><figcaption>图片</figcaption>
+</figure>
+<ul>
+<li><strong>MultiQueryRetriever</strong></li>
+</ul>
+<p>​ l <strong>使用 LLM 从不同角度为给定的查询生成多个查询</strong></p>
+<ul>
+<li><strong>上下文压缩</strong></li>
+</ul>
+<p>​ l <strong>将检索结果进行压缩缩率</strong></p>
+<ul>
+<li><strong>MultiVector Retriever</strong></li>
+</ul>
+<p>l <strong>分块/摘要/文档加假设问题</strong></p>
+<ul>
+<li><strong>Time-weighted vector store retriever</strong></li>
+</ul>
+<p>​ l <strong>语义相似性 + 时间衰减</strong></p></li>
+</ul>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-15T00:02:19+08:00"
-              content="2020-07-15">
-          07-15
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/LangChain/" rel="tag"># LangChain</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/15/Bidirectional%20LSTM-CRF%20Models%20for%20Sequence%20Tagging/" itemprop="url">
-            <span itemprop="name">Bidirectional LSTM-CRF Models for Sequence Tagging</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/07/24/Paper%20Reading:%20Cramming-%20Training%20a%20Language%20Model%20on%20a%20Single%20GPU%20in%20One%20Day/" rel="prev" title="Paper Reading: Cramming- Training a Language Model on a Single GPU in One Day">
+      <i class="fa fa-chevron-left"></i> Paper Reading: Cramming- Training a Language Model on a Single GPU in One Day
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/05/10/%E5%9F%BA%E4%BA%8E%20LangChain%20%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D%20AI%20Agent%20%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/" rel="next" title="基于 LangChain 构建智能客服 AI Agent 案例实践">
+      基于 LangChain 构建智能客服 AI Agent 案例实践 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
 
-    </div>
-  </div>
   
   
   
 
-  
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -283,6 +455,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#langchain-总体架构深度剖析"><span class="nav-number">1.</span> <span class="nav-text">LangChain 总体架构深度剖析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#langchain-核心模块关键技术解读"><span class="nav-number">2.</span> <span class="nav-text">LangChain 核心模块关键技术解读</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -471,6 +644,26 @@
 
   
 
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2024/04/29/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/";
+    this.page.identifier = "2024/04/29/LangChain开发框架学习路径/";
+    this.page.title = "LangChain开发框架学习路径";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://Adline125.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>
