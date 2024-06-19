@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="This article reviews the current status of large model research in 2023. It summarizes the various stages of large model development this year and the contributions of major research institutions to l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2023年大模型研究现状综述">
+<meta property="og:url" content="http://yoursite.com/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/index.html">
+<meta property="og:site_name" content="Adline125&#39;s Blog">
+<meta property="og:description" content="This article reviews the current status of large model research in 2023. It summarizes the various stages of large model development this year and the contributions of major research institutions to l">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191246661.png">
+<meta property="og:image" content="http://yoursite.com/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191401263.png">
+<meta property="og:image" content="http://yoursite.com/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191640496.png">
+<meta property="og:image" content="http://yoursite.com/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191724150.png">
+<meta property="article:published_time" content="2024-01-19T11:30:38.000Z">
+<meta property="article:modified_time" content="2024-06-19T12:04:03.263Z">
+<meta property="article:author" content="Adline125">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191246661.png">
+
+<link rel="canonical" href="http://yoursite.com/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>2023年大模型研究现状综述 | Adline125's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Adline125's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Adline125's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">NLP Engineer, Google Developers Expert</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.png">
+      <meta itemprop="name" content="Adline125">
+      <meta itemprop="description" content="北京程序媛一枚，主攻NLP.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Adline125's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2023年大模型研究现状综述
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-01-19 19:30:38" itemprop="dateCreated datePublished" datetime="2024-01-19T19:30:38+08:00">2024-01-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-06-19 20:04:03" itemprop="dateModified" datetime="2024-06-19T20:04:03+08:00">2024-06-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>This article reviews the current status of large model research in 2023. It summarizes the various stages of large model development this year and the contributions of major research institutions to large model research. It also summarizes and summarizes the current mainstream types of large models. On this basis, some thoughts and prospects about the future development of large-model technology were made.</p>
+<a id="more"></a>
+<p>The main contents of this article include:：</p>
+<ul>
+<li><p>Current status of basic model research</p></li>
+<li><p>Introduction to LLM model types</p></li>
+<li><p>Summary and future directions</p></li>
+</ul>
+<h2 id="current-status-of-basic-model-research">Current status of basic model research</h2>
+<hr />
+<p>In 2023, with the development of LLM technology, the open source models of Chinese model research institutions will usher in explosive growth:</p>
+<ul>
+<li><p>In March 2023, Zhipu AI first released the ChatGLM-6B series in the Magic Community. ChatGLM-6B is an open source dialogue language model that supports Chinese and English bilingual question and answer. It is based on the General Language Model (GLM) architecture and has 62 billion parameters. Combined with model quantization technology, users can deploy it locally on consumer-grade graphics cards (a minimum of 6GB of video memory is required at the INT4 quantization level). Now, Zhipu AI's ChatGLM-6B has been updated to the third generation. At the same time, it has launched the CogVLM series in multi-modal mode, as well as CogVLM that supports visual agents, and launched the CodeGeex series models in the code field, while exploring both agent and math. and open source models and technologies.</p></li>
+<li><p>In June 2023, Baichuan first released the Baichuan-7B model in the Moda community. baichuan-7B is an open source large-scale pre-training model developed by Baichuan Intelligence. Based on the Transformer structure, the 7 billion parameter model is trained on approximately 1.2 trillion tokens, supports Chinese and English bilinguals, and has a context window length of 4096. Baichuan is also one of the first companies to launch pre-trained models, and jokingly claims to provide developers with better “rough houses” so that developers can better “decorate” them, thus promoting the development of domestic pre-trained base models. Subsequently, Baichuan released the 13B model and Baichuan 2 series models, with both open source base and chat versions simultaneously.</p></li>
+<li><p>In July 2023, at the opening ceremony of WAIC 2023 and the Scientific Frontier Plenary Meeting, the Shanghai Artificial Intelligence Laboratory teamed up with a number of institutions to release a newly upgraded "Scholar General Large Model System", including Scholar·Multimodal, Scholar·Puyu He Shusheng·Tianji and other three basic models, as well as the first full-chain open source system for the development and application of large models. Shanghai Artificial Intelligence Laboratory not only makes model weights open source, but also conducts all-round open source at the model, data, tools and evaluation levels to promote technological innovation and industrial progress. Subsequently, the Shanghai Artificial Intelligence Laboratory successively released the Scholar·Puyu 20B model and the Scholar·Lingbi multi-modal model.</p></li>
+<li><p>In August 2023, Alibaba open sourced the Tongyi Qianwen 7B model, and subsequently open sourced the 1.8B, 14B, and 72B base and chat models, and provided the corresponding quantized versions of int4 and int8, which can be used in multi-modal scenarios. , Qianwen has also open sourced two visual and speech multi-modal models, qwen-vl and qwen-audio, achieving "full-size, full-modality" open source. Qwen-72B has improved the size and performance of open source large models. Since its release, it has remained at the top of the major charts, filling a gap in the country. Based on Qwen-72B, large and medium-sized enterprises can develop commercial applications, and universities and research institutes can carry out scientific research such as AI for Science.</p></li>
+<li><p>In October 2023, Kunlun Wanwei released the "Tiangong" Skywork-13B series of tens of billions of large language models, and rare open sourced a large high-quality open source Chinese data set of 600GB and 150B Tokens Skypile/Chinese-Web-Text -150B dataset. High-quality data filtered from Chinese web pages by Kunlun's carefully filtered data processing process. The size is approximately 600GB, and the total number of tokens is approximately (150 billion). It is currently one of the largest open source Chinese data sets.</p></li>
+<li><p>In November 2023, 01-AI company released the Yi series of models, with parameter sizes ranging from 6 billion to 34 billion, and the amount of training data reaching 30 billion tokens. These models outperform previous models on public leaderboards such as the Open LLM leaderboard and on some challenging benchmarks such as Skill-Mix.</p></li>
+</ul>
+<h2 id="introduction-to-llm-model-types">Introduction to LLM model types</h2>
+<hr />
+<h4 id="base-model-and-chat-model">Base model and Chat model</h4>
+<p>We usually see a model research and development institution open source the base model and chat model. So what is the difference between the base model and the chat model?</p>
+<p>First, all large language models (LLMs) work by taking in some text and predicting the text that is most likely to follow it.</p>
+<ul>
+<li>The base model, also known as the basic model, is a model trained on massive amounts of different texts to predict subsequent texts. Subsequent text is not necessarily a response to instructions and dialogue.</li>
+</ul>
+<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191246661.png" class="" alt="image-20240619191246661">
+<ul>
+<li>The chat model, also known as the dialogue model, is based on the base and continues to do fine-tuning and reinforcement learning through conversation records (instructions-responses). When it accepts instructions and talks with the user, it continues to write assistants that follow the instructions and are expected by humans. response content</li>
+</ul>
+<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191401263.png" class="" alt="image-20240619191401263">
+<h4 id="multimodal-model">multimodal model</h4>
+<p>Multimodal LLM combines information from text and other modalities, such as images, videos, audios, and other sensory data. Multimodal LLM is trained on multiple types of data, helping the transformer find the differences between different modalities. relationship, and complete some tasks that the new LLM cannot complete, such as picture description, music interpretation, video understanding, etc.</p>
+<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191640496.png" class="" alt="image-20240619191640496">
+<h4 id="agent-model">Agent model</h4>
+<p>LLM has the capabilities of an agent brain and collaborates with several key components, including,</p>
+<p>Planning: dismantling sub-goals, correcting errors, reflecting and improving.</p>
+<p>Memory: short-term memory (context, long window), long-term memory (implemented through search or vector engine)</p>
+<p>Tool use: The model learns to call external APIs to obtain additional capabilities.</p>
+<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191724150.png" class="" alt="image-20240619191724150">
+<h4 id="code-model">Code model</h4>
+<p>The Code model adds more code data to the model's pre-training and SFT, and performs a series of tasks in the code, such as code completion, code error correction, and zero-sample completion of programming task instructions. At the same time, according to different code languages, there will also be more professional language code models such as python and java.</p>
+<h2 id="summary-and-future-directions">Summary and future directions</h2>
+<hr />
+<p><strong>Theory and principles:：</strong>In order to understand the basic working mechanism of LLM, one of the biggest mysteries is how information is distributed, organized and utilized through very large deep neural networks. It is important to reveal the underlying principles or elements that build the basis of LLMs' capabilities. In particular, scaling appears to play an important role in improving the capabilities of LLMs. Existing research has shown that when the parameter size of a language model increases to a critical point (such as 10B), some emerging capabilities will appear in an unexpected way (sudden leap in performance), typically including context learning, instruction following and Step-by-step reasoning. These “emergent” abilities are fascinating but also puzzling: when and how do LLMs acquire them? Some recent research has either conducted broad-scale experiments investigating the effects of emerging abilities and the enablers of those abilities, or used existing theoretical frameworks to explain specific abilities. An insightful technical post targeting the GPT family of models also deals specifically with this topic, however more formal theories and principles to understand, describe and explain the capabilities or behavior of LLMs are still lacking. Since emergent capabilities have close similarities to phase transitions in nature, interdisciplinary theories or principles (such as whether LLMs can be considered some kind of complex systems) may be helpful in explaining and understanding the behavior of LLMs. These fundamental questions deserve exploration by the research community and are important for developing the next generation of LLMs.</p>
+<p><strong>Model architecture：</strong>Transformers, consisting of stacked multi-head self-attention layers, have become a common architecture for building LLMs due to their scalability and effectiveness. Various strategies have been proposed to improve the performance of this architecture, such as neural network configuration and scalable parallel training (see discussion in Section 4.2.2). In order to further improve the capacity of the model (such as multi-turn dialogue capability), existing LLMs usually maintain a long context length. For example, GPT-4-32k has an extremely large context length of 32768 tokens. Therefore, a practical consideration is to reduce the time complexity (primitive quadratic cost) incurred by standard self-attention mechanisms.</p>
+<p>Furthermore, it will be important to study the impact of more efficient Transformer variants on building LLMs, such as sparse attention has been used for GPT-3. Catastrophic forgetting has also been a challenge for neural networks, which has also negatively impacted LLMs. When LLMs are tuned with new data, the previously learned knowledge is likely to be destroyed. For example, fine-tuning LLMs for some specific tasks will affect their general capabilities. A similar situation occurs when LLMs are aligned with human values, which is called an alignment tax. Therefore, it is necessary to consider extending the existing architecture with more flexible mechanisms or modules to effectively support data updates and task specialization.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/07/24/Paper%20Reading:%20Cramming-%20Training%20a%20Language%20Model%20on%20a%20Single%20GPU%20in%20One%20Day/" rel="prev" title="Paper Reading: Cramming- Training a Language Model on a Single GPU in One Day">
+      <i class="fa fa-chevron-left"></i> Paper Reading: Cramming- Training a Language Model on a Single GPU in One Day
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/" rel="next" title="Paper reading: Gemma: Open Models Based on Gemini Research and Technology">
+      Paper reading: Gemma: Open Models Based on Gemini Research and Technology <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+
+  
+  
+  
+
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#current-status-of-basic-model-research"><span class="nav-number">1.</span> <span class="nav-text">Current status of basic model research</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction-to-llm-model-types"><span class="nav-number">2.</span> <span class="nav-text">Introduction to LLM model types</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#base-model-and-chat-model"><span class="nav-number">2.0.1.</span> <span class="nav-text">Base model and Chat model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#multimodal-model"><span class="nav-number">2.0.2.</span> <span class="nav-text">multimodal model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#agent-model"><span class="nav-number">2.0.3.</span> <span class="nav-text">Agent model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#code-model"><span class="nav-number">2.0.4.</span> <span class="nav-text">Code model</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#summary-and-future-directions"><span class="nav-number">3.</span> <span class="nav-text">Summary and future directions</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Adline125"
+      src="/images/icon.png">
+  <p class="site-author-name" itemprop="name">Adline125</p>
+  <div class="site-description" itemprop="description">北京程序媛一枚，主攻NLP.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Adline125" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Adline125" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:gglfxsld@gmail.com" title="E-Mail → mailto:gglfxsld@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Adline125</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+<br/>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次 | 本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/";
+    this.page.identifier = "2024/01/19/2023年大模型研究现状综述/";
+    this.page.title = "2023年大模型研究现状综述";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://Adline125.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
