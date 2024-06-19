@@ -1,6 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Evaluation methods for unsupervised word embeddings</title>
+    <url>/2020/07/04/Evaluation%20methods%20for%20unsupervised%20word%20embeddings/</url>
+    <content><![CDATA[<p>本文是对论文<a href="https://www.aclweb.org/anthology/D15-1036.pdf" target="_blank" rel="noopener">Evaluation methods for unsupervised word embeddings</a>的总结。相较于大量生成词嵌入模型的研究，评估词嵌入模型的工作相对较少。 该论文是第一篇对词嵌入评估进行深入研究的论文，发表于2015年，涵盖了广泛的评估标准和当时流行的嵌入技术。其目的并非是证明某个词嵌入方法优于其他方法，而是要对词嵌入的评估方法本身做较深入的探讨。</p>
+<a id="more"></a>
+<p>本文的主要内容包括：</p>
+<ul>
+<li>评估方法概述</li>
+<li>不同评估标准下模型表现比较</li>
+<li>词嵌入中的词频信息</li>
+<li>总结</li>
+</ul>
+<h3 id="评估方案概述">评估方案概述</h3>
+<hr />
+<p>现有词嵌入评估方案分为两大类：外部评估（extrinsic evaluation）和内部评估（intrinsic evaluation）。</p>
+<p><strong>外部评估</strong>：词向量被用作下游任务的输入特征，好的词向量应该对使用其的任务有正面影响。但是不同的任务对词向量的偏好可能是不同的，因此外部评估是否有效一直是一个存在争论。</p>
+<p><strong>内部评估</strong>：直接测试单词之间的句法或语义关系。内部评估通常涉及一组预先选择的查询词和与语义相关的目标词，称为查询清单。文章中内部评估进一步分成两类：<em>绝对内在评估</em>和<em>比较内在评估</em>。其中比较内在评估由文章提出，并应用在相关性评估和一致性评估中。</p>
+<h3 id="不同评估标准下模型表现比较">不同评估标准下模型表现比较</h3>
+<hr />
+<p>论文从单词相关性，一致性，下游表现三个不同评估标准入手，分析了三种标准下各词嵌入模型排序结果之间的关系。</p>
+<h4 id="相关性评估">相关性评估</h4>
+<h5 id="绝对内在评估">绝对内在评估</h5>
+<p>绝对内在评估使用通常用作嵌入方法基准的<strong><em>14</em></strong>个数据集（如Table1），对<strong><em>6</em></strong>个词嵌入模型从如下<strong><em>4</em></strong>个范畴进行评估：</p>
+<ul>
+<li>相关性(relatedness): 两个单词的词嵌入的余弦相似度应与人类相关性得分具有高度相关性</li>
+<li>类比性(analogy): 对给定的单词y, 能否找到一个对应的单词x, 使得x与y的关系能够类比另外两个已知词a与b的关系</li>
+<li>类别化(categorization): 对词向量进行聚类, 看每个簇与有标记数据集各类相比纯度如何</li>
+<li>选择倾向(selectinal preference): 判断某名词是更倾向做某个动词的主语还是宾语, 例如一般顺序是 he runs 而不是 runs he</li>
+</ul>
+<p>评估结果如下：</p>
+<p>1056</p>
+<p>绝对内在评估在设计上有两点缺陷：</p>
+<ul>
+<li><p>查询清单（query inventory）：上述的14个数据集在设计上都没能考虑以下几个方面，</p>
+<ul>
+<li><p>the frequency of the words in the English language</p></li>
+<li><p>the parts of speech of the words</p></li>
+<li><p>abstractness vs. concreteness</p></li>
+</ul></li>
+<li><p>度量指标（metric aggregation）：我们找不到一种对完全无关的单词对进行排序的方式（metric）。 例如，我们如何确定（狗，猫）是否比（香蕉，苹果）更相似</p></li>
+</ul>
+<h5 id="比较内在评估">比较内在评估</h5>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3MqrJW4KFs9LfY7hWZuGX8iNCm.6EnpWmizCKEv9OfRL8YlJdeZOH4tn917Flf7Tng!!/b&amp;bo=cgSOAgAAAAADB9g!&amp;rf=viewer_4" style="zoom: 33%;" /></p>
+<p>针对绝对内在评估存在的缺陷，文章提出了<em>比较内在评估</em>方法。即，给出一个查询词，将6个词嵌入模型产生的结果呈现给用户，让用户选出最相关的，然后统计结果。如Table 2.</p>
+<ul>
+<li><p>文章采用用户直接反馈的形式避免了需要定义指标（metric）的问题。</p></li>
+<li><p>文章定义制作了更符合词嵌入评估任务的查询清单。考虑了词频、词性、类别、是否是抽象词四个方面。并对这四个方面分别做了评估。</p></li>
+</ul>
+<p>比较内在评估结果如下：</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaYyIUYreKyNC7qTzjk..xcAsEAIzcwCsJzMOIVOYmwCVdpMa3bxvaEMZn6vH18MQa253IJxDg*NSe0Qn0joRqpPE!/b&amp;bo=7gU4BAAAAAADN8U!&amp;rf=viewer_4" style="zoom: 50%;" /></p>
+<center>
+Figure 1: Direct comparison task
+</center>
+<h4 id="一致性评估">一致性评估</h4>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3P8cCoVC1A7.3Yyr*hKVdUi3*bS3XnEmd4JdP4qZnRWjpGaQ5Omu4ijHfhZz4tKBrw!!/b&amp;bo=rAhkAwAAAAADB.E!&amp;rf=viewer_4" style="zoom:25%;" /></p>
+<p>文章中一致性评估直接采用比较内在评估方法。一致性评估是文章提出的评估方法。将查询词本身及词嵌入模型计算出来的两个相近词再加上一个不相关的词组成一道选择题。由测试人选出不相关的词。由此判定词嵌入模型选出的词与查询词是否具有一致性。</p>
+<p>一致性评估结果如下：</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3HkOUPptF0rYckWfjgSj3wfDacq9Q7HuwQzQDiNkGn8kPelkhqUdsQOxR2f0wqiiYA!!/b&amp;bo=hAY4BAAAAAADB5w!&amp;rf=viewer_4" style="zoom:25%;" /></p>
+<center>
+Figure 2: Intrusion task: average precision by global word frequency
+</center>
+<p>到目前为止，对比<span class="math inline">\(Table1, Figure1\)</span>和<span class="math inline">\(Figure2\)</span>，6个词嵌入模型从一致性任务获得的排名与从相关性任务获得的排名产生了出入。</p>
+<h4 id="外在评估下游表现">外在评估（下游表现）</h4>
+<p>外在评估评估单词嵌入模型对特定任务的贡献。</p>
+<p>使用此类评估存在一个隐含的假设，即单词嵌入质量是有固定排名的。也就是说，嵌入模型无论在什么任务里的表现排名应该是基本一致的。因此，更高质量的嵌入将必定会改善任何下游任务的结果。</p>
+<p>但文章发现上述假设不成立：不同的任务倾向于不同的嵌入。</p>
+<p>在文章试验的两个任务：名词短语分块和情感分类中证实了上述观点。文章建议对词嵌入进行针对项目的训练，以优化特定目标。</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3H1dtYybh1w4r.wPapYRLqvr0LSVsW7wvqjAqJrbZU*vQDSxRc9z2.fuk52*9GM.5A!!/b&amp;bo=OATIBgAAAAADB9A!&amp;rf=viewer_4" style="zoom:25%;" /></p>
+<h3 id="embedding中的词频信息">Embedding中的词频信息</h3>
+<hr />
+<p>文章用两个小实验证实了embedding中编码了大量的词频信息。两个小实验的情况如下：</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3MxBRn.X0eEGkRNPoxsXnqzLc0Usoz7oujbllJnRtldyQAM5AiCOe0o5jlLL0zNc9A!!/b&amp;bo=PAiGAwAAAAADB5M!&amp;rf=viewer_4" style="zoom:67%;" /></p>
+<h3 id="总结">总结</h3>
+<hr />
+<p>本论文的主要贡献总结如下：</p>
+<ul>
+<li>提出了由于使用不同的评估标准会导致嵌入效果排序的不同，对嵌入方法进行比较应在特定任务的上下文中进行，不提倡使用外部评估评测embedding。</li>
+<li>证实了自动相似性评估与直接人工评估之间存在很强的相关性。说明至少在相似性任务中使用离线数据是合理的。</li>
+<li>提出了一种模型驱动和数据驱动的方法来构建查询清单。</li>
+<li>发现了所有词嵌入模型都编码了大量的单词频率信息，对使用余弦相似度作为嵌入空间中的相似度度量的普遍做法提出了质疑</li>
+</ul>
+<h3 id="参考文献">参考文献</h3>
+<hr />
+<p><a href="https://www.aclweb.org/anthology/D15-1036.pdf" target="_blank" rel="noopener">[Schnabel2015] Schnabel, T., Labutov, I., Mimno, D., &amp; Joachims, T. Evaluation methods for unsupervised word embeddings. In <em>Proceedings of the 2015 Conference on Empirical Methods in Natural Language Processing (EMNLP)</em> (pp. 298-307). 2015</a></p>
+<h3 id="评估相关其他资料">评估相关其他资料</h3>
+<hr />
+<p><a href="https://arxiv.org/abs/1801.09536" target="_blank" rel="noopener">[Bakarov2018] Bakarov, Amir. "A Survey of Word Embeddings Evaluation Methods." <em>arXiv preprint arXiv:1801.09536</em>. 2018</a></p>
+]]></content>
+      <categories>
+        <category>NLP</category>
+      </categories>
+      <tags>
+        <tag>embedding evaluation</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LangChain开发框架学习路径</title>
+    <url>/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/</url>
+    <content><![CDATA[<p>本文是对LangChain应用开发框架的总体架构和关键技术的解读。以大纲的形式，辅以图形展示出LangChain开发框架的主要技术学习路径，做为初始接触该技术的学习者的入门指南。</p>
+<a id="more"></a>
+<p>本文的主要内容包括：</p>
+<ul>
+<li><strong>LangChain 总体架构深度剖析</strong></li>
+<li><strong>LangChain 核心模块关键技术解读</strong></li>
+<li><strong>基于 LangChain 构建智能客服 AI Agent 案例实践</strong></li>
+</ul>
+<h3 id="langchain-总体架构深度剖析"><strong>LangChain 总体架构深度剖析</strong></h3>
+<hr />
+<p>LangChian是将 LLM 模型、向量数据库、交互层 Prompt、外部知识、外部工具整合到一起，进而可以自由构建 LLM 应用的应用开发框架。</p>
+<p><strong>为什么需要 LangChain？</strong></p>
+<ul>
+<li><p>提供了RAG过程中的所需模块的支持</p></li>
+<li><p>帮助开发者快速开发LLM应用</p></li>
+<li><p>Model I/O、 Retrieval、Chains、 Memory、Agents、Callbacks</p></li>
+</ul>
+<p><strong>LangChain 整体组成部分</strong></p>
+<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618112519688.png" class="" title="This is an test image">
+<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618112519688.png" class="" alt="图片">
+<ul>
+<li><strong>LangSmith</strong></li>
+</ul>
+<p>​ l <strong>LLMOPS 平台</strong></p>
+<ul>
+<li><strong>LangServe</strong></li>
+</ul>
+<p>​ l <strong>快速将应用部署为 REST API 的服务</strong></p>
+<ul>
+<li><strong>Templates</strong></li>
+</ul>
+<p>​ l <strong>Langchain 的应用模版</strong></p>
+<p><strong>LangChain 整体架构剖析</strong></p>
+<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618112809604.png" class="" alt="图片">
+<ul>
+<li><p><strong>模块更加独立</strong></p></li>
+<li><p><strong>职责更加明确</strong></p></li>
+<li><p><strong>保证核心部分的稳定性</strong></p></li>
+<li><p><strong>减少外部依赖</strong></p></li>
+<li><p><strong>维护更为容易</strong></p></li>
+</ul>
+<h3 id="langchain-核心模块关键技术解读"><strong>LangChain 核心模块关键技术解读</strong></h3>
+<hr />
+<p><strong>LangChain 关键技术之—Retrieval</strong></p>
+<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113123519.png" class="" alt="图片">
+<ul>
+<li><strong>文档加载器（Document loaders）</strong></li>
+</ul>
+<p>​ l <strong>csv、html、json、md、PDF文件读取</strong></p>
+<p>​ l <strong>转化为document格式</strong></p>
+<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113218406.png" class="" alt="图片">
+<ul>
+<li><strong>文档转换器（Document transformers）</strong></li>
+</ul>
+<p>​ l <strong>将文档数据结构化/分块(Text Splitter</strong>)</p>
+<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113330215.png" class="" alt="图片">
+<ul>
+<li><strong>文档转换器（Document transformers)</strong></li>
+</ul>
+<p>​ l <strong>自定义字符</strong></p>
+<p>​ l <strong>基于句子</strong></p>
+<p>​ l <strong>基于语义</strong></p>
+<ul>
+<li><strong>文本嵌入模型（Embed）</strong></li>
+</ul>
+<p>​ l <strong>将文档向量化</strong></p>
+<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113624028.png" class="" alt="图片">
+<ul>
+<li><strong>文本嵌入模型（Embed）</strong></li>
+</ul>
+<p>​ l <strong>将文档向量化</strong></p>
+<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113733790.png" class="" alt="图片">
+<ul>
+<li><p><strong>向量存储&amp;检索（Vector stores）</strong></p></li>
+<li><img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113857413.png" class="" alt="图片">
+<ul>
+<li><strong>MultiQueryRetriever</strong></li>
+</ul>
+<p>​ l <strong>使用 LLM 从不同角度为给定的查询生成多个查询</strong></p>
+<ul>
+<li><strong>上下文压缩</strong></li>
+</ul>
+<p>​ l <strong>将检索结果进行压缩缩率</strong></p>
+<ul>
+<li><strong>MultiVector Retriever</strong></li>
+</ul>
+<p>l <strong>分块/摘要/文档加假设问题</strong></p>
+<ul>
+<li><strong>Time-weighted vector store retriever</strong></li>
+</ul>
+<p>​ l <strong>语义相似性 + 时间衰减</strong></p></li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
     <title>Bidirectional LSTM-CRF Models for Sequence Tagging</title>
     <url>/2020/07/15/Bidirectional%20LSTM-CRF%20Models%20for%20Sequence%20Tagging/</url>
     <content><![CDATA[<p>本文是对论文<a href="https://arxiv.org/abs/1508.01991" target="_blank" rel="noopener">Bidirectional LSTM-CRF Models for Sequence Tagging</a>的总结。文章系统地比较了基于LSTM网络的各种序列标记模型的性能。 并在当时首次将BI-LSTM-CRF模型应用于NLP基准序列标记任务。 其中，BI-LSTM-CRF模型在词性标注，分块和命名实体识别任务上表现最优。模型具有鲁棒性且对单词嵌入的依赖性较小，甚至可以无需借助词嵌入达到一定的精度。</p>
@@ -94,99 +286,218 @@ h _ { t } = o _ { t } \tanh ( c _ { t } )\quad\quad\quad\quad\quad\quad\quad\qua
       </tags>
   </entry>
   <entry>
-    <title>LangChain开发框架学习路径</title>
-    <url>/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/</url>
-    <content><![CDATA[<p>本文是对LangChain应用开发框架的总体架构和关键技术的解读。以大纲的形式，辅以图形展示出LangChain开发框架的主要技术学习路径，做为初始接触该技术的学习者的入门指南。</p>
+    <title>Paper Reading: Cramming- Training a Language Model on a Single GPU in One Day</title>
+    <url>/2023/07/24/Paper%20Reading:%20Cramming-%20Training%20a%20Language%20Model%20on%20a%20Single%20GPU%20in%20One%20Day/</url>
+    <content><![CDATA[<p>IBM's NLP research expert Leshem Choshen commented on Twitter, "This paper summarizes all the big model training trips you can think of.</p>
 <a id="more"></a>
-<p>本文的主要内容包括：</p>
+<p>###Limited resources</p>
+<p>In order to simulate the resource environment of ordinary practitioners and researchers, this study first constructed a resource constrained research environment:</p>
 <ul>
-<li><strong>LangChain 总体架构深度剖析</strong></li>
-<li><strong>LangChain 核心模块关键技术解读</strong></li>
-<li><strong>基于 LangChain 构建智能客服 AI Agent 案例实践</strong></li>
+<li><p>A transformer based language model of any size, trained entirely from scratch using masked language modeling;</p></li>
+<li><p>The pipeline cannot contain existing pre trained models;</p></li>
+<li><p>Any raw text (excluding downstream data) can be included in the training, which means that acceleration can be achieved by wisely selecting how and when to sample the data, provided that the sampling mechanism does not require pre training the model;</p></li>
+<li><p>The download and pre-processing of original data are not included in the total budget. The pre-processing here includes CPU based tokenizer construction, tokenization and filtering, but does not include Feature learning;</p></li>
+<li><p>Training is only conducted on a single GPU for 24 hours;</p></li>
+<li><p>Downstream performance is evaluated on GLUE, and downstream fine-tuning on GLUE is limited to simple training using only training data from downstream tasks (5 epochs or less), and requires the use of global hyperparameters set for all GLUE tasks. Downstream fine-tuning is not included in the total budget.</p></li>
 </ul>
-<h3 id="langchain-总体架构深度剖析"><strong>LangChain 总体架构深度剖析</strong></h3>
+<p>###Improvement methods</p>
+<p>The researchers implemented and tested some modification directions proposed by existing work, including general implementation and initial data settings, and attempted to modify the architecture, train, and modify the dataset methods.</p>
+<p>The experiment was conducted in PyTorch, without using idiosyncratic implementations to be as fair as possible. All content was kept at the implementation level of the PyTorch framework, and only automatic operator fusion that could be applied to all components was allowed. In addition, the efficient attention kernel would only be re enabled after selecting the final architectural variant.</p>
+<p>The first method we think of to improve performance is definitely modifying the model architecture. Intuitively, smaller/lower capacity models seem to be optimal in a one card per day training session. However, after studying the relationship between model type and training efficiency, researchers found that the scaling law poses a huge obstacle to scaling down. The training efficiency of each token largely depends on the model size, rather than the type of transformer.</p>
+<p>In addition, smaller models have lower learning efficiency, which largely slows down the increase in throughput. Fortunately, the fact that training efficiency remains almost constant in models of the same size means that we can find suitable designs in architectures with similar parameter quantities, mainly based on the calculation time that affects individual gradient steps.</p>
+<p>###summary</p>
+<p>Overall, using the method in the paper, the training results are already very close to the original BERT, but it should be noted that the total FLOPS used by the latter is 45-136 times that of the new method (which takes four days on 16 TPUs). When the training time was extended by 16 times (trained on 8 GPUs for two days), the performance of the new method actually improved significantly compared to the original BERT, reaching the level of RoBERTA.</p>
+<p>In this work, people discussed how much performance a transformer based language model can achieve in environments with very limited computational complexity. Fortunately, several modification directions can enable us to achieve good downstream performance on GLUE. Researchers expressed the hope that this work can provide a baseline for further improvement and provide theoretical support for many improvements and techniques proposed for Transformer architecture in recent years.</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Paper reading: Gemma: Open Models Based on Gemini Research and Technology</title>
+    <url>/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/</url>
+    <content><![CDATA[<p>Google DeepMind has released Gemma, a series of open models inspired by the same research and technology used for Gemini. This article summarized the main parts of paper Gemma: Open Models Based on Gemini Research and Technology and shown the basic way for running this model on local devices. Then give a conclusion on this model.</p>
+<a id="more"></a>
+<p><strong>Main Contents</strong>：</p>
+<ul>
+<li><strong>First Impression on Gemma</strong></li>
+<li><strong>Model Architecture</strong></li>
+<li><strong>Training Data</strong></li>
+<li><strong>Performance on Public Test Data</strong></li>
+<li><strong>Running Gemma 2B and 7B</strong></li>
+<li><strong>Conclusion</strong></li>
+</ul>
+<h3 id="first-impression-on-gemma"><strong>First Impression on Gemma</strong></h3>
 <hr />
-<p>LangChian是将 LLM 模型、向量数据库、交互层 Prompt、外部知识、外部工具整合到一起，进而可以自由构建 LLM 应用的应用开发框架。</p>
-<p><strong>为什么需要 LangChain？</strong></p>
-<ul>
-<li><p>提供了RAG过程中的所需模块的支持</p></li>
-<li><p>帮助开发者快速开发LLM应用</p></li>
-<li><p>Model I/O、 Retrieval、Chains、 Memory、Agents、Callbacks</p></li>
-</ul>
-<p><strong>LangChain 整体组成部分</strong></p>
-<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618112519688.png" class="" alt="图片">
-<ul>
-<li><strong>LangSmith</strong></li>
-</ul>
-<p>​ l <strong>LLMOPS 平台</strong></p>
-<ul>
-<li><strong>LangServe</strong></li>
-</ul>
-<p>​ l <strong>快速将应用部署为 REST API 的服务</strong></p>
-<ul>
-<li><strong>Templates</strong></li>
-</ul>
-<p>​ l <strong>Langchain 的应用模版</strong></p>
-<p><strong>LangChain 整体架构剖析</strong></p>
-<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618112809604.png" class="" alt="图片">
-<ul>
-<li><p><strong>模块更加独立</strong></p></li>
-<li><p><strong>职责更加明确</strong></p></li>
-<li><p><strong>保证核心部分的稳定性</strong></p></li>
-<li><p><strong>减少外部依赖</strong></p></li>
-<li><p><strong>维护更为容易</strong></p></li>
-</ul>
-<h3 id="langchain-核心模块关键技术解读"><strong>LangChain 核心模块关键技术解读</strong></h3>
+<img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619112105533.png" class="" alt="image-20240619112105533">
+<p>Google DeepMind has released Gemma, a series of open models inspired by the same research and technology used for Gemini. The open model lends itself to a variety of use cases, which is a very smart move by Google. There are 2B (trained on 2T tokens) and 7B (trained on 6T tokens) models, including base and instruction-tuned versions. Training is performed on a context length of 8192 tokens. Commercial use permitted. These are not multimodal models and are superior to Llama 2 7B and Mistral 7B based on reported experimental results.</p>
+<p>Gemma models improve performance in a wide range of domains including conversation, reasoning, mathematics, and code generation. The results of MMLU (64.3%) and MBPP (44.4%) not only demonstrate the high performance of Gemma, but also show that there is still room for improvement in the performance of open and available large models.</p>
+<p>Gemma draws on many experiences from the Gemini model project, including code, data, architecture, instruction tuning, reinforcement learning from human feedback, and evaluation.</p>
+<h3 id="model-architecture"><strong>Model Architecture</strong></h3>
 <hr />
-<p><strong>LangChain 关键技术之—Retrieval</strong></p>
-<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113123519.png" class="" alt="图片">
+<p>The Gemma model architecture is a transformer-based decoder. The core parameters of the architecture are summarized in Table 1 below. The model is trained on a context length of 8192 tokens. We also take advantage of several improvements proposed since the original transformer paper. Below we list the included improvements:</p>
+<p>Multi-Query Attention: The 7B model uses multi-query attention, while the 2B checkpoint uses multi-query attention (num_kv_heads=1). Based on the ablation study results, the respective attention variants are at their respective scales Improved performance.</p>
+<p>RoPE Embeddings: Instead of using absolute position embeddings, rotational position embeddings are used in each layer; in order to reduce model size, embeddings are also shared between input and output.</p>
+<p>GeGLU Activations: The standard ReLU nonlinearity is replaced by the GeGLU activation function.</p>
+<p>Normalizer Location: Normalizes both the input and output of each transformer sublayer, deviating from the standard practice of normalizing only one of them. Use RMSNorm as the normalization layer.</p>
+<img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619112628921.png" class="" alt="image-20240619112628921">
+<h3 id="training-data"><strong>Training Data</strong></h3>
+<hr />
+<p>Gemma2B and 7B are trained on 2T and 6T of main English web document, mathematics and code data respectively. Unlike Gemini, these models are neither multimodal nor trained for optimal performance on multilingual tasks. For compatibility, a subset of the Gemini SentencePiece tokenizer is used. It splits numbers without removing extra whitespace, and relies on byte-level encoding to handle unknown tokens, following techniques used by (Chowdhery et al., 2022) and (Gemini Team, 2023). The vocabulary size is 256k tokens.</p>
+<p>Since the vocabulary is very large, the model needs to be trained longer to better learn embeddings for all tokens in the vocabulary. The loss should still decrease after expanding the training tokens, which also corresponds to the very large vocabulary. We can understand that the larger the vocabulary, the more training tokens may be needed, and of course the performance may be better.</p>
+<p>For the instruction version of the model, they performed supervised fine-tuning on an instruction dataset consisting of human and synthetic data, followed by reinforcement learning with human feedback (RLHF).</p>
+<img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619125626270.png" class="" alt="image-20240619125626270">
+<h3 id="performance-on-public-test-data"><strong>Performance on public test data</strong></h3>
+<hr />
+<img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619130028360.png" class="" alt="image-20240619130028360">
+<h3 id="running-gemma-2b-and-7b"><strong>Running Gemma 2B and 7B</strong></h3>
+<hr />
+<p>Hugging Face's Transformers and vLLM already support the Gemma model, and the hardware requirement is an 18gb GPU.</p>
+<p>Let’s first introduce vLLM</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"> <span class="keyword">from</span> vllm <span class="keyword">import</span> LLM, SamplingParams</span><br><span class="line"> prompts = [</span><br><span class="line">     <span class="string">"The best recipe for pasta is"</span></span><br><span class="line"> ]</span><br><span class="line"> sampling_params = SamplingParams(temperature=<span class="number">0.7</span>, top_p=<span class="number">0.8</span>, top_k=<span class="number">20</span>, max_tokens=<span class="number">150</span>)</span><br><span class="line"> loading_start = time.time()</span><br><span class="line"> llm = LLM(model=<span class="string">"google/gemma-7b"</span>)</span><br><span class="line"> print(<span class="string">"--- Loading time: %s seconds ---"</span> % (time.time() - loading_start))</span><br><span class="line"> generation_time = time.time()</span><br><span class="line"> outputs = llm.generate(prompts, sampling_params)</span><br><span class="line"> print(<span class="string">"--- Generation time: %s seconds ---"</span> % (time.time() - generation_time))</span><br><span class="line"> <span class="keyword">for</span> output <span class="keyword">in</span> outputs:</span><br><span class="line">     generated_text = output.outputs[<span class="number">0</span>].text</span><br><span class="line">     print(generated_text)</span><br><span class="line">     print(<span class="string">'------'</span>)</span><br></pre></td></tr></table></figure>
+<p>Transformers then</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"> <span class="keyword">from</span> transformers <span class="keyword">import</span> AutoTokenizer, AutoModelForCausalLM, set_seed</span><br><span class="line"> set_seed(<span class="number">1234</span>)  <span class="comment"># For reproducibility</span></span><br><span class="line"> prompt = <span class="string">"The best recipe for pasta is"</span></span><br><span class="line"> checkpoint = <span class="string">"google/gemma-7b"</span></span><br><span class="line"> tokenizer = AutoTokenizer.from_pretrained(checkpoint)</span><br><span class="line"> model = AutoModelForCausalLM.from_pretrained(checkpoint, torch_dtype=torch.float16, device_map=<span class="string">"cuda"</span>)</span><br><span class="line"> inputs = tokenizer(prompt, return_tensors=<span class="string">"pt"</span>).to(<span class="string">'cuda'</span>)</span><br><span class="line"> outputs = model.generate(**inputs, do_sample=<span class="literal">True</span>, max_new_tokens=<span class="number">150</span>)</span><br><span class="line"> result = tokenizer.decode(outputs[<span class="number">0</span>], skip_special_tokens=<span class="literal">True</span>)</span><br><span class="line"> print(result)</span><br></pre></td></tr></table></figure>
+<h3 id="conclusion"><strong>Conclusion</strong></h3>
+<hr />
+<p>Many frameworks already support Gemma models well, and quantization of GPTQ and AWQ will be released soon. After quantization, Gemma 7B can be used on 8gb GPU.</p>
+<p>It is undeniable that releasing the Gemma model is a step forward for Google. Gemma 7B looks like a good competitor to Mistral 7B, but let's not forget that it also has 1 billion more parameters than Mistral 7B. In addition, I have never figured out what the use cases of Gemma 2B are. Its performance is surpassed by other models of similar size (this 2B may be really 2B), and it can be seen that the performance of these two Google models with few parameters is not good, but the performance is good. There are many more parameters. This kind of word play shows that Google is indeed lagging behind and anxious on the AI track, and there is currently no way to surpass it.</p>
+<p>Here is the gemma-report officially released by Google. If you are interested, you can check it out.</p>
+<p>https://storage.googleapis.com/deepmind-media/gemma/gemma-report.pdf</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Rasa NLU DIET Classifier解析</title>
+    <url>/2022/10/21/Rasa%20NLU%20DIET%20Classifier%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU classifier中最受欢迎的DIET Classifier的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU classifier 中的DIET Classifier做详细的说明。</p>
+<p>本文更多关注算法，主要内容如下：</p>
+<a id="more"></a>
 <ul>
-<li><strong>文档加载器（Document loaders）</strong></li>
+<li>Rasa NLU Classifier架构</li>
+<li>主流技术支持情况</li>
 </ul>
-<p>​ l <strong>csv、html、json、md、PDF文件读取</strong></p>
-<p>​ l <strong>转化为document格式</strong></p>
-<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113218406.png" class="" alt="图片">
+<h3 id="diet-classifier架构">DIET Classifier架构</h3>
+<h4 id="section">321</h4>
+<h3 id="模型支持说明">模型支持说明</h3>
+<p>DIET支持的Huggingface模型类型如下表：</p>
+<table>
+<thead>
+<tr class="header">
+<th><strong>模型类型</strong></th>
+<th><strong>模型名称</strong></th>
+<th><strong>默认加载的预训练模型</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>BERT</td>
+<td>bert</td>
+<td>rasa/LaBSE ( bert-base-uncased )</td>
+</tr>
+<tr class="even">
+<td>GPT</td>
+<td>gpt</td>
+<td>openai-gpt</td>
+</tr>
+<tr class="odd">
+<td>GPT2</td>
+<td>gpt2</td>
+<td>gpt2</td>
+</tr>
+<tr class="even">
+<td>XLNet</td>
+<td>xlnet</td>
+<td>xlnet-base-cased</td>
+</tr>
+<tr class="odd">
+<td>DistilBERT</td>
+<td>distilbert</td>
+<td>distilbert-base-uncased</td>
+</tr>
+<tr class="even">
+<td>RoBERTa</td>
+<td>roberta</td>
+<td>roberta-base</td>
+</tr>
+</tbody>
+</table>
+<p>对在HuggingFace 中上传的所有预训练模型（<a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>），Rasa DIET可以支持满足以下条件的所有模型：</p>
+<p>点击<a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>-&gt;选中一个模型-&gt;点击进入模型页面-&gt;点击Files and version</p>
 <ul>
-<li><strong>文档转换器（Document transformers）</strong></li>
+<li>检查 config.json 中的 model_type 是否列在上表的 <strong>模型名称</strong> 列中</li>
+<li>检查文件 tf_model.h5 是否存在</li>
+<li>模型使用默认tokenizer, config.json 中不包含支持自定义的 tokenizer_class</li>
 </ul>
-<p>​ l <strong>将文档数据结构化/分块(Text Splitter</strong>)</p>
-<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113330215.png" class="" alt="图片">
+<p>对满足上述条件的模型，通过2.1.3.3中描述的方式可开箱即用。</p>
+<h3 id="diet支持huggingface的配置样例">DIET支持Huggingface的配置样例</h3>
+<p>在Rasa2.0中，若想在DIET架构中使用Huggingface提供的预训练模型，除在rasa的config文件中指定使用DIETClassifier外，还需要配合使用对应的模块：</p>
+<ol type="1">
+<li>HFTransformersNLP</li>
+</ol>
+<p>主要参数：model_name: 预训练模型config.json 中的 model_type的值</p>
+<p>​ model_weights: <a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>提供的预训练模型名称</p>
+<ol type="1">
+<li>LanguageModelTokenizer：确保训练数据token对应的token_id与预训练模型的token_id保持一致</li>
+<li>LanguageModelFeaturizer：生成经预训练模型转换后的特征向量，做为架构后续模块的输入。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">language: en</span><br><span class="line">pipeline:</span><br><span class="line">- name: HFTransformersNLP</span><br><span class="line">  model_weights: &quot;rasa&#x2F;LaBSE&quot;</span><br><span class="line">  model_name: &quot;bert&quot;</span><br><span class="line">- name: LanguageModelTokenizer</span><br><span class="line">- name: LanguageModelFeaturizer</span><br><span class="line">- name: DIETClassifier</span><br><span class="line">  epochs: 20</span><br><span class="line">  num_transformer_layers: 2</span><br><span class="line">  transfomer_size: 256</span><br><span class="line">  use_masked_language_model: True</span><br><span class="line">  drop_rate: 0.25</span><br><span class="line">  weight_sparsity: 0.7</span><br><span class="line">  batch_size: [64, 256]</span><br><span class="line">  embedding_dimension: 100</span><br><span class="line">  hidden_layer_sizes:</span><br><span class="line">    text: [512, 128]</span><br></pre></td></tr></table></figure>
 <ul>
-<li><strong>文档转换器（Document transformers)</strong></li>
+<li>DIET样例代码包位置：examples/hf_demo</li>
+<li>DIET样例代码调用方式：项目根目录/main.py</li>
+<li>涉及的源码改动：</li>
 </ul>
-<p>​ l <strong>自定义字符</strong></p>
-<p>​ l <strong>基于句子</strong></p>
-<p>​ l <strong>基于语义</strong></p>
+<p>如按 ‘样例代码调用方式’ 直接跑报错... set from_pt=true, 请修改: 项目根目录/rasa/nlu/utils/hugging_face/hf_transformers.py: class HFTransformersNLP中的def _load_model_instance中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">self.model &#x3D; model_class_dict[self.model_name].from_pretrained(self.model_weights, cache_dir&#x3D;self.cache_dir)</span><br></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">self.model &#x3D; model_class_dict[self.model_name].from_pretrained(self.model_weights, cache_dir&#x3D;self.cache_dir, from_pt&#x3D;True)</span><br></pre></td></tr></table></figure>
+<h3 id="diet核心代码解析">DIET核心代码解析</h3>
+<p><strong>rasa.nlu.model.Trainer.train：</strong>遍历pipeline所有components，对每个component调用component.train方法完成训练。在component遍历到DIETClassifier之前，HFTransformersNLP等组件已经提取好了DIETClassifier训练需要的特征。遍历至DIETClassifier后，DIETClassifier开始利用已经提取好的特征进入训练。</p>
+<p><strong>rasa.nlu.classifiers.DIETClassifier.train:</strong> 该方法主要完成三件事：</p>
 <ul>
-<li><strong>文本嵌入模型（Embed）</strong></li>
+<li><p>语料准备：通过DIETClassifier类中的方法preprocess_train_data，将训练数据和之前提取的特征整理成符合RasaModelData格式的model_data。RasaModelData格式为。。。。。之后将整理好的model_data按batch_size整理成data_generator供batch训练用。</p></li>
+<li><p>指定模型：将DIETClassifier类的成员self.model通过初始化DIET类完成指定DIET模型训练。</p></li>
+<li><ul>
+<li><p>DIET模型类继承自TransformerRasaModel类：自定义了</p></li>
+<li><p>TransformerRasaModel继承自RasaModel：自定义了。。。 要求实现。。。</p></li>
+<li><p>RasaModel继承自TmpKerasModel：通过重写tf.keras.Model中的train_step(), test_step(), predict_step(), save()和load()方法，实现自定义的Rasa模型.</p></li>
+<li><ul>
+<li>train_step()使用自定义的batch_loss并对该loss做了正则化。batch_loss需由其子类实现。</li>
+<li>predict_step()使用自定义的batch_predict()。需由其子类实现。</li>
+<li>save()只使用tf.keras.Model.save_weights()。</li>
+<li>load()生成模型结构后加载weights.</li>
+</ul></li>
+<li><p>TmpKerasModel继承自tf.keras.models.Model：重写了tf.keras.models.Model的fit方法来使用自定义的数据适配器。将数据转写成CustomDataHandler后由其处理迭代 epoch 级别的 <code>tf.data.Iterator</code> 对象。</p></li>
+</ul></li>
+<li><p>训练</p></li>
 </ul>
-<p>​ l <strong>将文档向量化</strong></p>
-<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113624028.png" class="" alt="图片">
+]]></content>
+  </entry>
+  <entry>
+    <title>Rasa NLU架构解析</title>
+    <url>/2022/10/21/Rasa%20NLU%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU各部分做细节上的说明。</p>
+<p>本文更多关注算法，主要内容如下：</p>
+<a id="more"></a>
 <ul>
-<li><strong>文本嵌入模型（Embed）</strong></li>
+<li>Rasa NLU总体架构图</li>
+<li>Rasa NLU训练流程解析</li>
+<li>Rasa NLU推理流程解析</li>
 </ul>
-<p>​ l <strong>将文档向量化</strong></p>
-<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113733790.png" class="" alt="图片">
-<ul>
-<li><p><strong>向量存储&amp;检索（Vector stores）</strong></p></li>
-<li><img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113857413.png" class="" alt="图片">
-<ul>
-<li><strong>MultiQueryRetriever</strong></li>
-</ul>
-<p>​ l <strong>使用 LLM 从不同角度为给定的查询生成多个查询</strong></p>
-<ul>
-<li><strong>上下文压缩</strong></li>
-</ul>
-<p>​ l <strong>将检索结果进行压缩缩率</strong></p>
-<ul>
-<li><strong>MultiVector Retriever</strong></li>
-</ul>
-<p>l <strong>分块/摘要/文档加假设问题</strong></p>
-<ul>
-<li><strong>Time-weighted vector store retriever</strong></li>
-</ul>
-<p>​ l <strong>语义相似性 + 时间衰减</strong></p></li>
-</ul>
+<h1 id="rasa-nlu-总体架构图">Rasa NLU 总体架构图</h1>
+<p>274</p>
+<p><strong>注：（1）FallbackClassifier应出现在某一个意图分类器之后，利用其输出的结果，即intent、confidence、intent ranking，如果意图的置信度比预设的threshold低，或排名前两位的意图的置信度的差距小于预设的ambiguity_threshold，则将该输入的意图分类为“nlu_fallback”</strong></p>
+<h1 id="rasa-nlu训练流程解析"><strong>Rasa NLU训练流程解析</strong></h1>
+<p>571</p>
+<p><strong>rasa.model_training.train_async</strong>: 读取config, domain和训练data到file_importer: TrainingDataImporter, 并输入到_train_async_internal训练Rasa model (nlu and core).</p>
+<p><strong>rasa.model_training._train_async_internal:</strong> 判定模型需要重新训练的部分并将判定结果写入fingerprint_comparison作为_do_training方法的参数fingerprint_comparison_result的值输入_do_training完成相应部分的训练, 训练结束后将模型打包成trained_model，通过trained_model输入TrainingResult返回回至上层。</p>
+<p><strong>rasa.model_training._do_training:</strong> 通过fingerprint_comparison_result带入的结果判断是否重新训练nlu, core和nlg, 并进入相应模块进行训练。</p>
+<p><strong>rasa.model_training._train_nlu_with_validated_data：</strong>按rasa.nlu.train.train各参数要求读取和整理参数值，输入rasa.nlu.train.train开始nlu模块的训练。</p>
+<p><strong>rasa.nlu.train.train:</strong> 通过初始化trainer=rasa.nlu.model.Trainer(...), 构建config.yml中pipeline下的所有组件。读取TrainingDataImporter中的nlu数据后，将数据输入trainer.train开始训练。</p>
+<p><strong>rasa.nlu.model.Trainer.train:</strong> 遍历pipeline所有components，对每个component调用component.train方法完成训练。</p>
+<h1 id="rasa-nlu推理流程解析">Rasa NLU推理流程解析</h1>
+<p>1552</p>
+<p><strong>rasa.model_testing.test_nlu：</strong>nlu测试入口，使用get_model函数加载model并解压（unpack），创建结果输出目录，调用测试过程</p>
+<p><strong>rasa.nlu.test.run_evaluation：</strong>测试过程入口函数，加载nlu模型初始化Interpreter实例，加载测试数据，调用get_eval_data进行测试</p>
+<p><strong>rasa.nlu.test.get_eval_data：</strong>在测试数据上运行模型，并提取真实标签和预测结果，输入interpreter实例和测试数据，返回意图测试结果（包括意图的标签和预测结果，原始消息，即message，及预测结果的置信度），response测试结果（包括response的目标值和预测结果），还有实体测试结果（实体的目标值，预测结果，和对应的token）</p>
+<p><strong>rasa.nlu.model.Interpreter.parse：</strong>一个interpreter对应一个训好的pipeline，其parse方法依次调用pipeline中的每一个component的process方法，来对输入文本一次进行解析和分类等操作，并返回处理结果（包括意图和实体）</p>
+<p>每个component都有一个process入口方法，用于测试和实际预测，在process方法中再调用各component的内部方法（包含真正的处理逻辑），上图虚线框中即展示了一个基本的pipeline预测示例。</p>
+<p>pipeline中Rasa自带的classifiers和extractors各组件（component）的具体介绍后续文章中介绍。</p>
 ]]></content>
   </entry>
   <entry>
@@ -202,78 +513,6 @@ h _ { t } = o _ { t } \tanh ( c _ { t } )\quad\quad\quad\quad\quad\quad\quad\qua
 <li><p>NeevaAI: Small search engine, first launched in the United States in December 2022, founded by Sridhar Ramaswamy (former Senior Vice President of Advertising at Google) and Vivek Raghunathan (former Vice President of Monetization at YouTube). It creates an AI driven and completely user created ad free search engine. We can obtain corresponding answers directly generated by AI with references and annotations. Similarly, it is completely free and requires login.</p></li>
 <li><p>Poe: a conversational AI Chatbot from Quora, which can be accessed by users at will. Users can ask questions to it, and Poe can get answers from a variety of AI Chatbot, including the parent company OpenAI behind ChatGPT and robots from other companies such as Anthropic. Free, but currently only available for iPhone use.</p></li>
 </ol>
-]]></content>
-  </entry>
-  <entry>
-    <title>Rasa NLU SKLearn Classifier解析</title>
-    <url>/2022/10/21/Rasa%20NLU%20SKLearn%20Classifier%E8%A7%A3%E6%9E%90/</url>
-    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU Sklearn classifier架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU Sklearn classifier做细节上的说明。</p>
-<p>本文更多关注算法，主要内容如下：</p>
-<a id="more"></a>
-<ul>
-<li>Sklearn classifier架构</li>
-<li>模型支持说明</li>
-<li>配置样例</li>
-<li>核心代码解析</li>
-</ul>
-<h3 id="sklearn-classifier架构">Sklearn classifier架构</h3>
-<p>313</p>
-<h3 id="模型支持说明">模型支持说明</h3>
-<p>Rasa 对 Sklearn中的所有分类器都支持，包括并不限于以下：</p>
-<table>
-<thead>
-<tr class="header">
-<th>模型名称</th>
-<th>是否支持</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>LogisticRegression</td>
-<td>支持</td>
-</tr>
-<tr class="even">
-<td>RandomForestClassifier</td>
-<td>支持</td>
-</tr>
-<tr class="odd">
-<td>DecisionTreeClassifier</td>
-<td>支持</td>
-</tr>
-<tr class="even">
-<td>MultinomialNB</td>
-<td>支持</td>
-</tr>
-<tr class="odd">
-<td>GradientBoostingClassifier</td>
-<td>支持</td>
-</tr>
-</tbody>
-</table>
-<p>SVM原理简介：</p>
-<p>SVM是找到不同类别之间的分界面，使得两类样本尽量落在面的两边，而且离分界面尽量远。SVM是平面的，局限很大， 这时就利用到核函数。</p>
-<p>核函数在解决线性不可分问题的时候，采取的方式是：使用低维特征空间上的计算来避免在高维特征空间中向量内积的恐怖计算量；也就是说此时SVM模型可以应用在高维特征空间中数据可线性分割的优点，同时又避免了引入这个高维特征空间恐怖的内积计算量。</p>
-<p>本质： 核函数是一个低纬的计算结果，并没有采用低纬到高维的映射。只不过核函数低纬运算的结果等价于映射到高维时向量点积的值。</p>
-<p>1、多项式核函数</p>
-<p>对传入的样本数据点添加多项式项；新的样本数据点进行点乘，返回点乘结果；</p>
-<p>多项式特征的基本原理：依靠升维使得原本线性不可分的数据线性可分；</p>
-<p>2、高斯核函数</p>
-<p>思想：按一定规律统一改变样本的特征数据得到新的样本，新的样本按新的特征数据能更好的分类，由于新的样本的特征数据与原始样本的特征数据呈一定规律的对应关系，因此根据新的样本的分布及分类情况，得出原始样本的分类情况。</p>
-<p>高斯核本质是在衡量样本和样本之间的“相似度”，在一个刻画“相似度”的空间中，让同类样本更好的聚在一起，进而线性可分。</p>
-<p><strong>限制：</strong>(1) SVM算法对大规模训练样本难以实施*</p>
-<p>​ <em>(2) 用SVM解决多分类问题存在困难</em></p>
-<h3 id="配置样例">配置样例</h3>
-<p>1315</p>
-<p>1397</p>
-<h3 id="核心代码解析">核心代码解析</h3>
-<ul>
-<li><p>LabelEncoder()函数： 标签编码，类别标签数值化</p></li>
-<li><p>transform_labels_str2num() 函数： 标签到数值</p></li>
-<li><p>transform_labels_() 函数： 输入数值，输出标签文本</p></li>
-<li><p>GridSearchCV() 函数：网格搜索参数，通过循环遍历，尝试每一种参数组合，返回最好的得分值的参数组合。</p></li>
-<li><p>SVC() 函数： 创建模型训练器</p></li>
-<li><p>process()函数： 模型推理</p></li>
-</ul>
 ]]></content>
   </entry>
   <entry>
@@ -380,277 +619,6 @@ h _ { t } = o _ { t } \tanh ( c _ { t } )\quad\quad\quad\quad\quad\quad\quad\qua
         <tag>Rasa</tag>
         <tag>Machine leanring</tag>
         <tag>[object Object]</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Evaluation methods for unsupervised word embeddings</title>
-    <url>/2020/07/04/Evaluation%20methods%20for%20unsupervised%20word%20embeddings/</url>
-    <content><![CDATA[<p>本文是对论文<a href="https://www.aclweb.org/anthology/D15-1036.pdf" target="_blank" rel="noopener">Evaluation methods for unsupervised word embeddings</a>的总结。相较于大量生成词嵌入模型的研究，评估词嵌入模型的工作相对较少。 该论文是第一篇对词嵌入评估进行深入研究的论文，发表于2015年，涵盖了广泛的评估标准和当时流行的嵌入技术。其目的并非是证明某个词嵌入方法优于其他方法，而是要对词嵌入的评估方法本身做较深入的探讨。</p>
-<a id="more"></a>
-<p>本文的主要内容包括：</p>
-<ul>
-<li>评估方法概述</li>
-<li>不同评估标准下模型表现比较</li>
-<li>词嵌入中的词频信息</li>
-<li>总结</li>
-</ul>
-<h3 id="评估方案概述">评估方案概述</h3>
-<hr />
-<p>现有词嵌入评估方案分为两大类：外部评估（extrinsic evaluation）和内部评估（intrinsic evaluation）。</p>
-<p><strong>外部评估</strong>：词向量被用作下游任务的输入特征，好的词向量应该对使用其的任务有正面影响。但是不同的任务对词向量的偏好可能是不同的，因此外部评估是否有效一直是一个存在争论。</p>
-<p><strong>内部评估</strong>：直接测试单词之间的句法或语义关系。内部评估通常涉及一组预先选择的查询词和与语义相关的目标词，称为查询清单。文章中内部评估进一步分成两类：<em>绝对内在评估</em>和<em>比较内在评估</em>。其中比较内在评估由文章提出，并应用在相关性评估和一致性评估中。</p>
-<h3 id="不同评估标准下模型表现比较">不同评估标准下模型表现比较</h3>
-<hr />
-<p>论文从单词相关性，一致性，下游表现三个不同评估标准入手，分析了三种标准下各词嵌入模型排序结果之间的关系。</p>
-<h4 id="相关性评估">相关性评估</h4>
-<h5 id="绝对内在评估">绝对内在评估</h5>
-<p>绝对内在评估使用通常用作嵌入方法基准的<strong><em>14</em></strong>个数据集（如Table1），对<strong><em>6</em></strong>个词嵌入模型从如下<strong><em>4</em></strong>个范畴进行评估：</p>
-<ul>
-<li>相关性(relatedness): 两个单词的词嵌入的余弦相似度应与人类相关性得分具有高度相关性</li>
-<li>类比性(analogy): 对给定的单词y, 能否找到一个对应的单词x, 使得x与y的关系能够类比另外两个已知词a与b的关系</li>
-<li>类别化(categorization): 对词向量进行聚类, 看每个簇与有标记数据集各类相比纯度如何</li>
-<li>选择倾向(selectinal preference): 判断某名词是更倾向做某个动词的主语还是宾语, 例如一般顺序是 he runs 而不是 runs he</li>
-</ul>
-<p>评估结果如下：</p>
-<p>1056</p>
-<p>绝对内在评估在设计上有两点缺陷：</p>
-<ul>
-<li><p>查询清单（query inventory）：上述的14个数据集在设计上都没能考虑以下几个方面，</p>
-<ul>
-<li><p>the frequency of the words in the English language</p></li>
-<li><p>the parts of speech of the words</p></li>
-<li><p>abstractness vs. concreteness</p></li>
-</ul></li>
-<li><p>度量指标（metric aggregation）：我们找不到一种对完全无关的单词对进行排序的方式（metric）。 例如，我们如何确定（狗，猫）是否比（香蕉，苹果）更相似</p></li>
-</ul>
-<h5 id="比较内在评估">比较内在评估</h5>
-<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3MqrJW4KFs9LfY7hWZuGX8iNCm.6EnpWmizCKEv9OfRL8YlJdeZOH4tn917Flf7Tng!!/b&amp;bo=cgSOAgAAAAADB9g!&amp;rf=viewer_4" style="zoom: 33%;" /></p>
-<p>针对绝对内在评估存在的缺陷，文章提出了<em>比较内在评估</em>方法。即，给出一个查询词，将6个词嵌入模型产生的结果呈现给用户，让用户选出最相关的，然后统计结果。如Table 2.</p>
-<ul>
-<li><p>文章采用用户直接反馈的形式避免了需要定义指标（metric）的问题。</p></li>
-<li><p>文章定义制作了更符合词嵌入评估任务的查询清单。考虑了词频、词性、类别、是否是抽象词四个方面。并对这四个方面分别做了评估。</p></li>
-</ul>
-<p>比较内在评估结果如下：</p>
-<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaYyIUYreKyNC7qTzjk..xcAsEAIzcwCsJzMOIVOYmwCVdpMa3bxvaEMZn6vH18MQa253IJxDg*NSe0Qn0joRqpPE!/b&amp;bo=7gU4BAAAAAADN8U!&amp;rf=viewer_4" style="zoom: 50%;" /></p>
-<center>
-Figure 1: Direct comparison task
-</center>
-<h4 id="一致性评估">一致性评估</h4>
-<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3P8cCoVC1A7.3Yyr*hKVdUi3*bS3XnEmd4JdP4qZnRWjpGaQ5Omu4ijHfhZz4tKBrw!!/b&amp;bo=rAhkAwAAAAADB.E!&amp;rf=viewer_4" style="zoom:25%;" /></p>
-<p>文章中一致性评估直接采用比较内在评估方法。一致性评估是文章提出的评估方法。将查询词本身及词嵌入模型计算出来的两个相近词再加上一个不相关的词组成一道选择题。由测试人选出不相关的词。由此判定词嵌入模型选出的词与查询词是否具有一致性。</p>
-<p>一致性评估结果如下：</p>
-<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3HkOUPptF0rYckWfjgSj3wfDacq9Q7HuwQzQDiNkGn8kPelkhqUdsQOxR2f0wqiiYA!!/b&amp;bo=hAY4BAAAAAADB5w!&amp;rf=viewer_4" style="zoom:25%;" /></p>
-<center>
-Figure 2: Intrusion task: average precision by global word frequency
-</center>
-<p>到目前为止，对比<span class="math inline">\(Table1, Figure1\)</span>和<span class="math inline">\(Figure2\)</span>，6个词嵌入模型从一致性任务获得的排名与从相关性任务获得的排名产生了出入。</p>
-<h4 id="外在评估下游表现">外在评估（下游表现）</h4>
-<p>外在评估评估单词嵌入模型对特定任务的贡献。</p>
-<p>使用此类评估存在一个隐含的假设，即单词嵌入质量是有固定排名的。也就是说，嵌入模型无论在什么任务里的表现排名应该是基本一致的。因此，更高质量的嵌入将必定会改善任何下游任务的结果。</p>
-<p>但文章发现上述假设不成立：不同的任务倾向于不同的嵌入。</p>
-<p>在文章试验的两个任务：名词短语分块和情感分类中证实了上述观点。文章建议对词嵌入进行针对项目的训练，以优化特定目标。</p>
-<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3H1dtYybh1w4r.wPapYRLqvr0LSVsW7wvqjAqJrbZU*vQDSxRc9z2.fuk52*9GM.5A!!/b&amp;bo=OATIBgAAAAADB9A!&amp;rf=viewer_4" style="zoom:25%;" /></p>
-<h3 id="embedding中的词频信息">Embedding中的词频信息</h3>
-<hr />
-<p>文章用两个小实验证实了embedding中编码了大量的词频信息。两个小实验的情况如下：</p>
-<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3MxBRn.X0eEGkRNPoxsXnqzLc0Usoz7oujbllJnRtldyQAM5AiCOe0o5jlLL0zNc9A!!/b&amp;bo=PAiGAwAAAAADB5M!&amp;rf=viewer_4" style="zoom:67%;" /></p>
-<h3 id="总结">总结</h3>
-<hr />
-<p>本论文的主要贡献总结如下：</p>
-<ul>
-<li>提出了由于使用不同的评估标准会导致嵌入效果排序的不同，对嵌入方法进行比较应在特定任务的上下文中进行，不提倡使用外部评估评测embedding。</li>
-<li>证实了自动相似性评估与直接人工评估之间存在很强的相关性。说明至少在相似性任务中使用离线数据是合理的。</li>
-<li>提出了一种模型驱动和数据驱动的方法来构建查询清单。</li>
-<li>发现了所有词嵌入模型都编码了大量的单词频率信息，对使用余弦相似度作为嵌入空间中的相似度度量的普遍做法提出了质疑</li>
-</ul>
-<h3 id="参考文献">参考文献</h3>
-<hr />
-<p><a href="https://www.aclweb.org/anthology/D15-1036.pdf" target="_blank" rel="noopener">[Schnabel2015] Schnabel, T., Labutov, I., Mimno, D., &amp; Joachims, T. Evaluation methods for unsupervised word embeddings. In <em>Proceedings of the 2015 Conference on Empirical Methods in Natural Language Processing (EMNLP)</em> (pp. 298-307). 2015</a></p>
-<h3 id="评估相关其他资料">评估相关其他资料</h3>
-<hr />
-<p><a href="https://arxiv.org/abs/1801.09536" target="_blank" rel="noopener">[Bakarov2018] Bakarov, Amir. "A Survey of Word Embeddings Evaluation Methods." <em>arXiv preprint arXiv:1801.09536</em>. 2018</a></p>
-]]></content>
-      <categories>
-        <category>NLP</category>
-      </categories>
-      <tags>
-        <tag>embedding evaluation</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Rasa NLU架构解析</title>
-    <url>/2022/10/21/Rasa%20NLU%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/</url>
-    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU各部分做细节上的说明。</p>
-<p>本文更多关注算法，主要内容如下：</p>
-<a id="more"></a>
-<ul>
-<li>Rasa NLU总体架构图</li>
-<li>Rasa NLU训练流程解析</li>
-<li>Rasa NLU推理流程解析</li>
-</ul>
-<h1 id="rasa-nlu-总体架构图">Rasa NLU 总体架构图</h1>
-<p>274</p>
-<p><strong>注：（1）FallbackClassifier应出现在某一个意图分类器之后，利用其输出的结果，即intent、confidence、intent ranking，如果意图的置信度比预设的threshold低，或排名前两位的意图的置信度的差距小于预设的ambiguity_threshold，则将该输入的意图分类为“nlu_fallback”</strong></p>
-<h1 id="rasa-nlu训练流程解析"><strong>Rasa NLU训练流程解析</strong></h1>
-<p>571</p>
-<p><strong>rasa.model_training.train_async</strong>: 读取config, domain和训练data到file_importer: TrainingDataImporter, 并输入到_train_async_internal训练Rasa model (nlu and core).</p>
-<p><strong>rasa.model_training._train_async_internal:</strong> 判定模型需要重新训练的部分并将判定结果写入fingerprint_comparison作为_do_training方法的参数fingerprint_comparison_result的值输入_do_training完成相应部分的训练, 训练结束后将模型打包成trained_model，通过trained_model输入TrainingResult返回回至上层。</p>
-<p><strong>rasa.model_training._do_training:</strong> 通过fingerprint_comparison_result带入的结果判断是否重新训练nlu, core和nlg, 并进入相应模块进行训练。</p>
-<p><strong>rasa.model_training._train_nlu_with_validated_data：</strong>按rasa.nlu.train.train各参数要求读取和整理参数值，输入rasa.nlu.train.train开始nlu模块的训练。</p>
-<p><strong>rasa.nlu.train.train:</strong> 通过初始化trainer=rasa.nlu.model.Trainer(...), 构建config.yml中pipeline下的所有组件。读取TrainingDataImporter中的nlu数据后，将数据输入trainer.train开始训练。</p>
-<p><strong>rasa.nlu.model.Trainer.train:</strong> 遍历pipeline所有components，对每个component调用component.train方法完成训练。</p>
-<h1 id="rasa-nlu推理流程解析">Rasa NLU推理流程解析</h1>
-<p>1552</p>
-<p><strong>rasa.model_testing.test_nlu：</strong>nlu测试入口，使用get_model函数加载model并解压（unpack），创建结果输出目录，调用测试过程</p>
-<p><strong>rasa.nlu.test.run_evaluation：</strong>测试过程入口函数，加载nlu模型初始化Interpreter实例，加载测试数据，调用get_eval_data进行测试</p>
-<p><strong>rasa.nlu.test.get_eval_data：</strong>在测试数据上运行模型，并提取真实标签和预测结果，输入interpreter实例和测试数据，返回意图测试结果（包括意图的标签和预测结果，原始消息，即message，及预测结果的置信度），response测试结果（包括response的目标值和预测结果），还有实体测试结果（实体的目标值，预测结果，和对应的token）</p>
-<p><strong>rasa.nlu.model.Interpreter.parse：</strong>一个interpreter对应一个训好的pipeline，其parse方法依次调用pipeline中的每一个component的process方法，来对输入文本一次进行解析和分类等操作，并返回处理结果（包括意图和实体）</p>
-<p>每个component都有一个process入口方法，用于测试和实际预测，在process方法中再调用各component的内部方法（包含真正的处理逻辑），上图虚线框中即展示了一个基本的pipeline预测示例。</p>
-<p>pipeline中Rasa自带的classifiers和extractors各组件（component）的具体介绍后续文章中介绍。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/05/23/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>WMD论文总结及代码实现:  From Word Embeddings To Document Distances</title>
-    <url>/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/</url>
-    <content><![CDATA[<p>本文是对论文<a href="http://proceedings.mlr.press/v37/kusnerb15.pdf" target="_blank" rel="noopener">From Word Embeddings To Document Distances</a>的总结和<a href="https://github.com/Adline125/Similarity" target="_blank" rel="noopener">code</a>实现。该论文基于word2vec embedding 和EMD（Earth Mover's Distance）提出了一种新的计算文档距离的算法WMD（Word Mover's Distance）。旨在解决 <em>Obama speaks to the media in Illinois</em> 和 <em>The President greets the press in Chicago</em> 仅仅因词语拼写不同而导致距离很远的不合理现象。尽管这两个句子对应的词语在语义上是相近的。</p>
-<a id="more"></a>
-<p>本文的主要内容包括：</p>
-<ul>
-<li>WMD模型</li>
-<li>WMD模型的速度优化</li>
-<li>总结</li>
-<li>Code</li>
-</ul>
-<p>在WMD模型提出以前，计算文档相似度主要是使用词袋模型或TF-IDF。这两种方法都存在严重的数据稀疏问题，而且完成没有考虑词与词之间的语义关系。对意义相近但用词不同的文档无能为力。</p>
-<h3 id="word-movers-distancewmd模型">Word Mover’s Distance（WMD）模型</h3>
-<hr />
-<p>MWD既考虑了词袋模型的词频也考虑了词与词之间的距离：</p>
-<h4 id="文档表示nbow">文档表示（nBOW）</h4>
-<p>WMD中文档表示就是归一化的词袋模型，文档向量各分量值形式化表示为： <span class="math display">\[
-d _ { i } = \frac { c _ { i } } { \sum _ { i = 1 } ^ { n } c _ { j } }
-\]</span> 分子为词频，分母为文档总词数。以论文中的例句为例，去停后可表示为：</p>
-<ul>
-<li>D0：President greets press Chicago [0.25, 0.25, 0.25, 0.25, 0, 0, ...]</li>
-<li>D1：Obama speaks media Illinois [0, ..., 0.25, 0.25, 0.25, 0.25, 0, ...]</li>
-<li>D3：Obama speaks Illinois [0, .., 0.33, 0.33, 0.33, 0, ..., 0]</li>
-</ul>
-<h4 id="词转化损失word-travel-cost">词转化损失（word travel cost）</h4>
-<p>利用word2vec词向量计算欧式距离得到： <span class="math display">\[
-c ( i , j ) = \| x _ { i } - x _ { j } \| _ { 2 }
-\]</span> $c ( i , j ) $表示一个词转化为另一个词的损失。</p>
-<h4 id="文档距离">文档距离</h4>
-<p>WMD文档距离是由文档表示（nBow）和词转化损失（word travel cost）共同作用得到的，计算方法为寻找两个文档中对应的词，累加各组对应词对的（词转化损失 * nBow对应的分量分到该词上的权重）。对应词的标准是<span class="math inline">\(c(i, j)\)</span>最小的词，如Figure 1所示。</p>
-
-<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3CGkx6DnFyk.q1oiK0VT4CmULupL1*P.hj8AixoE7E5DXkt*fqv09R0MTU0jgh9CAA!!/b&amp;bo=igL1AYoC9QEDByI!&amp;rf=viewer_4" style="zoom:67%;" /></p>
-<center>
-Figure 1. (Top:) The components of the WMD metric between a query D0 and two sentences D1, D2 (with equal BOW distance). The arrows represent flow between two words and are labeled with their distance contribution. (Bottom:) The flow between two sentences D3 and D0 with different numbers of words. This mismatch causes the WMD to move words to multiple similar words.
-</center>
-<p>当比较的两个文档长度相同时，文档距离可以简单理解为： <span class="math display">\[
-W\!M\!D \  document \ distance = \sum _ {i=1}^ {n} d_{i} * min(c(i, j))
-\]</span> 但更通用的表示，即当比较的两个文档长度不同时，我们需要引入矩阵<span class="math inline">\(T \in R ^ { n \times n }\)</span>来表示文档距离： <span class="math display">\[
-\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j )
-\]</span> 其中 <span class="math inline">\(T _ { i j } \geq 0\)</span>，表示文档中的词<span class="math inline">\(i\)</span>在多大程度上转化为另一个文档中的词 <span class="math inline">\(j\)</span>，也可理解为文档中的词<span class="math inline">\(i\)</span>在文档nBow表示中对应的分量有多少权重被分到另一个文档中的词<span class="math inline">\(j\)</span>上。</p>
-<p>举个例子，Figure 1中的<span class="math inline">\(D_{0}\)</span>和<span class="math inline">\(D_{3}\)</span>，当<span class="math inline">\(T\)</span> 矩阵为如下情况时，<span class="math inline">\(D_{0}\)</span>和<span class="math inline">\(D_{3}\)</span>会产生如图中所示的对应关系： <span class="math display">\[
-\begin{array}{c|cccc}
-         &amp; \text{President} &amp; \text{greets} &amp; \text{press} &amp; \text{Chicago}\\
-\hline
-Obama    &amp; 0.25             &amp; 0.08           &amp; 0.          &amp; 0.             \\
-speaks   &amp; 0.08             &amp; 0.             &amp; 0.25        &amp; 0.            \\
-Illinois &amp; 0.08             &amp; 0.             &amp; 0.          &amp; 0.25          \\
-\end{array}
-\]</span></p>
-<center>
-Figure 2
-</center>
-<p>还记得<span class="math inline">\(D_3\)</span>的nBow表示，<em>Obama</em>对应的分量值为0.33，这里<em>Obama</em>被距离最近的词<em>President</em> 分走了0.25, 还剩0.08需要分配出去。图中的情况，<em>greets</em>是距离<em>Obama</em>第二近的词，于是0.08被分配给了<em>greets</em>。以此类推。</p>
-<p>显然，两个文档长度相同时，<span class="math inline">\(T\)</span> 除一一对应的词的位置是nbow分量值外，其他位置都是0.</p>
-<p><em>注：Figure 1中<span class="math inline">\(D_0\)</span>和<span class="math inline">\(D_3\)</span>只是众多可能的对应关系的一种，并不是最优的对应关系。最优的对应关系如前面所说，寻找<span class="math inline">\(c(i, j)\)</span>尽可能小的词对。一对多的情况下，按<span class="math inline">\(c(i, j)\)</span>由小到大顺位取。</em></p>
-<h4 id="wmd模型">WMD模型</h4>
-<p>WMD模型的<span class="math inline">\(Obj\)</span>： <span class="math display">\[
-\begin{split}
-\min _ { T \geq 0 } &amp;\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j ) \\
-subject\ to: &amp;\sum _ { j = 1 } ^ { n } T _ { i j } = d _ { i } \quad \forall i \in \{ 1 , \ldots , n \} \qquad (1)\\
-&amp;\sum _ { i = 1 } ^ { n } T _ { i j } = d _ { j } ^ { \prime } \quad \forall j \in \{ 1 , \ldots , n \} \qquad (2)
-\end{split} \\
-\]</span> 条件（1）就是<span class="math inline">\(T\)</span>的行元素相加和等于<span class="math inline">\(d_i\)</span> <em>。如 Obama (0.33)</em> = <em>President (0.25)</em> + <em>greets (0.08)</em> + <em>press (0.)</em> + <em>Chicago (0.)</em>。</p>
-<p>条件（2）就是<span class="math inline">\(T\)</span>的列元素相加和等于<span class="math inline">\(d_j\)</span>。如<em>Press (0.25)</em> = <em>Obama (0.)</em> + <em>speak (0.25)</em> + <em>Illinois (0.)</em>。</p>
-<p><strong><em>（Figure2中例子<span class="math inline">\(president\)</span>是不满足条件（2）的，下面优化部分会提到，其实只满足一个条件就可以）</em></strong></p>
-<p>从<span class="math inline">\(\min _ { T \geq 0 } \sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j )\)</span>可以看出，这是一个有条件的线性规划问题。所有线性规划问题都有最优解。</p>
-<h3 id="wmd模型的速度优化">WMD模型的速度优化</h3>
-<hr />
-<h4 id="word-centroid-distancewcd">Word centroid distance（WCD）</h4>
-<p>计算WMD的复杂度太高，为<span class="math inline">\(O ( p ^ { 3 } \log p )\)</span>。WCD的结果是WMD的下限，它是一些简单的矩阵运算，复杂度为<span class="math inline">\(O (dp)\)</span>。其推导过程如下： <span class="math display">\[
-\begin{split}
-&amp;\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j ) = \sum _ { i , j = 1 } ^ { n } T _ { i j } \| x _ { i } - x _ { j } ^ { \prime } \| _ { 2 } \\
-= &amp;\sum ^ { n } \| T _ { i j } ( x _ { i } - x _ { j } ^ { \prime } ) \| _ { 2 } \geq \| \sum ^ { n } T _ { i j } ( x _ { i } - x _ { j } ^ { \prime } ) \| _{2} \\
-= &amp;\| \sum _ { i = 1 } ^ { n } ( \sum _ { j = 1 } ^ { n } T _ { i j } ) x _ { i } - \sum _ { j = 1 } ^ { n } ( \sum _ { i = 1 } ^ { n } T _ { i j } ) x _ { j } ^ { \prime } \| _ { 2 } \\ 
-= &amp;\| \sum _ { i = 1 } ^ { n } d _ { i } x _ { i } - \sum _ { j = 1 } ^ { n } d _ { j } ^ { \prime } x _ { j } ^ { \prime } \| _ { 2 } = \| X d - X d ^ { \prime } \| _ { 2 } \\
-\end{split}
-\]</span></p>
-<p>WCD的推导相对容易，上面推导中不等式的步骤是利用<span class="math inline">\(\sqrt a + \sqrt b \geq \sqrt{a+b}\)</span> 得到的。</p>
-<p>得到两个文档的WMD下限<span class="math inline">\(\| X d - X d ^ { \prime } \| _ { 2 }\)</span>，可知这两个文档的距离一定大于这个值。在很多情况下，可以直接排除掉这些下限都已经很大的文档，免去进一步的运算，减少计算量。</p>
-<h4 id="relaxed-word-moving-distance-rwmd">Relaxed word moving distance （RWMD）</h4>
-<p>虽然WCD速度很快，但计算出来的下限相比真实值还是差距比较大的。RWMD通过分别去掉WMD中的一个条件来得到两个下限<span class="math inline">\(\ell _ { 1 } ( d , d ^ { \prime } )\)</span>和<span class="math inline">\(\ell _ { 2 } ( d , d ^ { \prime } )\)</span>, 然后取<span class="math inline">\(\ell _ { r } ( d , d ^ { \prime } ) = \max ( \ell _ { 1 } ( d , d ^ { \prime } ) , \ell _ { 2 } ( d , d ^ { \prime } ) )\)</span>。当去掉的是条件（2）时，RMWD形式化表示如下： <span class="math display">\[
-\begin{split}
-\min _ { T \geq 0 } &amp;\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j ) \\
-subject\ to: &amp;\sum _ { j = 1 } ^ { n } T _ { i j } = d _ { i } \quad \forall i \in \{ 1 , \ldots , n \} \\
-\end{split} \\
-\]</span> RWMD的复杂度为<span class="math inline">\(O(p^2)\)</span>。<strong>（Figure 2的情况满足RWMD）</strong></p>
-<h4 id="prefetch-and-prune">Prefetch and prune</h4>
-<ol type="1">
-<li>计算所有文档与目标文档的WCD并对结果进行排序，选择前k个文档作为k-nearest-neighbour。</li>
-<li>计算这k个文档与目标文档的具体WMD。</li>
-<li>依次计算其他文档与目标文档的RWMD，并将其与第k个文档WMD进行对比，超过的可以直接prune掉。</li>
-<li>如果没超过，计算该文档与目标文档的WMD并对k-nearest-neighbour进行更新。</li>
-</ol>
-<h3 id="总结">总结</h3>
-<hr />
-<ul>
-<li>WMD完美地将word2vec与传统的Bow结合起来，这在深度学习与传统机器学习算法结合方面做得都不是很好的今天，无疑是个很novel的idea.</li>
-<li>在解决WMD复杂度过高的问题上，利用复杂度低很多的两个下限配合使用，既大大提高了速度，又没有损失精度。</li>
-</ul>
-<h3 id="代码实现">代码实现</h3>
-<hr />
-<p>本文实现代码请见 <a href="https://github.com/Adline125/Similarity" target="_blank" rel="noopener">https://github.com/Adline125/Similarity</a></p>
-<p>开源的WMD实现有：</p>
-<ul>
-<li><a href="https://github.com/RaRe-Technologies/gensim" target="_blank" rel="noopener">gensim</a>（python）调用<a href="https://github.com/wmayner/pyemd" target="_blank" rel="noopener">pyemd</a>的c扩展，使用fast EMD算法。</li>
-<li><a href="https://github.com/mkusner/wmd" target="_blank" rel="noopener">Word Mover's Distance (WMD) from Matthew J Kusner</a> 单纯形法实现</li>
-<li><a href="https://github.com/src-d/wmd-relax" target="_blank" rel="noopener">Fast WMD</a>有RWMD的实现。</li>
-</ul>
-<h3 id="参考文献">参考文献</h3>
-<hr />
-<p><a href="http://proceedings.mlr.press/v37/kusnerb15.pdf" target="_blank" rel="noopener">From Word Embeddings To Document Distances</a></p>
-<h3 id="文本距离类的其他资料">文本距离类的其他资料</h3>
-<hr />
-<p><a href="http://www.deepsmart.ai/76.html" target="_blank" rel="noopener">CIKM Cup 2018阿里小蜜短文本匹配算法竞赛 – 冠军DeepSmart团队分享</a></p>
-<p><a href="https://arxiv.org/pdf/1908.10084.pdf" target="_blank" rel="noopener">Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks</a></p>
-]]></content>
-      <categories>
-        <category>NLP</category>
-      </categories>
-      <tags>
-        <tag>document distance</tag>
       </tags>
   </entry>
   <entry>
@@ -806,6 +774,98 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
         <tag>Machine leanring</tag>
         <tag>XGBoost</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/05/23/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Rasa NLU SKLearn Classifier解析</title>
+    <url>/2022/10/21/Rasa%20NLU%20SKLearn%20Classifier%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU Sklearn classifier架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU Sklearn classifier做细节上的说明。</p>
+<p>本文更多关注算法，主要内容如下：</p>
+<a id="more"></a>
+<ul>
+<li>Sklearn classifier架构</li>
+<li>模型支持说明</li>
+<li>配置样例</li>
+<li>核心代码解析</li>
+</ul>
+<h3 id="sklearn-classifier架构">Sklearn classifier架构</h3>
+<p>313</p>
+<h3 id="模型支持说明">模型支持说明</h3>
+<p>Rasa 对 Sklearn中的所有分类器都支持，包括并不限于以下：</p>
+<table>
+<thead>
+<tr class="header">
+<th>模型名称</th>
+<th>是否支持</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LogisticRegression</td>
+<td>支持</td>
+</tr>
+<tr class="even">
+<td>RandomForestClassifier</td>
+<td>支持</td>
+</tr>
+<tr class="odd">
+<td>DecisionTreeClassifier</td>
+<td>支持</td>
+</tr>
+<tr class="even">
+<td>MultinomialNB</td>
+<td>支持</td>
+</tr>
+<tr class="odd">
+<td>GradientBoostingClassifier</td>
+<td>支持</td>
+</tr>
+</tbody>
+</table>
+<p>SVM原理简介：</p>
+<p>SVM是找到不同类别之间的分界面，使得两类样本尽量落在面的两边，而且离分界面尽量远。SVM是平面的，局限很大， 这时就利用到核函数。</p>
+<p>核函数在解决线性不可分问题的时候，采取的方式是：使用低维特征空间上的计算来避免在高维特征空间中向量内积的恐怖计算量；也就是说此时SVM模型可以应用在高维特征空间中数据可线性分割的优点，同时又避免了引入这个高维特征空间恐怖的内积计算量。</p>
+<p>本质： 核函数是一个低纬的计算结果，并没有采用低纬到高维的映射。只不过核函数低纬运算的结果等价于映射到高维时向量点积的值。</p>
+<p>1、多项式核函数</p>
+<p>对传入的样本数据点添加多项式项；新的样本数据点进行点乘，返回点乘结果；</p>
+<p>多项式特征的基本原理：依靠升维使得原本线性不可分的数据线性可分；</p>
+<p>2、高斯核函数</p>
+<p>思想：按一定规律统一改变样本的特征数据得到新的样本，新的样本按新的特征数据能更好的分类，由于新的样本的特征数据与原始样本的特征数据呈一定规律的对应关系，因此根据新的样本的分布及分类情况，得出原始样本的分类情况。</p>
+<p>高斯核本质是在衡量样本和样本之间的“相似度”，在一个刻画“相似度”的空间中，让同类样本更好的聚在一起，进而线性可分。</p>
+<p><strong>限制：</strong>(1) SVM算法对大规模训练样本难以实施*</p>
+<p>​ <em>(2) 用SVM解决多分类问题存在困难</em></p>
+<h3 id="配置样例">配置样例</h3>
+<p>1315</p>
+<p>1397</p>
+<h3 id="核心代码解析">核心代码解析</h3>
+<ul>
+<li><p>LabelEncoder()函数： 标签编码，类别标签数值化</p></li>
+<li><p>transform_labels_str2num() 函数： 标签到数值</p></li>
+<li><p>transform_labels_() 函数： 输入数值，输出标签文本</p></li>
+<li><p>GridSearchCV() 函数：网格搜索参数，通过循环遍历，尝试每一种参数组合，返回最好的得分值的参数组合。</p></li>
+<li><p>SVC() 函数： 创建模型训练器</p></li>
+<li><p>process()函数： 模型推理</p></li>
+</ul>
+]]></content>
   </entry>
   <entry>
     <title>基于 LangChain 构建智能客服 AI Agent 案例实践</title>
@@ -970,134 +1030,127 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
 ]]></content>
   </entry>
   <entry>
-    <title>Paper Reading: Cramming- Training a Language Model on a Single GPU in One Day</title>
-    <url>/2023/07/24/Paper%20Reading:%20Cramming-%20Training%20a%20Language%20Model%20on%20a%20Single%20GPU%20in%20One%20Day/</url>
-    <content><![CDATA[<p>IBM's NLP research expert Leshem Choshen commented on Twitter, "This paper summarizes all the big model training trips you can think of.</p>
+    <title>WMD论文总结及代码实现:  From Word Embeddings To Document Distances</title>
+    <url>/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/</url>
+    <content><![CDATA[<p>本文是对论文<a href="http://proceedings.mlr.press/v37/kusnerb15.pdf" target="_blank" rel="noopener">From Word Embeddings To Document Distances</a>的总结和<a href="https://github.com/Adline125/Similarity" target="_blank" rel="noopener">code</a>实现。该论文基于word2vec embedding 和EMD（Earth Mover's Distance）提出了一种新的计算文档距离的算法WMD（Word Mover's Distance）。旨在解决 <em>Obama speaks to the media in Illinois</em> 和 <em>The President greets the press in Chicago</em> 仅仅因词语拼写不同而导致距离很远的不合理现象。尽管这两个句子对应的词语在语义上是相近的。</p>
 <a id="more"></a>
-<p>###Limited resources</p>
-<p>In order to simulate the resource environment of ordinary practitioners and researchers, this study first constructed a resource constrained research environment:</p>
+<p>本文的主要内容包括：</p>
 <ul>
-<li><p>A transformer based language model of any size, trained entirely from scratch using masked language modeling;</p></li>
-<li><p>The pipeline cannot contain existing pre trained models;</p></li>
-<li><p>Any raw text (excluding downstream data) can be included in the training, which means that acceleration can be achieved by wisely selecting how and when to sample the data, provided that the sampling mechanism does not require pre training the model;</p></li>
-<li><p>The download and pre-processing of original data are not included in the total budget. The pre-processing here includes CPU based tokenizer construction, tokenization and filtering, but does not include Feature learning;</p></li>
-<li><p>Training is only conducted on a single GPU for 24 hours;</p></li>
-<li><p>Downstream performance is evaluated on GLUE, and downstream fine-tuning on GLUE is limited to simple training using only training data from downstream tasks (5 epochs or less), and requires the use of global hyperparameters set for all GLUE tasks. Downstream fine-tuning is not included in the total budget.</p></li>
+<li>WMD模型</li>
+<li>WMD模型的速度优化</li>
+<li>总结</li>
+<li>Code</li>
 </ul>
-<p>###Improvement methods</p>
-<p>The researchers implemented and tested some modification directions proposed by existing work, including general implementation and initial data settings, and attempted to modify the architecture, train, and modify the dataset methods.</p>
-<p>The experiment was conducted in PyTorch, without using idiosyncratic implementations to be as fair as possible. All content was kept at the implementation level of the PyTorch framework, and only automatic operator fusion that could be applied to all components was allowed. In addition, the efficient attention kernel would only be re enabled after selecting the final architectural variant.</p>
-<p>The first method we think of to improve performance is definitely modifying the model architecture. Intuitively, smaller/lower capacity models seem to be optimal in a one card per day training session. However, after studying the relationship between model type and training efficiency, researchers found that the scaling law poses a huge obstacle to scaling down. The training efficiency of each token largely depends on the model size, rather than the type of transformer.</p>
-<p>In addition, smaller models have lower learning efficiency, which largely slows down the increase in throughput. Fortunately, the fact that training efficiency remains almost constant in models of the same size means that we can find suitable designs in architectures with similar parameter quantities, mainly based on the calculation time that affects individual gradient steps.</p>
-<p>###summary</p>
-<p>Overall, using the method in the paper, the training results are already very close to the original BERT, but it should be noted that the total FLOPS used by the latter is 45-136 times that of the new method (which takes four days on 16 TPUs). When the training time was extended by 16 times (trained on 8 GPUs for two days), the performance of the new method actually improved significantly compared to the original BERT, reaching the level of RoBERTA.</p>
-<p>In this work, people discussed how much performance a transformer based language model can achieve in environments with very limited computational complexity. Fortunately, several modification directions can enable us to achieve good downstream performance on GLUE. Researchers expressed the hope that this work can provide a baseline for further improvement and provide theoretical support for many improvements and techniques proposed for Transformer architecture in recent years.</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Rasa NLU DIET Classifier解析</title>
-    <url>/2022/10/21/Rasa%20NLU%20DIET%20Classifier%E8%A7%A3%E6%9E%90/</url>
-    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU classifier中最受欢迎的DIET Classifier的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU classifier 中的DIET Classifier做详细的说明。</p>
-<p>本文更多关注算法，主要内容如下：</p>
-<a id="more"></a>
+<p>在WMD模型提出以前，计算文档相似度主要是使用词袋模型或TF-IDF。这两种方法都存在严重的数据稀疏问题，而且完成没有考虑词与词之间的语义关系。对意义相近但用词不同的文档无能为力。</p>
+<h3 id="word-movers-distancewmd模型">Word Mover’s Distance（WMD）模型</h3>
+<hr />
+<p>MWD既考虑了词袋模型的词频也考虑了词与词之间的距离：</p>
+<h4 id="文档表示nbow">文档表示（nBOW）</h4>
+<p>WMD中文档表示就是归一化的词袋模型，文档向量各分量值形式化表示为： <span class="math display">\[
+d _ { i } = \frac { c _ { i } } { \sum _ { i = 1 } ^ { n } c _ { j } }
+\]</span> 分子为词频，分母为文档总词数。以论文中的例句为例，去停后可表示为：</p>
 <ul>
-<li>Rasa NLU Classifier架构</li>
-<li>主流技术支持情况</li>
+<li>D0：President greets press Chicago [0.25, 0.25, 0.25, 0.25, 0, 0, ...]</li>
+<li>D1：Obama speaks media Illinois [0, ..., 0.25, 0.25, 0.25, 0.25, 0, ...]</li>
+<li>D3：Obama speaks Illinois [0, .., 0.33, 0.33, 0.33, 0, ..., 0]</li>
 </ul>
-<h3 id="diet-classifier架构">DIET Classifier架构</h3>
-<h4 id="section">321</h4>
-<h3 id="模型支持说明">模型支持说明</h3>
-<p>DIET支持的Huggingface模型类型如下表：</p>
-<table>
-<thead>
-<tr class="header">
-<th><strong>模型类型</strong></th>
-<th><strong>模型名称</strong></th>
-<th><strong>默认加载的预训练模型</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>BERT</td>
-<td>bert</td>
-<td>rasa/LaBSE ( bert-base-uncased )</td>
-</tr>
-<tr class="even">
-<td>GPT</td>
-<td>gpt</td>
-<td>openai-gpt</td>
-</tr>
-<tr class="odd">
-<td>GPT2</td>
-<td>gpt2</td>
-<td>gpt2</td>
-</tr>
-<tr class="even">
-<td>XLNet</td>
-<td>xlnet</td>
-<td>xlnet-base-cased</td>
-</tr>
-<tr class="odd">
-<td>DistilBERT</td>
-<td>distilbert</td>
-<td>distilbert-base-uncased</td>
-</tr>
-<tr class="even">
-<td>RoBERTa</td>
-<td>roberta</td>
-<td>roberta-base</td>
-</tr>
-</tbody>
-</table>
-<p>对在HuggingFace 中上传的所有预训练模型（<a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>），Rasa DIET可以支持满足以下条件的所有模型：</p>
-<p>点击<a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>-&gt;选中一个模型-&gt;点击进入模型页面-&gt;点击Files and version</p>
-<ul>
-<li>检查 config.json 中的 model_type 是否列在上表的 <strong>模型名称</strong> 列中</li>
-<li>检查文件 tf_model.h5 是否存在</li>
-<li>模型使用默认tokenizer, config.json 中不包含支持自定义的 tokenizer_class</li>
-</ul>
-<p>对满足上述条件的模型，通过2.1.3.3中描述的方式可开箱即用。</p>
-<h3 id="diet支持huggingface的配置样例">DIET支持Huggingface的配置样例</h3>
-<p>在Rasa2.0中，若想在DIET架构中使用Huggingface提供的预训练模型，除在rasa的config文件中指定使用DIETClassifier外，还需要配合使用对应的模块：</p>
+<h4 id="词转化损失word-travel-cost">词转化损失（word travel cost）</h4>
+<p>利用word2vec词向量计算欧式距离得到： <span class="math display">\[
+c ( i , j ) = \| x _ { i } - x _ { j } \| _ { 2 }
+\]</span> $c ( i , j ) $表示一个词转化为另一个词的损失。</p>
+<h4 id="文档距离">文档距离</h4>
+<p>WMD文档距离是由文档表示（nBow）和词转化损失（word travel cost）共同作用得到的，计算方法为寻找两个文档中对应的词，累加各组对应词对的（词转化损失 * nBow对应的分量分到该词上的权重）。对应词的标准是<span class="math inline">\(c(i, j)\)</span>最小的词，如Figure 1所示。</p>
+
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3CGkx6DnFyk.q1oiK0VT4CmULupL1*P.hj8AixoE7E5DXkt*fqv09R0MTU0jgh9CAA!!/b&amp;bo=igL1AYoC9QEDByI!&amp;rf=viewer_4" style="zoom:67%;" /></p>
+<center>
+Figure 1. (Top:) The components of the WMD metric between a query D0 and two sentences D1, D2 (with equal BOW distance). The arrows represent flow between two words and are labeled with their distance contribution. (Bottom:) The flow between two sentences D3 and D0 with different numbers of words. This mismatch causes the WMD to move words to multiple similar words.
+</center>
+<p>当比较的两个文档长度相同时，文档距离可以简单理解为： <span class="math display">\[
+W\!M\!D \  document \ distance = \sum _ {i=1}^ {n} d_{i} * min(c(i, j))
+\]</span> 但更通用的表示，即当比较的两个文档长度不同时，我们需要引入矩阵<span class="math inline">\(T \in R ^ { n \times n }\)</span>来表示文档距离： <span class="math display">\[
+\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j )
+\]</span> 其中 <span class="math inline">\(T _ { i j } \geq 0\)</span>，表示文档中的词<span class="math inline">\(i\)</span>在多大程度上转化为另一个文档中的词 <span class="math inline">\(j\)</span>，也可理解为文档中的词<span class="math inline">\(i\)</span>在文档nBow表示中对应的分量有多少权重被分到另一个文档中的词<span class="math inline">\(j\)</span>上。</p>
+<p>举个例子，Figure 1中的<span class="math inline">\(D_{0}\)</span>和<span class="math inline">\(D_{3}\)</span>，当<span class="math inline">\(T\)</span> 矩阵为如下情况时，<span class="math inline">\(D_{0}\)</span>和<span class="math inline">\(D_{3}\)</span>会产生如图中所示的对应关系： <span class="math display">\[
+\begin{array}{c|cccc}
+         &amp; \text{President} &amp; \text{greets} &amp; \text{press} &amp; \text{Chicago}\\
+\hline
+Obama    &amp; 0.25             &amp; 0.08           &amp; 0.          &amp; 0.             \\
+speaks   &amp; 0.08             &amp; 0.             &amp; 0.25        &amp; 0.            \\
+Illinois &amp; 0.08             &amp; 0.             &amp; 0.          &amp; 0.25          \\
+\end{array}
+\]</span></p>
+<center>
+Figure 2
+</center>
+<p>还记得<span class="math inline">\(D_3\)</span>的nBow表示，<em>Obama</em>对应的分量值为0.33，这里<em>Obama</em>被距离最近的词<em>President</em> 分走了0.25, 还剩0.08需要分配出去。图中的情况，<em>greets</em>是距离<em>Obama</em>第二近的词，于是0.08被分配给了<em>greets</em>。以此类推。</p>
+<p>显然，两个文档长度相同时，<span class="math inline">\(T\)</span> 除一一对应的词的位置是nbow分量值外，其他位置都是0.</p>
+<p><em>注：Figure 1中<span class="math inline">\(D_0\)</span>和<span class="math inline">\(D_3\)</span>只是众多可能的对应关系的一种，并不是最优的对应关系。最优的对应关系如前面所说，寻找<span class="math inline">\(c(i, j)\)</span>尽可能小的词对。一对多的情况下，按<span class="math inline">\(c(i, j)\)</span>由小到大顺位取。</em></p>
+<h4 id="wmd模型">WMD模型</h4>
+<p>WMD模型的<span class="math inline">\(Obj\)</span>： <span class="math display">\[
+\begin{split}
+\min _ { T \geq 0 } &amp;\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j ) \\
+subject\ to: &amp;\sum _ { j = 1 } ^ { n } T _ { i j } = d _ { i } \quad \forall i \in \{ 1 , \ldots , n \} \qquad (1)\\
+&amp;\sum _ { i = 1 } ^ { n } T _ { i j } = d _ { j } ^ { \prime } \quad \forall j \in \{ 1 , \ldots , n \} \qquad (2)
+\end{split} \\
+\]</span> 条件（1）就是<span class="math inline">\(T\)</span>的行元素相加和等于<span class="math inline">\(d_i\)</span> <em>。如 Obama (0.33)</em> = <em>President (0.25)</em> + <em>greets (0.08)</em> + <em>press (0.)</em> + <em>Chicago (0.)</em>。</p>
+<p>条件（2）就是<span class="math inline">\(T\)</span>的列元素相加和等于<span class="math inline">\(d_j\)</span>。如<em>Press (0.25)</em> = <em>Obama (0.)</em> + <em>speak (0.25)</em> + <em>Illinois (0.)</em>。</p>
+<p><strong><em>（Figure2中例子<span class="math inline">\(president\)</span>是不满足条件（2）的，下面优化部分会提到，其实只满足一个条件就可以）</em></strong></p>
+<p>从<span class="math inline">\(\min _ { T \geq 0 } \sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j )\)</span>可以看出，这是一个有条件的线性规划问题。所有线性规划问题都有最优解。</p>
+<h3 id="wmd模型的速度优化">WMD模型的速度优化</h3>
+<hr />
+<h4 id="word-centroid-distancewcd">Word centroid distance（WCD）</h4>
+<p>计算WMD的复杂度太高，为<span class="math inline">\(O ( p ^ { 3 } \log p )\)</span>。WCD的结果是WMD的下限，它是一些简单的矩阵运算，复杂度为<span class="math inline">\(O (dp)\)</span>。其推导过程如下： <span class="math display">\[
+\begin{split}
+&amp;\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j ) = \sum _ { i , j = 1 } ^ { n } T _ { i j } \| x _ { i } - x _ { j } ^ { \prime } \| _ { 2 } \\
+= &amp;\sum ^ { n } \| T _ { i j } ( x _ { i } - x _ { j } ^ { \prime } ) \| _ { 2 } \geq \| \sum ^ { n } T _ { i j } ( x _ { i } - x _ { j } ^ { \prime } ) \| _{2} \\
+= &amp;\| \sum _ { i = 1 } ^ { n } ( \sum _ { j = 1 } ^ { n } T _ { i j } ) x _ { i } - \sum _ { j = 1 } ^ { n } ( \sum _ { i = 1 } ^ { n } T _ { i j } ) x _ { j } ^ { \prime } \| _ { 2 } \\ 
+= &amp;\| \sum _ { i = 1 } ^ { n } d _ { i } x _ { i } - \sum _ { j = 1 } ^ { n } d _ { j } ^ { \prime } x _ { j } ^ { \prime } \| _ { 2 } = \| X d - X d ^ { \prime } \| _ { 2 } \\
+\end{split}
+\]</span></p>
+<p>WCD的推导相对容易，上面推导中不等式的步骤是利用<span class="math inline">\(\sqrt a + \sqrt b \geq \sqrt{a+b}\)</span> 得到的。</p>
+<p>得到两个文档的WMD下限<span class="math inline">\(\| X d - X d ^ { \prime } \| _ { 2 }\)</span>，可知这两个文档的距离一定大于这个值。在很多情况下，可以直接排除掉这些下限都已经很大的文档，免去进一步的运算，减少计算量。</p>
+<h4 id="relaxed-word-moving-distance-rwmd">Relaxed word moving distance （RWMD）</h4>
+<p>虽然WCD速度很快，但计算出来的下限相比真实值还是差距比较大的。RWMD通过分别去掉WMD中的一个条件来得到两个下限<span class="math inline">\(\ell _ { 1 } ( d , d ^ { \prime } )\)</span>和<span class="math inline">\(\ell _ { 2 } ( d , d ^ { \prime } )\)</span>, 然后取<span class="math inline">\(\ell _ { r } ( d , d ^ { \prime } ) = \max ( \ell _ { 1 } ( d , d ^ { \prime } ) , \ell _ { 2 } ( d , d ^ { \prime } ) )\)</span>。当去掉的是条件（2）时，RMWD形式化表示如下： <span class="math display">\[
+\begin{split}
+\min _ { T \geq 0 } &amp;\sum _ { i , j = 1 } ^ { n } T _ { i j } c ( i , j ) \\
+subject\ to: &amp;\sum _ { j = 1 } ^ { n } T _ { i j } = d _ { i } \quad \forall i \in \{ 1 , \ldots , n \} \\
+\end{split} \\
+\]</span> RWMD的复杂度为<span class="math inline">\(O(p^2)\)</span>。<strong>（Figure 2的情况满足RWMD）</strong></p>
+<h4 id="prefetch-and-prune">Prefetch and prune</h4>
 <ol type="1">
-<li>HFTransformersNLP</li>
+<li>计算所有文档与目标文档的WCD并对结果进行排序，选择前k个文档作为k-nearest-neighbour。</li>
+<li>计算这k个文档与目标文档的具体WMD。</li>
+<li>依次计算其他文档与目标文档的RWMD，并将其与第k个文档WMD进行对比，超过的可以直接prune掉。</li>
+<li>如果没超过，计算该文档与目标文档的WMD并对k-nearest-neighbour进行更新。</li>
 </ol>
-<p>主要参数：model_name: 预训练模型config.json 中的 model_type的值</p>
-<p>​ model_weights: <a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>提供的预训练模型名称</p>
-<ol type="1">
-<li>LanguageModelTokenizer：确保训练数据token对应的token_id与预训练模型的token_id保持一致</li>
-<li>LanguageModelFeaturizer：生成经预训练模型转换后的特征向量，做为架构后续模块的输入。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">language: en</span><br><span class="line">pipeline:</span><br><span class="line">- name: HFTransformersNLP</span><br><span class="line">  model_weights: &quot;rasa&#x2F;LaBSE&quot;</span><br><span class="line">  model_name: &quot;bert&quot;</span><br><span class="line">- name: LanguageModelTokenizer</span><br><span class="line">- name: LanguageModelFeaturizer</span><br><span class="line">- name: DIETClassifier</span><br><span class="line">  epochs: 20</span><br><span class="line">  num_transformer_layers: 2</span><br><span class="line">  transfomer_size: 256</span><br><span class="line">  use_masked_language_model: True</span><br><span class="line">  drop_rate: 0.25</span><br><span class="line">  weight_sparsity: 0.7</span><br><span class="line">  batch_size: [64, 256]</span><br><span class="line">  embedding_dimension: 100</span><br><span class="line">  hidden_layer_sizes:</span><br><span class="line">    text: [512, 128]</span><br></pre></td></tr></table></figure>
+<h3 id="总结">总结</h3>
+<hr />
 <ul>
-<li>DIET样例代码包位置：examples/hf_demo</li>
-<li>DIET样例代码调用方式：项目根目录/main.py</li>
-<li>涉及的源码改动：</li>
+<li>WMD完美地将word2vec与传统的Bow结合起来，这在深度学习与传统机器学习算法结合方面做得都不是很好的今天，无疑是个很novel的idea.</li>
+<li>在解决WMD复杂度过高的问题上，利用复杂度低很多的两个下限配合使用，既大大提高了速度，又没有损失精度。</li>
 </ul>
-<p>如按 ‘样例代码调用方式’ 直接跑报错... set from_pt=true, 请修改: 项目根目录/rasa/nlu/utils/hugging_face/hf_transformers.py: class HFTransformersNLP中的def _load_model_instance中</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">self.model &#x3D; model_class_dict[self.model_name].from_pretrained(self.model_weights, cache_dir&#x3D;self.cache_dir)</span><br></pre></td></tr></table></figure>
-<p>改为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">self.model &#x3D; model_class_dict[self.model_name].from_pretrained(self.model_weights, cache_dir&#x3D;self.cache_dir, from_pt&#x3D;True)</span><br></pre></td></tr></table></figure>
-<h3 id="diet核心代码解析">DIET核心代码解析</h3>
-<p><strong>rasa.nlu.model.Trainer.train：</strong>遍历pipeline所有components，对每个component调用component.train方法完成训练。在component遍历到DIETClassifier之前，HFTransformersNLP等组件已经提取好了DIETClassifier训练需要的特征。遍历至DIETClassifier后，DIETClassifier开始利用已经提取好的特征进入训练。</p>
-<p><strong>rasa.nlu.classifiers.DIETClassifier.train:</strong> 该方法主要完成三件事：</p>
+<h3 id="代码实现">代码实现</h3>
+<hr />
+<p>本文实现代码请见 <a href="https://github.com/Adline125/Similarity" target="_blank" rel="noopener">https://github.com/Adline125/Similarity</a></p>
+<p>开源的WMD实现有：</p>
 <ul>
-<li><p>语料准备：通过DIETClassifier类中的方法preprocess_train_data，将训练数据和之前提取的特征整理成符合RasaModelData格式的model_data。RasaModelData格式为。。。。。之后将整理好的model_data按batch_size整理成data_generator供batch训练用。</p></li>
-<li><p>指定模型：将DIETClassifier类的成员self.model通过初始化DIET类完成指定DIET模型训练。</p></li>
-<li><ul>
-<li><p>DIET模型类继承自TransformerRasaModel类：自定义了</p></li>
-<li><p>TransformerRasaModel继承自RasaModel：自定义了。。。 要求实现。。。</p></li>
-<li><p>RasaModel继承自TmpKerasModel：通过重写tf.keras.Model中的train_step(), test_step(), predict_step(), save()和load()方法，实现自定义的Rasa模型.</p></li>
-<li><ul>
-<li>train_step()使用自定义的batch_loss并对该loss做了正则化。batch_loss需由其子类实现。</li>
-<li>predict_step()使用自定义的batch_predict()。需由其子类实现。</li>
-<li>save()只使用tf.keras.Model.save_weights()。</li>
-<li>load()生成模型结构后加载weights.</li>
-</ul></li>
-<li><p>TmpKerasModel继承自tf.keras.models.Model：重写了tf.keras.models.Model的fit方法来使用自定义的数据适配器。将数据转写成CustomDataHandler后由其处理迭代 epoch 级别的 <code>tf.data.Iterator</code> 对象。</p></li>
-</ul></li>
-<li><p>训练</p></li>
+<li><a href="https://github.com/RaRe-Technologies/gensim" target="_blank" rel="noopener">gensim</a>（python）调用<a href="https://github.com/wmayner/pyemd" target="_blank" rel="noopener">pyemd</a>的c扩展，使用fast EMD算法。</li>
+<li><a href="https://github.com/mkusner/wmd" target="_blank" rel="noopener">Word Mover's Distance (WMD) from Matthew J Kusner</a> 单纯形法实现</li>
+<li><a href="https://github.com/src-d/wmd-relax" target="_blank" rel="noopener">Fast WMD</a>有RWMD的实现。</li>
 </ul>
+<h3 id="参考文献">参考文献</h3>
+<hr />
+<p><a href="http://proceedings.mlr.press/v37/kusnerb15.pdf" target="_blank" rel="noopener">From Word Embeddings To Document Distances</a></p>
+<h3 id="文本距离类的其他资料">文本距离类的其他资料</h3>
+<hr />
+<p><a href="http://www.deepsmart.ai/76.html" target="_blank" rel="noopener">CIKM Cup 2018阿里小蜜短文本匹配算法竞赛 – 冠军DeepSmart团队分享</a></p>
+<p><a href="https://arxiv.org/pdf/1908.10084.pdf" target="_blank" rel="noopener">Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks</a></p>
 ]]></content>
+      <categories>
+        <category>NLP</category>
+      </categories>
+      <tags>
+        <tag>document distance</tag>
+      </tags>
   </entry>
 </search>
