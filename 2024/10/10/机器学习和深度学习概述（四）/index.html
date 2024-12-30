@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习和深度学习概述(二)">
+<meta property="og:url" content="http://yoursite.com/2024/10/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/index.html">
+<meta property="og:site_name" content="Adline125&#39;s Blog">
+<meta property="og:description" content="本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2024/10/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/pics/figure1.3.png">
+<meta property="og:image" content="http://yoursite.com/2024/10/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/pics/figure1.4.png">
+<meta property="og:image" content="http://yoursite.com/2024/10/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/pics/figure1.5.png">
+<meta property="og:image" content="http://yoursite.com/2024/10/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/pics/figure1.6.png">
+<meta property="og:image" content="http://yoursite.com/2024/10/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/pics/figure1.7.png">
+<meta property="article:published_time" content="2024-10-10T06:54:36.000Z">
+<meta property="article:modified_time" content="2024-12-30T07:20:13.247Z">
+<meta property="article:author" content="Adline125">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2024/10/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/pics/figure1.3.png">
+
+<link rel="canonical" href="http://yoursite.com/2024/10/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>机器学习和深度学习概述(二) | Adline125's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Adline125's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Adline125's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">NLP Engineer, Google Developers Expert</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/10/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.png">
+      <meta itemprop="name" content="Adline125">
+      <meta itemprop="description" content="北京程序媛一枚，主攻NLP.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Adline125's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          机器学习和深度学习概述(二)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-10-10 14:54:36" itemprop="dateCreated datePublished" datetime="2024-10-10T14:54:36+08:00">2024-10-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-12-30 15:20:13" itemprop="dateModified" datetime="2024-12-30T15:20:13+08:00">2024-12-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。</p>
+<a id="more"></a>
+<p>本文的主要内容包括：</p>
+<ul>
+<li><strong>线性和非线性模型</strong></li>
+<li><strong>通过多个非线性层实现更高的表达能力：深度神经网络</strong></li>
+</ul>
+<h4 id="线性和非线性模型">1.6 线性和非线性模型</h4>
+<p>在图1.2中，我们面临一个相当简单的情况，即类别可以用一条线（高维曲面中的超平面）分隔。这在现实生活中并不常见。如果不同类别的点无法用一条线分开，如图1.4所示，该怎么办？在这种情况下，我们的模型架构不应再是简单的加权组合。它应是一个非线性函数。例如，请看图1.4中的曲线分隔符。从函数逼近的角度来看，非线性模型也是有意义的。最终，我们的目标是近似非常复杂且高度非线性的函数，以模拟生活中所需的分类或估计过程。直观地说，使用非线性函数来建模它们似乎会更好。</p>
+<p><img src="pics/figure1.3.png" alt="image-20240704141159118" style="zoom:50%;"/></p>
+<p><strong>图1.3 模型将输入（特征）空间中的点映射到输出空间，在输出空间中更容易进行类别划分。例如，在该图中，属于两个类（红色（+）和绿色（-））的输入特征点分布在三维特征空间中的圆柱体体积上。该模型将圆柱体展开为矩形。特征点被映射到二维平面输出空间，在输出空间中，可以使用简单的线性分离器区分这两个类。</strong></p>
+<p><img src="pics/figure1.4.png" alt="image-20240704141046887" style="zoom:33%;"/></p>
+<p><strong>图1.4两个类别（用浅色和深色表示）不能用线分开，需要用曲线分隔符。在三维空间中，这相当于说没有平面可以分开表面；需要一个曲面分隔符。在静止的空间中，这相当于说没有超平面可以分开类别；需要一个弯曲的超曲面。</strong></p>
+<p>机器学习中非常流行的非线性函数是Sigmoid函数，因为它看起来像字母 S，所以也叫S 型函数。Sigmoid函数通常用希腊字母𝜎表示。它的定义如下 <span class="math inline">\(\sigma^2(x)=\frac1{1+e^{-x}}\)</span> (1.5)</p>
+<p>图1.5显示了 Sigmoid函数的图形。因此，我们可以使用等式1.6，这是个非常流行的模型架构，叫做逻辑回归（仍然比较简单），该架构采用输入加权和的Sigmoid函数（无参数）：</p>
+<p><span class="math inline">\(y=\sigma\left(\vec{w}^T\vec{x}+b\right) (1.6)\)</span></p>
+<p><img src="pics/figure1.5.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
+<p>​ <strong>图1.5 Sigmoid函数图形</strong></p>
+<p>Sigmoid函数赋予了非线性。与单独的加权和相比，这种架构可以处理相对更复杂的分类任务。事实上，等式1.6描述了神经网络的基本构建块。</p>
+<h4 id="通过多个非线性层实现更高的表达能力深度神经网络">1.7 通过多个非线性层实现更高的表达能力：深度神经网络</h4>
+<p>在第1.6节中，我们指出，在基本加权和模型中添加非线性可以产生能够处理更复杂任务的模型架构。用机器学习术语来说，非线性模型具有更强的表达能力。</p>
+<p>现在考虑一个现实生活中的问题：比如，构建一个狗识别器。输入空间包括像素位置和像素颜色（x、y、r、g、b，其中 r、g、b 表示像素颜色的红色、绿色和蓝色成分）。输入维度很大（与图像中的像素数量成比例）。图1.6简要介绍了典型的深度学习系统（例如狗图像识别器）必须处理的背景和前景的可能变化。我们需要一台具有极高表达能力的机器。我们如何以原则性的方式创建这样的机器？</p>
+<p><img src="pics/figure1.6.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
+<p>​ <strong>图1.6 非典型深度学习系统（此处为狗图像识别器）需要处理的背景和前景变化一览</strong></p>
+<p>与其一步一步地从输入生成输出，不如采用级联方法？我们将从输入中生成一组中间或隐藏输出，其中每个隐藏输出本质上是一个逻辑回归单元。然后我们添加另一层，将前一层的输出作为输入，依此类推。最后，我们将最外层的隐藏层输出合并到总输出中。</p>
+<p><img src="pics/figure1.7.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
+<p>​ <strong>图1.7 多层神经网络</strong></p>
+<p>我们用以下等式来描述该系统。请注意，我们在权重上添加了一个上标来标识层（层0 最接近输入；层 L 是最后一层，距离输入最远）。我们还将下标设为二维（因此给定层的权重是一个矩阵）。第一个下标标识目标节点，第二个下标标识源节点（见图1.7）。</p>
+<p>精明的读者可能会注意到，以下等式没有明确的偏差项。这是因为，为了简化符号，我们将其并入权重集并假设其中一个输入（例如，<span class="math inline">\(x_0\)</span>= 1）和相应的权重（例如<span class="math inline">\(w_0\)</span>）是偏差。</p>
+<p>第0层：从n+1个输入生成<span class="math inline">\(n_0\)</span>个隐藏输出</p>
+<p><span class="math inline">\(\begin{aligned}&amp;h_0^{(0)}&amp;&amp;=\sigma\left(w_{00}^{(0)}x_0+w_{01}^{(0)}x_1+\cdots w_{0n}^{(0)}x_n\right)\\ &amp;h_1^{(0)}&amp;&amp; =\sigma\left(w_{10}^{(0)}x_0+w_{11}^{(0)}x_1+\cdots w_{1n}^{(0)}x_n\right) \\ &amp;h_{n_0}^{(0)}&amp;&amp; =\sigma\left(w_{n_00}^{(0)}x_0+w_{n_01}^{(0)}x_1+\cdots w_{n_0n}^{(0)}x_n\right) \end{aligned}\)</span> （1.7）</p>
+<p>第1层：从第0 层的<span class="math inline">\(n_0\)</span>个隐藏输出生成<span class="math inline">\(n_1\)</span>个隐藏输出</p>
+<p><span class="math inline">\(\begin{aligned} &amp;h_0^{(1)}&amp;&amp; =\sigma\left(w_{00}^{(1)}h_0^{(0)}+w_{01}^{(1)}h_1^{(0)}+\cdots w_{0n_0}^{(1)}h_{n_0}^{(0)}\right) \\ &amp;h_1^{(1)}&amp;&amp; =\sigma\left(w_{10}^{(1)}h_0^{(0)}+w_{11}^{(1)}h_1^{(0)}+\cdots w_{1n_0}^{(1)}h_{n_0}^{(0)}\right) \\ &amp;h_{n_1}^{(1)}&amp;&amp; =\sigma\left(w_{n_10}^{(1)}h_0^{(0)}+w_{n_11}^{(1)}h_1^{(0)}+\cdots w_{n_1n_0}^{(1)}h_{n_0}^{(0)}\right) \end{aligned}\)</span>（1.8）</p>
+<p>最后一层（L）：从前一层<span class="math inline">\(n_{L-1}\)</span>个隐藏输出生成m+1个可见输出</p>
+<p><span class="math inline">\(\begin{aligned} h_0^{(L)}&amp; =\sigma\left(w_{00}^{(L)}h_0^{(L-1)}+w_{01}^{(L)}h_1^{(L-1)}+\cdots w_{0n_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \\ h_1^{(L)}&amp; =\sigma\left(w_{10}^{(L)}h_0^{(L-1)}+w_{11}^{(L)}h_1^{(L-1)}+\cdots w_{1n_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \\ \begin{array}{cc}\vdots\\\end{array}&amp;&amp; \\ h_m^{(L)}&amp; =\sigma\left(w_{m0}^{(L)}h_0^{(L-1)}+w_{m1}^{(L)}h_1^{(L-1)}+\cdots w_{mn_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \end{aligned}\)</span> （1.9）</p>
+<p>这些等式如图1.7 所示。图1.7 所示的机器可能非常强大，具有巨大的表达能力。我们可以系统地调整其表达能力以适应手头的问题。它是一个神经网络。我们将用本书的其余部分来研究这一点。</p>
+<h4 id="小结">小结</h4>
+<p>在本章中，我们概述了机器学习，并一直延伸到深度学习。我们用玩具猫脑示例说明了这些想法。本章使用了一些数学概念（例如向量），但没有进行适当的介绍，我们鼓励您在介绍向量和矩阵后重新阅读本章。</p>
+<p>我们希望您能从本章中得到以下的收获：</p>
+<ul>
+<li>机器学习是一种完全不同的计算范式。在传统计算中，我们向计算机提供分步指令序列，告诉它要做什么。在机器学习中，我们建立一个数学模型，试图逼近从输入生成分类或估计的未知函数。</li>
+<li>模型函数的数学性质由分类或估计任务的物理性质和复杂性决定。模型具有参数。参数值是根据训练数据（具有已知输出的输入）估计的。参数值经过优化，以使模型输出尽可能接近训练输入上的训练输出。</li>
+<li>机器学习模型可以从另一个角度理解，即几何视角，它是将多维输入空间中的点映射到输出空间中的点的变换。</li>
+<li>分类/估计任务越复杂，近似函数就越复杂。用机器学习术语来说，复杂的任务需要具有更强表达能力的机器。更高的表达能力来自非线性（例如，S 型函数；参见公式1.5）和更简单机器的分层组合。这让我们想到了深度学习，它只不过是一个多层非线性机器。</li>
+<li>复杂的模型函数通常通过组合较简单的基函数来构建。</li>
+</ul>
+<p>请系好安全带：学习乐趣即将变得更加激烈。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%89%EF%BC%89/" rel="prev" title="机器学习和深度学习概述(三)">
+      <i class="fa fa-chevron-left"></i> 机器学习和深度学习概述(三)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+
+  
+  
+  
+
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#线性和非线性模型"><span class="nav-number">1.</span> <span class="nav-text">1.6 线性和非线性模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过多个非线性层实现更高的表达能力深度神经网络"><span class="nav-number">2.</span> <span class="nav-text">1.7 通过多个非线性层实现更高的表达能力：深度神经网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Adline125"
+      src="/images/icon.png">
+  <p class="site-author-name" itemprop="name">Adline125</p>
+  <div class="site-description" itemprop="description">北京程序媛一枚，主攻NLP.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Adline125" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Adline125" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:gglfxsld@gmail.com" title="E-Mail → mailto:gglfxsld@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Adline125</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+<br/>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次 | 本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2024/10/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/";
+    this.page.identifier = "2024/10/10/机器学习和深度学习概述（四）/";
+    this.page.title = "机器学习和深度学习概述(二)";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://Adline125.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

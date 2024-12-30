@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习和深度学习概述(三)">
+<meta property="og:url" content="http://yoursite.com/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%89%EF%BC%89/index.html">
+<meta property="og:site_name" content="Adline125&#39;s Blog">
+<meta property="og:description" content="本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%89%EF%BC%89/pics/figure1.2.png">
+<meta property="article:published_time" content="2024-09-10T06:54:36.000Z">
+<meta property="article:modified_time" content="2024-12-30T07:18:00.622Z">
+<meta property="article:author" content="Adline125">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%89%EF%BC%89/pics/figure1.2.png">
+
+<link rel="canonical" href="http://yoursite.com/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%89%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>机器学习和深度学习概述(三) | Adline125's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Adline125's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Adline125's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">NLP Engineer, Google Developers Expert</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%89%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.png">
+      <meta itemprop="name" content="Adline125">
+      <meta itemprop="description" content="北京程序媛一枚，主攻NLP.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Adline125's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          机器学习和深度学习概述(三)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-09-10 14:54:36" itemprop="dateCreated datePublished" datetime="2024-09-10T14:54:36+08:00">2024-09-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-12-30 15:18:00" itemprop="dateModified" datetime="2024-12-30T15:18:00+08:00">2024-12-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。</p>
+<a id="more"></a>
+<p>本文的主要内容包括：</p>
+<ul>
+<li><strong>机器学习的几何视角</strong></li>
+<li><strong>机器学习中的回归和分类</strong></li>
+</ul>
+<h4 id="机器学习的几何视角">1.4 机器学习的几何视角</h4>
+<p>猫脑模型的每个输入都是一个由两个数字组成的数组：<span class="math inline">\(x_0\)</span>（表示物体的硬度）、<span class="math inline">\(x_1\)</span>（表示物体的锋利度），或者等效地，一个2 ×1向量<span class="math inline">\(\vec{x}\)</span>。直觉上，您可以在头脑里想象将输入视为高维空间中的一个点。输入空间通常称为特征空间——一个表示模型要检查的所有特征的空间。在本例中，特征空间维度为2，但在实际问题中，它将有数百、数千或更多。输入的确切维度因问题而异，但它是一个点的直觉仍然存在。</p>
+<p>输出<span class="math inline">\(y\)</span>也应被视为另一个高维空间中的一个点。在猫脑模型问题中，输出空间的维数为1，但在实际问题中，它会更高。然而，通常情况下，输出维数比输入维数小得多。</p>
+<p>从几何学上讲，机器学习模型本质上是将特征空间中的一个点映射到输出空间中的一个点。模型在输出空间中执行的分类或估计工作比在特征空间中更容易。具体来说，对于分类工作，属于不同类别的输入点预计会映射到输出空间中的不同簇。</p>
+<p>让我们继续使用猫脑模型示例来说明这个想法。如前所述，我们的特征空间是二维的，两个坐标轴<span class="math inline">\(X_0\)</span>表示硬度，<span class="math inline">\(X_1\)</span>表示锋利度。<sup>3</sup> 此二维空间中的各个点用小写的坐标值(<span class="math inline">\(x_0\)</span>,<span class="math inline">\(x_1\)</span>)表示（见图1.2）。如图所示，对威胁评分进行建模的一个好方法是测量与线<span class="math inline">\(x_0\)</span>+<span class="math inline">\(x_1\)</span>= 1 的距离。</p>
+<p>从坐标几何学来看，在具有坐标轴<span class="math inline">\(X_0\)</span>和$ X_1<span class="math inline">\(的二维空间中，点(a, b)与直线\)</span>x_0<span class="math inline">\(+\)</span>x_1<span class="math inline">\(= 1的有符号距离为\)</span>y=<span class="math inline">\(。通过检查\)</span>y<span class="math inline">\(的符号，我们可以确定输入点属于分隔线的哪一侧。在图1.2 所示的简单情况下，观察告诉我们，威胁分数可以用与对角线\)</span>x_0<span class="math inline">\(+\)</span>x_1<span class="math inline">\(−1 = 0 的有符号距离\)</span>y<span class="math inline">\(来表示。我们可以通过对\)</span>y$进行阈值化来做出逃跑/忽略/接近的决定。接近零的值表示忽略，正值表示逃跑，负值表示接近并发出呼噜声。</p>
+<p><img src="pics/figure1.2.png" alt="image-20240704140134960" style="zoom:50%;"/></p>
+<p><strong>图1.2 猫脑模型的二维输入点空间。左下角显示的是硬度低且锋利度低的物体(-)，而右上角显示的是硬度高且锋利度高的物体(+)。中间值在对角线附近($)</strong></p>
+<blockquote>
+<p>第11页脚注：3 我们用<span class="math inline">\(X_0\)</span>和<span class="math inline">\(X_1\)</span>作为坐标符号，而不是我们更熟悉的X，Y，这样在进入高维空间时就不会出现符号耗尽的情况。</p>
+</blockquote>
+<p>从高中几何学中可知，任意输入点(<span class="math inline">\(x_0\)</span>= a,<span class="math inline">\(x_1\)</span>=$ b<span class="math inline">\()到直线\)</span>x_0<span class="math inline">\(+\)</span>x_1<span class="math inline">\(−1 = 0 的距离为\)</span><span class="math inline">\(因此，函数\)</span>y(x_0,x_1)=<span class="math inline">\(是猫脑威胁估计函数的一个可能模型。训练应收敛到\)</span>w_0=,w_1=和b=-$。 因此，我们简化的猫脑威胁评分模型为</p>
+<p>​ <span class="math inline">\(y\left(x_0,x_1\right)=\frac1{\sqrt{2}}x_0+\frac1{\sqrt{2}}x_1-\frac1{\sqrt{2}}\)</span></p>
+<p>它将表示猫前方物体硬度和锋利度的二维输入点，映射到与分隔线有符号距离对应的一维值。该距离在物理上可解释为威胁分数，可通过阈值划分类别（负面威胁、中性威胁、正面威胁），如公式1.2 所示。划分的类别在输出空间中形成不同的簇，在输出空间中用+、-和<span class="math inline">\(\mathbb{\$}\)</span>符号表示。输出值越低，表示负面威胁越确定（猫会靠近并发出呼噜声）：例如，<span class="math inline">\(y\left(0,0\right)=-\frac{1}{\sqrt{2}}\)</span>。输出值越高，表示威胁越大（猫会逃跑）：例如，<span class="math inline">\(y\left(1,1\right)=\frac{1}{\sqrt{2}}\)</span>。中等输入值产生的威胁接近于零（猫会忽略该物体）：例如，<span class="math inline">\(y (0.5,0.5)=0\)</span>。当然，因为问题非常简单，我们可以通过简单的观察得出模型参数。而在现实问题中，这是需要训练的。</p>
+<p>几何视角在更高维度上也适用。一般来说，n维输入向量<span class="math inline">\(\vec{x}\)</span>被映射到m维输出向量（通常 m &lt; n），这样，问题在输出空间中就变得简单得多。图1.3显示了具有三维特征空间的示例。</p>
+<h4 id="机器学习中的回归和分类">1.5 机器学习中的回归和分类</h4>
+<p>如第1.1节简要概述的那样，机器学习模型有两种类型：回归器和分类器。</p>
+<p>在回归器中，模型试图在给定特定输入的情况下输出期望值。例如，第1.3 节中猫脑模型的第一阶段（威胁分数估计器）就是回归器模型。</p>
+<p>另一方面，分类器有一组预先指定的类。给定一个特定的输入，它们会尝试输出输入所属的类。例如，完整的猫脑模型有三个类：（1）逃跑，（2）忽略，（3）靠近并发出呼噜声。因此，它接受输入（硬度和锐度值）并给出输出决策（又称类）。</p>
+<p>在此示例中，我们通过对回归器的输出进行阈值处理将回归器转换为分类器（参见公式1.2）。也可以创建直接输出类的模型，而无需中间的回归器。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/08/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="prev" title="机器学习和深度学习概述(二)">
+      <i class="fa fa-chevron-left"></i> 机器学习和深度学习概述(二)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/10/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/" rel="next" title="机器学习和深度学习概述(二)">
+      机器学习和深度学习概述(二) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+
+  
+  
+  
+
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#机器学习的几何视角"><span class="nav-number">1.</span> <span class="nav-text">1.4 机器学习的几何视角</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#机器学习中的回归和分类"><span class="nav-number">2.</span> <span class="nav-text">1.5 机器学习中的回归和分类</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Adline125"
+      src="/images/icon.png">
+  <p class="site-author-name" itemprop="name">Adline125</p>
+  <div class="site-description" itemprop="description">北京程序媛一枚，主攻NLP.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Adline125" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Adline125" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:gglfxsld@gmail.com" title="E-Mail → mailto:gglfxsld@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Adline125</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+<br/>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次 | 本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%89%EF%BC%89/";
+    this.page.identifier = "2024/09/10/机器学习和深度学习概述（三）/";
+    this.page.title = "机器学习和深度学习概述(三)";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://Adline125.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
