@@ -286,9 +286,9 @@
     
     
     
-      <category term="Rasa" scheme="http://yoursite.com/tags/Rasa/"/>
-    
       <category term="Machine leanring" scheme="http://yoursite.com/tags/Machine-leanring/"/>
+    
+      <category term="Rasa" scheme="http://yoursite.com/tags/Rasa/"/>
     
       <category term="[object Object]" scheme="http://yoursite.com/tags/object-Object/"/>
     
@@ -385,9 +385,9 @@
     
     
     
-      <category term="Machine leanring" scheme="http://yoursite.com/tags/Machine-leanring/"/>
-    
       <category term="XGBoost" scheme="http://yoursite.com/tags/XGBoost/"/>
+    
+      <category term="Machine leanring" scheme="http://yoursite.com/tags/Machine-leanring/"/>
     
   </entry>
   

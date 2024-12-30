@@ -183,9 +183,9 @@
       
         <tags>
             
-            <tag> Rasa </tag>
-            
             <tag> Machine leanring </tag>
+            
+            <tag> Rasa </tag>
             
             <tag> [object Object] </tag>
             
@@ -285,9 +285,9 @@
       
         <tags>
             
-            <tag> Machine leanring </tag>
-            
             <tag> XGBoost </tag>
+            
+            <tag> Machine leanring </tag>
             
         </tags>
       
