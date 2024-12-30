@@ -20,16 +20,16 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。">
+  <meta name="description" content="本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第三部分。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习和深度学习概述(三)">
 <meta property="og:url" content="http://yoursite.com/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%89%EF%BC%89/index.html">
 <meta property="og:site_name" content="Adline125&#39;s Blog">
-<meta property="og:description" content="本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。">
+<meta property="og:description" content="本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第三部分。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%89%EF%BC%89/pics/figure1.2.png">
 <meta property="article:published_time" content="2024-09-10T06:54:36.000Z">
-<meta property="article:modified_time" content="2024-12-30T07:18:00.622Z">
+<meta property="article:modified_time" content="2024-12-30T07:30:41.131Z">
 <meta property="article:author" content="Adline125">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%89%EF%BC%89/pics/figure1.2.png">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-12-30 15:18:00" itemprop="dateModified" datetime="2024-12-30T15:18:00+08:00">2024-12-30</time>
+                <time title="Modified: 2024-12-30 15:30:41" itemprop="dateModified" datetime="2024-12-30T15:30:41+08:00">2024-12-30</time>
               </span>
 
           
@@ -241,7 +241,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。</p>
+        <p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第三部分。</p>
 <a id="more"></a>
 <p>本文的主要内容包括：</p>
 <ul>
@@ -287,8 +287,8 @@
       <i class="fa fa-chevron-left"></i> 机器学习和深度学习概述(二)
     </a></div>
       <div class="post-nav-item">
-    <a href="/2024/10/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/" rel="next" title="机器学习和深度学习概述(二)">
-      机器学习和深度学习概述(二) <i class="fa fa-chevron-right"></i>
+    <a href="/2024/10/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/" rel="next" title="机器学习和深度学习概述(四)">
+      机器学习和深度学习概述(四) <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
