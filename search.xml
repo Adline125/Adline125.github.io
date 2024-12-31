@@ -1,59 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>2023年大模型研究现状综述</title>
-    <url>/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/</url>
-    <content><![CDATA[<p>This article reviews the current status of large model research in 2023. It summarizes the various stages of large model development this year and the contributions of major research institutions to large model research. It also summarizes and summarizes the current mainstream types of large models. On this basis, some thoughts and prospects about the future development of large-model technology were made.</p>
-<a id="more"></a>
-<p>The main contents of this article include:：</p>
-<ul>
-<li><p>Current status of basic model research</p></li>
-<li><p>Introduction to LLM model types</p></li>
-<li><p>Summary and future directions</p></li>
-</ul>
-<h2 id="current-status-of-basic-model-research">Current status of basic model research</h2>
-<hr />
-<p>In 2023, with the development of LLM technology, the open source models of Chinese model research institutions will usher in explosive growth:</p>
-<ul>
-<li><p>In March 2023, Zhipu AI first released the ChatGLM-6B series in the Magic Community. ChatGLM-6B is an open source dialogue language model that supports Chinese and English bilingual question and answer. It is based on the General Language Model (GLM) architecture and has 62 billion parameters. Combined with model quantization technology, users can deploy it locally on consumer-grade graphics cards (a minimum of 6GB of video memory is required at the INT4 quantization level). Now, Zhipu AI's ChatGLM-6B has been updated to the third generation. At the same time, it has launched the CogVLM series in multi-modal mode, as well as CogVLM that supports visual agents, and launched the CodeGeex series models in the code field, while exploring both agent and math. and open source models and technologies.</p></li>
-<li><p>In June 2023, Baichuan first released the Baichuan-7B model in the Moda community. baichuan-7B is an open source large-scale pre-training model developed by Baichuan Intelligence. Based on the Transformer structure, the 7 billion parameter model is trained on approximately 1.2 trillion tokens, supports Chinese and English bilinguals, and has a context window length of 4096. Baichuan is also one of the first companies to launch pre-trained models, and jokingly claims to provide developers with better “rough houses” so that developers can better “decorate” them, thus promoting the development of domestic pre-trained base models. Subsequently, Baichuan released the 13B model and Baichuan 2 series models, with both open source base and chat versions simultaneously.</p></li>
-<li><p>In July 2023, at the opening ceremony of WAIC 2023 and the Scientific Frontier Plenary Meeting, the Shanghai Artificial Intelligence Laboratory teamed up with a number of institutions to release a newly upgraded "Scholar General Large Model System", including Scholar·Multimodal, Scholar·Puyu He Shusheng·Tianji and other three basic models, as well as the first full-chain open source system for the development and application of large models. Shanghai Artificial Intelligence Laboratory not only makes model weights open source, but also conducts all-round open source at the model, data, tools and evaluation levels to promote technological innovation and industrial progress. Subsequently, the Shanghai Artificial Intelligence Laboratory successively released the Scholar·Puyu 20B model and the Scholar·Lingbi multi-modal model.</p></li>
-<li><p>In August 2023, Alibaba open sourced the Tongyi Qianwen 7B model, and subsequently open sourced the 1.8B, 14B, and 72B base and chat models, and provided the corresponding quantized versions of int4 and int8, which can be used in multi-modal scenarios. , Qianwen has also open sourced two visual and speech multi-modal models, qwen-vl and qwen-audio, achieving "full-size, full-modality" open source. Qwen-72B has improved the size and performance of open source large models. Since its release, it has remained at the top of the major charts, filling a gap in the country. Based on Qwen-72B, large and medium-sized enterprises can develop commercial applications, and universities and research institutes can carry out scientific research such as AI for Science.</p></li>
-<li><p>In October 2023, Kunlun Wanwei released the "Tiangong" Skywork-13B series of tens of billions of large language models, and rare open sourced a large high-quality open source Chinese data set of 600GB and 150B Tokens Skypile/Chinese-Web-Text -150B dataset. High-quality data filtered from Chinese web pages by Kunlun's carefully filtered data processing process. The size is approximately 600GB, and the total number of tokens is approximately (150 billion). It is currently one of the largest open source Chinese data sets.</p></li>
-<li><p>In November 2023, 01-AI company released the Yi series of models, with parameter sizes ranging from 6 billion to 34 billion, and the amount of training data reaching 30 billion tokens. These models outperform previous models on public leaderboards such as the Open LLM leaderboard and on some challenging benchmarks such as Skill-Mix.</p></li>
-</ul>
-<h2 id="introduction-to-llm-model-types">Introduction to LLM model types</h2>
-<hr />
-<h4 id="base-model-and-chat-model">Base model and Chat model</h4>
-<p>We usually see a model research and development institution open source the base model and chat model. So what is the difference between the base model and the chat model?</p>
-<p>First, all large language models (LLMs) work by taking in some text and predicting the text that is most likely to follow it.</p>
-<ul>
-<li>The base model, also known as the basic model, is a model trained on massive amounts of different texts to predict subsequent texts. Subsequent text is not necessarily a response to instructions and dialogue.</li>
-</ul>
-<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191246661.png" class="" alt="image-20240619191246661">
-<ul>
-<li>The chat model, also known as the dialogue model, is based on the base and continues to do fine-tuning and reinforcement learning through conversation records (instructions-responses). When it accepts instructions and talks with the user, it continues to write assistants that follow the instructions and are expected by humans. response content</li>
-</ul>
-<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191401263.png" class="" alt="image-20240619191401263">
-<h4 id="multimodal-model">multimodal model</h4>
-<p>Multimodal LLM combines information from text and other modalities, such as images, videos, audios, and other sensory data. Multimodal LLM is trained on multiple types of data, helping the transformer find the differences between different modalities. relationship, and complete some tasks that the new LLM cannot complete, such as picture description, music interpretation, video understanding, etc.</p>
-<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191640496.png" class="" alt="image-20240619191640496">
-<h4 id="agent-model">Agent model</h4>
-<p>LLM has the capabilities of an agent brain and collaborates with several key components, including,</p>
-<p>Planning: dismantling sub-goals, correcting errors, reflecting and improving.</p>
-<p>Memory: short-term memory (context, long window), long-term memory (implemented through search or vector engine)</p>
-<p>Tool use: The model learns to call external APIs to obtain additional capabilities.</p>
-<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191724150.png" class="" alt="image-20240619191724150">
-<h4 id="code-model">Code model</h4>
-<p>The Code model adds more code data to the model's pre-training and SFT, and performs a series of tasks in the code, such as code completion, code error correction, and zero-sample completion of programming task instructions. At the same time, according to different code languages, there will also be more professional language code models such as python and java.</p>
-<h2 id="summary-and-future-directions">Summary and future directions</h2>
-<hr />
-<p><strong>Theory and principles:：</strong>In order to understand the basic working mechanism of LLM, one of the biggest mysteries is how information is distributed, organized and utilized through very large deep neural networks. It is important to reveal the underlying principles or elements that build the basis of LLMs' capabilities. In particular, scaling appears to play an important role in improving the capabilities of LLMs. Existing research has shown that when the parameter size of a language model increases to a critical point (such as 10B), some emerging capabilities will appear in an unexpected way (sudden leap in performance), typically including context learning, instruction following and Step-by-step reasoning. These “emergent” abilities are fascinating but also puzzling: when and how do LLMs acquire them? Some recent research has either conducted broad-scale experiments investigating the effects of emerging abilities and the enablers of those abilities, or used existing theoretical frameworks to explain specific abilities. An insightful technical post targeting the GPT family of models also deals specifically with this topic, however more formal theories and principles to understand, describe and explain the capabilities or behavior of LLMs are still lacking. Since emergent capabilities have close similarities to phase transitions in nature, interdisciplinary theories or principles (such as whether LLMs can be considered some kind of complex systems) may be helpful in explaining and understanding the behavior of LLMs. These fundamental questions deserve exploration by the research community and are important for developing the next generation of LLMs.</p>
-<p><strong>Model architecture：</strong>Transformers, consisting of stacked multi-head self-attention layers, have become a common architecture for building LLMs due to their scalability and effectiveness. Various strategies have been proposed to improve the performance of this architecture, such as neural network configuration and scalable parallel training (see discussion in Section 4.2.2). In order to further improve the capacity of the model (such as multi-turn dialogue capability), existing LLMs usually maintain a long context length. For example, GPT-4-32k has an extremely large context length of 32768 tokens. Therefore, a practical consideration is to reduce the time complexity (primitive quadratic cost) incurred by standard self-attention mechanisms.</p>
-<p>Furthermore, it will be important to study the impact of more efficient Transformer variants on building LLMs, such as sparse attention has been used for GPT-3. Catastrophic forgetting has also been a challenge for neural networks, which has also negatively impacted LLMs. When LLMs are tuned with new data, the previously learned knowledge is likely to be destroyed. For example, fine-tuning LLMs for some specific tasks will affect their general capabilities. A similar situation occurs when LLMs are aligned with human values, which is called an alignment tax. Therefore, it is necessary to consider extending the existing architecture with more flexible mechanisms or modules to effectively support data updates and task specialization.</p>
-]]></content>
-  </entry>
-  <entry>
     <title>Bidirectional LSTM-CRF Models for Sequence Tagging</title>
     <url>/2020/07/15/Bidirectional%20LSTM-CRF%20Models%20for%20Sequence%20Tagging/</url>
     <content><![CDATA[<p>本文是对论文<a href="https://arxiv.org/abs/1508.01991" target="_blank" rel="noopener">Bidirectional LSTM-CRF Models for Sequence Tagging</a>的总结。文章系统地比较了基于LSTM网络的各种序列标记模型的性能。 并在当时首次将BI-LSTM-CRF模型应用于NLP基准序列标记任务。 其中，BI-LSTM-CRF模型在词性标注，分块和命名实体识别任务上表现最优。模型具有鲁棒性且对单词嵌入的依赖性较小，甚至可以无需借助词嵌入达到一定的精度。</p>
@@ -145,6 +92,74 @@ h _ { t } = o _ { t } \tanh ( c _ { t } )\quad\quad\quad\quad\quad\quad\quad\qua
         <tag>CRF</tag>
         <tag>sequence tagging</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>6 Artificial Intelligence Tools for Chat</title>
+    <url>/2023/07/24/6%20Artificial%20Intelligence%20Tools%20for%20Chat/</url>
+    <content><![CDATA[<p>This article will introduce 6 practical and efficient <strong>free</strong> AI chat tools.</p>
+<ol type="1">
+<li><p>ChatGPT: The Chatbot program developed by OpenAI in the United States, released on November 30, 2022. ChatGPT is a Natural language processing tool driven by artificial intelligence technology. It can communicate by understanding and learning human language, and interact according to the context of chat, so as to chat and communicate like human beings. Conversational artificial intelligence is trained based on a large amount of text from 2021 and before, and its use is free, but accelerating response and usage during peak demand periods requires a monthly payment of $20.</p>
+<a id="more"></a></li>
+<li><p>The new Bing: Microsoft's powerful cloud infrastructure requires ChatGPT based conversations and searches in Bing to access this website. It is currently under testing and needs to be added to the waiting list if you want to use The new Bing earlier.</p></li>
+<li><p>Perplexity.ai: The world's first session search engine. Perplexity AI combines ChatGPT with Bing Search, which is a stunning four seater platform with both ChatGPT style Q&amp;A and the ability to provide links like regular search engines. It can be used for free without any restrictions.</p></li>
+<li><p>YouChat: YouChat can provide annotated answers for various types of queries, and create article abstracts from the internet, generate code, write papers, type code, and chat with you. Ask it questions and follow up on answers. It has ChatGPT like functions and can participate in and experience ChatGPT style conversations. It is also free, but you need to register and log in before using it.</p></li>
+<li><p>NeevaAI: Small search engine, first launched in the United States in December 2022, founded by Sridhar Ramaswamy (former Senior Vice President of Advertising at Google) and Vivek Raghunathan (former Vice President of Monetization at YouTube). It creates an AI driven and completely user created ad free search engine. We can obtain corresponding answers directly generated by AI with references and annotations. Similarly, it is completely free and requires login.</p></li>
+<li><p>Poe: a conversational AI Chatbot from Quora, which can be accessed by users at will. Users can ask questions to it, and Poe can get answers from a variety of AI Chatbot, including the parent company OpenAI behind ChatGPT and robots from other companies such as Anthropic. Free, but currently only available for iPhone use.</p></li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>2023年大模型研究现状综述</title>
+    <url>/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/</url>
+    <content><![CDATA[<p>This article reviews the current status of large model research in 2023. It summarizes the various stages of large model development this year and the contributions of major research institutions to large model research. It also summarizes and summarizes the current mainstream types of large models. On this basis, some thoughts and prospects about the future development of large-model technology were made.</p>
+<a id="more"></a>
+<p>The main contents of this article include:：</p>
+<ul>
+<li><p>Current status of basic model research</p></li>
+<li><p>Introduction to LLM model types</p></li>
+<li><p>Summary and future directions</p></li>
+</ul>
+<h2 id="current-status-of-basic-model-research">Current status of basic model research</h2>
+<hr />
+<p>In 2023, with the development of LLM technology, the open source models of Chinese model research institutions will usher in explosive growth:</p>
+<ul>
+<li><p>In March 2023, Zhipu AI first released the ChatGLM-6B series in the Magic Community. ChatGLM-6B is an open source dialogue language model that supports Chinese and English bilingual question and answer. It is based on the General Language Model (GLM) architecture and has 62 billion parameters. Combined with model quantization technology, users can deploy it locally on consumer-grade graphics cards (a minimum of 6GB of video memory is required at the INT4 quantization level). Now, Zhipu AI's ChatGLM-6B has been updated to the third generation. At the same time, it has launched the CogVLM series in multi-modal mode, as well as CogVLM that supports visual agents, and launched the CodeGeex series models in the code field, while exploring both agent and math. and open source models and technologies.</p></li>
+<li><p>In June 2023, Baichuan first released the Baichuan-7B model in the Moda community. baichuan-7B is an open source large-scale pre-training model developed by Baichuan Intelligence. Based on the Transformer structure, the 7 billion parameter model is trained on approximately 1.2 trillion tokens, supports Chinese and English bilinguals, and has a context window length of 4096. Baichuan is also one of the first companies to launch pre-trained models, and jokingly claims to provide developers with better “rough houses” so that developers can better “decorate” them, thus promoting the development of domestic pre-trained base models. Subsequently, Baichuan released the 13B model and Baichuan 2 series models, with both open source base and chat versions simultaneously.</p></li>
+<li><p>In July 2023, at the opening ceremony of WAIC 2023 and the Scientific Frontier Plenary Meeting, the Shanghai Artificial Intelligence Laboratory teamed up with a number of institutions to release a newly upgraded "Scholar General Large Model System", including Scholar·Multimodal, Scholar·Puyu He Shusheng·Tianji and other three basic models, as well as the first full-chain open source system for the development and application of large models. Shanghai Artificial Intelligence Laboratory not only makes model weights open source, but also conducts all-round open source at the model, data, tools and evaluation levels to promote technological innovation and industrial progress. Subsequently, the Shanghai Artificial Intelligence Laboratory successively released the Scholar·Puyu 20B model and the Scholar·Lingbi multi-modal model.</p></li>
+<li><p>In August 2023, Alibaba open sourced the Tongyi Qianwen 7B model, and subsequently open sourced the 1.8B, 14B, and 72B base and chat models, and provided the corresponding quantized versions of int4 and int8, which can be used in multi-modal scenarios. , Qianwen has also open sourced two visual and speech multi-modal models, qwen-vl and qwen-audio, achieving "full-size, full-modality" open source. Qwen-72B has improved the size and performance of open source large models. Since its release, it has remained at the top of the major charts, filling a gap in the country. Based on Qwen-72B, large and medium-sized enterprises can develop commercial applications, and universities and research institutes can carry out scientific research such as AI for Science.</p></li>
+<li><p>In October 2023, Kunlun Wanwei released the "Tiangong" Skywork-13B series of tens of billions of large language models, and rare open sourced a large high-quality open source Chinese data set of 600GB and 150B Tokens Skypile/Chinese-Web-Text -150B dataset. High-quality data filtered from Chinese web pages by Kunlun's carefully filtered data processing process. The size is approximately 600GB, and the total number of tokens is approximately (150 billion). It is currently one of the largest open source Chinese data sets.</p></li>
+<li><p>In November 2023, 01-AI company released the Yi series of models, with parameter sizes ranging from 6 billion to 34 billion, and the amount of training data reaching 30 billion tokens. These models outperform previous models on public leaderboards such as the Open LLM leaderboard and on some challenging benchmarks such as Skill-Mix.</p></li>
+</ul>
+<h2 id="introduction-to-llm-model-types">Introduction to LLM model types</h2>
+<hr />
+<h4 id="base-model-and-chat-model">Base model and Chat model</h4>
+<p>We usually see a model research and development institution open source the base model and chat model. So what is the difference between the base model and the chat model?</p>
+<p>First, all large language models (LLMs) work by taking in some text and predicting the text that is most likely to follow it.</p>
+<ul>
+<li>The base model, also known as the basic model, is a model trained on massive amounts of different texts to predict subsequent texts. Subsequent text is not necessarily a response to instructions and dialogue.</li>
+</ul>
+<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191246661.png" class="" alt="image-20240619191246661">
+<ul>
+<li>The chat model, also known as the dialogue model, is based on the base and continues to do fine-tuning and reinforcement learning through conversation records (instructions-responses). When it accepts instructions and talks with the user, it continues to write assistants that follow the instructions and are expected by humans. response content</li>
+</ul>
+<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191401263.png" class="" alt="image-20240619191401263">
+<h4 id="multimodal-model">multimodal model</h4>
+<p>Multimodal LLM combines information from text and other modalities, such as images, videos, audios, and other sensory data. Multimodal LLM is trained on multiple types of data, helping the transformer find the differences between different modalities. relationship, and complete some tasks that the new LLM cannot complete, such as picture description, music interpretation, video understanding, etc.</p>
+<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191640496.png" class="" alt="image-20240619191640496">
+<h4 id="agent-model">Agent model</h4>
+<p>LLM has the capabilities of an agent brain and collaborates with several key components, including,</p>
+<p>Planning: dismantling sub-goals, correcting errors, reflecting and improving.</p>
+<p>Memory: short-term memory (context, long window), long-term memory (implemented through search or vector engine)</p>
+<p>Tool use: The model learns to call external APIs to obtain additional capabilities.</p>
+<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191724150.png" class="" alt="image-20240619191724150">
+<h4 id="code-model">Code model</h4>
+<p>The Code model adds more code data to the model's pre-training and SFT, and performs a series of tasks in the code, such as code completion, code error correction, and zero-sample completion of programming task instructions. At the same time, according to different code languages, there will also be more professional language code models such as python and java.</p>
+<h2 id="summary-and-future-directions">Summary and future directions</h2>
+<hr />
+<p><strong>Theory and principles:：</strong>In order to understand the basic working mechanism of LLM, one of the biggest mysteries is how information is distributed, organized and utilized through very large deep neural networks. It is important to reveal the underlying principles or elements that build the basis of LLMs' capabilities. In particular, scaling appears to play an important role in improving the capabilities of LLMs. Existing research has shown that when the parameter size of a language model increases to a critical point (such as 10B), some emerging capabilities will appear in an unexpected way (sudden leap in performance), typically including context learning, instruction following and Step-by-step reasoning. These “emergent” abilities are fascinating but also puzzling: when and how do LLMs acquire them? Some recent research has either conducted broad-scale experiments investigating the effects of emerging abilities and the enablers of those abilities, or used existing theoretical frameworks to explain specific abilities. An insightful technical post targeting the GPT family of models also deals specifically with this topic, however more formal theories and principles to understand, describe and explain the capabilities or behavior of LLMs are still lacking. Since emergent capabilities have close similarities to phase transitions in nature, interdisciplinary theories or principles (such as whether LLMs can be considered some kind of complex systems) may be helpful in explaining and understanding the behavior of LLMs. These fundamental questions deserve exploration by the research community and are important for developing the next generation of LLMs.</p>
+<p><strong>Model architecture：</strong>Transformers, consisting of stacked multi-head self-attention layers, have become a common architecture for building LLMs due to their scalability and effectiveness. Various strategies have been proposed to improve the performance of this architecture, such as neural network configuration and scalable parallel training (see discussion in Section 4.2.2). In order to further improve the capacity of the model (such as multi-turn dialogue capability), existing LLMs usually maintain a long context length. For example, GPT-4-32k has an extremely large context length of 32768 tokens. Therefore, a practical consideration is to reduce the time complexity (primitive quadratic cost) incurred by standard self-attention mechanisms.</p>
+<p>Furthermore, it will be important to study the impact of more efficient Transformer variants on building LLMs, such as sparse attention has been used for GPT-3. Catastrophic forgetting has also been a challenge for neural networks, which has also negatively impacted LLMs. When LLMs are tuned with new data, the previously learned knowledge is likely to be destroyed. For example, fine-tuning LLMs for some specific tasks will affect their general capabilities. A similar situation occurs when LLMs are aligned with human values, which is called an alignment tax. Therefore, it is necessary to consider extending the existing architecture with more flexible mechanisms or modules to effectively support data updates and task specialization.</p>
+]]></content>
   </entry>
   <entry>
     <title>Evaluation methods for unsupervised word embeddings</title>
@@ -240,58 +255,6 @@ Figure 2: Intrusion task: average precision by global word frequency
       <tags>
         <tag>embedding evaluation</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Paper reading: Gemma: Open Models Based on Gemini Research and Technology</title>
-    <url>/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/</url>
-    <content><![CDATA[<p>Google DeepMind has released Gemma, a series of open models inspired by the same research and technology used for Gemini. This article summarized the main parts of paper Gemma: Open Models Based on Gemini Research and Technology and shown the basic way for running this model on local devices. Then give a conclusion on this model.</p>
-<a id="more"></a>
-<p><strong>Main Contents</strong>：</p>
-<ul>
-<li><strong>First Impression on Gemma</strong></li>
-<li><strong>Model Architecture</strong></li>
-<li><strong>Training Data</strong></li>
-<li><strong>Performance on Public Test Data</strong></li>
-<li><strong>Running Gemma 2B and 7B</strong></li>
-<li><strong>Conclusion</strong></li>
-</ul>
-<h3 id="first-impression-on-gemma"><strong>First Impression on Gemma</strong></h3>
-<hr />
-<img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619112105533.png" class="" alt="image-20240619112105533">
-<p>Google DeepMind has released Gemma, a series of open models inspired by the same research and technology used for Gemini. The open model lends itself to a variety of use cases, which is a very smart move by Google. There are 2B (trained on 2T tokens) and 7B (trained on 6T tokens) models, including base and instruction-tuned versions. Training is performed on a context length of 8192 tokens. Commercial use permitted. These are not multimodal models and are superior to Llama 2 7B and Mistral 7B based on reported experimental results.</p>
-<p>Gemma models improve performance in a wide range of domains including conversation, reasoning, mathematics, and code generation. The results of MMLU (64.3%) and MBPP (44.4%) not only demonstrate the high performance of Gemma, but also show that there is still room for improvement in the performance of open and available large models.</p>
-<p>Gemma draws on many experiences from the Gemini model project, including code, data, architecture, instruction tuning, reinforcement learning from human feedback, and evaluation.</p>
-<h3 id="model-architecture"><strong>Model Architecture</strong></h3>
-<hr />
-<p>The Gemma model architecture is a transformer-based decoder. The core parameters of the architecture are summarized in Table 1 below. The model is trained on a context length of 8192 tokens. We also take advantage of several improvements proposed since the original transformer paper. Below we list the included improvements:</p>
-<p>Multi-Query Attention: The 7B model uses multi-query attention, while the 2B checkpoint uses multi-query attention (num_kv_heads=1). Based on the ablation study results, the respective attention variants are at their respective scales Improved performance.</p>
-<p>RoPE Embeddings: Instead of using absolute position embeddings, rotational position embeddings are used in each layer; in order to reduce model size, embeddings are also shared between input and output.</p>
-<p>GeGLU Activations: The standard ReLU nonlinearity is replaced by the GeGLU activation function.</p>
-<p>Normalizer Location: Normalizes both the input and output of each transformer sublayer, deviating from the standard practice of normalizing only one of them. Use RMSNorm as the normalization layer.</p>
-<img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619112628921.png" class="" alt="image-20240619112628921">
-<h3 id="training-data"><strong>Training Data</strong></h3>
-<hr />
-<p>Gemma2B and 7B are trained on 2T and 6T of main English web document, mathematics and code data respectively. Unlike Gemini, these models are neither multimodal nor trained for optimal performance on multilingual tasks. For compatibility, a subset of the Gemini SentencePiece tokenizer is used. It splits numbers without removing extra whitespace, and relies on byte-level encoding to handle unknown tokens, following techniques used by (Chowdhery et al., 2022) and (Gemini Team, 2023). The vocabulary size is 256k tokens.</p>
-<p>Since the vocabulary is very large, the model needs to be trained longer to better learn embeddings for all tokens in the vocabulary. The loss should still decrease after expanding the training tokens, which also corresponds to the very large vocabulary. We can understand that the larger the vocabulary, the more training tokens may be needed, and of course the performance may be better.</p>
-<p>For the instruction version of the model, they performed supervised fine-tuning on an instruction dataset consisting of human and synthetic data, followed by reinforcement learning with human feedback (RLHF).</p>
-<img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619125626270.png" class="" alt="image-20240619125626270">
-<h3 id="performance-on-public-test-data"><strong>Performance on public test data</strong></h3>
-<hr />
-<img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619130028360.png" class="" alt="image-20240619130028360">
-<h3 id="running-gemma-2b-and-7b"><strong>Running Gemma 2B and 7B</strong></h3>
-<hr />
-<p>Hugging Face's Transformers and vLLM already support the Gemma model, and the hardware requirement is an 18gb GPU.</p>
-<p>Let’s first introduce vLLM</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"> <span class="keyword">from</span> vllm <span class="keyword">import</span> LLM, SamplingParams</span><br><span class="line"> prompts = [</span><br><span class="line">     <span class="string">"The best recipe for pasta is"</span></span><br><span class="line"> ]</span><br><span class="line"> sampling_params = SamplingParams(temperature=<span class="number">0.7</span>, top_p=<span class="number">0.8</span>, top_k=<span class="number">20</span>, max_tokens=<span class="number">150</span>)</span><br><span class="line"> loading_start = time.time()</span><br><span class="line"> llm = LLM(model=<span class="string">"google/gemma-7b"</span>)</span><br><span class="line"> print(<span class="string">"--- Loading time: %s seconds ---"</span> % (time.time() - loading_start))</span><br><span class="line"> generation_time = time.time()</span><br><span class="line"> outputs = llm.generate(prompts, sampling_params)</span><br><span class="line"> print(<span class="string">"--- Generation time: %s seconds ---"</span> % (time.time() - generation_time))</span><br><span class="line"> <span class="keyword">for</span> output <span class="keyword">in</span> outputs:</span><br><span class="line">     generated_text = output.outputs[<span class="number">0</span>].text</span><br><span class="line">     print(generated_text)</span><br><span class="line">     print(<span class="string">'------'</span>)</span><br></pre></td></tr></table></figure>
-<p>Transformers then</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"> <span class="keyword">from</span> transformers <span class="keyword">import</span> AutoTokenizer, AutoModelForCausalLM, set_seed</span><br><span class="line"> set_seed(<span class="number">1234</span>)  <span class="comment"># For reproducibility</span></span><br><span class="line"> prompt = <span class="string">"The best recipe for pasta is"</span></span><br><span class="line"> checkpoint = <span class="string">"google/gemma-7b"</span></span><br><span class="line"> tokenizer = AutoTokenizer.from_pretrained(checkpoint)</span><br><span class="line"> model = AutoModelForCausalLM.from_pretrained(checkpoint, torch_dtype=torch.float16, device_map=<span class="string">"cuda"</span>)</span><br><span class="line"> inputs = tokenizer(prompt, return_tensors=<span class="string">"pt"</span>).to(<span class="string">'cuda'</span>)</span><br><span class="line"> outputs = model.generate(**inputs, do_sample=<span class="literal">True</span>, max_new_tokens=<span class="number">150</span>)</span><br><span class="line"> result = tokenizer.decode(outputs[<span class="number">0</span>], skip_special_tokens=<span class="literal">True</span>)</span><br><span class="line"> print(result)</span><br></pre></td></tr></table></figure>
-<h3 id="conclusion"><strong>Conclusion</strong></h3>
-<hr />
-<p>Many frameworks already support Gemma models well, and quantization of GPTQ and AWQ will be released soon. After quantization, Gemma 7B can be used on 8gb GPU.</p>
-<p>It is undeniable that releasing the Gemma model is a step forward for Google. Gemma 7B looks like a good competitor to Mistral 7B, but let's not forget that it also has 1 billion more parameters than Mistral 7B. In addition, I have never figured out what the use cases of Gemma 2B are. Its performance is surpassed by other models of similar size (this 2B may be really 2B), and it can be seen that the performance of these two Google models with few parameters is not good, but the performance is good. There are many more parameters. This kind of word play shows that Google is indeed lagging behind and anxious on the AI track, and there is currently no way to surpass it.</p>
-<p>Here is the gemma-report officially released by Google. If you are interested, you can check it out.</p>
-<p>https://storage.googleapis.com/deepmind-media/gemma/gemma-report.pdf</p>
-]]></content>
   </entry>
   <entry>
     <title>LangChain开发框架学习路径</title>
@@ -391,6 +354,31 @@ Figure 2: Intrusion task: average precision by global word frequency
 ]]></content>
   </entry>
   <entry>
+    <title>Paper Reading: Cramming- Training a Language Model on a Single GPU in One Day</title>
+    <url>/2023/07/24/Paper%20Reading:%20Cramming-%20Training%20a%20Language%20Model%20on%20a%20Single%20GPU%20in%20One%20Day/</url>
+    <content><![CDATA[<p>IBM's NLP research expert Leshem Choshen commented on Twitter, "This paper summarizes all the big model training trips you can think of.</p>
+<a id="more"></a>
+<p>###Limited resources</p>
+<p>In order to simulate the resource environment of ordinary practitioners and researchers, this study first constructed a resource constrained research environment:</p>
+<ul>
+<li><p>A transformer based language model of any size, trained entirely from scratch using masked language modeling;</p></li>
+<li><p>The pipeline cannot contain existing pre trained models;</p></li>
+<li><p>Any raw text (excluding downstream data) can be included in the training, which means that acceleration can be achieved by wisely selecting how and when to sample the data, provided that the sampling mechanism does not require pre training the model;</p></li>
+<li><p>The download and pre-processing of original data are not included in the total budget. The pre-processing here includes CPU based tokenizer construction, tokenization and filtering, but does not include Feature learning;</p></li>
+<li><p>Training is only conducted on a single GPU for 24 hours;</p></li>
+<li><p>Downstream performance is evaluated on GLUE, and downstream fine-tuning on GLUE is limited to simple training using only training data from downstream tasks (5 epochs or less), and requires the use of global hyperparameters set for all GLUE tasks. Downstream fine-tuning is not included in the total budget.</p></li>
+</ul>
+<p>###Improvement methods</p>
+<p>The researchers implemented and tested some modification directions proposed by existing work, including general implementation and initial data settings, and attempted to modify the architecture, train, and modify the dataset methods.</p>
+<p>The experiment was conducted in PyTorch, without using idiosyncratic implementations to be as fair as possible. All content was kept at the implementation level of the PyTorch framework, and only automatic operator fusion that could be applied to all components was allowed. In addition, the efficient attention kernel would only be re enabled after selecting the final architectural variant.</p>
+<p>The first method we think of to improve performance is definitely modifying the model architecture. Intuitively, smaller/lower capacity models seem to be optimal in a one card per day training session. However, after studying the relationship between model type and training efficiency, researchers found that the scaling law poses a huge obstacle to scaling down. The training efficiency of each token largely depends on the model size, rather than the type of transformer.</p>
+<p>In addition, smaller models have lower learning efficiency, which largely slows down the increase in throughput. Fortunately, the fact that training efficiency remains almost constant in models of the same size means that we can find suitable designs in architectures with similar parameter quantities, mainly based on the calculation time that affects individual gradient steps.</p>
+<p>###summary</p>
+<p>Overall, using the method in the paper, the training results are already very close to the original BERT, but it should be noted that the total FLOPS used by the latter is 45-136 times that of the new method (which takes four days on 16 TPUs). When the training time was extended by 16 times (trained on 8 GPUs for two days), the performance of the new method actually improved significantly compared to the original BERT, reaching the level of RoBERTA.</p>
+<p>In this work, people discussed how much performance a transformer based language model can achieve in environments with very limited computational complexity. Fortunately, several modification directions can enable us to achieve good downstream performance on GLUE. Researchers expressed the hope that this work can provide a baseline for further improvement and provide theoretical support for many improvements and techniques proposed for Transformer architecture in recent years.</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Rasa NLU SKLearn Classifier解析</title>
     <url>/2022/10/21/Rasa%20NLU%20SKLearn%20Classifier%E8%A7%A3%E6%9E%90/</url>
     <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU Sklearn classifier架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU Sklearn classifier做细节上的说明。</p>
@@ -463,323 +451,55 @@ Figure 2: Intrusion task: average precision by global word frequency
 ]]></content>
   </entry>
   <entry>
-    <title>Rasa NLU DIET Classifier解析</title>
-    <url>/2022/10/21/Rasa%20NLU%20DIET%20Classifier%E8%A7%A3%E6%9E%90/</url>
-    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU classifier中最受欢迎的DIET Classifier的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU classifier 中的DIET Classifier做详细的说明。</p>
-<p>本文更多关注算法，主要内容如下：</p>
+    <title>Paper reading: Gemma: Open Models Based on Gemini Research and Technology</title>
+    <url>/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/</url>
+    <content><![CDATA[<p>Google DeepMind has released Gemma, a series of open models inspired by the same research and technology used for Gemini. This article summarized the main parts of paper Gemma: Open Models Based on Gemini Research and Technology and shown the basic way for running this model on local devices. Then give a conclusion on this model.</p>
 <a id="more"></a>
+<p><strong>Main Contents</strong>：</p>
 <ul>
-<li>Rasa NLU Classifier架构</li>
-<li>主流技术支持情况</li>
+<li><strong>First Impression on Gemma</strong></li>
+<li><strong>Model Architecture</strong></li>
+<li><strong>Training Data</strong></li>
+<li><strong>Performance on Public Test Data</strong></li>
+<li><strong>Running Gemma 2B and 7B</strong></li>
+<li><strong>Conclusion</strong></li>
 </ul>
-<h3 id="diet-classifier架构">DIET Classifier架构</h3>
-<h4 id="section">321</h4>
-<h3 id="模型支持说明">模型支持说明</h3>
-<p>DIET支持的Huggingface模型类型如下表：</p>
-<table>
-<thead>
-<tr class="header">
-<th><strong>模型类型</strong></th>
-<th><strong>模型名称</strong></th>
-<th><strong>默认加载的预训练模型</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>BERT</td>
-<td>bert</td>
-<td>rasa/LaBSE ( bert-base-uncased )</td>
-</tr>
-<tr class="even">
-<td>GPT</td>
-<td>gpt</td>
-<td>openai-gpt</td>
-</tr>
-<tr class="odd">
-<td>GPT2</td>
-<td>gpt2</td>
-<td>gpt2</td>
-</tr>
-<tr class="even">
-<td>XLNet</td>
-<td>xlnet</td>
-<td>xlnet-base-cased</td>
-</tr>
-<tr class="odd">
-<td>DistilBERT</td>
-<td>distilbert</td>
-<td>distilbert-base-uncased</td>
-</tr>
-<tr class="even">
-<td>RoBERTa</td>
-<td>roberta</td>
-<td>roberta-base</td>
-</tr>
-</tbody>
-</table>
-<p>对在HuggingFace 中上传的所有预训练模型（<a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>），Rasa DIET可以支持满足以下条件的所有模型：</p>
-<p>点击<a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>-&gt;选中一个模型-&gt;点击进入模型页面-&gt;点击Files and version</p>
-<ul>
-<li>检查 config.json 中的 model_type 是否列在上表的 <strong>模型名称</strong> 列中</li>
-<li>检查文件 tf_model.h5 是否存在</li>
-<li>模型使用默认tokenizer, config.json 中不包含支持自定义的 tokenizer_class</li>
-</ul>
-<p>对满足上述条件的模型，通过2.1.3.3中描述的方式可开箱即用。</p>
-<h3 id="diet支持huggingface的配置样例">DIET支持Huggingface的配置样例</h3>
-<p>在Rasa2.0中，若想在DIET架构中使用Huggingface提供的预训练模型，除在rasa的config文件中指定使用DIETClassifier外，还需要配合使用对应的模块：</p>
-<ol type="1">
-<li>HFTransformersNLP</li>
-</ol>
-<p>主要参数：model_name: 预训练模型config.json 中的 model_type的值</p>
-<p>​ model_weights: <a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>提供的预训练模型名称</p>
-<ol type="1">
-<li>LanguageModelTokenizer：确保训练数据token对应的token_id与预训练模型的token_id保持一致</li>
-<li>LanguageModelFeaturizer：生成经预训练模型转换后的特征向量，做为架构后续模块的输入。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">language: en</span><br><span class="line">pipeline:</span><br><span class="line">- name: HFTransformersNLP</span><br><span class="line">  model_weights: &quot;rasa&#x2F;LaBSE&quot;</span><br><span class="line">  model_name: &quot;bert&quot;</span><br><span class="line">- name: LanguageModelTokenizer</span><br><span class="line">- name: LanguageModelFeaturizer</span><br><span class="line">- name: DIETClassifier</span><br><span class="line">  epochs: 20</span><br><span class="line">  num_transformer_layers: 2</span><br><span class="line">  transfomer_size: 256</span><br><span class="line">  use_masked_language_model: True</span><br><span class="line">  drop_rate: 0.25</span><br><span class="line">  weight_sparsity: 0.7</span><br><span class="line">  batch_size: [64, 256]</span><br><span class="line">  embedding_dimension: 100</span><br><span class="line">  hidden_layer_sizes:</span><br><span class="line">    text: [512, 128]</span><br></pre></td></tr></table></figure>
-<ul>
-<li>DIET样例代码包位置：examples/hf_demo</li>
-<li>DIET样例代码调用方式：项目根目录/main.py</li>
-<li>涉及的源码改动：</li>
-</ul>
-<p>如按 ‘样例代码调用方式’ 直接跑报错... set from_pt=true, 请修改: 项目根目录/rasa/nlu/utils/hugging_face/hf_transformers.py: class HFTransformersNLP中的def _load_model_instance中</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">self.model &#x3D; model_class_dict[self.model_name].from_pretrained(self.model_weights, cache_dir&#x3D;self.cache_dir)</span><br></pre></td></tr></table></figure>
-<p>改为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">self.model &#x3D; model_class_dict[self.model_name].from_pretrained(self.model_weights, cache_dir&#x3D;self.cache_dir, from_pt&#x3D;True)</span><br></pre></td></tr></table></figure>
-<h3 id="diet核心代码解析">DIET核心代码解析</h3>
-<p><strong>rasa.nlu.model.Trainer.train：</strong>遍历pipeline所有components，对每个component调用component.train方法完成训练。在component遍历到DIETClassifier之前，HFTransformersNLP等组件已经提取好了DIETClassifier训练需要的特征。遍历至DIETClassifier后，DIETClassifier开始利用已经提取好的特征进入训练。</p>
-<p><strong>rasa.nlu.classifiers.DIETClassifier.train:</strong> 该方法主要完成三件事：</p>
-<ul>
-<li><p>语料准备：通过DIETClassifier类中的方法preprocess_train_data，将训练数据和之前提取的特征整理成符合RasaModelData格式的model_data。RasaModelData格式为。。。。。之后将整理好的model_data按batch_size整理成data_generator供batch训练用。</p></li>
-<li><p>指定模型：将DIETClassifier类的成员self.model通过初始化DIET类完成指定DIET模型训练。</p></li>
-<li><ul>
-<li><p>DIET模型类继承自TransformerRasaModel类：自定义了</p></li>
-<li><p>TransformerRasaModel继承自RasaModel：自定义了。。。 要求实现。。。</p></li>
-<li><p>RasaModel继承自TmpKerasModel：通过重写tf.keras.Model中的train_step(), test_step(), predict_step(), save()和load()方法，实现自定义的Rasa模型.</p></li>
-<li><ul>
-<li>train_step()使用自定义的batch_loss并对该loss做了正则化。batch_loss需由其子类实现。</li>
-<li>predict_step()使用自定义的batch_predict()。需由其子类实现。</li>
-<li>save()只使用tf.keras.Model.save_weights()。</li>
-<li>load()生成模型结构后加载weights.</li>
-</ul></li>
-<li><p>TmpKerasModel继承自tf.keras.models.Model：重写了tf.keras.models.Model的fit方法来使用自定义的数据适配器。将数据转写成CustomDataHandler后由其处理迭代 epoch 级别的 <code>tf.data.Iterator</code> 对象。</p></li>
-</ul></li>
-<li><p>训练</p></li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>Rasa NLU classifier解析</title>
-    <url>/2020/10/21/Rasa%20NLU%20classifier%E8%A7%A3%E6%9E%90/</url>
-    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU classifier架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU classifier 做总体上的说明。</p>
-<p>本文更多关注算法，主要内容如下：</p>
-<a id="more"></a>
-<ul>
-<li>Rasa NLU Classifier架构</li>
-<li>主流技术支持情况</li>
-</ul>
-<h3 id="rasa-nlu-classifier架构">Rasa NLU Classifier架构</h3>
-<p>285</p>
-<h3 id="主流技术支持情况">主流技术支持情况</h3>
-<table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 10%" />
-<col style="width: 15%" />
-<col style="width: 53%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>主流技术</strong></th>
-<th><strong>是否支持</strong></th>
-<th><strong>支持模块</strong></th>
-<th><strong>说明</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Huggingface Transformer</td>
-<td>部分</td>
-<td>DIETClassifier</td>
-<td>见2.1.3.2</td>
-</tr>
-<tr class="even">
-<td>Wide&amp;Deep</td>
-<td>是</td>
-<td>DIETClassifier</td>
-<td>稀疏和稠密特征融合</td>
-</tr>
-<tr class="odd">
-<td>transformer</td>
-<td>是</td>
-<td>DIETClassifier</td>
-<td>transformer层数可配置</td>
-</tr>
-<tr class="even">
-<td>DNN</td>
-<td>是</td>
-<td>DIETClassifier</td>
-<td>DNN层数固定不可配置</td>
-</tr>
-<tr class="odd">
-<td>SVM</td>
-<td>是</td>
-<td>SKLearnClassifier</td>
-<td>支持网络搜索优化配置</td>
-</tr>
-<tr class="even">
-<td>其他传统机器学习模型</td>
-<td>是</td>
-<td>SKLearnClassifier</td>
-<td>SKLearn支持的所有模型</td>
-</tr>
-<tr class="odd">
-<td>Mitie Linear SVM</td>
-<td>是</td>
-<td>MitieClassifier</td>
-<td>使用自有的稀疏线性核</td>
-</tr>
-<tr class="even">
-<td>字符串匹配</td>
-<td>是</td>
-<td>KeywordClassifier</td>
-<td>不是关键词而是样例句完全匹配</td>
-</tr>
-<tr class="odd">
-<td>CNN</td>
-<td>否</td>
-<td>无</td>
-<td>DIET只支持在预训练模型后添加transformer层，现有rasa无法搭建诸如textCNN, bert+bilsm+crf这类经典模型</td>
-</tr>
-<tr class="even">
-<td>单双向RNN ( LSTM, GRU )</td>
-<td>否</td>
-<td>无</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>GCN</td>
-<td>否</td>
-<td>无</td>
-<td>图卷积神经网络</td>
-</tr>
-</tbody>
-</table>
-<p>问题：pipeline中可以叠加使用多个classifier吗（除fallback）？如果被KeywordClassifier模块命中，可不可以直接跳过其他 classifier）</p>
-<p>回答：单个pipeline中classifier可以叠加，例如KeywordIntentClassifier可以添加在主classifier后，这样Keyword的结果将覆盖classifier结果。<a href="https://forum.rasa.com/t/keyword-based-intent-classification/22027/7" target="_blank" rel="noopener">参考资料</a></p>
-]]></content>
-      <tags>
-        <tag>Rasa</tag>
-        <tag>Machine leanring</tag>
-        <tag>[object Object]</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/05/23/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Rasa NLU架构解析</title>
-    <url>/2022/10/21/Rasa%20NLU%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/</url>
-    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU各部分做细节上的说明。</p>
-<p>本文更多关注算法，主要内容如下：</p>
-<a id="more"></a>
-<ul>
-<li>Rasa NLU总体架构图</li>
-<li>Rasa NLU训练流程解析</li>
-<li>Rasa NLU推理流程解析</li>
-</ul>
-<h1 id="rasa-nlu-总体架构图">Rasa NLU 总体架构图</h1>
-<p>274</p>
-<p><strong>注：（1）FallbackClassifier应出现在某一个意图分类器之后，利用其输出的结果，即intent、confidence、intent ranking，如果意图的置信度比预设的threshold低，或排名前两位的意图的置信度的差距小于预设的ambiguity_threshold，则将该输入的意图分类为“nlu_fallback”</strong></p>
-<h1 id="rasa-nlu训练流程解析"><strong>Rasa NLU训练流程解析</strong></h1>
-<p>571</p>
-<p><strong>rasa.model_training.train_async</strong>: 读取config, domain和训练data到file_importer: TrainingDataImporter, 并输入到_train_async_internal训练Rasa model (nlu and core).</p>
-<p><strong>rasa.model_training._train_async_internal:</strong> 判定模型需要重新训练的部分并将判定结果写入fingerprint_comparison作为_do_training方法的参数fingerprint_comparison_result的值输入_do_training完成相应部分的训练, 训练结束后将模型打包成trained_model，通过trained_model输入TrainingResult返回回至上层。</p>
-<p><strong>rasa.model_training._do_training:</strong> 通过fingerprint_comparison_result带入的结果判断是否重新训练nlu, core和nlg, 并进入相应模块进行训练。</p>
-<p><strong>rasa.model_training._train_nlu_with_validated_data：</strong>按rasa.nlu.train.train各参数要求读取和整理参数值，输入rasa.nlu.train.train开始nlu模块的训练。</p>
-<p><strong>rasa.nlu.train.train:</strong> 通过初始化trainer=rasa.nlu.model.Trainer(...), 构建config.yml中pipeline下的所有组件。读取TrainingDataImporter中的nlu数据后，将数据输入trainer.train开始训练。</p>
-<p><strong>rasa.nlu.model.Trainer.train:</strong> 遍历pipeline所有components，对每个component调用component.train方法完成训练。</p>
-<h1 id="rasa-nlu推理流程解析">Rasa NLU推理流程解析</h1>
-<p>1552</p>
-<p><strong>rasa.model_testing.test_nlu：</strong>nlu测试入口，使用get_model函数加载model并解压（unpack），创建结果输出目录，调用测试过程</p>
-<p><strong>rasa.nlu.test.run_evaluation：</strong>测试过程入口函数，加载nlu模型初始化Interpreter实例，加载测试数据，调用get_eval_data进行测试</p>
-<p><strong>rasa.nlu.test.get_eval_data：</strong>在测试数据上运行模型，并提取真实标签和预测结果，输入interpreter实例和测试数据，返回意图测试结果（包括意图的标签和预测结果，原始消息，即message，及预测结果的置信度），response测试结果（包括response的目标值和预测结果），还有实体测试结果（实体的目标值，预测结果，和对应的token）</p>
-<p><strong>rasa.nlu.model.Interpreter.parse：</strong>一个interpreter对应一个训好的pipeline，其parse方法依次调用pipeline中的每一个component的process方法，来对输入文本一次进行解析和分类等操作，并返回处理结果（包括意图和实体）</p>
-<p>每个component都有一个process入口方法，用于测试和实际预测，在process方法中再调用各component的内部方法（包含真正的处理逻辑），上图虚线框中即展示了一个基本的pipeline预测示例。</p>
-<p>pipeline中Rasa自带的classifiers和extractors各组件（component）的具体介绍后续文章中介绍。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>机器学习和深度学习概述(一)</title>
-    <url>/2024/07/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%E4%B8%80/</url>
-    <content><![CDATA[<p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第一部分。</p>
-<a id="more"></a>
-<p>本文的主要内容包括：</p>
-<ul>
-<li><strong>机器学习/深度学习初探</strong></li>
-<li><strong>计算范式转变</strong></li>
-</ul>
-<p>深度学习已经彻底改变了计算机视觉，尤其是自然语言处理和语音处理，进而改变了整个人工智能领域。人工智能已经从无法令人满意地解决实际问题的浅层技巧，转变成了可以大规模解决行业面临的实际问题的强大工具。这无异于是一场发生在我们眼皮底下的革命。要引领这场革命潮流，不仅仅是简单地记住一些入门指南上的”操作”步骤，还要理解其基本原理和抽象概念。这些至关重要的环节正是数学发挥作用的地方。</p>
-<p>在第一章中，我们概述了深度学习。这将要求我们使用后续章节中解释的一些概念。如果本章末尾有一些未解决的问题，请不要担心：它只是旨在引导您的思维先转到我们的主题上来。随着后续章节中各个概念变得更加清晰，您可以考虑回过头来重新阅读本章。</p>
-<h4 id="机器学习深度学习初探计算范式转变"><strong>1.1 机器学习/深度学习初探：计算范式转变</strong></h4>
-<p>做出决定和/或预测是生活的一个核心诉求。这样做在本质上涉及到接收一组感官或知识输入并对其进行处理以生成决策或估计。</p>
-<p>例如，猫的大脑经常试图在以下选项之间进行选择：逃离它面前的物体，忽略它面前的物体，接近它面前的物体并发出呼噜声。猫的大脑通过处理感官输入来做出决定，例如感知到的它面前物体的硬度、感知到的它面前物体的锋利度等。这是一个分类问题的例子，其输出是一组可能的类别之一。</p>
-<p>生活中的分类问题还有如下的一些其他例子：</p>
-<ul>
-<li><p>根据股票价格历史和近期股票价格变化等输入，判断买入、持有还是卖出某只股票</p></li>
-<li><p>物体识别（图像）： –这是汽车还是长颈鹿？ –这是人类还是非人类？ –这是无生命物体还是生物？ –人脸识别——这是汤姆、迪克、玛丽、爱因斯坦还是梅西？</p></li>
-<li><p>视频中的动作识别： –这个人是在跑步还是没跑步？ –这个人是在捡东西还是没捡东西？ –这个人是在做暴力的事情还是没做暴力的事情？</p></li>
-<li><p>数字文档中的自然语言处理(NLP)： –这篇新闻文章属于政治还是体育领域？ –这个查询短语是否与档案中的特定文章匹配？</p></li>
-</ul>
-<p>有时生活需要定量估计而不是分类。狮子的大脑需要通过处理猎物的速度和与猎物的距离等输入信息来估计要跳多远才能落在猎物身上。定量估计的另一个例子是根据房主的当前收入、街区的犯罪统计数据等输入信息来估计房价。这种定量估计的工具称为回归器。</p>
-<p>以下是日常生活中需要定量估计的其他一些例子：</p>
-<ul>
-<li>从图像中进行物体定位：识别物体位置的矩形边界</li>
-<li>根据历史股价和其他新闻事件进行股价预测</li>
-<li>一对文档之间的相似度得分</li>
-</ul>
-<p>有时，分类输出可以从定量估计中生成。例如，前面描述的猫脑可以结合输入（硬度、锋利度等）来生成定量威胁分数。如果威胁分数很高，猫就会逃跑。如果威胁分数接近零，猫就会忽略它面前的物体。如果威胁分数为负，猫就会接近物体并发出呼噜声。 图1.1 显示了许多这样的示例。在每个实例中，机器（即大脑）将感官或知识输入转化为决策或定量估计。机器学习的目标是模拟该机器。</p>
-<img src="/2024/07/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%E4%B8%80/figure1.jpg" class="" alt="图片">
-<p>​</p>
-<p><strong>Figure1.1 生活中的决策定量估计模型</strong></p>
-<p>​ 请注意，机器学习还有很长的路要走才能赶上人脑。人脑可以独自处理数千甚至数百万个这样的问题。另一方面，在目前的发展状态下，机器学习几乎无法创建一台能够做出所有决策和估计的通用型机器。我们目前主要是试图分别制造单个的机器来针对性解决单个任务（例如选股器或汽车识别器）。此时，您可能会问：“等等，将输入转换为输出——这不正是计算机在过去30 多年里一直在做的事情吗？这里提到的范式转换是什么？”答案是，范式转换就是，我们没有向机器提供分步指令集（即程序）来将输入转换为输出。相反，我们是为该问题开发了一个数学模型。</p>
-<p>​ 让我们用一个例子来说明这个想法。为了简单和具体，我们将考虑一个假设的猫脑，它在生活中只需要做出一个决定：是逃离它面前的物体，还是忽略物体，还是走近并发出呼噜声。这个决定就是我们将要讨论的模型的输出。在这个示例中，决定仅基于两个定量输入（又称特征）：即感知到的物体的硬度和锋利度（如图1.1 所示）。我们不会通过提供分步指令来实现这一点，例如“如果锐度大于某个阈值，则逃跑”。相反，我们会尝试确定一个参数化函数，该函数接受输入并将其转换为所需的决策或估计值。而最简单的此类函数就是输入的加权和：</p>
-<p>​ <em>y (hardness, sharpness</em>)= <em>w</em><sub>0</sub> ×<em>hardness</em>+<em>w</em><sub>1</sub>×<em>sharpness</em>+ <em>b</em></p>
-<p>权重<em>w</em><sub>0</sub>、<em>w</em><sub>1</sub> 和偏差<em>b</em>是函数的参数。输出<em>y</em>可以解释为威胁分数。如果威胁分数超过阈值，猫就会逃跑。如果接近0，猫就会忽略该物体。如果威胁分数为负，猫就会靠近并发出呼噜声。对于更复杂的任务，我们将使用更复杂的函数。请注意，权重最初是未知的；我们需要估计它们。这是通过称为模型训练的过程完成的。</p>
-<p>​ 总体而言，通过机器学习解决问题有以下几个阶段：</p>
-<ul>
-<li>我们设计一个具有未知参数（权重）的参数化模型函数（例如加权和）。这构成了模型架构。选择正确的模型架构是机器学习工程师的专业知识发挥作用的地方。</li>
-<li>然后我们通过模型训练估计权重。</li>
-<li>一旦估计出权重，我们就有了一个完整的模型。这个模型可以接受以前不一定见过的任意输入并生成输出。利用训练好的模型处理任意真实输入并产生输出的过程称为推理。</li>
-</ul>
-<p>这个被称为监督学习的过程是最常用的机器学习种类。在这里，我们在开始训练之前要准备好训练数据。训练数据包括示例输入项，每个输入项都有其对应的期望输出。训练数据通常是手动创建的：人工检查每一个输入项并标注好期望输出（又称目标输出）。这通常是机器学习中最艰巨繁琐的部分。</p>
-<p>例如，在我们假设的猫脑示例中，一些可能的训练数据样本如下</p>
-<blockquote>
-<p>第4页脚注: 1 如果你有机器学习的经验，你就会意识到我们这里讨论的是“监督”学习。另外还有一种机器学习方式不需要已知输出，即所谓的“无监督”学习，我们稍后会讨论这种方式。</p>
-</blockquote>
-<p>输入：（硬度=0.01，锋利度=0.02）→威胁=-0.90 →决策：“靠近并发出呼噜声“ 输入：（硬度=0.50，锋利度=0.60）→威胁=-0.01 →决策：“忽略“ 输入：（硬度=0.99，锋利度=0.97）→威胁=0.90 →决策：“逃跑“</p>
-<p>其中硬度和锋利度的输入值假设介于0 和1 之间。</p>
-<p>训练过程中究竟发生了什么？答案：我们迭代处理输入的训练数据样本。对于每个输入项，我们都有期望的（又称目标）输出结果。在每次迭代中，我们都会调整模型权重值，使得模型函数对该特定输入项的输出尽可能地更接近其对应的目标输出。例如，假设在给定的迭代中，权重值为<span class="math inline">\(w_0\)</span>= 20 和<span class="math inline">\(w_1\)</span>= 10，<span class="math inline">\(b\)</span>= 50。在输入（硬度= 0.01，锐度= 0.02）中，我们得到输出威胁分数<span class="math inline">\(y\)</span>= 50.3，这与我们期望的 y = −0.9 有很大不同。我们将调整权重：例如，减少偏差，使<span class="math inline">\(w_0\)</span>= 20、<span class="math inline">\(w_1\)</span>= 10 和$ b<span class="math inline">\(= 40。那么相应的威胁分数\)</span> y$= 40.3 仍然远未达到期望值，但已经更接近了。在我们对许多训练数据样本执行此操作后，权重将开始接近其理想值。请注意，如何识别对权重值的调整不在此处讨论；它需要更深层次的数学知识，稍后将进行讨论。</p>
-<p>如前所述，这种迭代调整权重的过程称为训练或学习。在学习开始时，权重具有随机值，因此机器输出通常与期望输出不匹配。但随着时间的推移，更多的训练迭代发生，机器“学会”了如何生成我们期望的输出。这时模型就可以在现实世界中部署了。给定任意输入，模型将在推理过程中产出更接近人们想要的结果。</p>
-<p>仔细想想，这可能就是活体大脑的工作方式。它们包含各种任务的数学模型的等价物。在这里，权重是大脑中不同神经元之间连接（又称突触）的强度。一开始，参数未调整；大脑反复犯错。例如，婴儿的大脑经常在识别可食用物体时犯错误——任何有过孩子的人都能明白我们在说什么。但每个大脑都会调整参数（吃带有$符号的绿色和白色矩形物体会招致很多责骂-以后不应该吃它们，等等）。最终，这台大脑机器会调整好参数以产生更好的结果。</p>
-<p>这里应该注意一个微妙的点。在训练过程中，机器会调整其参数，以便仅根据训练数据输入产生所需的结果。当然，在训练过程中，它只看到所有可能输入的一小部分——我们不会构建从已知输入到已知输出的查找表。因此，当这台机器在真实世界发布时，它主要运行在从未见过的输入数据上。我们用什么来保证它会在从未见过的数据上产生期望的结果？坦率地说，没有任何保证。只是，在大多数现实生活的问题中，输入并不是真正随机的。它们会有一个模式。我们希望机器在训练期间能看到足够多的数据来捕捉这种模式。这样它在没有见过的输入上的输出将会接近所需的值。训练数据的分布越接近现实生活，就越有可能实现。</p>
+<h3 id="first-impression-on-gemma"><strong>First Impression on Gemma</strong></h3>
+<hr />
+<img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619112105533.png" class="" alt="image-20240619112105533">
+<p>Google DeepMind has released Gemma, a series of open models inspired by the same research and technology used for Gemini. The open model lends itself to a variety of use cases, which is a very smart move by Google. There are 2B (trained on 2T tokens) and 7B (trained on 6T tokens) models, including base and instruction-tuned versions. Training is performed on a context length of 8192 tokens. Commercial use permitted. These are not multimodal models and are superior to Llama 2 7B and Mistral 7B based on reported experimental results.</p>
+<p>Gemma models improve performance in a wide range of domains including conversation, reasoning, mathematics, and code generation. The results of MMLU (64.3%) and MBPP (44.4%) not only demonstrate the high performance of Gemma, but also show that there is still room for improvement in the performance of open and available large models.</p>
+<p>Gemma draws on many experiences from the Gemini model project, including code, data, architecture, instruction tuning, reinforcement learning from human feedback, and evaluation.</p>
+<h3 id="model-architecture"><strong>Model Architecture</strong></h3>
+<hr />
+<p>The Gemma model architecture is a transformer-based decoder. The core parameters of the architecture are summarized in Table 1 below. The model is trained on a context length of 8192 tokens. We also take advantage of several improvements proposed since the original transformer paper. Below we list the included improvements:</p>
+<p>Multi-Query Attention: The 7B model uses multi-query attention, while the 2B checkpoint uses multi-query attention (num_kv_heads=1). Based on the ablation study results, the respective attention variants are at their respective scales Improved performance.</p>
+<p>RoPE Embeddings: Instead of using absolute position embeddings, rotational position embeddings are used in each layer; in order to reduce model size, embeddings are also shared between input and output.</p>
+<p>GeGLU Activations: The standard ReLU nonlinearity is replaced by the GeGLU activation function.</p>
+<p>Normalizer Location: Normalizes both the input and output of each transformer sublayer, deviating from the standard practice of normalizing only one of them. Use RMSNorm as the normalization layer.</p>
+<img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619112628921.png" class="" alt="image-20240619112628921">
+<h3 id="training-data"><strong>Training Data</strong></h3>
+<hr />
+<p>Gemma2B and 7B are trained on 2T and 6T of main English web document, mathematics and code data respectively. Unlike Gemini, these models are neither multimodal nor trained for optimal performance on multilingual tasks. For compatibility, a subset of the Gemini SentencePiece tokenizer is used. It splits numbers without removing extra whitespace, and relies on byte-level encoding to handle unknown tokens, following techniques used by (Chowdhery et al., 2022) and (Gemini Team, 2023). The vocabulary size is 256k tokens.</p>
+<p>Since the vocabulary is very large, the model needs to be trained longer to better learn embeddings for all tokens in the vocabulary. The loss should still decrease after expanding the training tokens, which also corresponds to the very large vocabulary. We can understand that the larger the vocabulary, the more training tokens may be needed, and of course the performance may be better.</p>
+<p>For the instruction version of the model, they performed supervised fine-tuning on an instruction dataset consisting of human and synthetic data, followed by reinforcement learning with human feedback (RLHF).</p>
+<img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619125626270.png" class="" alt="image-20240619125626270">
+<h3 id="performance-on-public-test-data"><strong>Performance on public test data</strong></h3>
+<hr />
+<img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619130028360.png" class="" alt="image-20240619130028360">
+<h3 id="running-gemma-2b-and-7b"><strong>Running Gemma 2B and 7B</strong></h3>
+<hr />
+<p>Hugging Face's Transformers and vLLM already support the Gemma model, and the hardware requirement is an 18gb GPU.</p>
+<p>Let’s first introduce vLLM</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"> <span class="keyword">from</span> vllm <span class="keyword">import</span> LLM, SamplingParams</span><br><span class="line"> prompts = [</span><br><span class="line">     <span class="string">"The best recipe for pasta is"</span></span><br><span class="line"> ]</span><br><span class="line"> sampling_params = SamplingParams(temperature=<span class="number">0.7</span>, top_p=<span class="number">0.8</span>, top_k=<span class="number">20</span>, max_tokens=<span class="number">150</span>)</span><br><span class="line"> loading_start = time.time()</span><br><span class="line"> llm = LLM(model=<span class="string">"google/gemma-7b"</span>)</span><br><span class="line"> print(<span class="string">"--- Loading time: %s seconds ---"</span> % (time.time() - loading_start))</span><br><span class="line"> generation_time = time.time()</span><br><span class="line"> outputs = llm.generate(prompts, sampling_params)</span><br><span class="line"> print(<span class="string">"--- Generation time: %s seconds ---"</span> % (time.time() - generation_time))</span><br><span class="line"> <span class="keyword">for</span> output <span class="keyword">in</span> outputs:</span><br><span class="line">     generated_text = output.outputs[<span class="number">0</span>].text</span><br><span class="line">     print(generated_text)</span><br><span class="line">     print(<span class="string">'------'</span>)</span><br></pre></td></tr></table></figure>
+<p>Transformers then</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"> <span class="keyword">from</span> transformers <span class="keyword">import</span> AutoTokenizer, AutoModelForCausalLM, set_seed</span><br><span class="line"> set_seed(<span class="number">1234</span>)  <span class="comment"># For reproducibility</span></span><br><span class="line"> prompt = <span class="string">"The best recipe for pasta is"</span></span><br><span class="line"> checkpoint = <span class="string">"google/gemma-7b"</span></span><br><span class="line"> tokenizer = AutoTokenizer.from_pretrained(checkpoint)</span><br><span class="line"> model = AutoModelForCausalLM.from_pretrained(checkpoint, torch_dtype=torch.float16, device_map=<span class="string">"cuda"</span>)</span><br><span class="line"> inputs = tokenizer(prompt, return_tensors=<span class="string">"pt"</span>).to(<span class="string">'cuda'</span>)</span><br><span class="line"> outputs = model.generate(**inputs, do_sample=<span class="literal">True</span>, max_new_tokens=<span class="number">150</span>)</span><br><span class="line"> result = tokenizer.decode(outputs[<span class="number">0</span>], skip_special_tokens=<span class="literal">True</span>)</span><br><span class="line"> print(result)</span><br></pre></td></tr></table></figure>
+<h3 id="conclusion"><strong>Conclusion</strong></h3>
+<hr />
+<p>Many frameworks already support Gemma models well, and quantization of GPTQ and AWQ will be released soon. After quantization, Gemma 7B can be used on 8gb GPU.</p>
+<p>It is undeniable that releasing the Gemma model is a step forward for Google. Gemma 7B looks like a good competitor to Mistral 7B, but let's not forget that it also has 1 billion more parameters than Mistral 7B. In addition, I have never figured out what the use cases of Gemma 2B are. Its performance is surpassed by other models of similar size (this 2B may be really 2B), and it can be seen that the performance of these two Google models with few parameters is not good, but the performance is good. There are many more parameters. This kind of word play shows that Google is indeed lagging behind and anxious on the AI track, and there is currently no way to surpass it.</p>
+<p>Here is the gemma-report officially released by Google. If you are interested, you can check it out.</p>
+<p>https://storage.googleapis.com/deepmind-media/gemma/gemma-report.pdf</p>
 ]]></content>
   </entry>
   <entry>
@@ -907,372 +627,268 @@ subject\ to: &amp;\sum _ { j = 1 } ^ { n } T _ { i j } = d _ { i } \quad \forall
       </tags>
   </entry>
   <entry>
-    <title>XGBoost: A Scalable Tree Boosting System</title>
-    <url>/2020/06/01/XGBoost-A-Scalable-Tree-Boosting-System/</url>
-    <content><![CDATA[<p>本文是对XGBoost的经典论文<a href="https://dl.acm.org/doi/pdf/10.1145/2939672.2939785" target="_blank" rel="noopener">XGBoost: A Scalable Tree Boosting System</a>的总结。<a href="https://github.com/dmlc/xgboost" target="_blank" rel="noopener">XGBoost</a> 的全称是 eXtreme Gradient Boosting。作者为华盛顿大学研究机器学习的大牛<a href="http://homes.cs.washington.edu/~tqchen/" target="_blank" rel="noopener">陈天奇</a>，其最大的特点在于，它能够自动利用 CPU 的多线程进行并行，同时在算法上加以改进提高了精度。</p>
+    <title>Rasa NLU架构解析</title>
+    <url>/2022/10/21/Rasa%20NLU%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU各部分做细节上的说明。</p>
 <p>本文更多关注算法，主要内容如下：</p>
 <a id="more"></a>
 <ul>
-<li>XGBoost目标函数推导</li>
-<li>XGBoost防止过拟合策略</li>
-<li>切分搜索算法</li>
-<li>XGBoost针对稀疏问题的处理</li>
-<li>系统速度优化</li>
+<li>Rasa NLU总体架构图</li>
+<li>Rasa NLU训练流程解析</li>
+<li>Rasa NLU推理流程解析</li>
 </ul>
-<h3 id="xgboost目标函数推导">XGboost目标函数推导</h3>
-<hr />
-<h4 id="预测值">预测值</h4>
-<p>XGboost是基于回归树的集成学习模型。集成学习主要有两种方式：bagging和boosting。XGboost属于boosting, 其预测值通过对各弱分类器的结果求和得到。对于输入<span class="math inline">\(x_{i}\)</span>： <span class="math display">\[
-\begin{split}\hat { y } _ { i } = \phi ( x _ { i } ) = \sum _ { k = 1 } ^ { K } f _ { k } ( x _ { i } ) , \quad f _ { k } \in F  \qquad (1)
-\end{split}
-\]</span> 其中，<span class="math inline">\(f _ {k}\)</span>即为一个弱分类器，在XGboost中，弱分类器为 CART。<em>F</em> 为 CART 空间。</p>
-<h4 id="目标函数">目标函数</h4>
-<p>为了学习得到上式中的K个<span class="math inline">\(f_{k}\)</span>, 我们需要通过最小化模型的目标函数来获得。目标函数通常由损失+正则项表示。损失指示离真实值的差距，正则防止过拟合。这里损失为<span class="math inline">\(\begin{split}\sum _{ i } l ( \hat y _ { i }, y)\end{split}\)</span>, 是个可微凸函数。正则项则是K个<span class="math inline">\(f _ {k}\)</span>中的参数。由于XGBoost的<span class="math inline">\(f _ {k}\)</span>是回归树，该目标函数如下：</p>
-<p><span class="math display">\[
-\begin{split}&amp;O b j = \sum _ { i } l ( \hat { y } _ { i } , y _ { i } ) + \sum _ { k } \Omega ( f _ { k } ) \\
-&amp;where\quad\Omega ( f ) = \gamma T + \frac { 1 } { 2 } \lambda | w | ^ { 2 } \nonumber \end{split} \qquad (2)
-\]</span> 其中，$( f ) $ 是惩罚项。<span class="math inline">\(f_{ k }\)</span>做为回归树，影响其复杂度的参数为叶子节点的个数<span class="math inline">\(\, T \,\)</span>及叶子节点的权重<span class="math inline">\(w\)</span>.</p>
-<h4 id="训练方法">训练方法</h4>
-<p>由于<span class="math inline">\(f _ { k }\)</span>是树，与其他模型<span class="math inline">\(f\)</span> 可以由数值型向量表示不同，我们不能使用往常的优化算法，如SGD，来寻找<span class="math inline">\(f\)</span>。这里的解决方案是Additive Training（Boosting）。</p>
-<p><span class="math display">\[
-\begin{split} &amp;\hat { y } _ { i } ^ { ( 0 ) } = 0  \\ 
-&amp;\hat { y } _ { i } ^ { ( 1 ) } = f _ { 1 } ( x _ { i } ) = \hat { y } _ { i } ^ { ( 0 ) } + f _ { 1 } ( x _ { i } )  \\
-&amp;\hat { y } _ { i } ^ { ( 2 ) } = f _ { 1 } ( x _ { i } ) + f _ { 2 } ( x _ { i } ) = \hat { y } _ { i } ^ { ( 1 ) } + f _ { 2 } ( x _ { i } )  \\
-&amp; …  \\ 
-&amp;\hat { y } _ { i } ^ { ( t ) } = \sum _ { k = 1 } ^ { t } f _ { k } ( x _ { i } ) = \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } )  
-\end{split}
-\]</span> 其中，每一轮添加的<span class="math inline">\(f\)</span> 是最优化目标函数的结果。</p>
-<h4 id="目标函数近似形式">目标函数近似形式</h4>
-<p>根据Additive Training方式，在第<span class="math inline">\(t\)</span> 轮，<span class="math inline">\(\hat { y } _ { i } ^ { ( t ) } = \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } )\)</span>。 由此在第<span class="math inline">\(t\)</span>轮的目标函数可以改写为：</p>
-<p><span class="math display">\[
-\begin{split}
-O b j ^ { ( t ) } &amp;= \sum _ { i = 1 } ^ { n } l ( y _ { i } , \hat { y } _ { i } ^ { ( t ) } ) + \sum _ { i = 1 } ^ { t } \Omega ( f _ { i } )  \\ 
-&amp;= \sum _ { i = 1 } ^ { n } l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } ) ) + \Omega ( f _ { t } ) + constant 
-\end{split}
-\]</span> 这个目标函数仍然很难求最优。我们用泰勒展开取其近似如下：</p>
-<p><span class="math display">\[
-O b j ^ { ( t ) } \simeq \sum _ { i = 1 } ^ { n } [ l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } ) + g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant
-\]</span> 其中，<span class="math inline">\(g _ { i } = \partial _ { \hat { y } ^ { ( t - 1 ) } } l ( y _ { i } , \hat { y } ^ { ( t - 1 ) } ) , \quad h _ { i } = \partial _ { \hat { y } ^ { ( t - 1 ) } } ^ { 2 } l ( y _ { i } , \hat { y } ^ { ( t - 1 ) } )\)</span>, <span class="math inline">\(g _ {i}\)</span>, <span class="math inline">\(h _ {i}\)</span>分别为 <span class="math inline">\(l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } )\)</span>对<span class="math inline">\(\hat y ^ {(t - 1)}\)</span>求偏导的一阶和二阶导数。把上式中的常数项去掉，得：</p>
-<p><span class="math display">\[
-\tilde {  O b j ^ { ( t ) } } = \sum _ { i = 1 } ^ { n } [ g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) \qquad (3)
-\]</span> 这里要注意理解上式是针对每一个样本<span class="math inline">\(x_{i}\)</span>求损失，然后求所有样本损失和。我们将要在接下来的计算中为了方便计算<span class="math inline">\(\tilde { O b j ^ { ( t ) } }\)</span>的最优值而换一种对这波操作的形式化表达方式。</p>
-<h4 id="目标函数求最优">目标函数求最优</h4>
-<p>这里定义 <span class="math inline">\(I _ { j } = \{ i | q ( x _ { i } ) = j \}\)</span>。<span class="math inline">\(I_{j}\)</span>为被树分配到叶子节点<span class="math inline">\(j\)</span> 上的样本集。<span class="math inline">\(q ( x _ { i } )\)</span>为样本<span class="math inline">\(x _ {i}\)</span>通过q这个树结构到达叶子节点<span class="math inline">\(j\)</span>。 <span class="math inline">\(w_ {j}\)</span>为第<span class="math inline">\(j\)</span>个叶子节点的权重。则 <span class="math inline">\(f _ { t } ( x _ { i } ) = w _ { q ( x _ { i } ) }\)</span>。因此式 <span class="math inline">\((3)\)</span> 可以表示为： <span class="math display">\[
-\begin{split}
-O b j ^ { ( t ) } &amp;\simeq \sum _ { i = 1 } ^ { n } [ g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) \\ 
-&amp;= \sum _ { i = 1 } ^ { n } [ g _ { i } w _ { q ( x _ { i } ) } + \frac { 1 } { 2 } h _ { i } w _ { q ( x _ { i } ) } ^ { 2 } ] + \gamma T + \lambda \frac { 1 } { 2 } \sum _ { j = 1 } ^ { T } w _ { j } ^ { 2 } \\ 
-&amp;= \sum _ { j = 1 } ^ { T } [ ( \sum _ { i \in I _ { j } } g _ { i } ) w _ { j } + \frac { 1 } { 2 } ( \sum _ { i \in I _ { j } } h _ { i } + \lambda ) w _ { j } ^ { 2 } ] + \gamma T
-\end{split}
-\]</span> 中括号里为我们求最优解时最喜欢形式<span class="math inline">\(ax ^ 2 + bx\)</span>。显然，当</p>
-<p><span class="math display">\[
-w _ { j } ^ { * } = - \frac { \sum _ { i \in I _ { j } } g _ { i } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda }
-\]</span> 时，得到最优的<span class="math inline">\(\tilde {O b j ^ { ( t ) }}\)</span>:</p>
-<p><span class="math display">\[
-\tilde { Obj } ^ { ( t ) }  = - \frac { 1 } { 2 } \sum _ { j = 1 } ^ { T } \frac { ( \sum _ { i \in I _ { j } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda } + \gamma T \qquad (4)
-\]</span> 至此，我们完成了求第<span class="math inline">\(t\)</span>轮时目标函数的最优值。这个值可以用来衡量树结构的好坏。也就是说，判断一棵树的质量，我们只要算出<span class="math inline">\(g _ {i}\)</span>, <span class="math inline">\(h_{i}\)</span>，然后代入式子<span class="math inline">\((4)\)</span>即可算出。</p>
-<h3 id="防止过拟合策略">防止过拟合策略</h3>
-<hr />
-<ul>
-<li>权重衰减（Shrinkage）: 在每次迭代中对树的每个叶子结点的分数乘上一个缩减权重η，这可以使得每一棵树的影响力不会太大，留下更大的空间给后面生成的树去优化模型。</li>
-<li>列采样（Column subsampling）: 同对数据集做有放回的采样可以防止拟合一样，对特征做有放回的采样也可以防止过拟合。有两种方式：建树前采样和节点分裂之前采样。不仅如此，此方法还可以加快模型计算速度。</li>
-</ul>
-<h3 id="切分搜索算法">切分搜索算法</h3>
-<hr />
-<p>当我们把一个节点做了切分后，我们需要一个评估这个切分是好是坏的标准。一个朴素的思想就是切分前节点的目标函数的得分<strong>减去</strong>切分后左右两节点目标函数之和的得分，如果两者的差距较大，说明切分后的损失较小。计算公式如下： <span class="math display">\[
-\begin{split}
-L _ { s p l i t } &amp;= L ^ { ( t ) } - ( L _ { l } ^ { ( t ) } + L _ { r } ^ { ( t ) } ) \\
-&amp;= - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { j } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda } + \gamma - ( - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { I } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { l } } h _ { i } + \lambda } + - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { r } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { r } } h _ { i } + \lambda } + 2 \gamma )\\
-&amp;= \frac { 1 } { 2 } [ \frac { ( \sum _ { i \in I _ { L } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { L } } h _ { i } + \lambda } + \frac { ( \sum _ { i \in I _ { R } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { R } } h _ { i } + \lambda } - \frac { ( \sum _ { i \in I } g _ { i } ) ^ { 2 } } { \sum _ { i \in I } h _ { i } + \lambda } ] - \gamma
-\end{split} \qquad (5)
-\]</span></p>
-<h4 id="贪心算法">贪心算法</h4>
-<p>遍历所有特征的所有可能切分点，计算（5）式，取得分最高的切分点进行切分。</p>
-<h4 id="近似算法">近似算法</h4>
-<p>近似算法按特征分布的百分位提出候选切分点，相当于将特征的特征值分桶后再遍历。按提出候选切分点的时间不同，有两种切分的方式：全局切分和局部切分。</p>
-<p>全局切分就是在建树之初就提出了每个特征的候选切分点，之后对树的所有节点做切分时都从这些节点对应的特征候选切分点中选择。</p>
-<p>局部切分是在每次节点切分后优化提出候选切分点。候选切分点提出较全局切分频繁，较全局切分需要较少切分点。适合生成较深的树。</p>
-<p>全局切分候选切分点足够多时，可以达到和局部切分差不多的效果。</p>
-<h4 id="加权分位点">加权分位点</h4>
-<p>加权分位点是近似算法的一种。上面提到的近似算法通常是将切分点设在使数据均匀分布的位置。而加权分位点则是将切分点设在使分桶后的数据对loss产生均衡影响的位置。如果分4个桶，加权分位点使得每个桶内的样本集对loss的影响持平为25%。</p>
-<p>样本对loss的影响计算方法如下： <span class="math display">\[
-\begin{split} 
-L ^ { ( t ) } &amp;\simeq \sum _ { i = 1 }^ { n } [ l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } ) + g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \\
-&amp;= \sum _ { i = 1 } ^ { n } [ \frac { 1 } { 2 } h _ { i } \cdot \frac { 2 \cdot g _ { i } f _ { t } ( x _ { i } ) } { h _ { i } } + \frac { 1 } { 2 } h _ { i } \cdot f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \\
-&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ 2 \cdot \frac { g _ { i } } { h _ { i } } \cdot f _ { t } ( x _ { i } ) + f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \\
-&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ ( 2 \cdot \frac { g _ { i } } { h _ { i } } \cdot f _ { t } ( x _ { i } ) + f _ { t } ^ { 2 } ( x _ { i } ) + ( \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ) - ( \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ] + \Omega ( f _ { t } ) + constant \\
-&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ ( f _ { t } ( x _ { i } ) + \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ] + \Omega ( f _ { t } ) + constant \\
-&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } ( f _ { t } ( x _ { i } ) - ( - g _ { i } / h _ { i } ) ) ^ { 2 } + \Omega ( f _ { t } )
-\end{split}
-\]</span> 这里和原文给出的公式差个负号，欢迎想明白的小伙伴留言。</p>
-<p>从上式中我们可以看到样本<span class="math inline">\(x _ {i}\)</span>的预测值<span class="math inline">\(f _ { t } ( x _ { i })\)</span>对 <span class="math inline">\(y = - g _ { i } / h _ { i }\)</span>的加权平方损失。权重即为<span class="math inline">\(h _ {i}\)</span>，表示样本对loss的影响。</p>
-<p>节点上特征值小于 <span class="math inline">\(z\)</span> 的样本集相对于节点上总样本集对loss影响的比重为： <span class="math display">\[
-r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { ( x , h ) \in D _ { k } , x &lt; z } h
-\]</span> 我们的目标是要找到这样一组切分点<span class="math inline">\(\{ s _ { k 1 } , s _ { k 2 } , \cdots s _ { k l } \}\)</span>, 使用任意两个切分点之间的样本集对loss影响的比重小于一个数值<span class="math inline">\(\epsilon\)</span>。比如 <span class="math inline">\(\epsilon = 10\%\)</span>，意思就是将特征值分为10桶，每桶内对应的样本集对loss的影响小于10%。形式化表示如下： <span class="math display">\[
-| r _ { k } ( s _ { k , j } ) - r _ { k } ( s _ { k , j + 1 } ) | &lt; \epsilon , \quad s _ { k 1 } = \min _ { i } x _ { i k } , s _ { k l } = \max _ { i } x _ { i k }
-\]</span></p>
-<h3 id="稀疏问题的处理方法">稀疏问题的处理方法</h3>
-<hr />
-<p>在实践中经常遇到的数据稀疏，某些样本的某些特征值是缺失的（NULL）或大量特征的特征值为0。对这种情况论文提出统一将这种数据划分到一个默认的分支，或左树或右树，然后分别计算损失，选择较优的那一个。</p>
-<h3 id="xgboost系统优化">XGBoost系统优化</h3>
-<hr />
-<ul>
-<li><p>针对并行计算的列块</p>
-<ul>
-<li><p>分<code>block</code>，便于并行化</p></li>
-<li><p>分列存放，便于按列切片，实施 "列采样"</p></li>
-<li><p>按照特征值事先排好序，便于执行切分</p></li>
-<li><ul>
-<li>在乱序列表上查一个数，只能是线性扫描，复杂度 <span class="math inline">\(O ( N )\)</span></li>
-<li>在有序列表上可以做二分查找， <span class="math inline">\(O ( \log N )\)</span></li>
-</ul></li>
-</ul></li>
-<li><p>针对 cpu缓存优化</p>
-<ul>
-<li>贪心算法：缓存预取缓解缓存未命中问题</li>
-<li>近似算法：减小块的大小来解决缓存未命中问题</li>
-</ul></li>
-<li><p>针对IO优化</p>
-<ul>
-<li>Block Compression：block按列压缩，在加载到内存的过程中完成解压缩。</li>
-<li>Block Sharding：将数据分片到多个磁盘上。 将预取线程分配给每个磁盘，并将数据取入内存缓冲区中。 然后，训练线程可以从每个缓冲区读取数据。 当有多个磁盘可用时，这有助于提高磁盘读取的吞吐量。</li>
-</ul></li>
-</ul>
-<h3 id="总结">总结</h3>
-<hr />
-<p>个人觉得XGBoost在面对目标函数很难被计算时的思路很有些意思。在看论文的过程中几次被这种奇思妙想击中，总结一下以便时不时回顾感叹一下：</p>
-<ul>
-<li>惩罚项是棵树时的处理</li>
-<li>泰勒展示恰到好处的应用</li>
-<li><span class="math inline">\(I_{j}\)</span> 的定义把<span class="math inline">\(Obj\)</span> 神奇地转化成了二次表达式</li>
-</ul>
-<p>此外，在给特征值分桶时，用对loss的影响做为标准也是个不错的想法，并且找到用<span class="math inline">\(h\)</span>做为权重也是漂亮的一波操作。</p>
-<p>以上是个人觉得这篇论文最为出彩的地方，欢迎小伙伴留言分享你的心得。</p>
-<h3 id="参考文献">参考文献</h3>
-<hr />
-<ol type="1">
-<li><a href="https://dl.acm.org/doi/pdf/10.1145/2939672.2939785" target="_blank" rel="noopener">XGBoost: A Scalable Tree Boosting System</a></li>
-<li><a href="https://netman.aiops.org/~peidan/ANM2018/3.MachineLearningBasics/LectureCoverage/18.xgboost.pdf" target="_blank" rel="noopener">PPT</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/89546007" target="_blank" rel="noopener">详解《XGBoost: A Scalable Tree Boosting System》</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>Machine leanring</tag>
-        <tag>XGBoost</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>6 Artificial Intelligence Tools for Chat</title>
-    <url>/2023/07/24/6%20Artificial%20Intelligence%20Tools%20for%20Chat/</url>
-    <content><![CDATA[<p>This article will introduce 6 practical and efficient <strong>free</strong> AI chat tools.</p>
-<ol type="1">
-<li><p>ChatGPT: The Chatbot program developed by OpenAI in the United States, released on November 30, 2022. ChatGPT is a Natural language processing tool driven by artificial intelligence technology. It can communicate by understanding and learning human language, and interact according to the context of chat, so as to chat and communicate like human beings. Conversational artificial intelligence is trained based on a large amount of text from 2021 and before, and its use is free, but accelerating response and usage during peak demand periods requires a monthly payment of $20.</p>
-<a id="more"></a></li>
-<li><p>The new Bing: Microsoft's powerful cloud infrastructure requires ChatGPT based conversations and searches in Bing to access this website. It is currently under testing and needs to be added to the waiting list if you want to use The new Bing earlier.</p></li>
-<li><p>Perplexity.ai: The world's first session search engine. Perplexity AI combines ChatGPT with Bing Search, which is a stunning four seater platform with both ChatGPT style Q&amp;A and the ability to provide links like regular search engines. It can be used for free without any restrictions.</p></li>
-<li><p>YouChat: YouChat can provide annotated answers for various types of queries, and create article abstracts from the internet, generate code, write papers, type code, and chat with you. Ask it questions and follow up on answers. It has ChatGPT like functions and can participate in and experience ChatGPT style conversations. It is also free, but you need to register and log in before using it.</p></li>
-<li><p>NeevaAI: Small search engine, first launched in the United States in December 2022, founded by Sridhar Ramaswamy (former Senior Vice President of Advertising at Google) and Vivek Raghunathan (former Vice President of Monetization at YouTube). It creates an AI driven and completely user created ad free search engine. We can obtain corresponding answers directly generated by AI with references and annotations. Similarly, it is completely free and requires login.</p></li>
-<li><p>Poe: a conversational AI Chatbot from Quora, which can be accessed by users at will. Users can ask questions to it, and Poe can get answers from a variety of AI Chatbot, including the parent company OpenAI behind ChatGPT and robots from other companies such as Anthropic. Free, but currently only available for iPhone use.</p></li>
-</ol>
+<h1 id="rasa-nlu-总体架构图">Rasa NLU 总体架构图</h1>
+<p>274</p>
+<p><strong>注：（1）FallbackClassifier应出现在某一个意图分类器之后，利用其输出的结果，即intent、confidence、intent ranking，如果意图的置信度比预设的threshold低，或排名前两位的意图的置信度的差距小于预设的ambiguity_threshold，则将该输入的意图分类为“nlu_fallback”</strong></p>
+<h1 id="rasa-nlu训练流程解析"><strong>Rasa NLU训练流程解析</strong></h1>
+<p>571</p>
+<p><strong>rasa.model_training.train_async</strong>: 读取config, domain和训练data到file_importer: TrainingDataImporter, 并输入到_train_async_internal训练Rasa model (nlu and core).</p>
+<p><strong>rasa.model_training._train_async_internal:</strong> 判定模型需要重新训练的部分并将判定结果写入fingerprint_comparison作为_do_training方法的参数fingerprint_comparison_result的值输入_do_training完成相应部分的训练, 训练结束后将模型打包成trained_model，通过trained_model输入TrainingResult返回回至上层。</p>
+<p><strong>rasa.model_training._do_training:</strong> 通过fingerprint_comparison_result带入的结果判断是否重新训练nlu, core和nlg, 并进入相应模块进行训练。</p>
+<p><strong>rasa.model_training._train_nlu_with_validated_data：</strong>按rasa.nlu.train.train各参数要求读取和整理参数值，输入rasa.nlu.train.train开始nlu模块的训练。</p>
+<p><strong>rasa.nlu.train.train:</strong> 通过初始化trainer=rasa.nlu.model.Trainer(...), 构建config.yml中pipeline下的所有组件。读取TrainingDataImporter中的nlu数据后，将数据输入trainer.train开始训练。</p>
+<p><strong>rasa.nlu.model.Trainer.train:</strong> 遍历pipeline所有components，对每个component调用component.train方法完成训练。</p>
+<h1 id="rasa-nlu推理流程解析">Rasa NLU推理流程解析</h1>
+<p>1552</p>
+<p><strong>rasa.model_testing.test_nlu：</strong>nlu测试入口，使用get_model函数加载model并解压（unpack），创建结果输出目录，调用测试过程</p>
+<p><strong>rasa.nlu.test.run_evaluation：</strong>测试过程入口函数，加载nlu模型初始化Interpreter实例，加载测试数据，调用get_eval_data进行测试</p>
+<p><strong>rasa.nlu.test.get_eval_data：</strong>在测试数据上运行模型，并提取真实标签和预测结果，输入interpreter实例和测试数据，返回意图测试结果（包括意图的标签和预测结果，原始消息，即message，及预测结果的置信度），response测试结果（包括response的目标值和预测结果），还有实体测试结果（实体的目标值，预测结果，和对应的token）</p>
+<p><strong>rasa.nlu.model.Interpreter.parse：</strong>一个interpreter对应一个训好的pipeline，其parse方法依次调用pipeline中的每一个component的process方法，来对输入文本一次进行解析和分类等操作，并返回处理结果（包括意图和实体）</p>
+<p>每个component都有一个process入口方法，用于测试和实际预测，在process方法中再调用各component的内部方法（包含真正的处理逻辑），上图虚线框中即展示了一个基本的pipeline预测示例。</p>
+<p>pipeline中Rasa自带的classifiers和extractors各组件（component）的具体介绍后续文章中介绍。</p>
 ]]></content>
   </entry>
   <entry>
-    <title>机器学习和深度学习概述(三)</title>
-    <url>/2025/01/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
-    <content><![CDATA[<p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第三部分。</p>
+    <title>Rasa NLU DIET Classifier解析</title>
+    <url>/2022/10/21/Rasa%20NLU%20DIET%20Classifier%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU classifier中最受欢迎的DIET Classifier的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU classifier 中的DIET Classifier做详细的说明。</p>
+<p>本文更多关注算法，主要内容如下：</p>
 <a id="more"></a>
-<p>本文的主要内容包括：</p>
 <ul>
-<li><strong>机器学习的几何视角</strong></li>
-<li><strong>机器学习中的回归和分类</strong></li>
+<li>Rasa NLU Classifier架构</li>
+<li>主流技术支持情况</li>
 </ul>
-<h4 id="机器学习的几何视角">1.4 机器学习的几何视角</h4>
-<p>猫脑模型的每个输入都是一个由两个数字组成的数组：<span class="math inline">\(x_0\)</span>（表示物体的硬度）、<span class="math inline">\(x_1\)</span>（表示物体的锋利度），或者等效地，一个2 ×1向量<span class="math inline">\(\vec{x}\)</span>。直觉上，您可以在头脑里想象将输入视为高维空间中的一个点。输入空间通常称为特征空间——一个表示模型要检查的所有特征的空间。在本例中，特征空间维度为2，但在实际问题中，它将有数百、数千或更多。输入的确切维度因问题而异，但它是一个点的直觉仍然存在。</p>
-<p>输出<span class="math inline">\(y\)</span>也应被视为另一个高维空间中的一个点。在猫脑模型问题中，输出空间的维数为1，但在实际问题中，它会更高。然而，通常情况下，输出维数比输入维数小得多。</p>
-<p>从几何学上讲，机器学习模型本质上是将特征空间中的一个点映射到输出空间中的一个点。模型在输出空间中执行的分类或估计工作比在特征空间中更容易。具体来说，对于分类工作，属于不同类别的输入点预计会映射到输出空间中的不同簇。</p>
-<p>让我们继续使用猫脑模型示例来说明这个想法。如前所述，我们的特征空间是二维的，两个坐标轴<span class="math inline">\(X_0\)</span>表示硬度，<span class="math inline">\(X_1\)</span>表示锋利度。<sup>3</sup> 此二维空间中的各个点用小写的坐标值(<span class="math inline">\(x_0\)</span>,<span class="math inline">\(x_1\)</span>)表示（见图1.2）。如图所示，对威胁评分进行建模的一个好方法是测量与线<span class="math inline">\(x_0\)</span>+<span class="math inline">\(x_1\)</span>= 1 的距离。</p>
-<p>从坐标几何学来看，在具有坐标轴 <span class="math inline">\(X_0\)</span> 和 <span class="math inline">\(X_1\)</span> 的二维空间中，点(a, b)与直线<span class="math inline">\(x_0\)</span>+<span class="math inline">\(x_1\)</span>= 1的有符号距离为<span class="math inline">\(y=\frac{a+b-1}{\sqrt{2}}\)</span>。通过检查<span class="math inline">\(y\)</span>的符号，我们可以确定输入点属于分隔线的哪一侧。在图1.2 所示的简单情况下，观察告诉我们，威胁分数可以用与对角线<span class="math inline">\(x_0\)</span>+<span class="math inline">\(x_1\)</span>−1 = 0 的有符号距离<span class="math inline">\(y\)</span>来表示。我们可以通过对 <span class="math inline">\(y\)</span> 进行阈值化来做出逃跑/忽略/接近的决定。接近零的值表示忽略，正值表示逃跑，负值表示接近并发出呼噜声。</p>
-
-<p><strong>图1.2 猫脑模型的二维输入点空间。左下角显示的是硬度低且锋利度低的物体(-)，而右上角显示的是硬度高且锋利度高的物体(+)。中间值在对角线附近($)</strong></p>
-<blockquote>
-<p>第11页脚注：3 我们用<span class="math inline">\(X_0\)</span>和<span class="math inline">\(X_1\)</span>作为坐标符号，而不是我们更熟悉的X，Y，这样在进入高维空间时就不会出现符号耗尽的情况。</p>
-</blockquote>
-<p>从高中几何学中可知，任意输入点(<span class="math inline">\(x_0\)</span>= a,<span class="math inline">\(x_1\)</span>=$ b<span class="math inline">\()到直线\)</span>x_0<span class="math inline">\(+\)</span>x_1<span class="math inline">\(−1 = 0 的距离为\)</span><span class="math inline">\(因此，函数\)</span>y(x_0,x_1)=<span class="math inline">\(是猫脑威胁估计函数的一个可能模型。训练应收敛到\)</span>w_0=,w_1=和b=-$。 因此，我们简化的猫脑威胁评分模型为</p>
-<p>​ <span class="math inline">\(y\left(x_0,x_1\right)=\frac1{\sqrt{2}}x_0+\frac1{\sqrt{2}}x_1-\frac1{\sqrt{2}}\)</span></p>
-<p>它将表示猫前方物体硬度和锋利度的二维输入点，映射到与分隔线有符号距离对应的一维值。该距离在物理上可解释为威胁分数，可通过阈值划分类别（负面威胁、中性威胁、正面威胁），如公式1.2 所示。划分的类别在输出空间中形成不同的簇，在输出空间中用+、-和<span class="math inline">\(\mathbb{\$}\)</span>符号表示。输出值越低，表示负面威胁越确定（猫会靠近并发出呼噜声）：例如，<span class="math inline">\(y\left(0,0\right)=-\frac{1}{\sqrt{2}}\)</span>。输出值越高，表示威胁越大（猫会逃跑）：例如，<span class="math inline">\(y\left(1,1\right)=\frac{1}{\sqrt{2}}\)</span>。中等输入值产生的威胁接近于零（猫会忽略该物体）：例如，<span class="math inline">\(y (0.5,0.5)=0\)</span>。当然，因为问题非常简单，我们可以通过简单的观察得出模型参数。而在现实问题中，这是需要训练的。</p>
-<p>几何视角在更高维度上也适用。一般来说，n维输入向量<span class="math inline">\(\vec{x}\)</span>被映射到m维输出向量（通常 m &lt; n），这样，问题在输出空间中就变得简单得多。图1.3显示了具有三维特征空间的示例。</p>
-<h4 id="机器学习中的回归和分类">1.5 机器学习中的回归和分类</h4>
-<p>如第1.1节简要概述的那样，机器学习模型有两种类型：回归器和分类器。</p>
-<p>在回归器中，模型试图在给定特定输入的情况下输出期望值。例如，第1.3 节中猫脑模型的第一阶段（威胁分数估计器）就是回归器模型。</p>
-<p>另一方面，分类器有一组预先指定的类。给定一个特定的输入，它们会尝试输出输入所属的类。例如，完整的猫脑模型有三个类：（1）逃跑，（2）忽略，（3）靠近并发出呼噜声。因此，它接受输入（硬度和锐度值）并给出输出决策（又称类）。</p>
-<p>在此示例中，我们通过对回归器的输出进行阈值处理将回归器转换为分类器（参见公式1.2）。也可以创建直接输出类的模型，而无需中间的回归器。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>机器学习和深度学习概述(四)</title>
-    <url>/2025/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%E5%9B%9B/</url>
-    <content><![CDATA[<p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第四部分。</p>
-<a id="more"></a>
-<p>本文的主要内容包括：</p>
-<ul>
-<li><strong>线性和非线性模型</strong></li>
-<li><strong>通过多个非线性层实现更高的表达能力：深度神经网络</strong></li>
-</ul>
-<h4 id="线性和非线性模型">1.6 线性和非线性模型</h4>
-<p>在图1.2中，我们面临一个相当简单的情况，即类别可以用一条线（高维曲面中的超平面）分隔。这在现实生活中并不常见。如果不同类别的点无法用一条线分开，如图1.4所示，该怎么办？在这种情况下，我们的模型架构不应再是简单的加权组合。它应是一个非线性函数。例如，请看图1.4中的曲线分隔符。从函数逼近的角度来看，非线性模型也是有意义的。最终，我们的目标是近似非常复杂且高度非线性的函数，以模拟生活中所需的分类或估计过程。直观地说，使用非线性函数来建模它们似乎会更好。</p>
-<p><img src="./机器学习和深度学习概述四/figure1.3.png" alt="image-20240704141159118" style="zoom:50%;"/></p>
-<p><strong>图1.3 模型将输入（特征）空间中的点映射到输出空间，在输出空间中更容易进行类别划分。例如，在该图中，属于两个类（红色（+）和绿色（-））的输入特征点分布在三维特征空间中的圆柱体体积上。该模型将圆柱体展开为矩形。特征点被映射到二维平面输出空间，在输出空间中，可以使用简单的线性分离器区分这两个类。</strong></p>
-<p><img src="./机器学习和深度学习概述四/figure1.4.png" alt="image-20240704141046887" style="zoom:33%;"/></p>
-<p><strong>图1.4两个类别（用浅色和深色表示）不能用线分开，需要用曲线分隔符。在三维空间中，这相当于说没有平面可以分开表面；需要一个曲面分隔符。在静止的空间中，这相当于说没有超平面可以分开类别；需要一个弯曲的超曲面。</strong></p>
-<p>机器学习中非常流行的非线性函数是Sigmoid函数，因为它看起来像字母 S，所以也叫S 型函数。Sigmoid函数通常用希腊字母𝜎表示。它的定义如下 <span class="math inline">\(\sigma^2(x)=\frac1{1+e^{-x}}\)</span> (1.5)</p>
-<p>图1.5显示了 Sigmoid函数的图形。因此，我们可以使用等式1.6，这是个非常流行的模型架构，叫做逻辑回归（仍然比较简单），该架构采用输入加权和的Sigmoid函数（无参数）：</p>
-<p><span class="math inline">\(y=\sigma\left(\vec{w}^T\vec{x}+b\right) (1.6)\)</span></p>
-<p><img src="./机器学习和深度学习概述四/figure1.5.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
-<p>​ <strong>图1.5 Sigmoid函数图形</strong></p>
-<p>Sigmoid函数赋予了非线性。与单独的加权和相比，这种架构可以处理相对更复杂的分类任务。事实上，等式1.6描述了神经网络的基本构建块。</p>
-<h4 id="通过多个非线性层实现更高的表达能力深度神经网络">1.7 通过多个非线性层实现更高的表达能力：深度神经网络</h4>
-<p>在第1.6节中，我们指出，在基本加权和模型中添加非线性可以产生能够处理更复杂任务的模型架构。用机器学习术语来说，非线性模型具有更强的表达能力。</p>
-<p>现在考虑一个现实生活中的问题：比如，构建一个狗识别器。输入空间包括像素位置和像素颜色（x、y、r、g、b，其中 r、g、b 表示像素颜色的红色、绿色和蓝色成分）。输入维度很大（与图像中的像素数量成比例）。图1.6简要介绍了典型的深度学习系统（例如狗图像识别器）必须处理的背景和前景的可能变化。我们需要一台具有极高表达能力的机器。我们如何以原则性的方式创建这样的机器？</p>
-<p><img src="./机器学习和深度学习概述四/figure1.6.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
-<p>​ <strong>图1.6 非典型深度学习系统（此处为狗图像识别器）需要处理的背景和前景变化一览</strong></p>
-<p>与其一步一步地从输入生成输出，不如采用级联方法？我们将从输入中生成一组中间或隐藏输出，其中每个隐藏输出本质上是一个逻辑回归单元。然后我们添加另一层，将前一层的输出作为输入，依此类推。最后，我们将最外层的隐藏层输出合并到总输出中。</p>
-<p><img src="./机器学习和深度学习概述四/figure1.7.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
-<p>​ <strong>图1.7 多层神经网络</strong></p>
-<p>我们用以下等式来描述该系统。请注意，我们在权重上添加了一个上标来标识层（层0 最接近输入；层 L 是最后一层，距离输入最远）。我们还将下标设为二维（因此给定层的权重是一个矩阵）。第一个下标标识目标节点，第二个下标标识源节点（见图1.7）。</p>
-<p>精明的读者可能会注意到，以下等式没有明确的偏差项。这是因为，为了简化符号，我们将其并入权重集并假设其中一个输入（例如，<span class="math inline">\(x_0\)</span>= 1）和相应的权重（例如<span class="math inline">\(w_0\)</span>）是偏差。</p>
-<p>第0层：从n+1个输入生成<span class="math inline">\(n_0\)</span>个隐藏输出</p>
-<p><span class="math inline">\(\begin{aligned}&amp;h_0^{(0)}&amp;&amp;=\sigma\left(w_{00}^{(0)}x_0+w_{01}^{(0)}x_1+\cdots w_{0n}^{(0)}x_n\right)\\ &amp;h_1^{(0)}&amp;&amp; =\sigma\left(w_{10}^{(0)}x_0+w_{11}^{(0)}x_1+\cdots w_{1n}^{(0)}x_n\right) \\ &amp;h_{n_0}^{(0)}&amp;&amp; =\sigma\left(w_{n_00}^{(0)}x_0+w_{n_01}^{(0)}x_1+\cdots w_{n_0n}^{(0)}x_n\right) \end{aligned}\)</span> （1.7）</p>
-<p>第1层：从第0 层的<span class="math inline">\(n_0\)</span>个隐藏输出生成<span class="math inline">\(n_1\)</span>个隐藏输出</p>
-<p><span class="math inline">\(\begin{aligned} &amp;h_0^{(1)}&amp;&amp; =\sigma\left(w_{00}^{(1)}h_0^{(0)}+w_{01}^{(1)}h_1^{(0)}+\cdots w_{0n_0}^{(1)}h_{n_0}^{(0)}\right) \\ &amp;h_1^{(1)}&amp;&amp; =\sigma\left(w_{10}^{(1)}h_0^{(0)}+w_{11}^{(1)}h_1^{(0)}+\cdots w_{1n_0}^{(1)}h_{n_0}^{(0)}\right) \\ &amp;h_{n_1}^{(1)}&amp;&amp; =\sigma\left(w_{n_10}^{(1)}h_0^{(0)}+w_{n_11}^{(1)}h_1^{(0)}+\cdots w_{n_1n_0}^{(1)}h_{n_0}^{(0)}\right) \end{aligned}\)</span>（1.8）</p>
-<p>最后一层（L）：从前一层<span class="math inline">\(n_{L-1}\)</span>个隐藏输出生成m+1个可见输出</p>
-<p><span class="math inline">\(\begin{aligned} h_0^{(L)}&amp; =\sigma\left(w_{00}^{(L)}h_0^{(L-1)}+w_{01}^{(L)}h_1^{(L-1)}+\cdots w_{0n_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \\ h_1^{(L)}&amp; =\sigma\left(w_{10}^{(L)}h_0^{(L-1)}+w_{11}^{(L)}h_1^{(L-1)}+\cdots w_{1n_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \\ \begin{array}{cc}\vdots\\\end{array}&amp;&amp; \\ h_m^{(L)}&amp; =\sigma\left(w_{m0}^{(L)}h_0^{(L-1)}+w_{m1}^{(L)}h_1^{(L-1)}+\cdots w_{mn_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \end{aligned}\)</span> （1.9）</p>
-<p>这些等式如图1.7 所示。图1.7 所示的机器可能非常强大，具有巨大的表达能力。我们可以系统地调整其表达能力以适应手头的问题。它是一个神经网络。我们将用本书的其余部分来研究这一点。</p>
-<h4 id="小结">小结</h4>
-<p>在本章中，我们概述了机器学习，并一直延伸到深度学习。我们用玩具猫脑示例说明了这些想法。本章使用了一些数学概念（例如向量），但没有进行适当的介绍，我们鼓励您在介绍向量和矩阵后重新阅读本章。</p>
-<p>我们希望您能从本章中得到以下的收获：</p>
-<ul>
-<li>机器学习是一种完全不同的计算范式。在传统计算中，我们向计算机提供分步指令序列，告诉它要做什么。在机器学习中，我们建立一个数学模型，试图逼近从输入生成分类或估计的未知函数。</li>
-<li>模型函数的数学性质由分类或估计任务的物理性质和复杂性决定。模型具有参数。参数值是根据训练数据（具有已知输出的输入）估计的。参数值经过优化，以使模型输出尽可能接近训练输入上的训练输出。</li>
-<li>机器学习模型可以从另一个角度理解，即几何视角，它是将多维输入空间中的点映射到输出空间中的点的变换。</li>
-<li>分类/估计任务越复杂，近似函数就越复杂。用机器学习术语来说，复杂的任务需要具有更强表达能力的机器。更高的表达能力来自非线性（例如，S 型函数；参见公式1.5）和更简单机器的分层组合。这让我们想到了深度学习，它只不过是一个多层非线性机器。</li>
-<li>复杂的模型函数通常通过组合较简单的基函数来构建。</li>
-</ul>
-<p>请系好安全带：学习乐趣即将变得更加激烈。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>机器学习和深度学习概述(二)</title>
-    <url>/2024/08/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第二部分。</p>
-<a id="more"></a>
-<p>本文的主要内容包括：</p>
-<ul>
-<li><strong>机器学习的函数逼近视角</strong></li>
-<li><strong>一个简单的机器学习模型：猫脑</strong></li>
-</ul>
-<h4 id="机器学习的函数逼近视角模型和训练">1.2 机器学习的函数逼近视角：模型和训练</h4>
-<p>如第1.1 节所述，要创建一个能够进行分类或估计的类脑机器，我们必须找到一个数学函数（模型），将输入转换为对应的期望输出。然而，遗憾的是，在典型的现实生活中，我们不知道这个转换函数是什么。例如，我们并不知道能接受历史价格、新闻事件等特征并能估计出股票未来价格的函数——这就让我们建立股票价格估算器来致富变得很困难。我们拥有的只是训练数据——一组已知输出的输入。那么我们该怎样利用好它们来完成上面的任务呢？答案是，我们将尝试对这个未知函数进行建模。这意味着我们将创建一个函数作为那个未知函数的近似代理或替代品。从这个角度来看，机器学习只不过是函数近似——我们只是试图逼近那个未知的分类或估计函数。</p>
-<p>让我们简要回顾一下上一节的主要思想。在机器学习中，我们试图解决的问题可以抽象地看作是将一组输入转换为输出。输出要么是一个类，要么是一个估计值。由于我们不知道真正的转换函数，我们试图提出一个模型函数。我们首先利用我们对问题的物理理解，设计一个具有可调参数值的模型函数，该模型函数可以作为真实函数的代理。这就是模型架构，可调参数也称为权重。最简单的模型架构是输出等于输入值的加权和。确定模型架构并不能完全确定模型——我们仍然需要确定实际的参数值（权重）。这就是训练的用武之地。在训练过程中，我们找到一组最佳权重，将该组权重应用到模型架构中确定一个模型，通过该模型将训练输入转换为模型输出，使模型输出尽可能接近训练输入在训练样本中对应的训练输出。训练完成后，我们部署好训练好的模型：它的权重已经确定，模型也因此已经确定，因此对于任何输入，它只需应用该模型并生成输出，这便是推理。当然，训练输入只是所有可能输入的一小部分，因此不能保证推理会在所有实际输入上产生所需的结果。模型的成功取决于所选模型架构的适当性以及训练数据的质量和数量。</p>
+<h3 id="diet-classifier架构">DIET Classifier架构</h3>
+<h4 id="section">321</h4>
+<h3 id="模型支持说明">模型支持说明</h3>
+<p>DIET支持的Huggingface模型类型如下表：</p>
 <table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
 <thead>
 <tr class="header">
-<th>获取训练数据<br/>掌握机器学习后，最大的困难就是获取训练数据。当从业者能够负担得起时，通常的做法是使用人工手动生成与训练数据输入相对应的输出（这些目标输出有时被称为基本事实）。这个过程被称为人工标记或人工管理，需要一大群人查看大量的训练数据输入并生成相应的基本事实输出。对于一些经过充分研究的问题，我们可能很幸运地能够在互联网上获得训练数据；否则它将成为一项艰巨的挑战。稍后会详细介绍。</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p>现在我们通过一个具体的例子来研究一下模型构建的过程：参见图1.1所示的猫脑。</p>
-<h4 id="一个简单的机器学习模型猫脑">1.3 一个简单的机器学习模型：猫脑</h4>
-<p>为了简单和具体，我们将以一只假想的猫为例，它一生中只需要做出一个决定：是逃离面前的物体、忽略它，还是靠近并发出呼噜声。它仅根据与面前物体有关的两个定量输入来做出这一决定（如图1.1 所示）。注意：本章是对机器/深度学习的轻量级概述。因此，它依赖于我们稍后将介绍的一些数学概念。尽管如此，我们还是鼓励您现在阅读本章，并在消化关于向量和矩阵的章节后再回来重新复习本章。</p>
-<h5 id="输入特征">1.31 输入特征</h5>
-<p>输入特征为<span class="math inline">\(x_0\)</span>表示硬度和$ x_1<span class="math inline">\(表示锋利度。在不失一般性的情况下，我们可以对输入进行归一化。这是一个非常流行的技巧，即将介于最小可能值\)</span>v_{min}<span class="math inline">\(和最大可能值\)</span>v_{max}<span class="math inline">\(之间的输入值转换为0 到1 之间的值。要将任意输入值\)</span>v$转换为归一化值 <span class="math inline">\(v_{norm}\)</span>，我们使用公式</p>
-<p>​ <span class="math inline">\(v_{\text {norm }}=\frac{\left(v-v_{\min }\right)}{\left(v_{\max }-v_{\min }\right)}\)</span> (1.1)</p>
-<p>用数学术语来说，通过公式1.1 的变换，<span class="math inline">\(v\in[v_{min},v_{max}]\to v_{norm}\in [0,1]\)</span>将输入域<span class="math inline">\([v_{min},v_{max}]\)</span>中的值<span class="math inline">\(v\)</span>映射到范围为[0,1]的输出值<span class="math inline">\(v_{norm}\)</span>。 用一个二维向量<span class="math inline">\(\vec{x}=\begin{bmatrix}x_0\\x_1\end{bmatrix}\in[0,1]^2\)</span>简洁地表示单个输入实例。</p>
-<h5 id="输出决策">1.3.2 输出决策</h5>
-<p>本例是一个多分类任务，可以采用以下三个可能值之一：0，表示逃离猫面前的物体；1，表示忽略物体；2，表示靠近物体并发出呼噜声。在机器学习中，本例可以按分类任务直接计算类别。但是，在这个例子中，我们将让模型估计一个威胁分数。它被解释如下：威胁分数为较大的正数= 逃跑，威胁接近零= 忽略，威胁为较小的负数= 接近并发出呼噜声（威胁分数为较小的负数表明该物体对猫具有吸引力）。</p>
-<p>我们可以根据威胁分数做出最终的决策（逃跑/忽略/接近），通过将威胁分数 y 与阈值𝛿进行比较，如下所示：</p>
-<p><span class="math inline">\(y\left\{\begin{array}{l}&gt;\delta \rightarrow \text {高威胁,逃跑}\\ &gt;=-\delta \text { and }&lt;=\delta \rightarrow \text {威胁接近零,忽略}\\ &lt;-\delta \rightarrow \text {没有威胁,靠近并发出呼噜声}\end{array}\right.\)</span></p>
-<h5 id="模型估计">1.3.3 模型估计</h5>
-<p>现在到了最重要的一步：我们需要估计出一个函数用来将输入向量转换为输出。我们将用<span class="math inline">\(y\)</span>表示该函数的输出。用数学符号来表示的话，我们要估计的就是<span class="math inline">\(y(\vec{x})\)</span>。</p>
-<p>当然，我们不知道理想的函数是什么。我们将尝试从训练数据中估计出这个未知函数，使其接近理想函数。这分为两个步骤：</p>
-<p>1.模型架构选择——设计一个我们期望的参数化函数，它是未知理想函数的近似代理</p>
-<p>2.训练——估计所选函数的参数，使得训练输入通过该函数的输出尽可能接近其对应的期望输出</p>
-<h5 id="模型架构选择">1.3.4 模型架构选择</h5>
-<p>这是各种机器学习方法之所以成为不同方法的关键步骤。在这个简单猫脑示例中，我们将使用最简单的模型。我们的模型有三个参数，<span class="math inline">\(w_0\)</span>、<span class="math inline">\(w_1\)</span>、<span class="math inline">\(b\)</span>。它们可以用一个二维向量紧凑地表示为<span class="math inline">\(w =\vec{w}=\left[\begin{array}{l}w_0 \\ w_1\end{array}\right]\in \mathbb{R}^2\)</span>和一个常数偏差<span class="math inline">\(b\)</span>∈ℝ（这里，ℝ表示所有实数的集合，<span class="math inline">\(ℝ_2\)</span>表示两个元素都是实数的二维向量的集合，依此类推）。这个模型可以输出威胁分数 y，计算如下$ y(x_0, x_1)=w_0 x_0+w_1 x_1+b=+b=^T +b$ (1.3)</p>
-<p>请注意，<span class="math inline">\(b\)</span>是一个特殊的参数。它是一个常数，不会与任何输入相乘。在机器学习中，通常将其称为偏差；其他参数作为权重与输入相乘。</p>
-<h5 id="模型训练">1.3.5 模型训练</h5>
-<p>一旦选择了模型架构，我们就知道了确定的参数化函数，我们将使用该参数化函数来建模未知函数<span class="math inline">\(y(\vec{x})\)</span>，从而将输入转换为输出。我们在这里仍然需要估计函数的参数。现在，我们有一个具有未知参数的函数，并且这些参数将会从一组具有已知输出（训练数据）的输入中估计出来。我们最终将选择一组最优参数，使得训练数据的输入通过具有最优参数的模型后，产出的模型输出尽可能接近训练数据中的输出。</p>
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>迭代训练<br/>这个问题已经被数学家研究过，在数学中被称为函数拟合问题。然而，随着机器学习的出现，其规模发生了变化。在机器学习中，我们处理的训练数据包括数以百万计的样本。这就需要解决方案的理念也随之改变。数学家使用闭式解作为解决方案，通过直接求解涉及所有训练数据项的方程来估计参数。在机器学习中，我们寻求迭代解决方案，一次处理几个训练数据项（或者可能只有一个）。在迭代解决方案中，没有必要将所有训练数据保存在计算机的内存中。我们只需一次加载一小部分并仅处理该部分。我们将以猫脑为例来说明这一点。</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p>具体来说，训练过程的目标是估计参数<span class="math inline">\(w_0\)</span>、<span class="math inline">\(w_1\)</span>、<span class="math inline">\(b\)</span>，或者，根据公式1.3 估计向量<span class="math inline">\(\vec{w}\)</span>和常数<span class="math inline">\(b\)</span>，使得训练数据的输入<span class="math inline">\((x_0, x_1)\)</span>对应的输出<span class="math inline">\(y(x_0, x_1)\)</span>尽可能与相应的已知训练数据输出（又称基本事实[GT]）匹配。</p>
-<p>假设训练数据由N +1个输入<span class="math inline">\(\vec{x}^{(0)},\vec{x}^{(1)},···\vec{x}^{(N)}\)</span>组成。这里，每个<span class="math inline">\(\vec{x}^{(i)}\)</span>都是一个2 ×1 向量，表示单个训练数据输入实例。其对应的威胁值（输出）为<span class="math inline">\(y_{g t}^{(0)}, y_{g t}^{(1)},··· y_{g t}^{(N)}\)</span>（这里，下标 gt 表示基本事实）。同样，我们可以说训练数据由 N +1 个(输入，输出)对组成：</p>
-<p>​ <span class="math inline">\(\left(\vec{x}^{(0)}, y_{g t}^{(0)}\right),\left(\vec{x}^{(1)}, y_{g t}^{(1)}\right)\cdots\left(\vec{x}^{(N)}, y_{g t}^{(N)}\right)\)</span></p>
-<p>假设<span class="math inline">\(\vec{w}\)</span>表示模型的（目前未知的）最佳参数。然后，给定任意输入<span class="math inline">\(\vec{x}\)</span>，机器将估计出威胁值$ y_{predicted}=<sup>T+b<span class="math inline">\(。在第 i 个训练数据对\)</span>(</sup>{(i)},y_{gt}^{(i)})$上，机器将给出估计</p>
-<p>​ <span class="math inline">\(y_{\text {predicted }}^{(i)}=\vec{w}^T \vec{x}^{(i)}+b\)</span></p>
-<p>而期望输出是<span class="math inline">\(y_{\text {gt}}^{(i)}\)</span>。因此，机器在第 i 个训练数据实例上产生的平方误差（又称损失）是 <span class="math inline">\(e_i^2=\left(y_{\text {predicted }}^{(i)}-y_{g t}^{(i)}\right)^2\)</span></p>
-<p>整个训练数据集的总体损失是通过将每个单独的训练数据实例的损失相加而获得的：<span class="math inline">\(E^2=\sum_{i=0}^{i=N} e_i^2=\sum_{i=0}^{i=N}\left(y_{\text {predicted }}^{(i)}-y_{g t}^{(i)}\right)^2=\sum_{i=0}^{i=N}\left(\vec{w}^T \vec{x}_i+b-y_{g t}^{(i)}\right)^2\)</span></p>
-<p>训练的目标是找到一组模型参数（又称权重）<span class="math inline">\(\vec{w}\)</span>，使总误差 E 最小化。具体如何做到这一点将在后面描述。</p>
-<p>在大多数情况下，不可能得出最优<span class="math inline">\(\vec{w}\)</span>、b 的闭式解。因此，我们采用算法1.1 中描述的迭代方法。</p>
-<blockquote>
-<p>第9页脚注：2 在这种情况下，请注意，将误差/损失做平方，以使其与符号无关是一种常见做法。如果我们希望输出为10，那么如果输出为9.5 或10.5，我们会同样高兴/不高兴。因此，+5 或−5 的误差实际上是相同的；因此我们要使误差与符号无关。</p>
-</blockquote>
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>算法1.1 训练一个监督模型</th>
+<th><strong>模型类型</strong></th>
+<th><strong>模型名称</strong></th>
+<th><strong>默认加载的预训练模型</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>用随机值初始化参数 w,b，当误差不够小时进行迭代<br><span class="math inline">\(\mathbf{while}\quad(E^2=\sum_{i=0}^{i=N}\left(\vec{w}^T\vec{x}_i+b-y_{gt}^{(i)}\right)^2&gt;threshold)\quad\mathbf{do}\)</span><br> 迭代所有训练数据实例 <br/> <span class="math inline">\(\text{for }\forall i\in[0,N]\quad\mathbf{do}\)</span><br/> 第3.3 节提供了详细信息，引入梯度后，调整<span class="math inline">\(\vec{w}\)</span>，b 以减少<span class="math inline">\(E^2\)</span><br/> <span class="math inline">\(\mathbf{end}\ \mathbf{for}\)</span><br/><span class="math inline">\(\mathbf{end}\ \mathbf{while}\)</span><br/>记住最终参数值为最优<br/><span class="math inline">\(\vec{w}_*\leftarrow\vec{w},\ b_*\leftarrow b\)</span></td>
+<td>BERT</td>
+<td>bert</td>
+<td>rasa/LaBSE ( bert-base-uncased )</td>
+</tr>
+<tr class="even">
+<td>GPT</td>
+<td>gpt</td>
+<td>openai-gpt</td>
+</tr>
+<tr class="odd">
+<td>GPT2</td>
+<td>gpt2</td>
+<td>gpt2</td>
+</tr>
+<tr class="even">
+<td>XLNet</td>
+<td>xlnet</td>
+<td>xlnet-base-cased</td>
+</tr>
+<tr class="odd">
+<td>DistilBERT</td>
+<td>distilbert</td>
+<td>distilbert-base-uncased</td>
+</tr>
+<tr class="even">
+<td>RoBERTa</td>
+<td>roberta</td>
+<td>roberta-base</td>
 </tr>
 </tbody>
 </table>
-<p>在这个算法中，我们从随机参数值开始，并不断调整参数，这样总误差至少会下降一点。我们一直这样做，直到误差变得足够小。从纯粹的数学意义上讲，我们继续迭代，直到误差最小。但在实践中，我们经常在结果对于要解决的问题足够准确时停止。值得再次强调的是，这里的误差仅指训练数据上的误差。</p>
-<h5 id="推理">1.3.6 推理</h5>
-<p>最后，一个经过训练的模型（具有最优参数<span class="math inline">\(\vec{w}_∗\)</span><span class="math inline">\(b_∗\)</span>）被部署到现实世界中。它将接收新的输入<span class="math inline">\(\vec{x}\)</span>并推断出 <span class="math inline">\(y_{predicted}\left(\vec{x}\right)=\vec{w}_{*}^{T}\vec{x}+b_{*}\)</span>.分类将通过对<span class="math inline">\(y_{predicted}\)</span>进行阈值处理来实现，如公式1.2 所示。</p>
+<p>对在HuggingFace 中上传的所有预训练模型（<a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>），Rasa DIET可以支持满足以下条件的所有模型：</p>
+<p>点击<a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>-&gt;选中一个模型-&gt;点击进入模型页面-&gt;点击Files and version</p>
+<ul>
+<li>检查 config.json 中的 model_type 是否列在上表的 <strong>模型名称</strong> 列中</li>
+<li>检查文件 tf_model.h5 是否存在</li>
+<li>模型使用默认tokenizer, config.json 中不包含支持自定义的 tokenizer_class</li>
+</ul>
+<p>对满足上述条件的模型，通过2.1.3.3中描述的方式可开箱即用。</p>
+<h3 id="diet支持huggingface的配置样例">DIET支持Huggingface的配置样例</h3>
+<p>在Rasa2.0中，若想在DIET架构中使用Huggingface提供的预训练模型，除在rasa的config文件中指定使用DIETClassifier外，还需要配合使用对应的模块：</p>
+<ol type="1">
+<li>HFTransformersNLP</li>
+</ol>
+<p>主要参数：model_name: 预训练模型config.json 中的 model_type的值</p>
+<p>​ model_weights: <a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>提供的预训练模型名称</p>
+<ol type="1">
+<li>LanguageModelTokenizer：确保训练数据token对应的token_id与预训练模型的token_id保持一致</li>
+<li>LanguageModelFeaturizer：生成经预训练模型转换后的特征向量，做为架构后续模块的输入。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">language: en</span><br><span class="line">pipeline:</span><br><span class="line">- name: HFTransformersNLP</span><br><span class="line">  model_weights: &quot;rasa&#x2F;LaBSE&quot;</span><br><span class="line">  model_name: &quot;bert&quot;</span><br><span class="line">- name: LanguageModelTokenizer</span><br><span class="line">- name: LanguageModelFeaturizer</span><br><span class="line">- name: DIETClassifier</span><br><span class="line">  epochs: 20</span><br><span class="line">  num_transformer_layers: 2</span><br><span class="line">  transfomer_size: 256</span><br><span class="line">  use_masked_language_model: True</span><br><span class="line">  drop_rate: 0.25</span><br><span class="line">  weight_sparsity: 0.7</span><br><span class="line">  batch_size: [64, 256]</span><br><span class="line">  embedding_dimension: 100</span><br><span class="line">  hidden_layer_sizes:</span><br><span class="line">    text: [512, 128]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>DIET样例代码包位置：examples/hf_demo</li>
+<li>DIET样例代码调用方式：项目根目录/main.py</li>
+<li>涉及的源码改动：</li>
+</ul>
+<p>如按 ‘样例代码调用方式’ 直接跑报错... set from_pt=true, 请修改: 项目根目录/rasa/nlu/utils/hugging_face/hf_transformers.py: class HFTransformersNLP中的def _load_model_instance中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">self.model &#x3D; model_class_dict[self.model_name].from_pretrained(self.model_weights, cache_dir&#x3D;self.cache_dir)</span><br></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">self.model &#x3D; model_class_dict[self.model_name].from_pretrained(self.model_weights, cache_dir&#x3D;self.cache_dir, from_pt&#x3D;True)</span><br></pre></td></tr></table></figure>
+<h3 id="diet核心代码解析">DIET核心代码解析</h3>
+<p><strong>rasa.nlu.model.Trainer.train：</strong>遍历pipeline所有components，对每个component调用component.train方法完成训练。在component遍历到DIETClassifier之前，HFTransformersNLP等组件已经提取好了DIETClassifier训练需要的特征。遍历至DIETClassifier后，DIETClassifier开始利用已经提取好的特征进入训练。</p>
+<p><strong>rasa.nlu.classifiers.DIETClassifier.train:</strong> 该方法主要完成三件事：</p>
+<ul>
+<li><p>语料准备：通过DIETClassifier类中的方法preprocess_train_data，将训练数据和之前提取的特征整理成符合RasaModelData格式的model_data。RasaModelData格式为。。。。。之后将整理好的model_data按batch_size整理成data_generator供batch训练用。</p></li>
+<li><p>指定模型：将DIETClassifier类的成员self.model通过初始化DIET类完成指定DIET模型训练。</p></li>
+<li><ul>
+<li><p>DIET模型类继承自TransformerRasaModel类：自定义了</p></li>
+<li><p>TransformerRasaModel继承自RasaModel：自定义了。。。 要求实现。。。</p></li>
+<li><p>RasaModel继承自TmpKerasModel：通过重写tf.keras.Model中的train_step(), test_step(), predict_step(), save()和load()方法，实现自定义的Rasa模型.</p></li>
+<li><ul>
+<li>train_step()使用自定义的batch_loss并对该loss做了正则化。batch_loss需由其子类实现。</li>
+<li>predict_step()使用自定义的batch_predict()。需由其子类实现。</li>
+<li>save()只使用tf.keras.Model.save_weights()。</li>
+<li>load()生成模型结构后加载weights.</li>
+</ul></li>
+<li><p>TmpKerasModel继承自tf.keras.models.Model：重写了tf.keras.models.Model的fit方法来使用自定义的数据适配器。将数据转写成CustomDataHandler后由其处理迭代 epoch 级别的 <code>tf.data.Iterator</code> 对象。</p></li>
+</ul></li>
+<li><p>训练</p></li>
+</ul>
 ]]></content>
   </entry>
   <entry>
-    <title>Paper Reading: Cramming- Training a Language Model on a Single GPU in One Day</title>
-    <url>/2023/07/24/Paper%20Reading:%20Cramming-%20Training%20a%20Language%20Model%20on%20a%20Single%20GPU%20in%20One%20Day/</url>
-    <content><![CDATA[<p>IBM's NLP research expert Leshem Choshen commented on Twitter, "This paper summarizes all the big model training trips you can think of.</p>
+    <title>Hello World</title>
+    <url>/2020/05/23/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <a id="more"></a>
-<p>###Limited resources</p>
-<p>In order to simulate the resource environment of ordinary practitioners and researchers, this study first constructed a resource constrained research environment:</p>
-<ul>
-<li><p>A transformer based language model of any size, trained entirely from scratch using masked language modeling;</p></li>
-<li><p>The pipeline cannot contain existing pre trained models;</p></li>
-<li><p>Any raw text (excluding downstream data) can be included in the training, which means that acceleration can be achieved by wisely selecting how and when to sample the data, provided that the sampling mechanism does not require pre training the model;</p></li>
-<li><p>The download and pre-processing of original data are not included in the total budget. The pre-processing here includes CPU based tokenizer construction, tokenization and filtering, but does not include Feature learning;</p></li>
-<li><p>Training is only conducted on a single GPU for 24 hours;</p></li>
-<li><p>Downstream performance is evaluated on GLUE, and downstream fine-tuning on GLUE is limited to simple training using only training data from downstream tasks (5 epochs or less), and requires the use of global hyperparameters set for all GLUE tasks. Downstream fine-tuning is not included in the total budget.</p></li>
-</ul>
-<p>###Improvement methods</p>
-<p>The researchers implemented and tested some modification directions proposed by existing work, including general implementation and initial data settings, and attempted to modify the architecture, train, and modify the dataset methods.</p>
-<p>The experiment was conducted in PyTorch, without using idiosyncratic implementations to be as fair as possible. All content was kept at the implementation level of the PyTorch framework, and only automatic operator fusion that could be applied to all components was allowed. In addition, the efficient attention kernel would only be re enabled after selecting the final architectural variant.</p>
-<p>The first method we think of to improve performance is definitely modifying the model architecture. Intuitively, smaller/lower capacity models seem to be optimal in a one card per day training session. However, after studying the relationship between model type and training efficiency, researchers found that the scaling law poses a huge obstacle to scaling down. The training efficiency of each token largely depends on the model size, rather than the type of transformer.</p>
-<p>In addition, smaller models have lower learning efficiency, which largely slows down the increase in throughput. Fortunately, the fact that training efficiency remains almost constant in models of the same size means that we can find suitable designs in architectures with similar parameter quantities, mainly based on the calculation time that affects individual gradient steps.</p>
-<p>###summary</p>
-<p>Overall, using the method in the paper, the training results are already very close to the original BERT, but it should be noted that the total FLOPS used by the latter is 45-136 times that of the new method (which takes four days on 16 TPUs). When the training time was extended by 16 times (trained on 8 GPUs for two days), the performance of the new method actually improved significantly compared to the original BERT, reaching the level of RoBERTA.</p>
-<p>In this work, people discussed how much performance a transformer based language model can achieve in environments with very limited computational complexity. Fortunately, several modification directions can enable us to achieve good downstream performance on GLUE. Researchers expressed the hope that this work can provide a baseline for further improvement and provide theoretical support for many improvements and techniques proposed for Transformer architecture in recent years.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Rasa NLU classifier解析</title>
+    <url>/2020/10/21/Rasa%20NLU%20classifier%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU classifier架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU classifier 做总体上的说明。</p>
+<p>本文更多关注算法，主要内容如下：</p>
+<a id="more"></a>
+<ul>
+<li>Rasa NLU Classifier架构</li>
+<li>主流技术支持情况</li>
+</ul>
+<h3 id="rasa-nlu-classifier架构">Rasa NLU Classifier架构</h3>
+<p>285</p>
+<h3 id="主流技术支持情况">主流技术支持情况</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 10%" />
+<col style="width: 15%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>主流技术</strong></th>
+<th><strong>是否支持</strong></th>
+<th><strong>支持模块</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Huggingface Transformer</td>
+<td>部分</td>
+<td>DIETClassifier</td>
+<td>见2.1.3.2</td>
+</tr>
+<tr class="even">
+<td>Wide&amp;Deep</td>
+<td>是</td>
+<td>DIETClassifier</td>
+<td>稀疏和稠密特征融合</td>
+</tr>
+<tr class="odd">
+<td>transformer</td>
+<td>是</td>
+<td>DIETClassifier</td>
+<td>transformer层数可配置</td>
+</tr>
+<tr class="even">
+<td>DNN</td>
+<td>是</td>
+<td>DIETClassifier</td>
+<td>DNN层数固定不可配置</td>
+</tr>
+<tr class="odd">
+<td>SVM</td>
+<td>是</td>
+<td>SKLearnClassifier</td>
+<td>支持网络搜索优化配置</td>
+</tr>
+<tr class="even">
+<td>其他传统机器学习模型</td>
+<td>是</td>
+<td>SKLearnClassifier</td>
+<td>SKLearn支持的所有模型</td>
+</tr>
+<tr class="odd">
+<td>Mitie Linear SVM</td>
+<td>是</td>
+<td>MitieClassifier</td>
+<td>使用自有的稀疏线性核</td>
+</tr>
+<tr class="even">
+<td>字符串匹配</td>
+<td>是</td>
+<td>KeywordClassifier</td>
+<td>不是关键词而是样例句完全匹配</td>
+</tr>
+<tr class="odd">
+<td>CNN</td>
+<td>否</td>
+<td>无</td>
+<td>DIET只支持在预训练模型后添加transformer层，现有rasa无法搭建诸如textCNN, bert+bilsm+crf这类经典模型</td>
+</tr>
+<tr class="even">
+<td>单双向RNN ( LSTM, GRU )</td>
+<td>否</td>
+<td>无</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>GCN</td>
+<td>否</td>
+<td>无</td>
+<td>图卷积神经网络</td>
+</tr>
+</tbody>
+</table>
+<p>问题：pipeline中可以叠加使用多个classifier吗（除fallback）？如果被KeywordClassifier模块命中，可不可以直接跳过其他 classifier）</p>
+<p>回答：单个pipeline中classifier可以叠加，例如KeywordIntentClassifier可以添加在主classifier后，这样Keyword的结果将覆盖classifier结果。<a href="https://forum.rasa.com/t/keyword-based-intent-classification/22027/7" target="_blank" rel="noopener">参考资料</a></p>
+]]></content>
+      <tags>
+        <tag>Rasa</tag>
+        <tag>Machine leanring</tag>
+        <tag>[object Object]</tag>
+      </tags>
   </entry>
   <entry>
     <title>基于 LangChain 构建智能客服 AI Agent 案例实践</title>
@@ -1434,6 +1050,390 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
 </ul>
 <p>​ l <strong>LLM 性能调优</strong></p>
 <p>​ l <strong>向量数据库索引调优</strong></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>XGBoost: A Scalable Tree Boosting System</title>
+    <url>/2020/06/01/XGBoost-A-Scalable-Tree-Boosting-System/</url>
+    <content><![CDATA[<p>本文是对XGBoost的经典论文<a href="https://dl.acm.org/doi/pdf/10.1145/2939672.2939785" target="_blank" rel="noopener">XGBoost: A Scalable Tree Boosting System</a>的总结。<a href="https://github.com/dmlc/xgboost" target="_blank" rel="noopener">XGBoost</a> 的全称是 eXtreme Gradient Boosting。作者为华盛顿大学研究机器学习的大牛<a href="http://homes.cs.washington.edu/~tqchen/" target="_blank" rel="noopener">陈天奇</a>，其最大的特点在于，它能够自动利用 CPU 的多线程进行并行，同时在算法上加以改进提高了精度。</p>
+<p>本文更多关注算法，主要内容如下：</p>
+<a id="more"></a>
+<ul>
+<li>XGBoost目标函数推导</li>
+<li>XGBoost防止过拟合策略</li>
+<li>切分搜索算法</li>
+<li>XGBoost针对稀疏问题的处理</li>
+<li>系统速度优化</li>
+</ul>
+<h3 id="xgboost目标函数推导">XGboost目标函数推导</h3>
+<hr />
+<h4 id="预测值">预测值</h4>
+<p>XGboost是基于回归树的集成学习模型。集成学习主要有两种方式：bagging和boosting。XGboost属于boosting, 其预测值通过对各弱分类器的结果求和得到。对于输入<span class="math inline">\(x_{i}\)</span>： <span class="math display">\[
+\begin{split}\hat { y } _ { i } = \phi ( x _ { i } ) = \sum _ { k = 1 } ^ { K } f _ { k } ( x _ { i } ) , \quad f _ { k } \in F  \qquad (1)
+\end{split}
+\]</span> 其中，<span class="math inline">\(f _ {k}\)</span>即为一个弱分类器，在XGboost中，弱分类器为 CART。<em>F</em> 为 CART 空间。</p>
+<h4 id="目标函数">目标函数</h4>
+<p>为了学习得到上式中的K个<span class="math inline">\(f_{k}\)</span>, 我们需要通过最小化模型的目标函数来获得。目标函数通常由损失+正则项表示。损失指示离真实值的差距，正则防止过拟合。这里损失为<span class="math inline">\(\begin{split}\sum _{ i } l ( \hat y _ { i }, y)\end{split}\)</span>, 是个可微凸函数。正则项则是K个<span class="math inline">\(f _ {k}\)</span>中的参数。由于XGBoost的<span class="math inline">\(f _ {k}\)</span>是回归树，该目标函数如下：</p>
+<p><span class="math display">\[
+\begin{split}&amp;O b j = \sum _ { i } l ( \hat { y } _ { i } , y _ { i } ) + \sum _ { k } \Omega ( f _ { k } ) \\
+&amp;where\quad\Omega ( f ) = \gamma T + \frac { 1 } { 2 } \lambda | w | ^ { 2 } \nonumber \end{split} \qquad (2)
+\]</span> 其中，$( f ) $ 是惩罚项。<span class="math inline">\(f_{ k }\)</span>做为回归树，影响其复杂度的参数为叶子节点的个数<span class="math inline">\(\, T \,\)</span>及叶子节点的权重<span class="math inline">\(w\)</span>.</p>
+<h4 id="训练方法">训练方法</h4>
+<p>由于<span class="math inline">\(f _ { k }\)</span>是树，与其他模型<span class="math inline">\(f\)</span> 可以由数值型向量表示不同，我们不能使用往常的优化算法，如SGD，来寻找<span class="math inline">\(f\)</span>。这里的解决方案是Additive Training（Boosting）。</p>
+<p><span class="math display">\[
+\begin{split} &amp;\hat { y } _ { i } ^ { ( 0 ) } = 0  \\ 
+&amp;\hat { y } _ { i } ^ { ( 1 ) } = f _ { 1 } ( x _ { i } ) = \hat { y } _ { i } ^ { ( 0 ) } + f _ { 1 } ( x _ { i } )  \\
+&amp;\hat { y } _ { i } ^ { ( 2 ) } = f _ { 1 } ( x _ { i } ) + f _ { 2 } ( x _ { i } ) = \hat { y } _ { i } ^ { ( 1 ) } + f _ { 2 } ( x _ { i } )  \\
+&amp; …  \\ 
+&amp;\hat { y } _ { i } ^ { ( t ) } = \sum _ { k = 1 } ^ { t } f _ { k } ( x _ { i } ) = \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } )  
+\end{split}
+\]</span> 其中，每一轮添加的<span class="math inline">\(f\)</span> 是最优化目标函数的结果。</p>
+<h4 id="目标函数近似形式">目标函数近似形式</h4>
+<p>根据Additive Training方式，在第<span class="math inline">\(t\)</span> 轮，<span class="math inline">\(\hat { y } _ { i } ^ { ( t ) } = \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } )\)</span>。 由此在第<span class="math inline">\(t\)</span>轮的目标函数可以改写为：</p>
+<p><span class="math display">\[
+\begin{split}
+O b j ^ { ( t ) } &amp;= \sum _ { i = 1 } ^ { n } l ( y _ { i } , \hat { y } _ { i } ^ { ( t ) } ) + \sum _ { i = 1 } ^ { t } \Omega ( f _ { i } )  \\ 
+&amp;= \sum _ { i = 1 } ^ { n } l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } + f _ { t } ( x _ { i } ) ) + \Omega ( f _ { t } ) + constant 
+\end{split}
+\]</span> 这个目标函数仍然很难求最优。我们用泰勒展开取其近似如下：</p>
+<p><span class="math display">\[
+O b j ^ { ( t ) } \simeq \sum _ { i = 1 } ^ { n } [ l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } ) + g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant
+\]</span> 其中，<span class="math inline">\(g _ { i } = \partial _ { \hat { y } ^ { ( t - 1 ) } } l ( y _ { i } , \hat { y } ^ { ( t - 1 ) } ) , \quad h _ { i } = \partial _ { \hat { y } ^ { ( t - 1 ) } } ^ { 2 } l ( y _ { i } , \hat { y } ^ { ( t - 1 ) } )\)</span>, <span class="math inline">\(g _ {i}\)</span>, <span class="math inline">\(h _ {i}\)</span>分别为 <span class="math inline">\(l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } )\)</span>对<span class="math inline">\(\hat y ^ {(t - 1)}\)</span>求偏导的一阶和二阶导数。把上式中的常数项去掉，得：</p>
+<p><span class="math display">\[
+\tilde {  O b j ^ { ( t ) } } = \sum _ { i = 1 } ^ { n } [ g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) \qquad (3)
+\]</span> 这里要注意理解上式是针对每一个样本<span class="math inline">\(x_{i}\)</span>求损失，然后求所有样本损失和。我们将要在接下来的计算中为了方便计算<span class="math inline">\(\tilde { O b j ^ { ( t ) } }\)</span>的最优值而换一种对这波操作的形式化表达方式。</p>
+<h4 id="目标函数求最优">目标函数求最优</h4>
+<p>这里定义 <span class="math inline">\(I _ { j } = \{ i | q ( x _ { i } ) = j \}\)</span>。<span class="math inline">\(I_{j}\)</span>为被树分配到叶子节点<span class="math inline">\(j\)</span> 上的样本集。<span class="math inline">\(q ( x _ { i } )\)</span>为样本<span class="math inline">\(x _ {i}\)</span>通过q这个树结构到达叶子节点<span class="math inline">\(j\)</span>。 <span class="math inline">\(w_ {j}\)</span>为第<span class="math inline">\(j\)</span>个叶子节点的权重。则 <span class="math inline">\(f _ { t } ( x _ { i } ) = w _ { q ( x _ { i } ) }\)</span>。因此式 <span class="math inline">\((3)\)</span> 可以表示为： <span class="math display">\[
+\begin{split}
+O b j ^ { ( t ) } &amp;\simeq \sum _ { i = 1 } ^ { n } [ g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) \\ 
+&amp;= \sum _ { i = 1 } ^ { n } [ g _ { i } w _ { q ( x _ { i } ) } + \frac { 1 } { 2 } h _ { i } w _ { q ( x _ { i } ) } ^ { 2 } ] + \gamma T + \lambda \frac { 1 } { 2 } \sum _ { j = 1 } ^ { T } w _ { j } ^ { 2 } \\ 
+&amp;= \sum _ { j = 1 } ^ { T } [ ( \sum _ { i \in I _ { j } } g _ { i } ) w _ { j } + \frac { 1 } { 2 } ( \sum _ { i \in I _ { j } } h _ { i } + \lambda ) w _ { j } ^ { 2 } ] + \gamma T
+\end{split}
+\]</span> 中括号里为我们求最优解时最喜欢形式<span class="math inline">\(ax ^ 2 + bx\)</span>。显然，当</p>
+<p><span class="math display">\[
+w _ { j } ^ { * } = - \frac { \sum _ { i \in I _ { j } } g _ { i } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda }
+\]</span> 时，得到最优的<span class="math inline">\(\tilde {O b j ^ { ( t ) }}\)</span>:</p>
+<p><span class="math display">\[
+\tilde { Obj } ^ { ( t ) }  = - \frac { 1 } { 2 } \sum _ { j = 1 } ^ { T } \frac { ( \sum _ { i \in I _ { j } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda } + \gamma T \qquad (4)
+\]</span> 至此，我们完成了求第<span class="math inline">\(t\)</span>轮时目标函数的最优值。这个值可以用来衡量树结构的好坏。也就是说，判断一棵树的质量，我们只要算出<span class="math inline">\(g _ {i}\)</span>, <span class="math inline">\(h_{i}\)</span>，然后代入式子<span class="math inline">\((4)\)</span>即可算出。</p>
+<h3 id="防止过拟合策略">防止过拟合策略</h3>
+<hr />
+<ul>
+<li>权重衰减（Shrinkage）: 在每次迭代中对树的每个叶子结点的分数乘上一个缩减权重η，这可以使得每一棵树的影响力不会太大，留下更大的空间给后面生成的树去优化模型。</li>
+<li>列采样（Column subsampling）: 同对数据集做有放回的采样可以防止拟合一样，对特征做有放回的采样也可以防止过拟合。有两种方式：建树前采样和节点分裂之前采样。不仅如此，此方法还可以加快模型计算速度。</li>
+</ul>
+<h3 id="切分搜索算法">切分搜索算法</h3>
+<hr />
+<p>当我们把一个节点做了切分后，我们需要一个评估这个切分是好是坏的标准。一个朴素的思想就是切分前节点的目标函数的得分<strong>减去</strong>切分后左右两节点目标函数之和的得分，如果两者的差距较大，说明切分后的损失较小。计算公式如下： <span class="math display">\[
+\begin{split}
+L _ { s p l i t } &amp;= L ^ { ( t ) } - ( L _ { l } ^ { ( t ) } + L _ { r } ^ { ( t ) } ) \\
+&amp;= - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { j } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { j } } h _ { i } + \lambda } + \gamma - ( - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { I } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { l } } h _ { i } + \lambda } + - \frac { 1 } { 2 } \frac { ( \sum _ { i \in I _ { r } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { r } } h _ { i } + \lambda } + 2 \gamma )\\
+&amp;= \frac { 1 } { 2 } [ \frac { ( \sum _ { i \in I _ { L } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { L } } h _ { i } + \lambda } + \frac { ( \sum _ { i \in I _ { R } } g _ { i } ) ^ { 2 } } { \sum _ { i \in I _ { R } } h _ { i } + \lambda } - \frac { ( \sum _ { i \in I } g _ { i } ) ^ { 2 } } { \sum _ { i \in I } h _ { i } + \lambda } ] - \gamma
+\end{split} \qquad (5)
+\]</span></p>
+<h4 id="贪心算法">贪心算法</h4>
+<p>遍历所有特征的所有可能切分点，计算（5）式，取得分最高的切分点进行切分。</p>
+<h4 id="近似算法">近似算法</h4>
+<p>近似算法按特征分布的百分位提出候选切分点，相当于将特征的特征值分桶后再遍历。按提出候选切分点的时间不同，有两种切分的方式：全局切分和局部切分。</p>
+<p>全局切分就是在建树之初就提出了每个特征的候选切分点，之后对树的所有节点做切分时都从这些节点对应的特征候选切分点中选择。</p>
+<p>局部切分是在每次节点切分后优化提出候选切分点。候选切分点提出较全局切分频繁，较全局切分需要较少切分点。适合生成较深的树。</p>
+<p>全局切分候选切分点足够多时，可以达到和局部切分差不多的效果。</p>
+<h4 id="加权分位点">加权分位点</h4>
+<p>加权分位点是近似算法的一种。上面提到的近似算法通常是将切分点设在使数据均匀分布的位置。而加权分位点则是将切分点设在使分桶后的数据对loss产生均衡影响的位置。如果分4个桶，加权分位点使得每个桶内的样本集对loss的影响持平为25%。</p>
+<p>样本对loss的影响计算方法如下： <span class="math display">\[
+\begin{split} 
+L ^ { ( t ) } &amp;\simeq \sum _ { i = 1 }^ { n } [ l ( y _ { i } , \hat { y } _ { i } ^ { ( t - 1 ) } ) + g _ { i } f _ { t } ( x _ { i } ) + \frac { 1 } { 2 } h _ { i } f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \\
+&amp;= \sum _ { i = 1 } ^ { n } [ \frac { 1 } { 2 } h _ { i } \cdot \frac { 2 \cdot g _ { i } f _ { t } ( x _ { i } ) } { h _ { i } } + \frac { 1 } { 2 } h _ { i } \cdot f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \\
+&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ 2 \cdot \frac { g _ { i } } { h _ { i } } \cdot f _ { t } ( x _ { i } ) + f _ { t } ^ { 2 } ( x _ { i } ) ] + \Omega ( f _ { t } ) + constant \\
+&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ ( 2 \cdot \frac { g _ { i } } { h _ { i } } \cdot f _ { t } ( x _ { i } ) + f _ { t } ^ { 2 } ( x _ { i } ) + ( \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ) - ( \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ] + \Omega ( f _ { t } ) + constant \\
+&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } [ ( f _ { t } ( x _ { i } ) + \frac { g _ { i } } { h _ { i } } ) ^ { 2 } ] + \Omega ( f _ { t } ) + constant \\
+&amp;= \sum _ { i = 1 } ^ { n } \frac { 1 } { 2 } h _ { i } ( f _ { t } ( x _ { i } ) - ( - g _ { i } / h _ { i } ) ) ^ { 2 } + \Omega ( f _ { t } )
+\end{split}
+\]</span> 这里和原文给出的公式差个负号，欢迎想明白的小伙伴留言。</p>
+<p>从上式中我们可以看到样本<span class="math inline">\(x _ {i}\)</span>的预测值<span class="math inline">\(f _ { t } ( x _ { i })\)</span>对 <span class="math inline">\(y = - g _ { i } / h _ { i }\)</span>的加权平方损失。权重即为<span class="math inline">\(h _ {i}\)</span>，表示样本对loss的影响。</p>
+<p>节点上特征值小于 <span class="math inline">\(z\)</span> 的样本集相对于节点上总样本集对loss影响的比重为： <span class="math display">\[
+r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { ( x , h ) \in D _ { k } , x &lt; z } h
+\]</span> 我们的目标是要找到这样一组切分点<span class="math inline">\(\{ s _ { k 1 } , s _ { k 2 } , \cdots s _ { k l } \}\)</span>, 使用任意两个切分点之间的样本集对loss影响的比重小于一个数值<span class="math inline">\(\epsilon\)</span>。比如 <span class="math inline">\(\epsilon = 10\%\)</span>，意思就是将特征值分为10桶，每桶内对应的样本集对loss的影响小于10%。形式化表示如下： <span class="math display">\[
+| r _ { k } ( s _ { k , j } ) - r _ { k } ( s _ { k , j + 1 } ) | &lt; \epsilon , \quad s _ { k 1 } = \min _ { i } x _ { i k } , s _ { k l } = \max _ { i } x _ { i k }
+\]</span></p>
+<h3 id="稀疏问题的处理方法">稀疏问题的处理方法</h3>
+<hr />
+<p>在实践中经常遇到的数据稀疏，某些样本的某些特征值是缺失的（NULL）或大量特征的特征值为0。对这种情况论文提出统一将这种数据划分到一个默认的分支，或左树或右树，然后分别计算损失，选择较优的那一个。</p>
+<h3 id="xgboost系统优化">XGBoost系统优化</h3>
+<hr />
+<ul>
+<li><p>针对并行计算的列块</p>
+<ul>
+<li><p>分<code>block</code>，便于并行化</p></li>
+<li><p>分列存放，便于按列切片，实施 "列采样"</p></li>
+<li><p>按照特征值事先排好序，便于执行切分</p></li>
+<li><ul>
+<li>在乱序列表上查一个数，只能是线性扫描，复杂度 <span class="math inline">\(O ( N )\)</span></li>
+<li>在有序列表上可以做二分查找， <span class="math inline">\(O ( \log N )\)</span></li>
+</ul></li>
+</ul></li>
+<li><p>针对 cpu缓存优化</p>
+<ul>
+<li>贪心算法：缓存预取缓解缓存未命中问题</li>
+<li>近似算法：减小块的大小来解决缓存未命中问题</li>
+</ul></li>
+<li><p>针对IO优化</p>
+<ul>
+<li>Block Compression：block按列压缩，在加载到内存的过程中完成解压缩。</li>
+<li>Block Sharding：将数据分片到多个磁盘上。 将预取线程分配给每个磁盘，并将数据取入内存缓冲区中。 然后，训练线程可以从每个缓冲区读取数据。 当有多个磁盘可用时，这有助于提高磁盘读取的吞吐量。</li>
+</ul></li>
+</ul>
+<h3 id="总结">总结</h3>
+<hr />
+<p>个人觉得XGBoost在面对目标函数很难被计算时的思路很有些意思。在看论文的过程中几次被这种奇思妙想击中，总结一下以便时不时回顾感叹一下：</p>
+<ul>
+<li>惩罚项是棵树时的处理</li>
+<li>泰勒展示恰到好处的应用</li>
+<li><span class="math inline">\(I_{j}\)</span> 的定义把<span class="math inline">\(Obj\)</span> 神奇地转化成了二次表达式</li>
+</ul>
+<p>此外，在给特征值分桶时，用对loss的影响做为标准也是个不错的想法，并且找到用<span class="math inline">\(h\)</span>做为权重也是漂亮的一波操作。</p>
+<p>以上是个人觉得这篇论文最为出彩的地方，欢迎小伙伴留言分享你的心得。</p>
+<h3 id="参考文献">参考文献</h3>
+<hr />
+<ol type="1">
+<li><a href="https://dl.acm.org/doi/pdf/10.1145/2939672.2939785" target="_blank" rel="noopener">XGBoost: A Scalable Tree Boosting System</a></li>
+<li><a href="https://netman.aiops.org/~peidan/ANM2018/3.MachineLearningBasics/LectureCoverage/18.xgboost.pdf" target="_blank" rel="noopener">PPT</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/89546007" target="_blank" rel="noopener">详解《XGBoost: A Scalable Tree Boosting System》</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Machine leanring</tag>
+        <tag>XGBoost</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习和深度学习概述(三)</title>
+    <url>/2025/01/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%E4%B8%89/</url>
+    <content><![CDATA[<p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第三部分。</p>
+<a id="more"></a>
+<p>本文的主要内容包括：</p>
+<ul>
+<li><strong>机器学习的几何视角</strong></li>
+<li><strong>机器学习中的回归和分类</strong></li>
+</ul>
+<h4 id="机器学习的几何视角">1.4 机器学习的几何视角</h4>
+<p>猫脑模型的每个输入都是一个由两个数字组成的数组：<span class="math inline">\(x_0\)</span>（表示物体的硬度）、<span class="math inline">\(x_1\)</span>（表示物体的锋利度），或者等效地，一个2 ×1向量<span class="math inline">\(\vec{x}\)</span>。直觉上，您可以在头脑里想象将输入视为高维空间中的一个点。输入空间通常称为特征空间——一个表示模型要检查的所有特征的空间。在本例中，特征空间维度为2，但在实际问题中，它将有数百、数千或更多。输入的确切维度因问题而异，但它是一个点的直觉仍然存在。</p>
+<p>输出<span class="math inline">\(y\)</span>也应被视为另一个高维空间中的一个点。在猫脑模型问题中，输出空间的维数为1，但在实际问题中，它会更高。然而，通常情况下，输出维数比输入维数小得多。</p>
+<p>从几何学上讲，机器学习模型本质上是将特征空间中的一个点映射到输出空间中的一个点。模型在输出空间中执行的分类或估计工作比在特征空间中更容易。具体来说，对于分类工作，属于不同类别的输入点预计会映射到输出空间中的不同簇。</p>
+<p>让我们继续使用猫脑模型示例来说明这个想法。如前所述，我们的特征空间是二维的，两个坐标轴<span class="math inline">\(X_0\)</span>表示硬度，<span class="math inline">\(X_1\)</span>表示锋利度。<sup>3</sup> 此二维空间中的各个点用小写的坐标值(<span class="math inline">\(x_0\)</span>,<span class="math inline">\(x_1\)</span>)表示（见图1.2）。如图所示，对威胁评分进行建模的一个好方法是测量与线<span class="math inline">\(x_0\)</span>+<span class="math inline">\(x_1\)</span>= 1 的距离。</p>
+<p>从坐标几何学来看，在具有坐标轴 <span class="math inline">\(X_0\)</span> 和 <span class="math inline">\(X_1\)</span> 的二维空间中，点(a, b)与直线<span class="math inline">\(x_0\)</span>+<span class="math inline">\(x_1\)</span>= 1的有符号距离为<span class="math inline">\(y=\frac{a+b-1}{\sqrt{2}}\)</span>。通过检查<span class="math inline">\(y\)</span>的符号，我们可以确定输入点属于分隔线的哪一侧。在图1.2 所示的简单情况下，观察告诉我们，威胁分数可以用与对角线<span class="math inline">\(x_0\)</span>+<span class="math inline">\(x_1\)</span>−1 = 0 的有符号距离<span class="math inline">\(y\)</span>来表示。我们可以通过对 <span class="math inline">\(y\)</span> 进行阈值化来做出逃跑/忽略/接近的决定。接近零的值表示忽略，正值表示逃跑，负值表示接近并发出呼噜声。</p>
+<img src="/2025/01/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%E4%B8%89/figure1.2.jpg" class="" alt="图片">
+<p><strong>图1.2 猫脑模型的二维输入点空间。左下角显示的是硬度低且锋利度低的物体(-)，而右上角显示的是硬度高且锋利度高的物体(+)。中间值在对角线附近($)</strong></p>
+<blockquote>
+<p>第11页脚注：3 我们用<span class="math inline">\(X_0\)</span>和<span class="math inline">\(X_1\)</span>作为坐标符号，而不是我们更熟悉的X，Y，这样在进入高维空间时就不会出现符号耗尽的情况。</p>
+</blockquote>
+<p>从高中几何学中可知，任意输入点(<span class="math inline">\(x_0\)</span>= a,<span class="math inline">\(x_1\)</span>=$ b<span class="math inline">\()到直线\)</span>x_0<span class="math inline">\(+\)</span>x_1<span class="math inline">\(−1 = 0 的距离为\)</span><span class="math inline">\(因此，函数\)</span>y(x_0,x_1)=<span class="math inline">\(是猫脑威胁估计函数的一个可能模型。训练应收敛到\)</span>w_0=,w_1=和b=-$。 因此，我们简化的猫脑威胁评分模型为</p>
+<p>​ <span class="math inline">\(y\left(x_0,x_1\right)=\frac1{\sqrt{2}}x_0+\frac1{\sqrt{2}}x_1-\frac1{\sqrt{2}}\)</span></p>
+<p>它将表示猫前方物体硬度和锋利度的二维输入点，映射到与分隔线有符号距离对应的一维值。该距离在物理上可解释为威胁分数，可通过阈值划分类别（负面威胁、中性威胁、正面威胁），如公式1.2 所示。划分的类别在输出空间中形成不同的簇，在输出空间中用+、-和<span class="math inline">\(\mathbb{\$}\)</span>符号表示。输出值越低，表示负面威胁越确定（猫会靠近并发出呼噜声）：例如，<span class="math inline">\(y\left(0,0\right)=-\frac{1}{\sqrt{2}}\)</span>。输出值越高，表示威胁越大（猫会逃跑）：例如，<span class="math inline">\(y\left(1,1\right)=\frac{1}{\sqrt{2}}\)</span>。中等输入值产生的威胁接近于零（猫会忽略该物体）：例如，<span class="math inline">\(y (0.5,0.5)=0\)</span>。当然，因为问题非常简单，我们可以通过简单的观察得出模型参数。而在现实问题中，这是需要训练的。</p>
+<p>几何视角在更高维度上也适用。一般来说，n维输入向量<span class="math inline">\(\vec{x}\)</span>被映射到m维输出向量（通常 m &lt; n），这样，问题在输出空间中就变得简单得多。图1.3显示了具有三维特征空间的示例。</p>
+<h4 id="机器学习中的回归和分类">1.5 机器学习中的回归和分类</h4>
+<p>如第1.1节简要概述的那样，机器学习模型有两种类型：回归器和分类器。</p>
+<p>在回归器中，模型试图在给定特定输入的情况下输出期望值。例如，第1.3 节中猫脑模型的第一阶段（威胁分数估计器）就是回归器模型。</p>
+<p>另一方面，分类器有一组预先指定的类。给定一个特定的输入，它们会尝试输出输入所属的类。例如，完整的猫脑模型有三个类：（1）逃跑，（2）忽略，（3）靠近并发出呼噜声。因此，它接受输入（硬度和锐度值）并给出输出决策（又称类）。</p>
+<p>在此示例中，我们通过对回归器的输出进行阈值处理将回归器转换为分类器（参见公式1.2）。也可以创建直接输出类的模型，而无需中间的回归器。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>机器学习和深度学习概述(一)</title>
+    <url>/2024/07/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%E4%B8%80/</url>
+    <content><![CDATA[<p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第一部分。</p>
+<a id="more"></a>
+<p>本文的主要内容包括：</p>
+<ul>
+<li><strong>机器学习/深度学习初探</strong></li>
+<li><strong>计算范式转变</strong></li>
+</ul>
+<p>深度学习已经彻底改变了计算机视觉，尤其是自然语言处理和语音处理，进而改变了整个人工智能领域。人工智能已经从无法令人满意地解决实际问题的浅层技巧，转变成了可以大规模解决行业面临的实际问题的强大工具。这无异于是一场发生在我们眼皮底下的革命。要引领这场革命潮流，不仅仅是简单地记住一些入门指南上的”操作”步骤，还要理解其基本原理和抽象概念。这些至关重要的环节正是数学发挥作用的地方。</p>
+<p>在第一章中，我们概述了深度学习。这将要求我们使用后续章节中解释的一些概念。如果本章末尾有一些未解决的问题，请不要担心：它只是旨在引导您的思维先转到我们的主题上来。随着后续章节中各个概念变得更加清晰，您可以考虑回过头来重新阅读本章。</p>
+<h4 id="机器学习深度学习初探计算范式转变"><strong>1.1 机器学习/深度学习初探：计算范式转变</strong></h4>
+<p>做出决定和/或预测是生活的一个核心诉求。这样做在本质上涉及到接收一组感官或知识输入并对其进行处理以生成决策或估计。</p>
+<p>例如，猫的大脑经常试图在以下选项之间进行选择：逃离它面前的物体，忽略它面前的物体，接近它面前的物体并发出呼噜声。猫的大脑通过处理感官输入来做出决定，例如感知到的它面前物体的硬度、感知到的它面前物体的锋利度等。这是一个分类问题的例子，其输出是一组可能的类别之一。</p>
+<p>生活中的分类问题还有如下的一些其他例子：</p>
+<ul>
+<li><p>根据股票价格历史和近期股票价格变化等输入，判断买入、持有还是卖出某只股票</p></li>
+<li><p>物体识别（图像）： –这是汽车还是长颈鹿？ –这是人类还是非人类？ –这是无生命物体还是生物？ –人脸识别——这是汤姆、迪克、玛丽、爱因斯坦还是梅西？</p></li>
+<li><p>视频中的动作识别： –这个人是在跑步还是没跑步？ –这个人是在捡东西还是没捡东西？ –这个人是在做暴力的事情还是没做暴力的事情？</p></li>
+<li><p>数字文档中的自然语言处理(NLP)： –这篇新闻文章属于政治还是体育领域？ –这个查询短语是否与档案中的特定文章匹配？</p></li>
+</ul>
+<p>有时生活需要定量估计而不是分类。狮子的大脑需要通过处理猎物的速度和与猎物的距离等输入信息来估计要跳多远才能落在猎物身上。定量估计的另一个例子是根据房主的当前收入、街区的犯罪统计数据等输入信息来估计房价。这种定量估计的工具称为回归器。</p>
+<p>以下是日常生活中需要定量估计的其他一些例子：</p>
+<ul>
+<li>从图像中进行物体定位：识别物体位置的矩形边界</li>
+<li>根据历史股价和其他新闻事件进行股价预测</li>
+<li>一对文档之间的相似度得分</li>
+</ul>
+<p>有时，分类输出可以从定量估计中生成。例如，前面描述的猫脑可以结合输入（硬度、锋利度等）来生成定量威胁分数。如果威胁分数很高，猫就会逃跑。如果威胁分数接近零，猫就会忽略它面前的物体。如果威胁分数为负，猫就会接近物体并发出呼噜声。 图1.1 显示了许多这样的示例。在每个实例中，机器（即大脑）将感官或知识输入转化为决策或定量估计。机器学习的目标是模拟该机器。</p>
+<img src="/2024/07/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%E4%B8%80/figure1.jpg" class="" alt="图片">
+<p>​</p>
+<p><strong>Figure1.1 生活中的决策定量估计模型</strong></p>
+<p>​ 请注意，机器学习还有很长的路要走才能赶上人脑。人脑可以独自处理数千甚至数百万个这样的问题。另一方面，在目前的发展状态下，机器学习几乎无法创建一台能够做出所有决策和估计的通用型机器。我们目前主要是试图分别制造单个的机器来针对性解决单个任务（例如选股器或汽车识别器）。此时，您可能会问：“等等，将输入转换为输出——这不正是计算机在过去30 多年里一直在做的事情吗？这里提到的范式转换是什么？”答案是，范式转换就是，我们没有向机器提供分步指令集（即程序）来将输入转换为输出。相反，我们是为该问题开发了一个数学模型。</p>
+<p>​ 让我们用一个例子来说明这个想法。为了简单和具体，我们将考虑一个假设的猫脑，它在生活中只需要做出一个决定：是逃离它面前的物体，还是忽略物体，还是走近并发出呼噜声。这个决定就是我们将要讨论的模型的输出。在这个示例中，决定仅基于两个定量输入（又称特征）：即感知到的物体的硬度和锋利度（如图1.1 所示）。我们不会通过提供分步指令来实现这一点，例如“如果锐度大于某个阈值，则逃跑”。相反，我们会尝试确定一个参数化函数，该函数接受输入并将其转换为所需的决策或估计值。而最简单的此类函数就是输入的加权和：</p>
+<p>​ <em>y (hardness, sharpness</em>)= <em>w</em><sub>0</sub> ×<em>hardness</em>+<em>w</em><sub>1</sub>×<em>sharpness</em>+ <em>b</em></p>
+<p>权重<em>w</em><sub>0</sub>、<em>w</em><sub>1</sub> 和偏差<em>b</em>是函数的参数。输出<em>y</em>可以解释为威胁分数。如果威胁分数超过阈值，猫就会逃跑。如果接近0，猫就会忽略该物体。如果威胁分数为负，猫就会靠近并发出呼噜声。对于更复杂的任务，我们将使用更复杂的函数。请注意，权重最初是未知的；我们需要估计它们。这是通过称为模型训练的过程完成的。</p>
+<p>​ 总体而言，通过机器学习解决问题有以下几个阶段：</p>
+<ul>
+<li>我们设计一个具有未知参数（权重）的参数化模型函数（例如加权和）。这构成了模型架构。选择正确的模型架构是机器学习工程师的专业知识发挥作用的地方。</li>
+<li>然后我们通过模型训练估计权重。</li>
+<li>一旦估计出权重，我们就有了一个完整的模型。这个模型可以接受以前不一定见过的任意输入并生成输出。利用训练好的模型处理任意真实输入并产生输出的过程称为推理。</li>
+</ul>
+<p>这个被称为监督学习的过程是最常用的机器学习种类。在这里，我们在开始训练之前要准备好训练数据。训练数据包括示例输入项，每个输入项都有其对应的期望输出。训练数据通常是手动创建的：人工检查每一个输入项并标注好期望输出（又称目标输出）。这通常是机器学习中最艰巨繁琐的部分。</p>
+<p>例如，在我们假设的猫脑示例中，一些可能的训练数据样本如下</p>
+<blockquote>
+<p>第4页脚注: 1 如果你有机器学习的经验，你就会意识到我们这里讨论的是“监督”学习。另外还有一种机器学习方式不需要已知输出，即所谓的“无监督”学习，我们稍后会讨论这种方式。</p>
+</blockquote>
+<p>输入：（硬度=0.01，锋利度=0.02）→威胁=-0.90 →决策：“靠近并发出呼噜声“ 输入：（硬度=0.50，锋利度=0.60）→威胁=-0.01 →决策：“忽略“ 输入：（硬度=0.99，锋利度=0.97）→威胁=0.90 →决策：“逃跑“</p>
+<p>其中硬度和锋利度的输入值假设介于0 和1 之间。</p>
+<p>训练过程中究竟发生了什么？答案：我们迭代处理输入的训练数据样本。对于每个输入项，我们都有期望的（又称目标）输出结果。在每次迭代中，我们都会调整模型权重值，使得模型函数对该特定输入项的输出尽可能地更接近其对应的目标输出。例如，假设在给定的迭代中，权重值为<span class="math inline">\(w_0\)</span>= 20 和<span class="math inline">\(w_1\)</span>= 10，<span class="math inline">\(b\)</span>= 50。在输入（硬度= 0.01，锐度= 0.02）中，我们得到输出威胁分数<span class="math inline">\(y\)</span>= 50.3，这与我们期望的 y = −0.9 有很大不同。我们将调整权重：例如，减少偏差，使<span class="math inline">\(w_0\)</span>= 20、<span class="math inline">\(w_1\)</span>= 10 和$ b<span class="math inline">\(= 40。那么相应的威胁分数\)</span> y$= 40.3 仍然远未达到期望值，但已经更接近了。在我们对许多训练数据样本执行此操作后，权重将开始接近其理想值。请注意，如何识别对权重值的调整不在此处讨论；它需要更深层次的数学知识，稍后将进行讨论。</p>
+<p>如前所述，这种迭代调整权重的过程称为训练或学习。在学习开始时，权重具有随机值，因此机器输出通常与期望输出不匹配。但随着时间的推移，更多的训练迭代发生，机器“学会”了如何生成我们期望的输出。这时模型就可以在现实世界中部署了。给定任意输入，模型将在推理过程中产出更接近人们想要的结果。</p>
+<p>仔细想想，这可能就是活体大脑的工作方式。它们包含各种任务的数学模型的等价物。在这里，权重是大脑中不同神经元之间连接（又称突触）的强度。一开始，参数未调整；大脑反复犯错。例如，婴儿的大脑经常在识别可食用物体时犯错误——任何有过孩子的人都能明白我们在说什么。但每个大脑都会调整参数（吃带有$符号的绿色和白色矩形物体会招致很多责骂-以后不应该吃它们，等等）。最终，这台大脑机器会调整好参数以产生更好的结果。</p>
+<p>这里应该注意一个微妙的点。在训练过程中，机器会调整其参数，以便仅根据训练数据输入产生所需的结果。当然，在训练过程中，它只看到所有可能输入的一小部分——我们不会构建从已知输入到已知输出的查找表。因此，当这台机器在真实世界发布时，它主要运行在从未见过的输入数据上。我们用什么来保证它会在从未见过的数据上产生期望的结果？坦率地说，没有任何保证。只是，在大多数现实生活的问题中，输入并不是真正随机的。它们会有一个模式。我们希望机器在训练期间能看到足够多的数据来捕捉这种模式。这样它在没有见过的输入上的输出将会接近所需的值。训练数据的分布越接近现实生活，就越有可能实现。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>机器学习和深度学习概述(四)</title>
+    <url>/2025/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%E5%9B%9B/</url>
+    <content><![CDATA[<p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第四部分。</p>
+<a id="more"></a>
+<p>本文的主要内容包括：</p>
+<ul>
+<li><strong>线性和非线性模型</strong></li>
+<li><strong>通过多个非线性层实现更高的表达能力：深度神经网络</strong></li>
+</ul>
+<h4 id="线性和非线性模型">1.6 线性和非线性模型</h4>
+<p>在图1.2中，我们面临一个相当简单的情况，即类别可以用一条线（高维曲面中的超平面）分隔。这在现实生活中并不常见。如果不同类别的点无法用一条线分开，如图1.4所示，该怎么办？在这种情况下，我们的模型架构不应再是简单的加权组合。它应是一个非线性函数。例如，请看图1.4中的曲线分隔符。从函数逼近的角度来看，非线性模型也是有意义的。最终，我们的目标是近似非常复杂且高度非线性的函数，以模拟生活中所需的分类或估计过程。直观地说，使用非线性函数来建模它们似乎会更好。</p>
+<p><img src="./机器学习和深度学习概述四/figure1.3.png" alt="image-20240704141159118" style="zoom:50%;"/></p>
+<p><strong>图1.3 模型将输入（特征）空间中的点映射到输出空间，在输出空间中更容易进行类别划分。例如，在该图中，属于两个类（红色（+）和绿色（-））的输入特征点分布在三维特征空间中的圆柱体体积上。该模型将圆柱体展开为矩形。特征点被映射到二维平面输出空间，在输出空间中，可以使用简单的线性分离器区分这两个类。</strong></p>
+<p><img src="./机器学习和深度学习概述四/figure1.4.png" alt="image-20240704141046887" style="zoom:33%;"/></p>
+<p><strong>图1.4两个类别（用浅色和深色表示）不能用线分开，需要用曲线分隔符。在三维空间中，这相当于说没有平面可以分开表面；需要一个曲面分隔符。在静止的空间中，这相当于说没有超平面可以分开类别；需要一个弯曲的超曲面。</strong></p>
+<p>机器学习中非常流行的非线性函数是Sigmoid函数，因为它看起来像字母 S，所以也叫S 型函数。Sigmoid函数通常用希腊字母𝜎表示。它的定义如下 <span class="math inline">\(\sigma^2(x)=\frac1{1+e^{-x}}\)</span> (1.5)</p>
+<p>图1.5显示了 Sigmoid函数的图形。因此，我们可以使用等式1.6，这是个非常流行的模型架构，叫做逻辑回归（仍然比较简单），该架构采用输入加权和的Sigmoid函数（无参数）：</p>
+<p><span class="math inline">\(y=\sigma\left(\vec{w}^T\vec{x}+b\right) (1.6)\)</span></p>
+<p><img src="./机器学习和深度学习概述四/figure1.5.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
+<p>​ <strong>图1.5 Sigmoid函数图形</strong></p>
+<p>Sigmoid函数赋予了非线性。与单独的加权和相比，这种架构可以处理相对更复杂的分类任务。事实上，等式1.6描述了神经网络的基本构建块。</p>
+<h4 id="通过多个非线性层实现更高的表达能力深度神经网络">1.7 通过多个非线性层实现更高的表达能力：深度神经网络</h4>
+<p>在第1.6节中，我们指出，在基本加权和模型中添加非线性可以产生能够处理更复杂任务的模型架构。用机器学习术语来说，非线性模型具有更强的表达能力。</p>
+<p>现在考虑一个现实生活中的问题：比如，构建一个狗识别器。输入空间包括像素位置和像素颜色（x、y、r、g、b，其中 r、g、b 表示像素颜色的红色、绿色和蓝色成分）。输入维度很大（与图像中的像素数量成比例）。图1.6简要介绍了典型的深度学习系统（例如狗图像识别器）必须处理的背景和前景的可能变化。我们需要一台具有极高表达能力的机器。我们如何以原则性的方式创建这样的机器？</p>
+<p><img src="./机器学习和深度学习概述四/figure1.6.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
+<p>​ <strong>图1.6 非典型深度学习系统（此处为狗图像识别器）需要处理的背景和前景变化一览</strong></p>
+<p>与其一步一步地从输入生成输出，不如采用级联方法？我们将从输入中生成一组中间或隐藏输出，其中每个隐藏输出本质上是一个逻辑回归单元。然后我们添加另一层，将前一层的输出作为输入，依此类推。最后，我们将最外层的隐藏层输出合并到总输出中。</p>
+<p><img src="./机器学习和深度学习概述四/figure1.7.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
+<p>​ <strong>图1.7 多层神经网络</strong></p>
+<p>我们用以下等式来描述该系统。请注意，我们在权重上添加了一个上标来标识层（层0 最接近输入；层 L 是最后一层，距离输入最远）。我们还将下标设为二维（因此给定层的权重是一个矩阵）。第一个下标标识目标节点，第二个下标标识源节点（见图1.7）。</p>
+<p>精明的读者可能会注意到，以下等式没有明确的偏差项。这是因为，为了简化符号，我们将其并入权重集并假设其中一个输入（例如，<span class="math inline">\(x_0\)</span>= 1）和相应的权重（例如<span class="math inline">\(w_0\)</span>）是偏差。</p>
+<p>第0层：从n+1个输入生成<span class="math inline">\(n_0\)</span>个隐藏输出</p>
+<p><span class="math inline">\(\begin{aligned}&amp;h_0^{(0)}&amp;&amp;=\sigma\left(w_{00}^{(0)}x_0+w_{01}^{(0)}x_1+\cdots w_{0n}^{(0)}x_n\right)\\ &amp;h_1^{(0)}&amp;&amp; =\sigma\left(w_{10}^{(0)}x_0+w_{11}^{(0)}x_1+\cdots w_{1n}^{(0)}x_n\right) \\ &amp;h_{n_0}^{(0)}&amp;&amp; =\sigma\left(w_{n_00}^{(0)}x_0+w_{n_01}^{(0)}x_1+\cdots w_{n_0n}^{(0)}x_n\right) \end{aligned}\)</span> （1.7）</p>
+<p>第1层：从第0 层的<span class="math inline">\(n_0\)</span>个隐藏输出生成<span class="math inline">\(n_1\)</span>个隐藏输出</p>
+<p><span class="math inline">\(\begin{aligned} &amp;h_0^{(1)}&amp;&amp; =\sigma\left(w_{00}^{(1)}h_0^{(0)}+w_{01}^{(1)}h_1^{(0)}+\cdots w_{0n_0}^{(1)}h_{n_0}^{(0)}\right) \\ &amp;h_1^{(1)}&amp;&amp; =\sigma\left(w_{10}^{(1)}h_0^{(0)}+w_{11}^{(1)}h_1^{(0)}+\cdots w_{1n_0}^{(1)}h_{n_0}^{(0)}\right) \\ &amp;h_{n_1}^{(1)}&amp;&amp; =\sigma\left(w_{n_10}^{(1)}h_0^{(0)}+w_{n_11}^{(1)}h_1^{(0)}+\cdots w_{n_1n_0}^{(1)}h_{n_0}^{(0)}\right) \end{aligned}\)</span>（1.8）</p>
+<p>最后一层（L）：从前一层<span class="math inline">\(n_{L-1}\)</span>个隐藏输出生成m+1个可见输出</p>
+<p><span class="math inline">\(\begin{aligned} h_0^{(L)}&amp; =\sigma\left(w_{00}^{(L)}h_0^{(L-1)}+w_{01}^{(L)}h_1^{(L-1)}+\cdots w_{0n_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \\ h_1^{(L)}&amp; =\sigma\left(w_{10}^{(L)}h_0^{(L-1)}+w_{11}^{(L)}h_1^{(L-1)}+\cdots w_{1n_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \\ \begin{array}{cc}\vdots\\\end{array}&amp;&amp; \\ h_m^{(L)}&amp; =\sigma\left(w_{m0}^{(L)}h_0^{(L-1)}+w_{m1}^{(L)}h_1^{(L-1)}+\cdots w_{mn_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \end{aligned}\)</span> （1.9）</p>
+<p>这些等式如图1.7 所示。图1.7 所示的机器可能非常强大，具有巨大的表达能力。我们可以系统地调整其表达能力以适应手头的问题。它是一个神经网络。我们将用本书的其余部分来研究这一点。</p>
+<h4 id="小结">小结</h4>
+<p>在本章中，我们概述了机器学习，并一直延伸到深度学习。我们用玩具猫脑示例说明了这些想法。本章使用了一些数学概念（例如向量），但没有进行适当的介绍，我们鼓励您在介绍向量和矩阵后重新阅读本章。</p>
+<p>我们希望您能从本章中得到以下的收获：</p>
+<ul>
+<li>机器学习是一种完全不同的计算范式。在传统计算中，我们向计算机提供分步指令序列，告诉它要做什么。在机器学习中，我们建立一个数学模型，试图逼近从输入生成分类或估计的未知函数。</li>
+<li>模型函数的数学性质由分类或估计任务的物理性质和复杂性决定。模型具有参数。参数值是根据训练数据（具有已知输出的输入）估计的。参数值经过优化，以使模型输出尽可能接近训练输入上的训练输出。</li>
+<li>机器学习模型可以从另一个角度理解，即几何视角，它是将多维输入空间中的点映射到输出空间中的点的变换。</li>
+<li>分类/估计任务越复杂，近似函数就越复杂。用机器学习术语来说，复杂的任务需要具有更强表达能力的机器。更高的表达能力来自非线性（例如，S 型函数；参见公式1.5）和更简单机器的分层组合。这让我们想到了深度学习，它只不过是一个多层非线性机器。</li>
+<li>复杂的模型函数通常通过组合较简单的基函数来构建。</li>
+</ul>
+<p>请系好安全带：学习乐趣即将变得更加激烈。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>机器学习和深度学习概述(二)</title>
+    <url>/2024/08/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第二部分。</p>
+<a id="more"></a>
+<p>本文的主要内容包括：</p>
+<ul>
+<li><strong>机器学习的函数逼近视角</strong></li>
+<li><strong>一个简单的机器学习模型：猫脑</strong></li>
+</ul>
+<h4 id="机器学习的函数逼近视角模型和训练">1.2 机器学习的函数逼近视角：模型和训练</h4>
+<p>如第1.1 节所述，要创建一个能够进行分类或估计的类脑机器，我们必须找到一个数学函数（模型），将输入转换为对应的期望输出。然而，遗憾的是，在典型的现实生活中，我们不知道这个转换函数是什么。例如，我们并不知道能接受历史价格、新闻事件等特征并能估计出股票未来价格的函数——这就让我们建立股票价格估算器来致富变得很困难。我们拥有的只是训练数据——一组已知输出的输入。那么我们该怎样利用好它们来完成上面的任务呢？答案是，我们将尝试对这个未知函数进行建模。这意味着我们将创建一个函数作为那个未知函数的近似代理或替代品。从这个角度来看，机器学习只不过是函数近似——我们只是试图逼近那个未知的分类或估计函数。</p>
+<p>让我们简要回顾一下上一节的主要思想。在机器学习中，我们试图解决的问题可以抽象地看作是将一组输入转换为输出。输出要么是一个类，要么是一个估计值。由于我们不知道真正的转换函数，我们试图提出一个模型函数。我们首先利用我们对问题的物理理解，设计一个具有可调参数值的模型函数，该模型函数可以作为真实函数的代理。这就是模型架构，可调参数也称为权重。最简单的模型架构是输出等于输入值的加权和。确定模型架构并不能完全确定模型——我们仍然需要确定实际的参数值（权重）。这就是训练的用武之地。在训练过程中，我们找到一组最佳权重，将该组权重应用到模型架构中确定一个模型，通过该模型将训练输入转换为模型输出，使模型输出尽可能接近训练输入在训练样本中对应的训练输出。训练完成后，我们部署好训练好的模型：它的权重已经确定，模型也因此已经确定，因此对于任何输入，它只需应用该模型并生成输出，这便是推理。当然，训练输入只是所有可能输入的一小部分，因此不能保证推理会在所有实际输入上产生所需的结果。模型的成功取决于所选模型架构的适当性以及训练数据的质量和数量。</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>获取训练数据<br/>掌握机器学习后，最大的困难就是获取训练数据。当从业者能够负担得起时，通常的做法是使用人工手动生成与训练数据输入相对应的输出（这些目标输出有时被称为基本事实）。这个过程被称为人工标记或人工管理，需要一大群人查看大量的训练数据输入并生成相应的基本事实输出。对于一些经过充分研究的问题，我们可能很幸运地能够在互联网上获得训练数据；否则它将成为一项艰巨的挑战。稍后会详细介绍。</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>现在我们通过一个具体的例子来研究一下模型构建的过程：参见图1.1所示的猫脑。</p>
+<h4 id="一个简单的机器学习模型猫脑">1.3 一个简单的机器学习模型：猫脑</h4>
+<p>为了简单和具体，我们将以一只假想的猫为例，它一生中只需要做出一个决定：是逃离面前的物体、忽略它，还是靠近并发出呼噜声。它仅根据与面前物体有关的两个定量输入来做出这一决定（如图1.1 所示）。注意：本章是对机器/深度学习的轻量级概述。因此，它依赖于我们稍后将介绍的一些数学概念。尽管如此，我们还是鼓励您现在阅读本章，并在消化关于向量和矩阵的章节后再回来重新复习本章。</p>
+<h5 id="输入特征">1.31 输入特征</h5>
+<p>输入特征为<span class="math inline">\(x_0\)</span>表示硬度和$ x_1<span class="math inline">\(表示锋利度。在不失一般性的情况下，我们可以对输入进行归一化。这是一个非常流行的技巧，即将介于最小可能值\)</span>v_{min}<span class="math inline">\(和最大可能值\)</span>v_{max}<span class="math inline">\(之间的输入值转换为0 到1 之间的值。要将任意输入值\)</span>v$转换为归一化值 <span class="math inline">\(v_{norm}\)</span>，我们使用公式</p>
+<p>​ <span class="math inline">\(v_{\text {norm }}=\frac{\left(v-v_{\min }\right)}{\left(v_{\max }-v_{\min }\right)}\)</span> (1.1)</p>
+<p>用数学术语来说，通过公式1.1 的变换，<span class="math inline">\(v\in[v_{min},v_{max}]\to v_{norm}\in [0,1]\)</span>将输入域<span class="math inline">\([v_{min},v_{max}]\)</span>中的值<span class="math inline">\(v\)</span>映射到范围为[0,1]的输出值<span class="math inline">\(v_{norm}\)</span>。 用一个二维向量<span class="math inline">\(\vec{x}=\begin{bmatrix}x_0\\x_1\end{bmatrix}\in[0,1]^2\)</span>简洁地表示单个输入实例。</p>
+<h5 id="输出决策">1.3.2 输出决策</h5>
+<p>本例是一个多分类任务，可以采用以下三个可能值之一：0，表示逃离猫面前的物体；1，表示忽略物体；2，表示靠近物体并发出呼噜声。在机器学习中，本例可以按分类任务直接计算类别。但是，在这个例子中，我们将让模型估计一个威胁分数。它被解释如下：威胁分数为较大的正数= 逃跑，威胁接近零= 忽略，威胁为较小的负数= 接近并发出呼噜声（威胁分数为较小的负数表明该物体对猫具有吸引力）。</p>
+<p>我们可以根据威胁分数做出最终的决策（逃跑/忽略/接近），通过将威胁分数 y 与阈值𝛿进行比较，如下所示：</p>
+<p><span class="math inline">\(y\left\{\begin{array}{l}&gt;\delta \rightarrow \text {高威胁,逃跑}\\ &gt;=-\delta \text { and }&lt;=\delta \rightarrow \text {威胁接近零,忽略}\\ &lt;-\delta \rightarrow \text {没有威胁,靠近并发出呼噜声}\end{array}\right.\)</span></p>
+<h5 id="模型估计">1.3.3 模型估计</h5>
+<p>现在到了最重要的一步：我们需要估计出一个函数用来将输入向量转换为输出。我们将用<span class="math inline">\(y\)</span>表示该函数的输出。用数学符号来表示的话，我们要估计的就是<span class="math inline">\(y(\vec{x})\)</span>。</p>
+<p>当然，我们不知道理想的函数是什么。我们将尝试从训练数据中估计出这个未知函数，使其接近理想函数。这分为两个步骤：</p>
+<p>1.模型架构选择——设计一个我们期望的参数化函数，它是未知理想函数的近似代理</p>
+<p>2.训练——估计所选函数的参数，使得训练输入通过该函数的输出尽可能接近其对应的期望输出</p>
+<h5 id="模型架构选择">1.3.4 模型架构选择</h5>
+<p>这是各种机器学习方法之所以成为不同方法的关键步骤。在这个简单猫脑示例中，我们将使用最简单的模型。我们的模型有三个参数，<span class="math inline">\(w_0\)</span>、<span class="math inline">\(w_1\)</span>、<span class="math inline">\(b\)</span>。它们可以用一个二维向量紧凑地表示为<span class="math inline">\(w =\vec{w}=\left[\begin{array}{l}w_0 \\ w_1\end{array}\right]\in \mathbb{R}^2\)</span>和一个常数偏差<span class="math inline">\(b\)</span>∈ℝ（这里，ℝ表示所有实数的集合，<span class="math inline">\(ℝ_2\)</span>表示两个元素都是实数的二维向量的集合，依此类推）。这个模型可以输出威胁分数 y，计算如下$ y(x_0, x_1)=w_0 x_0+w_1 x_1+b=+b=^T +b$ (1.3)</p>
+<p>请注意，<span class="math inline">\(b\)</span>是一个特殊的参数。它是一个常数，不会与任何输入相乘。在机器学习中，通常将其称为偏差；其他参数作为权重与输入相乘。</p>
+<h5 id="模型训练">1.3.5 模型训练</h5>
+<p>一旦选择了模型架构，我们就知道了确定的参数化函数，我们将使用该参数化函数来建模未知函数<span class="math inline">\(y(\vec{x})\)</span>，从而将输入转换为输出。我们在这里仍然需要估计函数的参数。现在，我们有一个具有未知参数的函数，并且这些参数将会从一组具有已知输出（训练数据）的输入中估计出来。我们最终将选择一组最优参数，使得训练数据的输入通过具有最优参数的模型后，产出的模型输出尽可能接近训练数据中的输出。</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>迭代训练<br/>这个问题已经被数学家研究过，在数学中被称为函数拟合问题。然而，随着机器学习的出现，其规模发生了变化。在机器学习中，我们处理的训练数据包括数以百万计的样本。这就需要解决方案的理念也随之改变。数学家使用闭式解作为解决方案，通过直接求解涉及所有训练数据项的方程来估计参数。在机器学习中，我们寻求迭代解决方案，一次处理几个训练数据项（或者可能只有一个）。在迭代解决方案中，没有必要将所有训练数据保存在计算机的内存中。我们只需一次加载一小部分并仅处理该部分。我们将以猫脑为例来说明这一点。</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>具体来说，训练过程的目标是估计参数<span class="math inline">\(w_0\)</span>、<span class="math inline">\(w_1\)</span>、<span class="math inline">\(b\)</span>，或者，根据公式1.3 估计向量<span class="math inline">\(\vec{w}\)</span>和常数<span class="math inline">\(b\)</span>，使得训练数据的输入<span class="math inline">\((x_0, x_1)\)</span>对应的输出<span class="math inline">\(y(x_0, x_1)\)</span>尽可能与相应的已知训练数据输出（又称基本事实[GT]）匹配。</p>
+<p>假设训练数据由N +1个输入<span class="math inline">\(\vec{x}^{(0)},\vec{x}^{(1)},···\vec{x}^{(N)}\)</span>组成。这里，每个<span class="math inline">\(\vec{x}^{(i)}\)</span>都是一个2 ×1 向量，表示单个训练数据输入实例。其对应的威胁值（输出）为<span class="math inline">\(y_{g t}^{(0)}, y_{g t}^{(1)},··· y_{g t}^{(N)}\)</span>（这里，下标 gt 表示基本事实）。同样，我们可以说训练数据由 N +1 个(输入，输出)对组成：</p>
+<p>​ <span class="math inline">\(\left(\vec{x}^{(0)}, y_{g t}^{(0)}\right),\left(\vec{x}^{(1)}, y_{g t}^{(1)}\right)\cdots\left(\vec{x}^{(N)}, y_{g t}^{(N)}\right)\)</span></p>
+<p>假设<span class="math inline">\(\vec{w}\)</span>表示模型的（目前未知的）最佳参数。然后，给定任意输入<span class="math inline">\(\vec{x}\)</span>，机器将估计出威胁值$ y_{predicted}=<sup>T+b<span class="math inline">\(。在第 i 个训练数据对\)</span>(</sup>{(i)},y_{gt}^{(i)})$上，机器将给出估计</p>
+<p>​ <span class="math inline">\(y_{\text {predicted }}^{(i)}=\vec{w}^T \vec{x}^{(i)}+b\)</span></p>
+<p>而期望输出是<span class="math inline">\(y_{\text {gt}}^{(i)}\)</span>。因此，机器在第 i 个训练数据实例上产生的平方误差（又称损失）是 <span class="math inline">\(e_i^2=\left(y_{\text {predicted }}^{(i)}-y_{g t}^{(i)}\right)^2\)</span></p>
+<p>整个训练数据集的总体损失是通过将每个单独的训练数据实例的损失相加而获得的：<span class="math inline">\(E^2=\sum_{i=0}^{i=N} e_i^2=\sum_{i=0}^{i=N}\left(y_{\text {predicted }}^{(i)}-y_{g t}^{(i)}\right)^2=\sum_{i=0}^{i=N}\left(\vec{w}^T \vec{x}_i+b-y_{g t}^{(i)}\right)^2\)</span></p>
+<p>训练的目标是找到一组模型参数（又称权重）<span class="math inline">\(\vec{w}\)</span>，使总误差 E 最小化。具体如何做到这一点将在后面描述。</p>
+<p>在大多数情况下，不可能得出最优<span class="math inline">\(\vec{w}\)</span>、b 的闭式解。因此，我们采用算法1.1 中描述的迭代方法。</p>
+<blockquote>
+<p>第9页脚注：2 在这种情况下，请注意，将误差/损失做平方，以使其与符号无关是一种常见做法。如果我们希望输出为10，那么如果输出为9.5 或10.5，我们会同样高兴/不高兴。因此，+5 或−5 的误差实际上是相同的；因此我们要使误差与符号无关。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>算法1.1 训练一个监督模型</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>用随机值初始化参数 w,b，当误差不够小时进行迭代<br><span class="math inline">\(\mathbf{while}\quad(E^2=\sum_{i=0}^{i=N}\left(\vec{w}^T\vec{x}_i+b-y_{gt}^{(i)}\right)^2&gt;threshold)\quad\mathbf{do}\)</span><br> 迭代所有训练数据实例 <br/> <span class="math inline">\(\text{for }\forall i\in[0,N]\quad\mathbf{do}\)</span><br/> 第3.3 节提供了详细信息，引入梯度后，调整<span class="math inline">\(\vec{w}\)</span>，b 以减少<span class="math inline">\(E^2\)</span><br/> <span class="math inline">\(\mathbf{end}\ \mathbf{for}\)</span><br/><span class="math inline">\(\mathbf{end}\ \mathbf{while}\)</span><br/>记住最终参数值为最优<br/><span class="math inline">\(\vec{w}_*\leftarrow\vec{w},\ b_*\leftarrow b\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>在这个算法中，我们从随机参数值开始，并不断调整参数，这样总误差至少会下降一点。我们一直这样做，直到误差变得足够小。从纯粹的数学意义上讲，我们继续迭代，直到误差最小。但在实践中，我们经常在结果对于要解决的问题足够准确时停止。值得再次强调的是，这里的误差仅指训练数据上的误差。</p>
+<h5 id="推理">1.3.6 推理</h5>
+<p>最后，一个经过训练的模型（具有最优参数<span class="math inline">\(\vec{w}_∗\)</span><span class="math inline">\(b_∗\)</span>）被部署到现实世界中。它将接收新的输入<span class="math inline">\(\vec{x}\)</span>并推断出 <span class="math inline">\(y_{predicted}\left(\vec{x}\right)=\vec{w}_{*}^{T}\vec{x}+b_{*}\)</span>.分类将通过对<span class="math inline">\(y_{predicted}\)</span>进行阈值处理来实现，如公式1.2 所示。</p>
 ]]></content>
   </entry>
 </search>
