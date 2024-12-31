@@ -20,29 +20,25 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="本文是对LangChain应用开发框架的总体架构和关键技术的解读。以大纲的形式，辅以图形展示出LangChain开发框架的主要技术学习路径，做为初始接触该技术的学习者的入门指南。">
+  <meta name="description" content="本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第四部分。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LangChain开发框架学习路径">
-<meta property="og:url" content="http://yoursite.com/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/index.html">
+<meta property="og:title" content="机器学习和深度学习概述(四)">
+<meta property="og:url" content="http://yoursite.com/2025/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/index.html">
 <meta property="og:site_name" content="Adline125&#39;s Blog">
-<meta property="og:description" content="本文是对LangChain应用开发框架的总体架构和关键技术的解读。以大纲的形式，辅以图形展示出LangChain开发框架的主要技术学习路径，做为初始接触该技术的学习者的入门指南。">
+<meta property="og:description" content="本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第四部分。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618112519688.png">
-<meta property="og:image" content="http://yoursite.com/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618112519688.png">
-<meta property="og:image" content="http://yoursite.com/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618112809604.png">
-<meta property="og:image" content="http://yoursite.com/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113123519.png">
-<meta property="og:image" content="http://yoursite.com/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113218406.png">
-<meta property="og:image" content="http://yoursite.com/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113330215.png">
-<meta property="og:image" content="http://yoursite.com/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113624028.png">
-<meta property="og:image" content="http://yoursite.com/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113733790.png">
-<meta property="og:image" content="http://yoursite.com/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113857413.png">
-<meta property="article:published_time" content="2024-04-26T06:45:12.000Z">
-<meta property="article:modified_time" content="2024-06-18T07:23:50.758Z">
+<meta property="og:image" content="http://yoursite.com/2025/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/pics/figure1.3.png">
+<meta property="og:image" content="http://yoursite.com/2025/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/pics/figure1.4.png">
+<meta property="og:image" content="http://yoursite.com/2025/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/pics/figure1.5.png">
+<meta property="og:image" content="http://yoursite.com/2025/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/pics/figure1.6.png">
+<meta property="og:image" content="http://yoursite.com/2025/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/pics/figure1.7.png">
+<meta property="article:published_time" content="2025-02-10T06:54:36.000Z">
+<meta property="article:modified_time" content="2024-12-31T06:37:29.688Z">
 <meta property="article:author" content="Adline125">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618112519688.png">
+<meta name="twitter:image" content="http://yoursite.com/2025/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/pics/figure1.3.png">
 
-<link rel="canonical" href="http://yoursite.com/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/">
+<link rel="canonical" href="http://yoursite.com/2025/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/">
 
 
 <script id="page-configurations">
@@ -55,7 +51,7 @@
   };
 </script>
 
-  <title>LangChain开发框架学习路径 | Adline125's Blog</title>
+  <title>机器学习和深度学习概述(四) | Adline125's Blog</title>
   
 
 
@@ -205,7 +201,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2025/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/icon.png">
@@ -218,7 +214,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          LangChain开发框架学习路径
+          机器学习和深度学习概述(四)
         </h1>
 
         <div class="post-meta">
@@ -228,14 +224,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-04-26 14:45:12" itemprop="dateCreated datePublished" datetime="2024-04-26T14:45:12+08:00">2024-04-26</time>
+              <time title="Created: 2025-02-10 14:54:36" itemprop="dateCreated datePublished" datetime="2025-02-10T14:54:36+08:00">2025-02-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-06-18 15:23:50" itemprop="dateModified" datetime="2024-06-18T15:23:50+08:00">2024-06-18</time>
+                <time title="Modified: 2024-12-31 14:37:29" itemprop="dateModified" datetime="2024-12-31T14:37:29+08:00">2024-12-31</time>
               </span>
 
           
@@ -249,98 +245,53 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文是对LangChain应用开发框架的总体架构和关键技术的解读。以大纲的形式，辅以图形展示出LangChain开发框架的主要技术学习路径，做为初始接触该技术的学习者的入门指南。</p>
+        <p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第四部分。</p>
 <a id="more"></a>
 <p>本文的主要内容包括：</p>
 <ul>
-<li><strong>LangChain 总体架构深度剖析</strong></li>
-<li><strong>LangChain 核心模块关键技术解读</strong></li>
-<li><strong>基于 LangChain 构建智能客服 AI Agent 案例实践</strong></li>
+<li><strong>线性和非线性模型</strong></li>
+<li><strong>通过多个非线性层实现更高的表达能力：深度神经网络</strong></li>
 </ul>
-<h3 id="langchain-总体架构深度剖析"><strong>LangChain 总体架构深度剖析</strong></h3>
-<hr />
-<p>LangChian是将 LLM 模型、向量数据库、交互层 Prompt、外部知识、外部工具整合到一起，进而可以自由构建 LLM 应用的应用开发框架。</p>
-<p><strong>为什么需要 LangChain？</strong></p>
+<h4 id="线性和非线性模型">1.6 线性和非线性模型</h4>
+<p>在图1.2中，我们面临一个相当简单的情况，即类别可以用一条线（高维曲面中的超平面）分隔。这在现实生活中并不常见。如果不同类别的点无法用一条线分开，如图1.4所示，该怎么办？在这种情况下，我们的模型架构不应再是简单的加权组合。它应是一个非线性函数。例如，请看图1.4中的曲线分隔符。从函数逼近的角度来看，非线性模型也是有意义的。最终，我们的目标是近似非常复杂且高度非线性的函数，以模拟生活中所需的分类或估计过程。直观地说，使用非线性函数来建模它们似乎会更好。</p>
+<p><img src="./pics/figure1.3.png" alt="image-20240704141159118" style="zoom:50%;"/></p>
+<p><strong>图1.3 模型将输入（特征）空间中的点映射到输出空间，在输出空间中更容易进行类别划分。例如，在该图中，属于两个类（红色（+）和绿色（-））的输入特征点分布在三维特征空间中的圆柱体体积上。该模型将圆柱体展开为矩形。特征点被映射到二维平面输出空间，在输出空间中，可以使用简单的线性分离器区分这两个类。</strong></p>
+<p><img src="./pics/figure1.4.png" alt="image-20240704141046887" style="zoom:33%;"/></p>
+<p><strong>图1.4两个类别（用浅色和深色表示）不能用线分开，需要用曲线分隔符。在三维空间中，这相当于说没有平面可以分开表面；需要一个曲面分隔符。在静止的空间中，这相当于说没有超平面可以分开类别；需要一个弯曲的超曲面。</strong></p>
+<p>机器学习中非常流行的非线性函数是Sigmoid函数，因为它看起来像字母 S，所以也叫S 型函数。Sigmoid函数通常用希腊字母𝜎表示。它的定义如下 <span class="math inline">\(\sigma^2(x)=\frac1{1+e^{-x}}\)</span> (1.5)</p>
+<p>图1.5显示了 Sigmoid函数的图形。因此，我们可以使用等式1.6，这是个非常流行的模型架构，叫做逻辑回归（仍然比较简单），该架构采用输入加权和的Sigmoid函数（无参数）：</p>
+<p><span class="math inline">\(y=\sigma\left(\vec{w}^T\vec{x}+b\right) (1.6)\)</span></p>
+<p><img src="./pics/figure1.5.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
+<p>​ <strong>图1.5 Sigmoid函数图形</strong></p>
+<p>Sigmoid函数赋予了非线性。与单独的加权和相比，这种架构可以处理相对更复杂的分类任务。事实上，等式1.6描述了神经网络的基本构建块。</p>
+<h4 id="通过多个非线性层实现更高的表达能力深度神经网络">1.7 通过多个非线性层实现更高的表达能力：深度神经网络</h4>
+<p>在第1.6节中，我们指出，在基本加权和模型中添加非线性可以产生能够处理更复杂任务的模型架构。用机器学习术语来说，非线性模型具有更强的表达能力。</p>
+<p>现在考虑一个现实生活中的问题：比如，构建一个狗识别器。输入空间包括像素位置和像素颜色（x、y、r、g、b，其中 r、g、b 表示像素颜色的红色、绿色和蓝色成分）。输入维度很大（与图像中的像素数量成比例）。图1.6简要介绍了典型的深度学习系统（例如狗图像识别器）必须处理的背景和前景的可能变化。我们需要一台具有极高表达能力的机器。我们如何以原则性的方式创建这样的机器？</p>
+<p><img src="./pics/figure1.6.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
+<p>​ <strong>图1.6 非典型深度学习系统（此处为狗图像识别器）需要处理的背景和前景变化一览</strong></p>
+<p>与其一步一步地从输入生成输出，不如采用级联方法？我们将从输入中生成一组中间或隐藏输出，其中每个隐藏输出本质上是一个逻辑回归单元。然后我们添加另一层，将前一层的输出作为输入，依此类推。最后，我们将最外层的隐藏层输出合并到总输出中。</p>
+<p><img src="./pics/figure1.7.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
+<p>​ <strong>图1.7 多层神经网络</strong></p>
+<p>我们用以下等式来描述该系统。请注意，我们在权重上添加了一个上标来标识层（层0 最接近输入；层 L 是最后一层，距离输入最远）。我们还将下标设为二维（因此给定层的权重是一个矩阵）。第一个下标标识目标节点，第二个下标标识源节点（见图1.7）。</p>
+<p>精明的读者可能会注意到，以下等式没有明确的偏差项。这是因为，为了简化符号，我们将其并入权重集并假设其中一个输入（例如，<span class="math inline">\(x_0\)</span>= 1）和相应的权重（例如<span class="math inline">\(w_0\)</span>）是偏差。</p>
+<p>第0层：从n+1个输入生成<span class="math inline">\(n_0\)</span>个隐藏输出</p>
+<p><span class="math inline">\(\begin{aligned}&amp;h_0^{(0)}&amp;&amp;=\sigma\left(w_{00}^{(0)}x_0+w_{01}^{(0)}x_1+\cdots w_{0n}^{(0)}x_n\right)\\ &amp;h_1^{(0)}&amp;&amp; =\sigma\left(w_{10}^{(0)}x_0+w_{11}^{(0)}x_1+\cdots w_{1n}^{(0)}x_n\right) \\ &amp;h_{n_0}^{(0)}&amp;&amp; =\sigma\left(w_{n_00}^{(0)}x_0+w_{n_01}^{(0)}x_1+\cdots w_{n_0n}^{(0)}x_n\right) \end{aligned}\)</span> （1.7）</p>
+<p>第1层：从第0 层的<span class="math inline">\(n_0\)</span>个隐藏输出生成<span class="math inline">\(n_1\)</span>个隐藏输出</p>
+<p><span class="math inline">\(\begin{aligned} &amp;h_0^{(1)}&amp;&amp; =\sigma\left(w_{00}^{(1)}h_0^{(0)}+w_{01}^{(1)}h_1^{(0)}+\cdots w_{0n_0}^{(1)}h_{n_0}^{(0)}\right) \\ &amp;h_1^{(1)}&amp;&amp; =\sigma\left(w_{10}^{(1)}h_0^{(0)}+w_{11}^{(1)}h_1^{(0)}+\cdots w_{1n_0}^{(1)}h_{n_0}^{(0)}\right) \\ &amp;h_{n_1}^{(1)}&amp;&amp; =\sigma\left(w_{n_10}^{(1)}h_0^{(0)}+w_{n_11}^{(1)}h_1^{(0)}+\cdots w_{n_1n_0}^{(1)}h_{n_0}^{(0)}\right) \end{aligned}\)</span>（1.8）</p>
+<p>最后一层（L）：从前一层<span class="math inline">\(n_{L-1}\)</span>个隐藏输出生成m+1个可见输出</p>
+<p><span class="math inline">\(\begin{aligned} h_0^{(L)}&amp; =\sigma\left(w_{00}^{(L)}h_0^{(L-1)}+w_{01}^{(L)}h_1^{(L-1)}+\cdots w_{0n_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \\ h_1^{(L)}&amp; =\sigma\left(w_{10}^{(L)}h_0^{(L-1)}+w_{11}^{(L)}h_1^{(L-1)}+\cdots w_{1n_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \\ \begin{array}{cc}\vdots\\\end{array}&amp;&amp; \\ h_m^{(L)}&amp; =\sigma\left(w_{m0}^{(L)}h_0^{(L-1)}+w_{m1}^{(L)}h_1^{(L-1)}+\cdots w_{mn_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \end{aligned}\)</span> （1.9）</p>
+<p>这些等式如图1.7 所示。图1.7 所示的机器可能非常强大，具有巨大的表达能力。我们可以系统地调整其表达能力以适应手头的问题。它是一个神经网络。我们将用本书的其余部分来研究这一点。</p>
+<h4 id="小结">小结</h4>
+<p>在本章中，我们概述了机器学习，并一直延伸到深度学习。我们用玩具猫脑示例说明了这些想法。本章使用了一些数学概念（例如向量），但没有进行适当的介绍，我们鼓励您在介绍向量和矩阵后重新阅读本章。</p>
+<p>我们希望您能从本章中得到以下的收获：</p>
 <ul>
-<li><p>提供了RAG过程中的所需模块的支持</p></li>
-<li><p>帮助开发者快速开发LLM应用</p></li>
-<li><p>Model I/O、 Retrieval、Chains、 Memory、Agents、Callbacks</p></li>
+<li>机器学习是一种完全不同的计算范式。在传统计算中，我们向计算机提供分步指令序列，告诉它要做什么。在机器学习中，我们建立一个数学模型，试图逼近从输入生成分类或估计的未知函数。</li>
+<li>模型函数的数学性质由分类或估计任务的物理性质和复杂性决定。模型具有参数。参数值是根据训练数据（具有已知输出的输入）估计的。参数值经过优化，以使模型输出尽可能接近训练输入上的训练输出。</li>
+<li>机器学习模型可以从另一个角度理解，即几何视角，它是将多维输入空间中的点映射到输出空间中的点的变换。</li>
+<li>分类/估计任务越复杂，近似函数就越复杂。用机器学习术语来说，复杂的任务需要具有更强表达能力的机器。更高的表达能力来自非线性（例如，S 型函数；参见公式1.5）和更简单机器的分层组合。这让我们想到了深度学习，它只不过是一个多层非线性机器。</li>
+<li>复杂的模型函数通常通过组合较简单的基函数来构建。</li>
 </ul>
-<p><strong>LangChain 整体组成部分</strong></p>
-<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618112519688.png" class="" title="This is an test image">
-<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618112519688.png" class="" alt="图片">
-<ul>
-<li><strong>LangSmith</strong></li>
-</ul>
-<p>​ l <strong>LLMOPS 平台</strong></p>
-<ul>
-<li><strong>LangServe</strong></li>
-</ul>
-<p>​ l <strong>快速将应用部署为 REST API 的服务</strong></p>
-<ul>
-<li><strong>Templates</strong></li>
-</ul>
-<p>​ l <strong>Langchain 的应用模版</strong></p>
-<p><strong>LangChain 整体架构剖析</strong></p>
-<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618112809604.png" class="" alt="图片">
-<ul>
-<li><p><strong>模块更加独立</strong></p></li>
-<li><p><strong>职责更加明确</strong></p></li>
-<li><p><strong>保证核心部分的稳定性</strong></p></li>
-<li><p><strong>减少外部依赖</strong></p></li>
-<li><p><strong>维护更为容易</strong></p></li>
-</ul>
-<h3 id="langchain-核心模块关键技术解读"><strong>LangChain 核心模块关键技术解读</strong></h3>
-<hr />
-<p><strong>LangChain 关键技术之—Retrieval</strong></p>
-<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113123519.png" class="" alt="图片">
-<ul>
-<li><strong>文档加载器（Document loaders）</strong></li>
-</ul>
-<p>​ l <strong>csv、html、json、md、PDF文件读取</strong></p>
-<p>​ l <strong>转化为document格式</strong></p>
-<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113218406.png" class="" alt="图片">
-<ul>
-<li><strong>文档转换器（Document transformers）</strong></li>
-</ul>
-<p>​ l <strong>将文档数据结构化/分块(Text Splitter</strong>)</p>
-<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113330215.png" class="" alt="图片">
-<ul>
-<li><strong>文档转换器（Document transformers)</strong></li>
-</ul>
-<p>​ l <strong>自定义字符</strong></p>
-<p>​ l <strong>基于句子</strong></p>
-<p>​ l <strong>基于语义</strong></p>
-<ul>
-<li><strong>文本嵌入模型（Embed）</strong></li>
-</ul>
-<p>​ l <strong>将文档向量化</strong></p>
-<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113624028.png" class="" alt="图片">
-<ul>
-<li><strong>文本嵌入模型（Embed）</strong></li>
-</ul>
-<p>​ l <strong>将文档向量化</strong></p>
-<img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113733790.png" class="" alt="图片">
-<ul>
-<li><p><strong>向量存储&amp;检索（Vector stores）</strong></p></li>
-<li><img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113857413.png" class="" alt="图片">
-<ul>
-<li><strong>MultiQueryRetriever</strong></li>
-</ul>
-<p>​ l <strong>使用 LLM 从不同角度为给定的查询生成多个查询</strong></p>
-<ul>
-<li><strong>上下文压缩</strong></li>
-</ul>
-<p>​ l <strong>将检索结果进行压缩缩率</strong></p>
-<ul>
-<li><strong>MultiVector Retriever</strong></li>
-</ul>
-<p>l <strong>分块/摘要/文档加假设问题</strong></p>
-<ul>
-<li><strong>Time-weighted vector store retriever</strong></li>
-</ul>
-<p>​ l <strong>语义相似性 + 时间衰减</strong></p></li>
-</ul>
+<p>请系好安全带：学习乐趣即将变得更加激烈。</p>
 
     </div>
 
@@ -356,13 +307,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/" rel="prev" title="Paper reading: Gemma: Open Models Based on Gemini Research and Technology">
-      <i class="fa fa-chevron-left"></i> Paper reading: Gemma: Open Models Based on Gemini Research and Technology
+    <a href="/2025/01/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%89%EF%BC%89/" rel="prev" title="机器学习和深度学习概述(三)">
+      <i class="fa fa-chevron-left"></i> 机器学习和深度学习概述(三)
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2024/05/10/%E5%9F%BA%E4%BA%8E-LangChain-%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D-AI-Agent-%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/" rel="next" title="基于 LangChain 构建智能客服 AI Agent 案例实践">
-      基于 LangChain 构建智能客服 AI Agent 案例实践 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -430,7 +378,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#langchain-总体架构深度剖析"><span class="nav-number">1.</span> <span class="nav-text">LangChain 总体架构深度剖析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#langchain-核心模块关键技术解读"><span class="nav-number">2.</span> <span class="nav-text">LangChain 核心模块关键技术解读</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#线性和非线性模型"><span class="nav-number">1.</span> <span class="nav-text">1.6 线性和非线性模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过多个非线性层实现更高的表达能力深度神经网络"><span class="nav-number">2.</span> <span class="nav-text">1.7 通过多个非线性层实现更高的表达能力：深度神经网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -621,9 +569,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "http://yoursite.com/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/";
-    this.page.identifier = "2024/04/26/LangChain开发框架学习路径/";
-    this.page.title = "LangChain开发框架学习路径";
+    this.page.url = "http://yoursite.com/2025/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%EF%BC%88%E5%9B%9B%EF%BC%89/";
+    this.page.identifier = "2025/02/10/机器学习和深度学习概述（四）/";
+    this.page.title = "机器学习和深度学习概述(四)";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
