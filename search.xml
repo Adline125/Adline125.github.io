@@ -1,6 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>2023年大模型研究现状综述</title>
+    <url>/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/</url>
+    <content><![CDATA[<p>This article reviews the current status of large model research in 2023. It summarizes the various stages of large model development this year and the contributions of major research institutions to large model research. It also summarizes and summarizes the current mainstream types of large models. On this basis, some thoughts and prospects about the future development of large-model technology were made.</p>
+<a id="more"></a>
+<p>The main contents of this article include:：</p>
+<ul>
+<li><p>Current status of basic model research</p></li>
+<li><p>Introduction to LLM model types</p></li>
+<li><p>Summary and future directions</p></li>
+</ul>
+<h2 id="current-status-of-basic-model-research">Current status of basic model research</h2>
+<hr />
+<p>In 2023, with the development of LLM technology, the open source models of Chinese model research institutions will usher in explosive growth:</p>
+<ul>
+<li><p>In March 2023, Zhipu AI first released the ChatGLM-6B series in the Magic Community. ChatGLM-6B is an open source dialogue language model that supports Chinese and English bilingual question and answer. It is based on the General Language Model (GLM) architecture and has 62 billion parameters. Combined with model quantization technology, users can deploy it locally on consumer-grade graphics cards (a minimum of 6GB of video memory is required at the INT4 quantization level). Now, Zhipu AI's ChatGLM-6B has been updated to the third generation. At the same time, it has launched the CogVLM series in multi-modal mode, as well as CogVLM that supports visual agents, and launched the CodeGeex series models in the code field, while exploring both agent and math. and open source models and technologies.</p></li>
+<li><p>In June 2023, Baichuan first released the Baichuan-7B model in the Moda community. baichuan-7B is an open source large-scale pre-training model developed by Baichuan Intelligence. Based on the Transformer structure, the 7 billion parameter model is trained on approximately 1.2 trillion tokens, supports Chinese and English bilinguals, and has a context window length of 4096. Baichuan is also one of the first companies to launch pre-trained models, and jokingly claims to provide developers with better “rough houses” so that developers can better “decorate” them, thus promoting the development of domestic pre-trained base models. Subsequently, Baichuan released the 13B model and Baichuan 2 series models, with both open source base and chat versions simultaneously.</p></li>
+<li><p>In July 2023, at the opening ceremony of WAIC 2023 and the Scientific Frontier Plenary Meeting, the Shanghai Artificial Intelligence Laboratory teamed up with a number of institutions to release a newly upgraded "Scholar General Large Model System", including Scholar·Multimodal, Scholar·Puyu He Shusheng·Tianji and other three basic models, as well as the first full-chain open source system for the development and application of large models. Shanghai Artificial Intelligence Laboratory not only makes model weights open source, but also conducts all-round open source at the model, data, tools and evaluation levels to promote technological innovation and industrial progress. Subsequently, the Shanghai Artificial Intelligence Laboratory successively released the Scholar·Puyu 20B model and the Scholar·Lingbi multi-modal model.</p></li>
+<li><p>In August 2023, Alibaba open sourced the Tongyi Qianwen 7B model, and subsequently open sourced the 1.8B, 14B, and 72B base and chat models, and provided the corresponding quantized versions of int4 and int8, which can be used in multi-modal scenarios. , Qianwen has also open sourced two visual and speech multi-modal models, qwen-vl and qwen-audio, achieving "full-size, full-modality" open source. Qwen-72B has improved the size and performance of open source large models. Since its release, it has remained at the top of the major charts, filling a gap in the country. Based on Qwen-72B, large and medium-sized enterprises can develop commercial applications, and universities and research institutes can carry out scientific research such as AI for Science.</p></li>
+<li><p>In October 2023, Kunlun Wanwei released the "Tiangong" Skywork-13B series of tens of billions of large language models, and rare open sourced a large high-quality open source Chinese data set of 600GB and 150B Tokens Skypile/Chinese-Web-Text -150B dataset. High-quality data filtered from Chinese web pages by Kunlun's carefully filtered data processing process. The size is approximately 600GB, and the total number of tokens is approximately (150 billion). It is currently one of the largest open source Chinese data sets.</p></li>
+<li><p>In November 2023, 01-AI company released the Yi series of models, with parameter sizes ranging from 6 billion to 34 billion, and the amount of training data reaching 30 billion tokens. These models outperform previous models on public leaderboards such as the Open LLM leaderboard and on some challenging benchmarks such as Skill-Mix.</p></li>
+</ul>
+<h2 id="introduction-to-llm-model-types">Introduction to LLM model types</h2>
+<hr />
+<h4 id="base-model-and-chat-model">Base model and Chat model</h4>
+<p>We usually see a model research and development institution open source the base model and chat model. So what is the difference between the base model and the chat model?</p>
+<p>First, all large language models (LLMs) work by taking in some text and predicting the text that is most likely to follow it.</p>
+<ul>
+<li>The base model, also known as the basic model, is a model trained on massive amounts of different texts to predict subsequent texts. Subsequent text is not necessarily a response to instructions and dialogue.</li>
+</ul>
+<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191246661.png" class="" alt="image-20240619191246661">
+<ul>
+<li>The chat model, also known as the dialogue model, is based on the base and continues to do fine-tuning and reinforcement learning through conversation records (instructions-responses). When it accepts instructions and talks with the user, it continues to write assistants that follow the instructions and are expected by humans. response content</li>
+</ul>
+<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191401263.png" class="" alt="image-20240619191401263">
+<h4 id="multimodal-model">multimodal model</h4>
+<p>Multimodal LLM combines information from text and other modalities, such as images, videos, audios, and other sensory data. Multimodal LLM is trained on multiple types of data, helping the transformer find the differences between different modalities. relationship, and complete some tasks that the new LLM cannot complete, such as picture description, music interpretation, video understanding, etc.</p>
+<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191640496.png" class="" alt="image-20240619191640496">
+<h4 id="agent-model">Agent model</h4>
+<p>LLM has the capabilities of an agent brain and collaborates with several key components, including,</p>
+<p>Planning: dismantling sub-goals, correcting errors, reflecting and improving.</p>
+<p>Memory: short-term memory (context, long window), long-term memory (implemented through search or vector engine)</p>
+<p>Tool use: The model learns to call external APIs to obtain additional capabilities.</p>
+<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191724150.png" class="" alt="image-20240619191724150">
+<h4 id="code-model">Code model</h4>
+<p>The Code model adds more code data to the model's pre-training and SFT, and performs a series of tasks in the code, such as code completion, code error correction, and zero-sample completion of programming task instructions. At the same time, according to different code languages, there will also be more professional language code models such as python and java.</p>
+<h2 id="summary-and-future-directions">Summary and future directions</h2>
+<hr />
+<p><strong>Theory and principles:：</strong>In order to understand the basic working mechanism of LLM, one of the biggest mysteries is how information is distributed, organized and utilized through very large deep neural networks. It is important to reveal the underlying principles or elements that build the basis of LLMs' capabilities. In particular, scaling appears to play an important role in improving the capabilities of LLMs. Existing research has shown that when the parameter size of a language model increases to a critical point (such as 10B), some emerging capabilities will appear in an unexpected way (sudden leap in performance), typically including context learning, instruction following and Step-by-step reasoning. These “emergent” abilities are fascinating but also puzzling: when and how do LLMs acquire them? Some recent research has either conducted broad-scale experiments investigating the effects of emerging abilities and the enablers of those abilities, or used existing theoretical frameworks to explain specific abilities. An insightful technical post targeting the GPT family of models also deals specifically with this topic, however more formal theories and principles to understand, describe and explain the capabilities or behavior of LLMs are still lacking. Since emergent capabilities have close similarities to phase transitions in nature, interdisciplinary theories or principles (such as whether LLMs can be considered some kind of complex systems) may be helpful in explaining and understanding the behavior of LLMs. These fundamental questions deserve exploration by the research community and are important for developing the next generation of LLMs.</p>
+<p><strong>Model architecture：</strong>Transformers, consisting of stacked multi-head self-attention layers, have become a common architecture for building LLMs due to their scalability and effectiveness. Various strategies have been proposed to improve the performance of this architecture, such as neural network configuration and scalable parallel training (see discussion in Section 4.2.2). In order to further improve the capacity of the model (such as multi-turn dialogue capability), existing LLMs usually maintain a long context length. For example, GPT-4-32k has an extremely large context length of 32768 tokens. Therefore, a practical consideration is to reduce the time complexity (primitive quadratic cost) incurred by standard self-attention mechanisms.</p>
+<p>Furthermore, it will be important to study the impact of more efficient Transformer variants on building LLMs, such as sparse attention has been used for GPT-3. Catastrophic forgetting has also been a challenge for neural networks, which has also negatively impacted LLMs. When LLMs are tuned with new data, the previously learned knowledge is likely to be destroyed. For example, fine-tuning LLMs for some specific tasks will affect their general capabilities. A similar situation occurs when LLMs are aligned with human values, which is called an alignment tax. Therefore, it is necessary to consider extending the existing architecture with more flexible mechanisms or modules to effectively support data updates and task specialization.</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Bidirectional LSTM-CRF Models for Sequence Tagging</title>
     <url>/2020/07/15/Bidirectional%20LSTM-CRF%20Models%20for%20Sequence%20Tagging/</url>
     <content><![CDATA[<p>本文是对论文<a href="https://arxiv.org/abs/1508.01991" target="_blank" rel="noopener">Bidirectional LSTM-CRF Models for Sequence Tagging</a>的总结。文章系统地比较了基于LSTM网络的各种序列标记模型的性能。 并在当时首次将BI-LSTM-CRF模型应用于NLP基准序列标记任务。 其中，BI-LSTM-CRF模型在词性标注，分块和命名实体识别任务上表现最优。模型具有鲁棒性且对单词嵌入的依赖性较小，甚至可以无需借助词嵌入达到一定的精度。</p>
@@ -109,154 +162,6 @@ h _ { t } = o _ { t } \tanh ( c _ { t } )\quad\quad\quad\quad\quad\quad\quad\qua
 ]]></content>
   </entry>
   <entry>
-    <title>Evaluation methods for unsupervised word embeddings</title>
-    <url>/2020/07/04/Evaluation%20methods%20for%20unsupervised%20word%20embeddings/</url>
-    <content><![CDATA[<p>本文是对论文<a href="https://www.aclweb.org/anthology/D15-1036.pdf" target="_blank" rel="noopener">Evaluation methods for unsupervised word embeddings</a>的总结。相较于大量生成词嵌入模型的研究，评估词嵌入模型的工作相对较少。 该论文是第一篇对词嵌入评估进行深入研究的论文，发表于2015年，涵盖了广泛的评估标准和当时流行的嵌入技术。其目的并非是证明某个词嵌入方法优于其他方法，而是要对词嵌入的评估方法本身做较深入的探讨。</p>
-<a id="more"></a>
-<p>本文的主要内容包括：</p>
-<ul>
-<li>评估方法概述</li>
-<li>不同评估标准下模型表现比较</li>
-<li>词嵌入中的词频信息</li>
-<li>总结</li>
-</ul>
-<h3 id="评估方案概述">评估方案概述</h3>
-<hr />
-<p>现有词嵌入评估方案分为两大类：外部评估（extrinsic evaluation）和内部评估（intrinsic evaluation）。</p>
-<p><strong>外部评估</strong>：词向量被用作下游任务的输入特征，好的词向量应该对使用其的任务有正面影响。但是不同的任务对词向量的偏好可能是不同的，因此外部评估是否有效一直是一个存在争论。</p>
-<p><strong>内部评估</strong>：直接测试单词之间的句法或语义关系。内部评估通常涉及一组预先选择的查询词和与语义相关的目标词，称为查询清单。文章中内部评估进一步分成两类：<em>绝对内在评估</em>和<em>比较内在评估</em>。其中比较内在评估由文章提出，并应用在相关性评估和一致性评估中。</p>
-<h3 id="不同评估标准下模型表现比较">不同评估标准下模型表现比较</h3>
-<hr />
-<p>论文从单词相关性，一致性，下游表现三个不同评估标准入手，分析了三种标准下各词嵌入模型排序结果之间的关系。</p>
-<h4 id="相关性评估">相关性评估</h4>
-<h5 id="绝对内在评估">绝对内在评估</h5>
-<p>绝对内在评估使用通常用作嵌入方法基准的<strong><em>14</em></strong>个数据集（如Table1），对<strong><em>6</em></strong>个词嵌入模型从如下<strong><em>4</em></strong>个范畴进行评估：</p>
-<ul>
-<li>相关性(relatedness): 两个单词的词嵌入的余弦相似度应与人类相关性得分具有高度相关性</li>
-<li>类比性(analogy): 对给定的单词y, 能否找到一个对应的单词x, 使得x与y的关系能够类比另外两个已知词a与b的关系</li>
-<li>类别化(categorization): 对词向量进行聚类, 看每个簇与有标记数据集各类相比纯度如何</li>
-<li>选择倾向(selectinal preference): 判断某名词是更倾向做某个动词的主语还是宾语, 例如一般顺序是 he runs 而不是 runs he</li>
-</ul>
-<p>评估结果如下：</p>
-<p>1056</p>
-<p>绝对内在评估在设计上有两点缺陷：</p>
-<ul>
-<li><p>查询清单（query inventory）：上述的14个数据集在设计上都没能考虑以下几个方面，</p>
-<ul>
-<li><p>the frequency of the words in the English language</p></li>
-<li><p>the parts of speech of the words</p></li>
-<li><p>abstractness vs. concreteness</p></li>
-</ul></li>
-<li><p>度量指标（metric aggregation）：我们找不到一种对完全无关的单词对进行排序的方式（metric）。 例如，我们如何确定（狗，猫）是否比（香蕉，苹果）更相似</p></li>
-</ul>
-<h5 id="比较内在评估">比较内在评估</h5>
-<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3MqrJW4KFs9LfY7hWZuGX8iNCm.6EnpWmizCKEv9OfRL8YlJdeZOH4tn917Flf7Tng!!/b&amp;bo=cgSOAgAAAAADB9g!&amp;rf=viewer_4" style="zoom: 33%;" /></p>
-<p>针对绝对内在评估存在的缺陷，文章提出了<em>比较内在评估</em>方法。即，给出一个查询词，将6个词嵌入模型产生的结果呈现给用户，让用户选出最相关的，然后统计结果。如Table 2.</p>
-<ul>
-<li><p>文章采用用户直接反馈的形式避免了需要定义指标（metric）的问题。</p></li>
-<li><p>文章定义制作了更符合词嵌入评估任务的查询清单。考虑了词频、词性、类别、是否是抽象词四个方面。并对这四个方面分别做了评估。</p></li>
-</ul>
-<p>比较内在评估结果如下：</p>
-<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaYyIUYreKyNC7qTzjk..xcAsEAIzcwCsJzMOIVOYmwCVdpMa3bxvaEMZn6vH18MQa253IJxDg*NSe0Qn0joRqpPE!/b&amp;bo=7gU4BAAAAAADN8U!&amp;rf=viewer_4" style="zoom: 50%;" /></p>
-<center>
-Figure 1: Direct comparison task
-</center>
-<h4 id="一致性评估">一致性评估</h4>
-<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3P8cCoVC1A7.3Yyr*hKVdUi3*bS3XnEmd4JdP4qZnRWjpGaQ5Omu4ijHfhZz4tKBrw!!/b&amp;bo=rAhkAwAAAAADB.E!&amp;rf=viewer_4" style="zoom:25%;" /></p>
-<p>文章中一致性评估直接采用比较内在评估方法。一致性评估是文章提出的评估方法。将查询词本身及词嵌入模型计算出来的两个相近词再加上一个不相关的词组成一道选择题。由测试人选出不相关的词。由此判定词嵌入模型选出的词与查询词是否具有一致性。</p>
-<p>一致性评估结果如下：</p>
-<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3HkOUPptF0rYckWfjgSj3wfDacq9Q7HuwQzQDiNkGn8kPelkhqUdsQOxR2f0wqiiYA!!/b&amp;bo=hAY4BAAAAAADB5w!&amp;rf=viewer_4" style="zoom:25%;" /></p>
-<center>
-Figure 2: Intrusion task: average precision by global word frequency
-</center>
-<p>到目前为止，对比<span class="math inline">\(Table1, Figure1\)</span>和<span class="math inline">\(Figure2\)</span>，6个词嵌入模型从一致性任务获得的排名与从相关性任务获得的排名产生了出入。</p>
-<h4 id="外在评估下游表现">外在评估（下游表现）</h4>
-<p>外在评估评估单词嵌入模型对特定任务的贡献。</p>
-<p>使用此类评估存在一个隐含的假设，即单词嵌入质量是有固定排名的。也就是说，嵌入模型无论在什么任务里的表现排名应该是基本一致的。因此，更高质量的嵌入将必定会改善任何下游任务的结果。</p>
-<p>但文章发现上述假设不成立：不同的任务倾向于不同的嵌入。</p>
-<p>在文章试验的两个任务：名词短语分块和情感分类中证实了上述观点。文章建议对词嵌入进行针对项目的训练，以优化特定目标。</p>
-<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3H1dtYybh1w4r.wPapYRLqvr0LSVsW7wvqjAqJrbZU*vQDSxRc9z2.fuk52*9GM.5A!!/b&amp;bo=OATIBgAAAAADB9A!&amp;rf=viewer_4" style="zoom:25%;" /></p>
-<h3 id="embedding中的词频信息">Embedding中的词频信息</h3>
-<hr />
-<p>文章用两个小实验证实了embedding中编码了大量的词频信息。两个小实验的情况如下：</p>
-<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3MxBRn.X0eEGkRNPoxsXnqzLc0Usoz7oujbllJnRtldyQAM5AiCOe0o5jlLL0zNc9A!!/b&amp;bo=PAiGAwAAAAADB5M!&amp;rf=viewer_4" style="zoom:67%;" /></p>
-<h3 id="总结">总结</h3>
-<hr />
-<p>本论文的主要贡献总结如下：</p>
-<ul>
-<li>提出了由于使用不同的评估标准会导致嵌入效果排序的不同，对嵌入方法进行比较应在特定任务的上下文中进行，不提倡使用外部评估评测embedding。</li>
-<li>证实了自动相似性评估与直接人工评估之间存在很强的相关性。说明至少在相似性任务中使用离线数据是合理的。</li>
-<li>提出了一种模型驱动和数据驱动的方法来构建查询清单。</li>
-<li>发现了所有词嵌入模型都编码了大量的单词频率信息，对使用余弦相似度作为嵌入空间中的相似度度量的普遍做法提出了质疑</li>
-</ul>
-<h3 id="参考文献">参考文献</h3>
-<hr />
-<p><a href="https://www.aclweb.org/anthology/D15-1036.pdf" target="_blank" rel="noopener">[Schnabel2015] Schnabel, T., Labutov, I., Mimno, D., &amp; Joachims, T. Evaluation methods for unsupervised word embeddings. In <em>Proceedings of the 2015 Conference on Empirical Methods in Natural Language Processing (EMNLP)</em> (pp. 298-307). 2015</a></p>
-<h3 id="评估相关其他资料">评估相关其他资料</h3>
-<hr />
-<p><a href="https://arxiv.org/abs/1801.09536" target="_blank" rel="noopener">[Bakarov2018] Bakarov, Amir. "A Survey of Word Embeddings Evaluation Methods." <em>arXiv preprint arXiv:1801.09536</em>. 2018</a></p>
-]]></content>
-      <categories>
-        <category>NLP</category>
-      </categories>
-      <tags>
-        <tag>embedding evaluation</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>2023年大模型研究现状综述</title>
-    <url>/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/</url>
-    <content><![CDATA[<p>This article reviews the current status of large model research in 2023. It summarizes the various stages of large model development this year and the contributions of major research institutions to large model research. It also summarizes and summarizes the current mainstream types of large models. On this basis, some thoughts and prospects about the future development of large-model technology were made.</p>
-<a id="more"></a>
-<p>The main contents of this article include:：</p>
-<ul>
-<li><p>Current status of basic model research</p></li>
-<li><p>Introduction to LLM model types</p></li>
-<li><p>Summary and future directions</p></li>
-</ul>
-<h2 id="current-status-of-basic-model-research">Current status of basic model research</h2>
-<hr />
-<p>In 2023, with the development of LLM technology, the open source models of Chinese model research institutions will usher in explosive growth:</p>
-<ul>
-<li><p>In March 2023, Zhipu AI first released the ChatGLM-6B series in the Magic Community. ChatGLM-6B is an open source dialogue language model that supports Chinese and English bilingual question and answer. It is based on the General Language Model (GLM) architecture and has 62 billion parameters. Combined with model quantization technology, users can deploy it locally on consumer-grade graphics cards (a minimum of 6GB of video memory is required at the INT4 quantization level). Now, Zhipu AI's ChatGLM-6B has been updated to the third generation. At the same time, it has launched the CogVLM series in multi-modal mode, as well as CogVLM that supports visual agents, and launched the CodeGeex series models in the code field, while exploring both agent and math. and open source models and technologies.</p></li>
-<li><p>In June 2023, Baichuan first released the Baichuan-7B model in the Moda community. baichuan-7B is an open source large-scale pre-training model developed by Baichuan Intelligence. Based on the Transformer structure, the 7 billion parameter model is trained on approximately 1.2 trillion tokens, supports Chinese and English bilinguals, and has a context window length of 4096. Baichuan is also one of the first companies to launch pre-trained models, and jokingly claims to provide developers with better “rough houses” so that developers can better “decorate” them, thus promoting the development of domestic pre-trained base models. Subsequently, Baichuan released the 13B model and Baichuan 2 series models, with both open source base and chat versions simultaneously.</p></li>
-<li><p>In July 2023, at the opening ceremony of WAIC 2023 and the Scientific Frontier Plenary Meeting, the Shanghai Artificial Intelligence Laboratory teamed up with a number of institutions to release a newly upgraded "Scholar General Large Model System", including Scholar·Multimodal, Scholar·Puyu He Shusheng·Tianji and other three basic models, as well as the first full-chain open source system for the development and application of large models. Shanghai Artificial Intelligence Laboratory not only makes model weights open source, but also conducts all-round open source at the model, data, tools and evaluation levels to promote technological innovation and industrial progress. Subsequently, the Shanghai Artificial Intelligence Laboratory successively released the Scholar·Puyu 20B model and the Scholar·Lingbi multi-modal model.</p></li>
-<li><p>In August 2023, Alibaba open sourced the Tongyi Qianwen 7B model, and subsequently open sourced the 1.8B, 14B, and 72B base and chat models, and provided the corresponding quantized versions of int4 and int8, which can be used in multi-modal scenarios. , Qianwen has also open sourced two visual and speech multi-modal models, qwen-vl and qwen-audio, achieving "full-size, full-modality" open source. Qwen-72B has improved the size and performance of open source large models. Since its release, it has remained at the top of the major charts, filling a gap in the country. Based on Qwen-72B, large and medium-sized enterprises can develop commercial applications, and universities and research institutes can carry out scientific research such as AI for Science.</p></li>
-<li><p>In October 2023, Kunlun Wanwei released the "Tiangong" Skywork-13B series of tens of billions of large language models, and rare open sourced a large high-quality open source Chinese data set of 600GB and 150B Tokens Skypile/Chinese-Web-Text -150B dataset. High-quality data filtered from Chinese web pages by Kunlun's carefully filtered data processing process. The size is approximately 600GB, and the total number of tokens is approximately (150 billion). It is currently one of the largest open source Chinese data sets.</p></li>
-<li><p>In November 2023, 01-AI company released the Yi series of models, with parameter sizes ranging from 6 billion to 34 billion, and the amount of training data reaching 30 billion tokens. These models outperform previous models on public leaderboards such as the Open LLM leaderboard and on some challenging benchmarks such as Skill-Mix.</p></li>
-</ul>
-<h2 id="introduction-to-llm-model-types">Introduction to LLM model types</h2>
-<hr />
-<h4 id="base-model-and-chat-model">Base model and Chat model</h4>
-<p>We usually see a model research and development institution open source the base model and chat model. So what is the difference between the base model and the chat model?</p>
-<p>First, all large language models (LLMs) work by taking in some text and predicting the text that is most likely to follow it.</p>
-<ul>
-<li>The base model, also known as the basic model, is a model trained on massive amounts of different texts to predict subsequent texts. Subsequent text is not necessarily a response to instructions and dialogue.</li>
-</ul>
-<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191246661.png" class="" alt="image-20240619191246661">
-<ul>
-<li>The chat model, also known as the dialogue model, is based on the base and continues to do fine-tuning and reinforcement learning through conversation records (instructions-responses). When it accepts instructions and talks with the user, it continues to write assistants that follow the instructions and are expected by humans. response content</li>
-</ul>
-<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191401263.png" class="" alt="image-20240619191401263">
-<h4 id="multimodal-model">multimodal model</h4>
-<p>Multimodal LLM combines information from text and other modalities, such as images, videos, audios, and other sensory data. Multimodal LLM is trained on multiple types of data, helping the transformer find the differences between different modalities. relationship, and complete some tasks that the new LLM cannot complete, such as picture description, music interpretation, video understanding, etc.</p>
-<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191640496.png" class="" alt="image-20240619191640496">
-<h4 id="agent-model">Agent model</h4>
-<p>LLM has the capabilities of an agent brain and collaborates with several key components, including,</p>
-<p>Planning: dismantling sub-goals, correcting errors, reflecting and improving.</p>
-<p>Memory: short-term memory (context, long window), long-term memory (implemented through search or vector engine)</p>
-<p>Tool use: The model learns to call external APIs to obtain additional capabilities.</p>
-<img src="/2024/01/19/2023%E5%B9%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E7%BB%BC%E8%BF%B0/image-20240619191724150.png" class="" alt="image-20240619191724150">
-<h4 id="code-model">Code model</h4>
-<p>The Code model adds more code data to the model's pre-training and SFT, and performs a series of tasks in the code, such as code completion, code error correction, and zero-sample completion of programming task instructions. At the same time, according to different code languages, there will also be more professional language code models such as python and java.</p>
-<h2 id="summary-and-future-directions">Summary and future directions</h2>
-<hr />
-<p><strong>Theory and principles:：</strong>In order to understand the basic working mechanism of LLM, one of the biggest mysteries is how information is distributed, organized and utilized through very large deep neural networks. It is important to reveal the underlying principles or elements that build the basis of LLMs' capabilities. In particular, scaling appears to play an important role in improving the capabilities of LLMs. Existing research has shown that when the parameter size of a language model increases to a critical point (such as 10B), some emerging capabilities will appear in an unexpected way (sudden leap in performance), typically including context learning, instruction following and Step-by-step reasoning. These “emergent” abilities are fascinating but also puzzling: when and how do LLMs acquire them? Some recent research has either conducted broad-scale experiments investigating the effects of emerging abilities and the enablers of those abilities, or used existing theoretical frameworks to explain specific abilities. An insightful technical post targeting the GPT family of models also deals specifically with this topic, however more formal theories and principles to understand, describe and explain the capabilities or behavior of LLMs are still lacking. Since emergent capabilities have close similarities to phase transitions in nature, interdisciplinary theories or principles (such as whether LLMs can be considered some kind of complex systems) may be helpful in explaining and understanding the behavior of LLMs. These fundamental questions deserve exploration by the research community and are important for developing the next generation of LLMs.</p>
-<p><strong>Model architecture：</strong>Transformers, consisting of stacked multi-head self-attention layers, have become a common architecture for building LLMs due to their scalability and effectiveness. Various strategies have been proposed to improve the performance of this architecture, such as neural network configuration and scalable parallel training (see discussion in Section 4.2.2). In order to further improve the capacity of the model (such as multi-turn dialogue capability), existing LLMs usually maintain a long context length. For example, GPT-4-32k has an extremely large context length of 32768 tokens. Therefore, a practical consideration is to reduce the time complexity (primitive quadratic cost) incurred by standard self-attention mechanisms.</p>
-<p>Furthermore, it will be important to study the impact of more efficient Transformer variants on building LLMs, such as sparse attention has been used for GPT-3. Catastrophic forgetting has also been a challenge for neural networks, which has also negatively impacted LLMs. When LLMs are tuned with new data, the previously learned knowledge is likely to be destroyed. For example, fine-tuning LLMs for some specific tasks will affect their general capabilities. A similar situation occurs when LLMs are aligned with human values, which is called an alignment tax. Therefore, it is necessary to consider extending the existing architecture with more flexible mechanisms or modules to effectively support data updates and task specialization.</p>
-]]></content>
-  </entry>
-  <entry>
     <title>LangChain开发框架学习路径</title>
     <url>/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/</url>
     <content><![CDATA[<p>本文是对LangChain应用开发框架的总体架构和关键技术的解读。以大纲的形式，辅以图形展示出LangChain开发框架的主要技术学习路径，做为初始接触该技术的学习者的入门指南。</p>
@@ -354,6 +259,101 @@ Figure 2: Intrusion task: average precision by global word frequency
 ]]></content>
   </entry>
   <entry>
+    <title>Evaluation methods for unsupervised word embeddings</title>
+    <url>/2020/07/04/Evaluation%20methods%20for%20unsupervised%20word%20embeddings/</url>
+    <content><![CDATA[<p>本文是对论文<a href="https://www.aclweb.org/anthology/D15-1036.pdf" target="_blank" rel="noopener">Evaluation methods for unsupervised word embeddings</a>的总结。相较于大量生成词嵌入模型的研究，评估词嵌入模型的工作相对较少。 该论文是第一篇对词嵌入评估进行深入研究的论文，发表于2015年，涵盖了广泛的评估标准和当时流行的嵌入技术。其目的并非是证明某个词嵌入方法优于其他方法，而是要对词嵌入的评估方法本身做较深入的探讨。</p>
+<a id="more"></a>
+<p>本文的主要内容包括：</p>
+<ul>
+<li>评估方法概述</li>
+<li>不同评估标准下模型表现比较</li>
+<li>词嵌入中的词频信息</li>
+<li>总结</li>
+</ul>
+<h3 id="评估方案概述">评估方案概述</h3>
+<hr />
+<p>现有词嵌入评估方案分为两大类：外部评估（extrinsic evaluation）和内部评估（intrinsic evaluation）。</p>
+<p><strong>外部评估</strong>：词向量被用作下游任务的输入特征，好的词向量应该对使用其的任务有正面影响。但是不同的任务对词向量的偏好可能是不同的，因此外部评估是否有效一直是一个存在争论。</p>
+<p><strong>内部评估</strong>：直接测试单词之间的句法或语义关系。内部评估通常涉及一组预先选择的查询词和与语义相关的目标词，称为查询清单。文章中内部评估进一步分成两类：<em>绝对内在评估</em>和<em>比较内在评估</em>。其中比较内在评估由文章提出，并应用在相关性评估和一致性评估中。</p>
+<h3 id="不同评估标准下模型表现比较">不同评估标准下模型表现比较</h3>
+<hr />
+<p>论文从单词相关性，一致性，下游表现三个不同评估标准入手，分析了三种标准下各词嵌入模型排序结果之间的关系。</p>
+<h4 id="相关性评估">相关性评估</h4>
+<h5 id="绝对内在评估">绝对内在评估</h5>
+<p>绝对内在评估使用通常用作嵌入方法基准的<strong><em>14</em></strong>个数据集（如Table1），对<strong><em>6</em></strong>个词嵌入模型从如下<strong><em>4</em></strong>个范畴进行评估：</p>
+<ul>
+<li>相关性(relatedness): 两个单词的词嵌入的余弦相似度应与人类相关性得分具有高度相关性</li>
+<li>类比性(analogy): 对给定的单词y, 能否找到一个对应的单词x, 使得x与y的关系能够类比另外两个已知词a与b的关系</li>
+<li>类别化(categorization): 对词向量进行聚类, 看每个簇与有标记数据集各类相比纯度如何</li>
+<li>选择倾向(selectinal preference): 判断某名词是更倾向做某个动词的主语还是宾语, 例如一般顺序是 he runs 而不是 runs he</li>
+</ul>
+<p>评估结果如下：</p>
+<p>1056</p>
+<p>绝对内在评估在设计上有两点缺陷：</p>
+<ul>
+<li><p>查询清单（query inventory）：上述的14个数据集在设计上都没能考虑以下几个方面，</p>
+<ul>
+<li><p>the frequency of the words in the English language</p></li>
+<li><p>the parts of speech of the words</p></li>
+<li><p>abstractness vs. concreteness</p></li>
+</ul></li>
+<li><p>度量指标（metric aggregation）：我们找不到一种对完全无关的单词对进行排序的方式（metric）。 例如，我们如何确定（狗，猫）是否比（香蕉，苹果）更相似</p></li>
+</ul>
+<h5 id="比较内在评估">比较内在评估</h5>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3MqrJW4KFs9LfY7hWZuGX8iNCm.6EnpWmizCKEv9OfRL8YlJdeZOH4tn917Flf7Tng!!/b&amp;bo=cgSOAgAAAAADB9g!&amp;rf=viewer_4" style="zoom: 33%;" /></p>
+<p>针对绝对内在评估存在的缺陷，文章提出了<em>比较内在评估</em>方法。即，给出一个查询词，将6个词嵌入模型产生的结果呈现给用户，让用户选出最相关的，然后统计结果。如Table 2.</p>
+<ul>
+<li><p>文章采用用户直接反馈的形式避免了需要定义指标（metric）的问题。</p></li>
+<li><p>文章定义制作了更符合词嵌入评估任务的查询清单。考虑了词频、词性、类别、是否是抽象词四个方面。并对这四个方面分别做了评估。</p></li>
+</ul>
+<p>比较内在评估结果如下：</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/.iXrRpyf8uMJ6D8uriNaYyIUYreKyNC7qTzjk..xcAsEAIzcwCsJzMOIVOYmwCVdpMa3bxvaEMZn6vH18MQa253IJxDg*NSe0Qn0joRqpPE!/b&amp;bo=7gU4BAAAAAADN8U!&amp;rf=viewer_4" style="zoom: 50%;" /></p>
+<center>
+Figure 1: Direct comparison task
+</center>
+<h4 id="一致性评估">一致性评估</h4>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3P8cCoVC1A7.3Yyr*hKVdUi3*bS3XnEmd4JdP4qZnRWjpGaQ5Omu4ijHfhZz4tKBrw!!/b&amp;bo=rAhkAwAAAAADB.E!&amp;rf=viewer_4" style="zoom:25%;" /></p>
+<p>文章中一致性评估直接采用比较内在评估方法。一致性评估是文章提出的评估方法。将查询词本身及词嵌入模型计算出来的两个相近词再加上一个不相关的词组成一道选择题。由测试人选出不相关的词。由此判定词嵌入模型选出的词与查询词是否具有一致性。</p>
+<p>一致性评估结果如下：</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3HkOUPptF0rYckWfjgSj3wfDacq9Q7HuwQzQDiNkGn8kPelkhqUdsQOxR2f0wqiiYA!!/b&amp;bo=hAY4BAAAAAADB5w!&amp;rf=viewer_4" style="zoom:25%;" /></p>
+<center>
+Figure 2: Intrusion task: average precision by global word frequency
+</center>
+<p>到目前为止，对比<span class="math inline">\(Table1, Figure1\)</span>和<span class="math inline">\(Figure2\)</span>，6个词嵌入模型从一致性任务获得的排名与从相关性任务获得的排名产生了出入。</p>
+<h4 id="外在评估下游表现">外在评估（下游表现）</h4>
+<p>外在评估评估单词嵌入模型对特定任务的贡献。</p>
+<p>使用此类评估存在一个隐含的假设，即单词嵌入质量是有固定排名的。也就是说，嵌入模型无论在什么任务里的表现排名应该是基本一致的。因此，更高质量的嵌入将必定会改善任何下游任务的结果。</p>
+<p>但文章发现上述假设不成立：不同的任务倾向于不同的嵌入。</p>
+<p>在文章试验的两个任务：名词短语分块和情感分类中证实了上述观点。文章建议对词嵌入进行针对项目的训练，以优化特定目标。</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3H1dtYybh1w4r.wPapYRLqvr0LSVsW7wvqjAqJrbZU*vQDSxRc9z2.fuk52*9GM.5A!!/b&amp;bo=OATIBgAAAAADB9A!&amp;rf=viewer_4" style="zoom:25%;" /></p>
+<h3 id="embedding中的词频信息">Embedding中的词频信息</h3>
+<hr />
+<p>文章用两个小实验证实了embedding中编码了大量的词频信息。两个小实验的情况如下：</p>
+<p><img src="http://m.qpic.cn/psc?/V13FFsWG1SefP8/p4b63XAxeBU0dFwQicUt3MxBRn.X0eEGkRNPoxsXnqzLc0Usoz7oujbllJnRtldyQAM5AiCOe0o5jlLL0zNc9A!!/b&amp;bo=PAiGAwAAAAADB5M!&amp;rf=viewer_4" style="zoom:67%;" /></p>
+<h3 id="总结">总结</h3>
+<hr />
+<p>本论文的主要贡献总结如下：</p>
+<ul>
+<li>提出了由于使用不同的评估标准会导致嵌入效果排序的不同，对嵌入方法进行比较应在特定任务的上下文中进行，不提倡使用外部评估评测embedding。</li>
+<li>证实了自动相似性评估与直接人工评估之间存在很强的相关性。说明至少在相似性任务中使用离线数据是合理的。</li>
+<li>提出了一种模型驱动和数据驱动的方法来构建查询清单。</li>
+<li>发现了所有词嵌入模型都编码了大量的单词频率信息，对使用余弦相似度作为嵌入空间中的相似度度量的普遍做法提出了质疑</li>
+</ul>
+<h3 id="参考文献">参考文献</h3>
+<hr />
+<p><a href="https://www.aclweb.org/anthology/D15-1036.pdf" target="_blank" rel="noopener">[Schnabel2015] Schnabel, T., Labutov, I., Mimno, D., &amp; Joachims, T. Evaluation methods for unsupervised word embeddings. In <em>Proceedings of the 2015 Conference on Empirical Methods in Natural Language Processing (EMNLP)</em> (pp. 298-307). 2015</a></p>
+<h3 id="评估相关其他资料">评估相关其他资料</h3>
+<hr />
+<p><a href="https://arxiv.org/abs/1801.09536" target="_blank" rel="noopener">[Bakarov2018] Bakarov, Amir. "A Survey of Word Embeddings Evaluation Methods." <em>arXiv preprint arXiv:1801.09536</em>. 2018</a></p>
+]]></content>
+      <categories>
+        <category>NLP</category>
+      </categories>
+      <tags>
+        <tag>embedding evaluation</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Paper reading: Gemma: Open Models Based on Gemini Research and Technology</title>
     <url>/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/</url>
     <content><![CDATA[<p>Google DeepMind has released Gemma, a series of open models inspired by the same research and technology used for Gemini. This article summarized the main parts of paper Gemma: Open Models Based on Gemini Research and Technology and shown the basic way for running this model on local devices. Then give a conclusion on this model.</p>
@@ -403,6 +403,31 @@ Figure 2: Intrusion task: average precision by global word frequency
 <p>It is undeniable that releasing the Gemma model is a step forward for Google. Gemma 7B looks like a good competitor to Mistral 7B, but let's not forget that it also has 1 billion more parameters than Mistral 7B. In addition, I have never figured out what the use cases of Gemma 2B are. Its performance is surpassed by other models of similar size (this 2B may be really 2B), and it can be seen that the performance of these two Google models with few parameters is not good, but the performance is good. There are many more parameters. This kind of word play shows that Google is indeed lagging behind and anxious on the AI track, and there is currently no way to surpass it.</p>
 <p>Here is the gemma-report officially released by Google. If you are interested, you can check it out.</p>
 <p>https://storage.googleapis.com/deepmind-media/gemma/gemma-report.pdf</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Paper Reading: Cramming- Training a Language Model on a Single GPU in One Day</title>
+    <url>/2023/07/24/Paper%20Reading:%20Cramming-%20Training%20a%20Language%20Model%20on%20a%20Single%20GPU%20in%20One%20Day/</url>
+    <content><![CDATA[<p>IBM's NLP research expert Leshem Choshen commented on Twitter, "This paper summarizes all the big model training trips you can think of.</p>
+<a id="more"></a>
+<p>###Limited resources</p>
+<p>In order to simulate the resource environment of ordinary practitioners and researchers, this study first constructed a resource constrained research environment:</p>
+<ul>
+<li><p>A transformer based language model of any size, trained entirely from scratch using masked language modeling;</p></li>
+<li><p>The pipeline cannot contain existing pre trained models;</p></li>
+<li><p>Any raw text (excluding downstream data) can be included in the training, which means that acceleration can be achieved by wisely selecting how and when to sample the data, provided that the sampling mechanism does not require pre training the model;</p></li>
+<li><p>The download and pre-processing of original data are not included in the total budget. The pre-processing here includes CPU based tokenizer construction, tokenization and filtering, but does not include Feature learning;</p></li>
+<li><p>Training is only conducted on a single GPU for 24 hours;</p></li>
+<li><p>Downstream performance is evaluated on GLUE, and downstream fine-tuning on GLUE is limited to simple training using only training data from downstream tasks (5 epochs or less), and requires the use of global hyperparameters set for all GLUE tasks. Downstream fine-tuning is not included in the total budget.</p></li>
+</ul>
+<p>###Improvement methods</p>
+<p>The researchers implemented and tested some modification directions proposed by existing work, including general implementation and initial data settings, and attempted to modify the architecture, train, and modify the dataset methods.</p>
+<p>The experiment was conducted in PyTorch, without using idiosyncratic implementations to be as fair as possible. All content was kept at the implementation level of the PyTorch framework, and only automatic operator fusion that could be applied to all components was allowed. In addition, the efficient attention kernel would only be re enabled after selecting the final architectural variant.</p>
+<p>The first method we think of to improve performance is definitely modifying the model architecture. Intuitively, smaller/lower capacity models seem to be optimal in a one card per day training session. However, after studying the relationship between model type and training efficiency, researchers found that the scaling law poses a huge obstacle to scaling down. The training efficiency of each token largely depends on the model size, rather than the type of transformer.</p>
+<p>In addition, smaller models have lower learning efficiency, which largely slows down the increase in throughput. Fortunately, the fact that training efficiency remains almost constant in models of the same size means that we can find suitable designs in architectures with similar parameter quantities, mainly based on the calculation time that affects individual gradient steps.</p>
+<p>###summary</p>
+<p>Overall, using the method in the paper, the training results are already very close to the original BERT, but it should be noted that the total FLOPS used by the latter is 45-136 times that of the new method (which takes four days on 16 TPUs). When the training time was extended by 16 times (trained on 8 GPUs for two days), the performance of the new method actually improved significantly compared to the original BERT, reaching the level of RoBERTA.</p>
+<p>In this work, people discussed how much performance a transformer based language model can achieve in environments with very limited computational complexity. Fortunately, several modification directions can enable us to achieve good downstream performance on GLUE. Researchers expressed the hope that this work can provide a baseline for further improvement and provide theoretical support for many improvements and techniques proposed for Transformer architecture in recent years.</p>
 ]]></content>
   </entry>
   <entry>
@@ -510,112 +535,6 @@ Figure 2: Intrusion task: average precision by global word frequency
 ]]></content>
   </entry>
   <entry>
-    <title>Rasa NLU classifier解析</title>
-    <url>/2020/10/21/Rasa%20NLU%20classifier%E8%A7%A3%E6%9E%90/</url>
-    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU classifier架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU classifier 做总体上的说明。</p>
-<p>本文更多关注算法，主要内容如下：</p>
-<a id="more"></a>
-<ul>
-<li>Rasa NLU Classifier架构</li>
-<li>主流技术支持情况</li>
-</ul>
-<h3 id="rasa-nlu-classifier架构">Rasa NLU Classifier架构</h3>
-<p>285</p>
-<h3 id="主流技术支持情况">主流技术支持情况</h3>
-<table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 10%" />
-<col style="width: 15%" />
-<col style="width: 53%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>主流技术</strong></th>
-<th><strong>是否支持</strong></th>
-<th><strong>支持模块</strong></th>
-<th><strong>说明</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Huggingface Transformer</td>
-<td>部分</td>
-<td>DIETClassifier</td>
-<td>见2.1.3.2</td>
-</tr>
-<tr class="even">
-<td>Wide&amp;Deep</td>
-<td>是</td>
-<td>DIETClassifier</td>
-<td>稀疏和稠密特征融合</td>
-</tr>
-<tr class="odd">
-<td>transformer</td>
-<td>是</td>
-<td>DIETClassifier</td>
-<td>transformer层数可配置</td>
-</tr>
-<tr class="even">
-<td>DNN</td>
-<td>是</td>
-<td>DIETClassifier</td>
-<td>DNN层数固定不可配置</td>
-</tr>
-<tr class="odd">
-<td>SVM</td>
-<td>是</td>
-<td>SKLearnClassifier</td>
-<td>支持网络搜索优化配置</td>
-</tr>
-<tr class="even">
-<td>其他传统机器学习模型</td>
-<td>是</td>
-<td>SKLearnClassifier</td>
-<td>SKLearn支持的所有模型</td>
-</tr>
-<tr class="odd">
-<td>Mitie Linear SVM</td>
-<td>是</td>
-<td>MitieClassifier</td>
-<td>使用自有的稀疏线性核</td>
-</tr>
-<tr class="even">
-<td>字符串匹配</td>
-<td>是</td>
-<td>KeywordClassifier</td>
-<td>不是关键词而是样例句完全匹配</td>
-</tr>
-<tr class="odd">
-<td>CNN</td>
-<td>否</td>
-<td>无</td>
-<td>DIET只支持在预训练模型后添加transformer层，现有rasa无法搭建诸如textCNN, bert+bilsm+crf这类经典模型</td>
-</tr>
-<tr class="even">
-<td>单双向RNN ( LSTM, GRU )</td>
-<td>否</td>
-<td>无</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>GCN</td>
-<td>否</td>
-<td>无</td>
-<td>图卷积神经网络</td>
-</tr>
-</tbody>
-</table>
-<p>问题：pipeline中可以叠加使用多个classifier吗（除fallback）？如果被KeywordClassifier模块命中，可不可以直接跳过其他 classifier）</p>
-<p>回答：单个pipeline中classifier可以叠加，例如KeywordIntentClassifier可以添加在主classifier后，这样Keyword的结果将覆盖classifier结果。<a href="https://forum.rasa.com/t/keyword-based-intent-classification/22027/7" target="_blank" rel="noopener">参考资料</a></p>
-]]></content>
-      <tags>
-        <tag>Rasa</tag>
-        <tag>Machine leanring</tag>
-        <tag>[object Object]</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Rasa NLU DIET Classifier解析</title>
     <url>/2022/10/21/Rasa%20NLU%20DIET%20Classifier%E8%A7%A3%E6%9E%90/</url>
     <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU classifier中最受欢迎的DIET Classifier的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU classifier 中的DIET Classifier做详细的说明。</p>
@@ -719,31 +638,6 @@ Figure 2: Intrusion task: average precision by global word frequency
 </ul></li>
 <li><p>训练</p></li>
 </ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>Paper Reading: Cramming- Training a Language Model on a Single GPU in One Day</title>
-    <url>/2023/07/24/Paper%20Reading:%20Cramming-%20Training%20a%20Language%20Model%20on%20a%20Single%20GPU%20in%20One%20Day/</url>
-    <content><![CDATA[<p>IBM's NLP research expert Leshem Choshen commented on Twitter, "This paper summarizes all the big model training trips you can think of.</p>
-<a id="more"></a>
-<p>###Limited resources</p>
-<p>In order to simulate the resource environment of ordinary practitioners and researchers, this study first constructed a resource constrained research environment:</p>
-<ul>
-<li><p>A transformer based language model of any size, trained entirely from scratch using masked language modeling;</p></li>
-<li><p>The pipeline cannot contain existing pre trained models;</p></li>
-<li><p>Any raw text (excluding downstream data) can be included in the training, which means that acceleration can be achieved by wisely selecting how and when to sample the data, provided that the sampling mechanism does not require pre training the model;</p></li>
-<li><p>The download and pre-processing of original data are not included in the total budget. The pre-processing here includes CPU based tokenizer construction, tokenization and filtering, but does not include Feature learning;</p></li>
-<li><p>Training is only conducted on a single GPU for 24 hours;</p></li>
-<li><p>Downstream performance is evaluated on GLUE, and downstream fine-tuning on GLUE is limited to simple training using only training data from downstream tasks (5 epochs or less), and requires the use of global hyperparameters set for all GLUE tasks. Downstream fine-tuning is not included in the total budget.</p></li>
-</ul>
-<p>###Improvement methods</p>
-<p>The researchers implemented and tested some modification directions proposed by existing work, including general implementation and initial data settings, and attempted to modify the architecture, train, and modify the dataset methods.</p>
-<p>The experiment was conducted in PyTorch, without using idiosyncratic implementations to be as fair as possible. All content was kept at the implementation level of the PyTorch framework, and only automatic operator fusion that could be applied to all components was allowed. In addition, the efficient attention kernel would only be re enabled after selecting the final architectural variant.</p>
-<p>The first method we think of to improve performance is definitely modifying the model architecture. Intuitively, smaller/lower capacity models seem to be optimal in a one card per day training session. However, after studying the relationship between model type and training efficiency, researchers found that the scaling law poses a huge obstacle to scaling down. The training efficiency of each token largely depends on the model size, rather than the type of transformer.</p>
-<p>In addition, smaller models have lower learning efficiency, which largely slows down the increase in throughput. Fortunately, the fact that training efficiency remains almost constant in models of the same size means that we can find suitable designs in architectures with similar parameter quantities, mainly based on the calculation time that affects individual gradient steps.</p>
-<p>###summary</p>
-<p>Overall, using the method in the paper, the training results are already very close to the original BERT, but it should be noted that the total FLOPS used by the latter is 45-136 times that of the new method (which takes four days on 16 TPUs). When the training time was extended by 16 times (trained on 8 GPUs for two days), the performance of the new method actually improved significantly compared to the original BERT, reaching the level of RoBERTA.</p>
-<p>In this work, people discussed how much performance a transformer based language model can achieve in environments with very limited computational complexity. Fortunately, several modification directions can enable us to achieve good downstream performance on GLUE. Researchers expressed the hope that this work can provide a baseline for further improvement and provide theoretical support for many improvements and techniques proposed for Transformer architecture in recent years.</p>
 ]]></content>
   </entry>
   <entry>
@@ -909,6 +803,112 @@ Figure 2: Intrusion task: average precision by global word frequency
 ]]></content>
   </entry>
   <entry>
+    <title>Rasa NLU classifier解析</title>
+    <url>/2020/10/21/Rasa%20NLU%20classifier%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<p>本文是对著名对话机器人开源框架Rasa NLU classifier架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU classifier 做总体上的说明。</p>
+<p>本文更多关注算法，主要内容如下：</p>
+<a id="more"></a>
+<ul>
+<li>Rasa NLU Classifier架构</li>
+<li>主流技术支持情况</li>
+</ul>
+<h3 id="rasa-nlu-classifier架构">Rasa NLU Classifier架构</h3>
+<p>285</p>
+<h3 id="主流技术支持情况">主流技术支持情况</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 10%" />
+<col style="width: 15%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>主流技术</strong></th>
+<th><strong>是否支持</strong></th>
+<th><strong>支持模块</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Huggingface Transformer</td>
+<td>部分</td>
+<td>DIETClassifier</td>
+<td>见2.1.3.2</td>
+</tr>
+<tr class="even">
+<td>Wide&amp;Deep</td>
+<td>是</td>
+<td>DIETClassifier</td>
+<td>稀疏和稠密特征融合</td>
+</tr>
+<tr class="odd">
+<td>transformer</td>
+<td>是</td>
+<td>DIETClassifier</td>
+<td>transformer层数可配置</td>
+</tr>
+<tr class="even">
+<td>DNN</td>
+<td>是</td>
+<td>DIETClassifier</td>
+<td>DNN层数固定不可配置</td>
+</tr>
+<tr class="odd">
+<td>SVM</td>
+<td>是</td>
+<td>SKLearnClassifier</td>
+<td>支持网络搜索优化配置</td>
+</tr>
+<tr class="even">
+<td>其他传统机器学习模型</td>
+<td>是</td>
+<td>SKLearnClassifier</td>
+<td>SKLearn支持的所有模型</td>
+</tr>
+<tr class="odd">
+<td>Mitie Linear SVM</td>
+<td>是</td>
+<td>MitieClassifier</td>
+<td>使用自有的稀疏线性核</td>
+</tr>
+<tr class="even">
+<td>字符串匹配</td>
+<td>是</td>
+<td>KeywordClassifier</td>
+<td>不是关键词而是样例句完全匹配</td>
+</tr>
+<tr class="odd">
+<td>CNN</td>
+<td>否</td>
+<td>无</td>
+<td>DIET只支持在预训练模型后添加transformer层，现有rasa无法搭建诸如textCNN, bert+bilsm+crf这类经典模型</td>
+</tr>
+<tr class="even">
+<td>单双向RNN ( LSTM, GRU )</td>
+<td>否</td>
+<td>无</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>GCN</td>
+<td>否</td>
+<td>无</td>
+<td>图卷积神经网络</td>
+</tr>
+</tbody>
+</table>
+<p>问题：pipeline中可以叠加使用多个classifier吗（除fallback）？如果被KeywordClassifier模块命中，可不可以直接跳过其他 classifier）</p>
+<p>回答：单个pipeline中classifier可以叠加，例如KeywordIntentClassifier可以添加在主classifier后，这样Keyword的结果将覆盖classifier结果。<a href="https://forum.rasa.com/t/keyword-based-intent-classification/22027/7" target="_blank" rel="noopener">参考资料</a></p>
+]]></content>
+      <tags>
+        <tag>Rasa</tag>
+        <tag>Machine leanring</tag>
+        <tag>[object Object]</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>WMD论文总结及代码实现:  From Word Embeddings To Document Distances</title>
     <url>/2020/06/04/WMD-From-Word-Embeddings-To-Document-Distances/</url>
     <content><![CDATA[<p>本文是对论文<a href="http://proceedings.mlr.press/v37/kusnerb15.pdf" target="_blank" rel="noopener">From Word Embeddings To Document Distances</a>的总结和<a href="https://github.com/Adline125/Similarity" target="_blank" rel="noopener">code</a>实现。该论文基于word2vec embedding 和EMD（Earth Mover's Distance）提出了一种新的计算文档距离的算法WMD（Word Mover's Distance）。旨在解决 <em>Obama speaks to the media in Illinois</em> 和 <em>The President greets the press in Chicago</em> 仅仅因词语拼写不同而导致距离很远的不合理现象。尽管这两个句子对应的词语在语义上是相近的。</p>
@@ -1031,26 +1031,6 @@ subject\ to: &amp;\sum _ { j = 1 } ^ { n } T _ { i j } = d _ { i } \quad \forall
       <tags>
         <tag>document distance</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/05/23/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>XGBoost: A Scalable Tree Boosting System</title>
@@ -1207,6 +1187,26 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2020/05/23/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>机器学习和深度学习概述(一)</title>
     <url>/2024/07/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%E4%B8%80/</url>
     <content><![CDATA[<p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第一部分。</p>
@@ -1236,7 +1236,7 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
 <li>一对文档之间的相似度得分</li>
 </ul>
 <p>有时，分类输出可以从定量估计中生成。例如，前面描述的猫脑可以结合输入（硬度、锋利度等）来生成定量威胁分数。如果威胁分数很高，猫就会逃跑。如果威胁分数接近零，猫就会忽略它面前的物体。如果威胁分数为负，猫就会接近物体并发出呼噜声。 图1.1 显示了许多这样的示例。在每个实例中，机器（即大脑）将感官或知识输入转化为决策或定量估计。机器学习的目标是模拟该机器。</p>
-<p><img src="./机器学习和深度学习概述一/figure1.1.jpg" alt="图片" style="zoom:50%;" /></p>
+<img src="/2024/07/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%E4%B8%80/figure1.1.jpg" class="" alt="图片">
 <p>​ <strong>Figure1.1 生活中的决策定量估计模型</strong></p>
 <p>​ 请注意，机器学习还有很长的路要走才能赶上人脑。人脑可以独自处理数千甚至数百万个这样的问题。另一方面，在目前的发展状态下，机器学习几乎无法创建一台能够做出所有决策和估计的通用型机器。我们目前主要是试图分别制造单个的机器来针对性解决单个任务（例如选股器或汽车识别器）。此时，您可能会问：“等等，将输入转换为输出——这不正是计算机在过去30 多年里一直在做的事情吗？这里提到的范式转换是什么？”答案是，范式转换就是，我们没有向机器提供分步指令集（即程序）来将输入转换为输出。相反，我们是为该问题开发了一个数学模型。</p>
 <p>​ 让我们用一个例子来说明这个想法。为了简单和具体，我们将考虑一个假设的猫脑，它在生活中只需要做出一个决定：是逃离它面前的物体，还是忽略物体，还是走近并发出呼噜声。这个决定就是我们将要讨论的模型的输出。在这个示例中，决定仅基于两个定量输入（又称特征）：即感知到的物体的硬度和锋利度（如图1.1 所示）。我们不会通过提供分步指令来实现这一点，例如“如果锐度大于某个阈值，则逃跑”。相反，我们会尝试确定一个参数化函数，该函数接受输入并将其转换为所需的决策或估计值。而最简单的此类函数就是输入的加权和：</p>
@@ -1259,58 +1259,6 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
 <p>如前所述，这种迭代调整权重的过程称为训练或学习。在学习开始时，权重具有随机值，因此机器输出通常与期望输出不匹配。但随着时间的推移，更多的训练迭代发生，机器“学会”了如何生成我们期望的输出。这时模型就可以在现实世界中部署了。给定任意输入，模型将在推理过程中产出更接近人们想要的结果。</p>
 <p>仔细想想，这可能就是活体大脑的工作方式。它们包含各种任务的数学模型的等价物。在这里，权重是大脑中不同神经元之间连接（又称突触）的强度。一开始，参数未调整；大脑反复犯错。例如，婴儿的大脑经常在识别可食用物体时犯错误——任何有过孩子的人都能明白我们在说什么。但每个大脑都会调整参数（吃带有$符号的绿色和白色矩形物体会招致很多责骂-以后不应该吃它们，等等）。最终，这台大脑机器会调整好参数以产生更好的结果。</p>
 <p>这里应该注意一个微妙的点。在训练过程中，机器会调整其参数，以便仅根据训练数据输入产生所需的结果。当然，在训练过程中，它只看到所有可能输入的一小部分——我们不会构建从已知输入到已知输出的查找表。因此，当这台机器在真实世界发布时，它主要运行在从未见过的输入数据上。我们用什么来保证它会在从未见过的数据上产生期望的结果？坦率地说，没有任何保证。只是，在大多数现实生活的问题中，输入并不是真正随机的。它们会有一个模式。我们希望机器在训练期间能看到足够多的数据来捕捉这种模式。这样它在没有见过的输入上的输出将会接近所需的值。训练数据的分布越接近现实生活，就越有可能实现。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>机器学习和深度学习概述(四)</title>
-    <url>/2025/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%E5%9B%9B/</url>
-    <content><![CDATA[<p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第四部分。</p>
-<a id="more"></a>
-<p>本文的主要内容包括：</p>
-<ul>
-<li><strong>线性和非线性模型</strong></li>
-<li><strong>通过多个非线性层实现更高的表达能力：深度神经网络</strong></li>
-</ul>
-<h4 id="线性和非线性模型">1.6 线性和非线性模型</h4>
-<p>在图1.2中，我们面临一个相当简单的情况，即类别可以用一条线（高维曲面中的超平面）分隔。这在现实生活中并不常见。如果不同类别的点无法用一条线分开，如图1.4所示，该怎么办？在这种情况下，我们的模型架构不应再是简单的加权组合。它应是一个非线性函数。例如，请看图1.4中的曲线分隔符。从函数逼近的角度来看，非线性模型也是有意义的。最终，我们的目标是近似非常复杂且高度非线性的函数，以模拟生活中所需的分类或估计过程。直观地说，使用非线性函数来建模它们似乎会更好。</p>
-<p><img src="./机器学习和深度学习概述四/figure1.3.png" alt="image-20240704141159118" style="zoom:50%;"/></p>
-<p><strong>图1.3 模型将输入（特征）空间中的点映射到输出空间，在输出空间中更容易进行类别划分。例如，在该图中，属于两个类（红色（+）和绿色（-））的输入特征点分布在三维特征空间中的圆柱体体积上。该模型将圆柱体展开为矩形。特征点被映射到二维平面输出空间，在输出空间中，可以使用简单的线性分离器区分这两个类。</strong></p>
-<p><img src="./机器学习和深度学习概述四/figure1.4.png" alt="image-20240704141046887" style="zoom:33%;"/></p>
-<p><strong>图1.4两个类别（用浅色和深色表示）不能用线分开，需要用曲线分隔符。在三维空间中，这相当于说没有平面可以分开表面；需要一个曲面分隔符。在静止的空间中，这相当于说没有超平面可以分开类别；需要一个弯曲的超曲面。</strong></p>
-<p>机器学习中非常流行的非线性函数是Sigmoid函数，因为它看起来像字母 S，所以也叫S 型函数。Sigmoid函数通常用希腊字母𝜎表示。它的定义如下 <span class="math inline">\(\sigma^2(x)=\frac1{1+e^{-x}}\)</span> (1.5)</p>
-<p>图1.5显示了 Sigmoid函数的图形。因此，我们可以使用等式1.6，这是个非常流行的模型架构，叫做逻辑回归（仍然比较简单），该架构采用输入加权和的Sigmoid函数（无参数）：</p>
-<p><span class="math inline">\(y=\sigma\left(\vec{w}^T\vec{x}+b\right) (1.6)\)</span></p>
-<p><img src="./机器学习和深度学习概述四/figure1.5.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
-<p>​ <strong>图1.5 Sigmoid函数图形</strong></p>
-<p>Sigmoid函数赋予了非线性。与单独的加权和相比，这种架构可以处理相对更复杂的分类任务。事实上，等式1.6描述了神经网络的基本构建块。</p>
-<h4 id="通过多个非线性层实现更高的表达能力深度神经网络">1.7 通过多个非线性层实现更高的表达能力：深度神经网络</h4>
-<p>在第1.6节中，我们指出，在基本加权和模型中添加非线性可以产生能够处理更复杂任务的模型架构。用机器学习术语来说，非线性模型具有更强的表达能力。</p>
-<p>现在考虑一个现实生活中的问题：比如，构建一个狗识别器。输入空间包括像素位置和像素颜色（x、y、r、g、b，其中 r、g、b 表示像素颜色的红色、绿色和蓝色成分）。输入维度很大（与图像中的像素数量成比例）。图1.6简要介绍了典型的深度学习系统（例如狗图像识别器）必须处理的背景和前景的可能变化。我们需要一台具有极高表达能力的机器。我们如何以原则性的方式创建这样的机器？</p>
-<p><img src="./机器学习和深度学习概述四/figure1.6.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
-<p>​ <strong>图1.6 非典型深度学习系统（此处为狗图像识别器）需要处理的背景和前景变化一览</strong></p>
-<p>与其一步一步地从输入生成输出，不如采用级联方法？我们将从输入中生成一组中间或隐藏输出，其中每个隐藏输出本质上是一个逻辑回归单元。然后我们添加另一层，将前一层的输出作为输入，依此类推。最后，我们将最外层的隐藏层输出合并到总输出中。</p>
-<p><img src="./机器学习和深度学习概述四/figure1.7.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
-<p>​ <strong>图1.7 多层神经网络</strong></p>
-<p>我们用以下等式来描述该系统。请注意，我们在权重上添加了一个上标来标识层（层0 最接近输入；层 L 是最后一层，距离输入最远）。我们还将下标设为二维（因此给定层的权重是一个矩阵）。第一个下标标识目标节点，第二个下标标识源节点（见图1.7）。</p>
-<p>精明的读者可能会注意到，以下等式没有明确的偏差项。这是因为，为了简化符号，我们将其并入权重集并假设其中一个输入（例如，<span class="math inline">\(x_0\)</span>= 1）和相应的权重（例如<span class="math inline">\(w_0\)</span>）是偏差。</p>
-<p>第0层：从n+1个输入生成<span class="math inline">\(n_0\)</span>个隐藏输出</p>
-<p><span class="math inline">\(\begin{aligned}&amp;h_0^{(0)}&amp;&amp;=\sigma\left(w_{00}^{(0)}x_0+w_{01}^{(0)}x_1+\cdots w_{0n}^{(0)}x_n\right)\\ &amp;h_1^{(0)}&amp;&amp; =\sigma\left(w_{10}^{(0)}x_0+w_{11}^{(0)}x_1+\cdots w_{1n}^{(0)}x_n\right) \\ &amp;h_{n_0}^{(0)}&amp;&amp; =\sigma\left(w_{n_00}^{(0)}x_0+w_{n_01}^{(0)}x_1+\cdots w_{n_0n}^{(0)}x_n\right) \end{aligned}\)</span> （1.7）</p>
-<p>第1层：从第0 层的<span class="math inline">\(n_0\)</span>个隐藏输出生成<span class="math inline">\(n_1\)</span>个隐藏输出</p>
-<p><span class="math inline">\(\begin{aligned} &amp;h_0^{(1)}&amp;&amp; =\sigma\left(w_{00}^{(1)}h_0^{(0)}+w_{01}^{(1)}h_1^{(0)}+\cdots w_{0n_0}^{(1)}h_{n_0}^{(0)}\right) \\ &amp;h_1^{(1)}&amp;&amp; =\sigma\left(w_{10}^{(1)}h_0^{(0)}+w_{11}^{(1)}h_1^{(0)}+\cdots w_{1n_0}^{(1)}h_{n_0}^{(0)}\right) \\ &amp;h_{n_1}^{(1)}&amp;&amp; =\sigma\left(w_{n_10}^{(1)}h_0^{(0)}+w_{n_11}^{(1)}h_1^{(0)}+\cdots w_{n_1n_0}^{(1)}h_{n_0}^{(0)}\right) \end{aligned}\)</span>（1.8）</p>
-<p>最后一层（L）：从前一层<span class="math inline">\(n_{L-1}\)</span>个隐藏输出生成m+1个可见输出</p>
-<p><span class="math inline">\(\begin{aligned} h_0^{(L)}&amp; =\sigma\left(w_{00}^{(L)}h_0^{(L-1)}+w_{01}^{(L)}h_1^{(L-1)}+\cdots w_{0n_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \\ h_1^{(L)}&amp; =\sigma\left(w_{10}^{(L)}h_0^{(L-1)}+w_{11}^{(L)}h_1^{(L-1)}+\cdots w_{1n_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \\ \begin{array}{cc}\vdots\\\end{array}&amp;&amp; \\ h_m^{(L)}&amp; =\sigma\left(w_{m0}^{(L)}h_0^{(L-1)}+w_{m1}^{(L)}h_1^{(L-1)}+\cdots w_{mn_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \end{aligned}\)</span> （1.9）</p>
-<p>这些等式如图1.7 所示。图1.7 所示的机器可能非常强大，具有巨大的表达能力。我们可以系统地调整其表达能力以适应手头的问题。它是一个神经网络。我们将用本书的其余部分来研究这一点。</p>
-<h4 id="小结">小结</h4>
-<p>在本章中，我们概述了机器学习，并一直延伸到深度学习。我们用玩具猫脑示例说明了这些想法。本章使用了一些数学概念（例如向量），但没有进行适当的介绍，我们鼓励您在介绍向量和矩阵后重新阅读本章。</p>
-<p>我们希望您能从本章中得到以下的收获：</p>
-<ul>
-<li>机器学习是一种完全不同的计算范式。在传统计算中，我们向计算机提供分步指令序列，告诉它要做什么。在机器学习中，我们建立一个数学模型，试图逼近从输入生成分类或估计的未知函数。</li>
-<li>模型函数的数学性质由分类或估计任务的物理性质和复杂性决定。模型具有参数。参数值是根据训练数据（具有已知输出的输入）估计的。参数值经过优化，以使模型输出尽可能接近训练输入上的训练输出。</li>
-<li>机器学习模型可以从另一个角度理解，即几何视角，它是将多维输入空间中的点映射到输出空间中的点的变换。</li>
-<li>分类/估计任务越复杂，近似函数就越复杂。用机器学习术语来说，复杂的任务需要具有更强表达能力的机器。更高的表达能力来自非线性（例如，S 型函数；参见公式1.5）和更简单机器的分层组合。这让我们想到了深度学习，它只不过是一个多层非线性机器。</li>
-<li>复杂的模型函数通常通过组合较简单的基函数来构建。</li>
-</ul>
-<p>请系好安全带：学习乐趣即将变得更加激烈。</p>
 ]]></content>
   </entry>
   <entry>
@@ -1433,6 +1381,58 @@ r _ { k } ( z ) = \frac { 1 } { \sum _ { ( x , h ) \in D _ { k } } h } \sum _ { 
 <p>在回归器中，模型试图在给定特定输入的情况下输出期望值。例如，第1.3 节中猫脑模型的第一阶段（威胁分数估计器）就是回归器模型。</p>
 <p>另一方面，分类器有一组预先指定的类。给定一个特定的输入，它们会尝试输出输入所属的类。例如，完整的猫脑模型有三个类：（1）逃跑，（2）忽略，（3）靠近并发出呼噜声。因此，它接受输入（硬度和锐度值）并给出输出决策（又称类）。</p>
 <p>在此示例中，我们通过对回归器的输出进行阈值处理将回归器转换为分类器（参见公式1.2）。也可以创建直接输出类的模型，而无需中间的回归器。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>机器学习和深度学习概述(四)</title>
+    <url>/2025/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0%E5%9B%9B/</url>
+    <content><![CDATA[<p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第四部分。</p>
+<a id="more"></a>
+<p>本文的主要内容包括：</p>
+<ul>
+<li><strong>线性和非线性模型</strong></li>
+<li><strong>通过多个非线性层实现更高的表达能力：深度神经网络</strong></li>
+</ul>
+<h4 id="线性和非线性模型">1.6 线性和非线性模型</h4>
+<p>在图1.2中，我们面临一个相当简单的情况，即类别可以用一条线（高维曲面中的超平面）分隔。这在现实生活中并不常见。如果不同类别的点无法用一条线分开，如图1.4所示，该怎么办？在这种情况下，我们的模型架构不应再是简单的加权组合。它应是一个非线性函数。例如，请看图1.4中的曲线分隔符。从函数逼近的角度来看，非线性模型也是有意义的。最终，我们的目标是近似非常复杂且高度非线性的函数，以模拟生活中所需的分类或估计过程。直观地说，使用非线性函数来建模它们似乎会更好。</p>
+<p><img src="./机器学习和深度学习概述四/figure1.3.png" alt="image-20240704141159118" style="zoom:50%;"/></p>
+<p><strong>图1.3 模型将输入（特征）空间中的点映射到输出空间，在输出空间中更容易进行类别划分。例如，在该图中，属于两个类（红色（+）和绿色（-））的输入特征点分布在三维特征空间中的圆柱体体积上。该模型将圆柱体展开为矩形。特征点被映射到二维平面输出空间，在输出空间中，可以使用简单的线性分离器区分这两个类。</strong></p>
+<p><img src="./机器学习和深度学习概述四/figure1.4.png" alt="image-20240704141046887" style="zoom:33%;"/></p>
+<p><strong>图1.4两个类别（用浅色和深色表示）不能用线分开，需要用曲线分隔符。在三维空间中，这相当于说没有平面可以分开表面；需要一个曲面分隔符。在静止的空间中，这相当于说没有超平面可以分开类别；需要一个弯曲的超曲面。</strong></p>
+<p>机器学习中非常流行的非线性函数是Sigmoid函数，因为它看起来像字母 S，所以也叫S 型函数。Sigmoid函数通常用希腊字母𝜎表示。它的定义如下 <span class="math inline">\(\sigma^2(x)=\frac1{1+e^{-x}}\)</span> (1.5)</p>
+<p>图1.5显示了 Sigmoid函数的图形。因此，我们可以使用等式1.6，这是个非常流行的模型架构，叫做逻辑回归（仍然比较简单），该架构采用输入加权和的Sigmoid函数（无参数）：</p>
+<p><span class="math inline">\(y=\sigma\left(\vec{w}^T\vec{x}+b\right) (1.6)\)</span></p>
+<p><img src="./机器学习和深度学习概述四/figure1.5.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
+<p>​ <strong>图1.5 Sigmoid函数图形</strong></p>
+<p>Sigmoid函数赋予了非线性。与单独的加权和相比，这种架构可以处理相对更复杂的分类任务。事实上，等式1.6描述了神经网络的基本构建块。</p>
+<h4 id="通过多个非线性层实现更高的表达能力深度神经网络">1.7 通过多个非线性层实现更高的表达能力：深度神经网络</h4>
+<p>在第1.6节中，我们指出，在基本加权和模型中添加非线性可以产生能够处理更复杂任务的模型架构。用机器学习术语来说，非线性模型具有更强的表达能力。</p>
+<p>现在考虑一个现实生活中的问题：比如，构建一个狗识别器。输入空间包括像素位置和像素颜色（x、y、r、g、b，其中 r、g、b 表示像素颜色的红色、绿色和蓝色成分）。输入维度很大（与图像中的像素数量成比例）。图1.6简要介绍了典型的深度学习系统（例如狗图像识别器）必须处理的背景和前景的可能变化。我们需要一台具有极高表达能力的机器。我们如何以原则性的方式创建这样的机器？</p>
+<p><img src="./机器学习和深度学习概述四/figure1.6.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
+<p>​ <strong>图1.6 非典型深度学习系统（此处为狗图像识别器）需要处理的背景和前景变化一览</strong></p>
+<p>与其一步一步地从输入生成输出，不如采用级联方法？我们将从输入中生成一组中间或隐藏输出，其中每个隐藏输出本质上是一个逻辑回归单元。然后我们添加另一层，将前一层的输出作为输入，依此类推。最后，我们将最外层的隐藏层输出合并到总输出中。</p>
+<p><img src="./机器学习和深度学习概述四/figure1.7.png" alt="image-20240704141352832" style="zoom:50%;"/></p>
+<p>​ <strong>图1.7 多层神经网络</strong></p>
+<p>我们用以下等式来描述该系统。请注意，我们在权重上添加了一个上标来标识层（层0 最接近输入；层 L 是最后一层，距离输入最远）。我们还将下标设为二维（因此给定层的权重是一个矩阵）。第一个下标标识目标节点，第二个下标标识源节点（见图1.7）。</p>
+<p>精明的读者可能会注意到，以下等式没有明确的偏差项。这是因为，为了简化符号，我们将其并入权重集并假设其中一个输入（例如，<span class="math inline">\(x_0\)</span>= 1）和相应的权重（例如<span class="math inline">\(w_0\)</span>）是偏差。</p>
+<p>第0层：从n+1个输入生成<span class="math inline">\(n_0\)</span>个隐藏输出</p>
+<p><span class="math inline">\(\begin{aligned}&amp;h_0^{(0)}&amp;&amp;=\sigma\left(w_{00}^{(0)}x_0+w_{01}^{(0)}x_1+\cdots w_{0n}^{(0)}x_n\right)\\ &amp;h_1^{(0)}&amp;&amp; =\sigma\left(w_{10}^{(0)}x_0+w_{11}^{(0)}x_1+\cdots w_{1n}^{(0)}x_n\right) \\ &amp;h_{n_0}^{(0)}&amp;&amp; =\sigma\left(w_{n_00}^{(0)}x_0+w_{n_01}^{(0)}x_1+\cdots w_{n_0n}^{(0)}x_n\right) \end{aligned}\)</span> （1.7）</p>
+<p>第1层：从第0 层的<span class="math inline">\(n_0\)</span>个隐藏输出生成<span class="math inline">\(n_1\)</span>个隐藏输出</p>
+<p><span class="math inline">\(\begin{aligned} &amp;h_0^{(1)}&amp;&amp; =\sigma\left(w_{00}^{(1)}h_0^{(0)}+w_{01}^{(1)}h_1^{(0)}+\cdots w_{0n_0}^{(1)}h_{n_0}^{(0)}\right) \\ &amp;h_1^{(1)}&amp;&amp; =\sigma\left(w_{10}^{(1)}h_0^{(0)}+w_{11}^{(1)}h_1^{(0)}+\cdots w_{1n_0}^{(1)}h_{n_0}^{(0)}\right) \\ &amp;h_{n_1}^{(1)}&amp;&amp; =\sigma\left(w_{n_10}^{(1)}h_0^{(0)}+w_{n_11}^{(1)}h_1^{(0)}+\cdots w_{n_1n_0}^{(1)}h_{n_0}^{(0)}\right) \end{aligned}\)</span>（1.8）</p>
+<p>最后一层（L）：从前一层<span class="math inline">\(n_{L-1}\)</span>个隐藏输出生成m+1个可见输出</p>
+<p><span class="math inline">\(\begin{aligned} h_0^{(L)}&amp; =\sigma\left(w_{00}^{(L)}h_0^{(L-1)}+w_{01}^{(L)}h_1^{(L-1)}+\cdots w_{0n_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \\ h_1^{(L)}&amp; =\sigma\left(w_{10}^{(L)}h_0^{(L-1)}+w_{11}^{(L)}h_1^{(L-1)}+\cdots w_{1n_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \\ \begin{array}{cc}\vdots\\\end{array}&amp;&amp; \\ h_m^{(L)}&amp; =\sigma\left(w_{m0}^{(L)}h_0^{(L-1)}+w_{m1}^{(L)}h_1^{(L-1)}+\cdots w_{mn_{L-1}}^{(L)}h_{n_{L-1}}^{(L-1)}\right) \end{aligned}\)</span> （1.9）</p>
+<p>这些等式如图1.7 所示。图1.7 所示的机器可能非常强大，具有巨大的表达能力。我们可以系统地调整其表达能力以适应手头的问题。它是一个神经网络。我们将用本书的其余部分来研究这一点。</p>
+<h4 id="小结">小结</h4>
+<p>在本章中，我们概述了机器学习，并一直延伸到深度学习。我们用玩具猫脑示例说明了这些想法。本章使用了一些数学概念（例如向量），但没有进行适当的介绍，我们鼓励您在介绍向量和矩阵后重新阅读本章。</p>
+<p>我们希望您能从本章中得到以下的收获：</p>
+<ul>
+<li>机器学习是一种完全不同的计算范式。在传统计算中，我们向计算机提供分步指令序列，告诉它要做什么。在机器学习中，我们建立一个数学模型，试图逼近从输入生成分类或估计的未知函数。</li>
+<li>模型函数的数学性质由分类或估计任务的物理性质和复杂性决定。模型具有参数。参数值是根据训练数据（具有已知输出的输入）估计的。参数值经过优化，以使模型输出尽可能接近训练输入上的训练输出。</li>
+<li>机器学习模型可以从另一个角度理解，即几何视角，它是将多维输入空间中的点映射到输出空间中的点的变换。</li>
+<li>分类/估计任务越复杂，近似函数就越复杂。用机器学习术语来说，复杂的任务需要具有更强表达能力的机器。更高的表达能力来自非线性（例如，S 型函数；参见公式1.5）和更简单机器的分层组合。这让我们想到了深度学习，它只不过是一个多层非线性机器。</li>
+<li>复杂的模型函数通常通过组合较简单的基函数来构建。</li>
+</ul>
+<p>请系好安全带：学习乐趣即将变得更加激烈。</p>
 ]]></content>
   </entry>
 </search>
