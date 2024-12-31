@@ -246,6 +246,7 @@
       
         <p>Google DeepMind has released Gemma, a series of open models inspired by the same research and technology used for Gemini. This article summarized the main parts of paper Gemma: Open Models Based on Gemini Research and Technology and shown the basic way for running this model on local devices. Then give a conclusion on this model.</p>
 <a id="more"></a>
+
 <p><strong>Main Contents</strong>：</p>
 <ul>
 <li><strong>First Impression on Gemma</strong></li>
@@ -255,42 +256,42 @@
 <li><strong>Running Gemma 2B and 7B</strong></li>
 <li><strong>Conclusion</strong></li>
 </ul>
-<h3 id="first-impression-on-gemma"><strong>First Impression on Gemma</strong></h3>
-<hr />
+<h3 id="First-Impression-on-Gemma"><a href="#First-Impression-on-Gemma" class="headerlink" title="First Impression on Gemma"></a><strong>First Impression on Gemma</strong></h3><hr>
 <img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619112105533.png" class="" alt="image-20240619112105533">
+
 <p>Google DeepMind has released Gemma, a series of open models inspired by the same research and technology used for Gemini. The open model lends itself to a variety of use cases, which is a very smart move by Google. There are 2B (trained on 2T tokens) and 7B (trained on 6T tokens) models, including base and instruction-tuned versions. Training is performed on a context length of 8192 tokens. Commercial use permitted. These are not multimodal models and are superior to Llama 2 7B and Mistral 7B based on reported experimental results.</p>
 <p>Gemma models improve performance in a wide range of domains including conversation, reasoning, mathematics, and code generation. The results of MMLU (64.3%) and MBPP (44.4%) not only demonstrate the high performance of Gemma, but also show that there is still room for improvement in the performance of open and available large models.</p>
 <p>Gemma draws on many experiences from the Gemini model project, including code, data, architecture, instruction tuning, reinforcement learning from human feedback, and evaluation.</p>
-<h3 id="model-architecture"><strong>Model Architecture</strong></h3>
-<hr />
+<h3 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a><strong>Model Architecture</strong></h3><hr>
 <p>The Gemma model architecture is a transformer-based decoder. The core parameters of the architecture are summarized in Table 1 below. The model is trained on a context length of 8192 tokens. We also take advantage of several improvements proposed since the original transformer paper. Below we list the included improvements:</p>
 <p>Multi-Query Attention: The 7B model uses multi-query attention, while the 2B checkpoint uses multi-query attention (num_kv_heads=1). Based on the ablation study results, the respective attention variants are at their respective scales Improved performance.</p>
 <p>RoPE Embeddings: Instead of using absolute position embeddings, rotational position embeddings are used in each layer; in order to reduce model size, embeddings are also shared between input and output.</p>
 <p>GeGLU Activations: The standard ReLU nonlinearity is replaced by the GeGLU activation function.</p>
 <p>Normalizer Location: Normalizes both the input and output of each transformer sublayer, deviating from the standard practice of normalizing only one of them. Use RMSNorm as the normalization layer.</p>
 <img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619112628921.png" class="" alt="image-20240619112628921">
-<h3 id="training-data"><strong>Training Data</strong></h3>
-<hr />
+
+<h3 id="Training-Data"><a href="#Training-Data" class="headerlink" title="Training Data"></a><strong>Training Data</strong></h3><hr>
 <p>Gemma2B and 7B are trained on 2T and 6T of main English web document, mathematics and code data respectively. Unlike Gemini, these models are neither multimodal nor trained for optimal performance on multilingual tasks. For compatibility, a subset of the Gemini SentencePiece tokenizer is used. It splits numbers without removing extra whitespace, and relies on byte-level encoding to handle unknown tokens, following techniques used by (Chowdhery et al., 2022) and (Gemini Team, 2023). The vocabulary size is 256k tokens.</p>
 <p>Since the vocabulary is very large, the model needs to be trained longer to better learn embeddings for all tokens in the vocabulary. The loss should still decrease after expanding the training tokens, which also corresponds to the very large vocabulary. We can understand that the larger the vocabulary, the more training tokens may be needed, and of course the performance may be better.</p>
 <p>For the instruction version of the model, they performed supervised fine-tuning on an instruction dataset consisting of human and synthetic data, followed by reinforcement learning with human feedback (RLHF).</p>
 <img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619125626270.png" class="" alt="image-20240619125626270">
-<h3 id="performance-on-public-test-data"><strong>Performance on public test data</strong></h3>
-<hr />
+
+<h3 id="Performance-on-public-test-data"><a href="#Performance-on-public-test-data" class="headerlink" title="Performance on public test data"></a><strong>Performance on public test data</strong></h3><hr>
 <img src="/2024/03/19/Paper-reading-Gemma-Open-Models-Based-on-GeminiResearch-and-Technology/image-20240619130028360.png" class="" alt="image-20240619130028360">
-<h3 id="running-gemma-2b-and-7b"><strong>Running Gemma 2B and 7B</strong></h3>
-<hr />
-<p>Hugging Face's Transformers and vLLM already support the Gemma model, and the hardware requirement is an 18gb GPU.</p>
+
+<h3 id="Running-Gemma-2B-and-7B"><a href="#Running-Gemma-2B-and-7B" class="headerlink" title="Running Gemma 2B and 7B"></a><strong>Running Gemma 2B and 7B</strong></h3><hr>
+<p>Hugging Face’s Transformers and vLLM already support the Gemma model, and the hardware requirement is an 18gb GPU.</p>
 <p>Let’s first introduce vLLM</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"> <span class="keyword">from</span> vllm <span class="keyword">import</span> LLM, SamplingParams</span><br><span class="line"> prompts = [</span><br><span class="line">     <span class="string">"The best recipe for pasta is"</span></span><br><span class="line"> ]</span><br><span class="line"> sampling_params = SamplingParams(temperature=<span class="number">0.7</span>, top_p=<span class="number">0.8</span>, top_k=<span class="number">20</span>, max_tokens=<span class="number">150</span>)</span><br><span class="line"> loading_start = time.time()</span><br><span class="line"> llm = LLM(model=<span class="string">"google/gemma-7b"</span>)</span><br><span class="line"> print(<span class="string">"--- Loading time: %s seconds ---"</span> % (time.time() - loading_start))</span><br><span class="line"> generation_time = time.time()</span><br><span class="line"> outputs = llm.generate(prompts, sampling_params)</span><br><span class="line"> print(<span class="string">"--- Generation time: %s seconds ---"</span> % (time.time() - generation_time))</span><br><span class="line"> <span class="keyword">for</span> output <span class="keyword">in</span> outputs:</span><br><span class="line">     generated_text = output.outputs[<span class="number">0</span>].text</span><br><span class="line">     print(generated_text)</span><br><span class="line">     print(<span class="string">'------'</span>)</span><br></pre></td></tr></table></figure>
+
 <p>Transformers then</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"> <span class="keyword">from</span> transformers <span class="keyword">import</span> AutoTokenizer, AutoModelForCausalLM, set_seed</span><br><span class="line"> set_seed(<span class="number">1234</span>)  <span class="comment"># For reproducibility</span></span><br><span class="line"> prompt = <span class="string">"The best recipe for pasta is"</span></span><br><span class="line"> checkpoint = <span class="string">"google/gemma-7b"</span></span><br><span class="line"> tokenizer = AutoTokenizer.from_pretrained(checkpoint)</span><br><span class="line"> model = AutoModelForCausalLM.from_pretrained(checkpoint, torch_dtype=torch.float16, device_map=<span class="string">"cuda"</span>)</span><br><span class="line"> inputs = tokenizer(prompt, return_tensors=<span class="string">"pt"</span>).to(<span class="string">'cuda'</span>)</span><br><span class="line"> outputs = model.generate(**inputs, do_sample=<span class="literal">True</span>, max_new_tokens=<span class="number">150</span>)</span><br><span class="line"> result = tokenizer.decode(outputs[<span class="number">0</span>], skip_special_tokens=<span class="literal">True</span>)</span><br><span class="line"> print(result)</span><br></pre></td></tr></table></figure>
-<h3 id="conclusion"><strong>Conclusion</strong></h3>
-<hr />
+
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h3><hr>
 <p>Many frameworks already support Gemma models well, and quantization of GPTQ and AWQ will be released soon. After quantization, Gemma 7B can be used on 8gb GPU.</p>
-<p>It is undeniable that releasing the Gemma model is a step forward for Google. Gemma 7B looks like a good competitor to Mistral 7B, but let's not forget that it also has 1 billion more parameters than Mistral 7B. In addition, I have never figured out what the use cases of Gemma 2B are. Its performance is surpassed by other models of similar size (this 2B may be really 2B), and it can be seen that the performance of these two Google models with few parameters is not good, but the performance is good. There are many more parameters. This kind of word play shows that Google is indeed lagging behind and anxious on the AI track, and there is currently no way to surpass it.</p>
+<p>It is undeniable that releasing the Gemma model is a step forward for Google. Gemma 7B looks like a good competitor to Mistral 7B, but let’s not forget that it also has 1 billion more parameters than Mistral 7B. In addition, I have never figured out what the use cases of Gemma 2B are. Its performance is surpassed by other models of similar size (this 2B may be really 2B), and it can be seen that the performance of these two Google models with few parameters is not good, but the performance is good. There are many more parameters. This kind of word play shows that Google is indeed lagging behind and anxious on the AI track, and there is currently no way to surpass it.</p>
 <p>Here is the gemma-report officially released by Google. If you are interested, you can check it out.</p>
-<p>https://storage.googleapis.com/deepmind-media/gemma/gemma-report.pdf</p>
+<p><a href="https://storage.googleapis.com/deepmind-media/gemma/gemma-report.pdf" target="_blank" rel="noopener">https://storage.googleapis.com/deepmind-media/gemma/gemma-report.pdf</a></p>
 
     </div>
 
@@ -380,7 +381,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#first-impression-on-gemma"><span class="nav-number">1.</span> <span class="nav-text">First Impression on Gemma</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#model-architecture"><span class="nav-number">2.</span> <span class="nav-text">Model Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#training-data"><span class="nav-number">3.</span> <span class="nav-text">Training Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#performance-on-public-test-data"><span class="nav-number">4.</span> <span class="nav-text">Performance on public test data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#running-gemma-2b-and-7b"><span class="nav-number">5.</span> <span class="nav-text">Running Gemma 2B and 7B</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#conclusion"><span class="nav-number">6.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#First-Impression-on-Gemma"><span class="nav-number">1.</span> <span class="nav-text">First Impression on Gemma</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Architecture"><span class="nav-number">2.</span> <span class="nav-text">Model Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Training-Data"><span class="nav-number">3.</span> <span class="nav-text">Training Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Performance-on-public-test-data"><span class="nav-number">4.</span> <span class="nav-text">Performance on public test data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Running-Gemma-2B-and-7B"><span class="nav-number">5.</span> <span class="nav-text">Running Gemma 2B and 7B</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conclusion"><span class="nav-number">6.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
