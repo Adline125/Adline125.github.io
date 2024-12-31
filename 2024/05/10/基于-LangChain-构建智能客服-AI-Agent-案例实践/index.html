@@ -252,191 +252,161 @@
       
         <p>本文是基于上篇LangChain应用开发框架学习路径, 构建智能客服AI Agent 案例。通过该案例实践，引发进一步的思考并最终总结出开发AI Agent必备技能。</p>
 <a id="more"></a>
-
 <p>本文的主要内容包括：</p>
 <ul>
-<li><p><strong>基于 LangChain 构建智能客服 AI Agent 案例实践</strong></p>
-</li>
-<li><p><strong>基于  AI Agent 案例实践几个思考</strong></p>
-</li>
-<li><p><strong>开发 Agent 必备技能</strong></p>
-</li>
+<li><p><strong>基于 LangChain 构建智能客服 AI Agent 案例实践</strong></p></li>
+<li><p><strong>基于 AI Agent 案例实践几个思考</strong></p></li>
+<li><p><strong>开发 Agent 必备技能</strong></p></li>
 </ul>
-<h3 id="基于-LangChain-构建智能客服-AI-Agent-案例实践"><a href="#基于-LangChain-构建智能客服-AI-Agent-案例实践" class="headerlink" title="基于 LangChain 构建智能客服 AI Agent 案例实践"></a><strong>基于 LangChain 构建智能客服 AI Agent 案例实践</strong></h3><hr>
-<p><strong>AI Agent 是什么？</strong> </p>
+<h3 id="基于-langchain-构建智能客服-ai-agent-案例实践"><strong>基于 LangChain 构建智能客服 AI Agent 案例实践</strong></h3>
+<hr />
+<p><strong>AI Agent 是什么？</strong></p>
 <p>LLM + Planning + Memory + Tools +Action</p>
 <img src="/2024/05/10/%E5%9F%BA%E4%BA%8E-LangChain-%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D-AI-Agent-%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/image-20240618121434109.png" class="" alt="图片">
-
 <p><strong>LangChain 实现智能客服Agent架构设计</strong></p>
 <img src="/2024/05/10/%E5%9F%BA%E4%BA%8E-LangChain-%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D-AI-Agent-%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/image-20240618121509608.png" class="" alt="图片">
-
 <p><strong>LangChain 实现智能客服Agent架构设计</strong></p>
 <img src="/2024/05/10/%E5%9F%BA%E4%BA%8E-LangChain-%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D-AI-Agent-%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/image-20240618121612215.png" class="" alt="图片">
-
 <p><strong>LangChain 实现智能客服Agent核心代码</strong></p>
 <ul>
-<li><p><strong>大语言模型配置</strong></p>
-</li>
-<li><p><strong>工具列表注册</strong></p>
-</li>
-<li><p><strong>Agent 创建</strong></p>
-</li>
-<li><img src="/2024/05/10/%E5%9F%BA%E4%BA%8E-LangChain-%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D-AI-Agent-%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/image-20240618121712931.png" class="" alt="图片">
-
-</li>
+<li><p><strong>大语言模型配置</strong></p></li>
+<li><p><strong>工具列表注册</strong></p></li>
+<li><p><strong>Agent 创建</strong></p></li>
+<li><img src="/2024/05/10/%E5%9F%BA%E4%BA%8E-LangChain-%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D-AI-Agent-%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/image-20240618121712931.png" class="" alt="图片"></li>
 </ul>
 <p><strong>Agent 执行步骤一：模型做出规划</strong></p>
 <ul>
 <li><strong>Planning</strong></li>
 </ul>
-<p>​       l <strong>第一步：获取商品售价</strong></p>
-<p>​       l <strong>第二部：获取商品优惠信息</strong></p>
-<p>​       l <strong>第三步：计算最终售价</strong></p>
+<p>​ l <strong>第一步：获取商品售价</strong></p>
+<p>​ l <strong>第二部：获取商品优惠信息</strong></p>
+<p>​ l <strong>第三步：计算最终售价</strong></p>
 <ul>
 <li><strong>Thought</strong></li>
 </ul>
-<p>​       l <strong>需要获得商品售价</strong></p>
+<p>​ l <strong>需要获得商品售价</strong></p>
 <ul>
 <li><strong>Action</strong></li>
 </ul>
-<p>​       l <strong>行动：商品价格查询工具</strong></p>
-<p>​       l <strong>输入：商品ID</strong></p>
+<p>​ l <strong>行动：商品价格查询工具</strong></p>
+<p>​ l <strong>输入：商品ID</strong></p>
 <img src="/2024/05/10/%E5%9F%BA%E4%BA%8E-LangChain-%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D-AI-Agent-%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/image-20240618121858903.png" class="" alt="图片">
-
 <p><strong>Agent 执行步骤二：调用”商品价格查询工具“</strong></p>
 <ul>
-<li><p><strong>调用查询商品价格工具</strong></p>
-</li>
-<li><p><strong>返回：7980</strong></p>
-</li>
-<li><img src="/2024/05/10/%E5%9F%BA%E4%BA%8E-LangChain-%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D-AI-Agent-%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/image-20240618122000320.png" class="" alt="图片">
-
-</li>
+<li><p><strong>调用查询商品价格工具</strong></p></li>
+<li><p><strong>返回：7980</strong></p></li>
+<li><img src="/2024/05/10/%E5%9F%BA%E4%BA%8E-LangChain-%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D-AI-Agent-%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/image-20240618122000320.png" class="" alt="图片"></li>
 </ul>
 <p><strong>Agent 执行步骤三：模型观察结果后思考决定下一步行动</strong></p>
 <ul>
 <li><strong>会话上下文</strong></li>
 </ul>
-<p>​        l <strong>① 原始问题</strong></p>
-<p>​        l <strong>② 语言模型的规划和第一步行动</strong></p>
+<p>​ l <strong>① 原始问题</strong></p>
+<p>​ l <strong>② 语言模型的规划和第一步行动</strong></p>
 <ul>
 <li><strong>Obversation</strong></li>
 </ul>
-<p>​       l <strong>③ 商品售价</strong></p>
+<p>​ l <strong>③ 商品售价</strong></p>
 <ul>
 <li><strong>Thought</strong></li>
 </ul>
-<p>​       l <strong>需要获取商品优惠信息</strong></p>
+<p>​ l <strong>需要获取商品优惠信息</strong></p>
 <ul>
 <li><strong>Action</strong></li>
 </ul>
-<p>​       l <strong>行动：商品优惠信息查询工具</strong></p>
-<p>​       l <strong>输入：商品ID</strong></p>
+<p>​ l <strong>行动：商品优惠信息查询工具</strong></p>
+<p>​ l <strong>输入：商品ID</strong></p>
 <img src="/2024/05/10/%E5%9F%BA%E4%BA%8E-LangChain-%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D-AI-Agent-%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/image-20240618124008453.png" class="" alt="图片">
-
 <p><strong>Agent 执行步骤四：调用”商品优惠信息查询工具“</strong></p>
 <ul>
-<li><p><strong>调用查询商品优惠信息”工具”</strong></p>
-</li>
-<li><p><strong>返回：“折扣信息：0.85”</strong></p>
-</li>
+<li><p><strong>调用查询商品优惠信息”工具”</strong></p></li>
+<li><p><strong>返回：“折扣信息：0.85”</strong></p></li>
 <li><img src="/2024/05/10/%E5%9F%BA%E4%BA%8E-LangChain-%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D-AI-Agent-%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/image-20240618124109949.png" class="" alt="图片">
-
-
-
-</li>
-</ul>
-<p>  <strong>Agent 执行步骤五：模型观察结果后思考决定下一步行动</strong></p>
+<p><strong>Agent 执行步骤五：模型观察结果后思考决定下一步行动</strong></p>
 <ul>
-<li><p><strong>会话上下文</strong></p>
-<p>​        l <strong>① 原始问题</strong></p>
-<p>​        l <strong>② 历史执行步骤</strong></p>
-</li>
-<li><p><strong>Obversation</strong></p>
-<p>​        l <strong>③ 优惠信息</strong></p>
-</li>
-<li><p><strong>Thought</strong></p>
-<p>​        l <strong>需要计算商品最低售价</strong></p>
-</li>
-<li><p><strong>Action</strong></p>
-<p>​        l <strong>行动：计算器工具</strong></p>
-<p>​        l <strong>输入：算式</strong></p>
-<img src="/2024/05/10/%E5%9F%BA%E4%BA%8E-LangChain-%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D-AI-Agent-%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/image-20240618124255394.png" class="">
-
-
-
-</li>
+<li><strong>会话上下文</strong></li>
+</ul>
+<p>​ l <strong>① 原始问题</strong></p>
+<p>​ l <strong>② 历史执行步骤</strong></p>
+<ul>
+<li><strong>Obversation</strong></li>
+</ul>
+<p>​ l <strong>③ 优惠信息</strong></p>
+<ul>
+<li><strong>Thought</strong></li>
+</ul>
+<p>​ l <strong>需要计算商品最低售价</strong></p>
+<ul>
+<li><strong>Action</strong></li>
+</ul>
+<p>​ l <strong>行动：计算器工具</strong></p>
+<p>​ l <strong>输入：算式</strong></p>
+<img src="/2024/05/10/%E5%9F%BA%E4%BA%8E-LangChain-%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D-AI-Agent-%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/image-20240618124255394.png" class=""></li>
 </ul>
 <p><strong>Agent 执行步骤六：调用”计算器工具“</strong></p>
 <ul>
-<li><p><strong>调用计算器”工具”</strong></p>
-</li>
+<li><p><strong>调用计算器”工具”</strong></p></li>
 <li><p><strong>返回：6783</strong></p>
-<img src="/2024/05/10/%E5%9F%BA%E4%BA%8E-LangChain-%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D-AI-Agent-%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/image-20240618124356633.png" class="" alt="图片">
-
-</li>
+<img src="/2024/05/10/%E5%9F%BA%E4%BA%8E-LangChain-%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D-AI-Agent-%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5/image-20240618124356633.png" class="" alt="图片"></li>
 </ul>
 <p><strong>Agent 执行步骤七：得到最终结果任务执行结束</strong></p>
 <ul>
 <li><strong>会话上下文</strong></li>
 </ul>
-<p>​       l <strong>① 原始问题</strong></p>
-<p>​       l <strong>② 历史执行步骤</strong></p>
+<p>​ l <strong>① 原始问题</strong></p>
+<p>​ l <strong>② 历史执行步骤</strong></p>
 <ul>
 <li><strong>Obversation</strong></li>
 </ul>
-<p>​      l <strong>③ 最终售价计算结果</strong></p>
+<p>​ l <strong>③ 最终售价计算结果</strong></p>
 <ul>
 <li><strong>Thought</strong></li>
 </ul>
-<p>​      l <strong>得到商品的最低售价，任务结束</strong></p>
+<p>​ l <strong>得到商品的最低售价，任务结束</strong></p>
 <ul>
 <li><strong>Action</strong></li>
 </ul>
-<p>​      l <strong>行动：Final Answer</strong></p>
-<p>​      l <strong>输入：任务最终结果</strong></p>
-<h3 id="基于-AI-Agent-案例实践几个思考"><a href="#基于-AI-Agent-案例实践几个思考" class="headerlink" title="基于  AI Agent 案例实践几个思考"></a><strong>基于  AI Agent 案例实践几个思考</strong></h3><hr>
+<p>​ l <strong>行动：Final Answer</strong></p>
+<p>​ l <strong>输入：任务最终结果</strong></p>
+<h3 id="基于-ai-agent-案例实践几个思考"><strong>基于 AI Agent 案例实践几个思考</strong></h3>
+<hr />
 <ul>
-<li><p><strong>Token 超出如何解决</strong></p>
-</li>
-<li><p><strong>语言模型推理结果解析失败</strong></p>
-</li>
-<li><p><strong>系统吞吐量如何保证</strong></p>
-</li>
-<li><p><strong>系统运行成本</strong></p>
-</li>
-<li><p><strong>智能客服回答问题质量</strong></p>
-</li>
+<li><p><strong>Token 超出如何解决</strong></p></li>
+<li><p><strong>语言模型推理结果解析失败</strong></p></li>
+<li><p><strong>系统吞吐量如何保证</strong></p></li>
+<li><p><strong>系统运行成本</strong></p></li>
+<li><p><strong>智能客服回答问题质量</strong></p></li>
 </ul>
-<h3 id="开发-Agent-必备技能"><a href="#开发-Agent-必备技能" class="headerlink" title="开发 Agent 必备技能"></a><strong>开发 Agent 必备技能</strong></h3><hr>
+<h3 id="开发-agent-必备技能"><strong>开发 Agent 必备技能</strong></h3>
+<hr />
 <p><strong>开发 Agent 必备技能</strong></p>
 <ul>
 <li><strong>LLM交互</strong></li>
 </ul>
-<p>​        l <strong>开发框架—LangChain</strong></p>
-<p>​        l <strong>Function_calling</strong></p>
-<p>​        l <strong>Prompt Engneering</strong></p>
+<p>​ l <strong>开发框架—LangChain</strong></p>
+<p>​ l <strong>Function_calling</strong></p>
+<p>​ l <strong>Prompt Engneering</strong></p>
 <ul>
 <li><strong>Fine-tuning</strong></li>
 </ul>
-<p>​       l <strong>使模型具备领域知识</strong></p>
-<p>​       l <strong>LoRA、Prefix-tuning</strong></p>
+<p>​ l <strong>使模型具备领域知识</strong></p>
+<p>​ l <strong>LoRA、Prefix-tuning</strong></p>
 <ul>
 <li><strong>向量数据库</strong></li>
 </ul>
 <p>l <strong>非结构化数据存储</strong></p>
-<p>​       l <strong>语言相似度检索</strong></p>
-<p>​       l <strong>RAG</strong></p>
+<p>​ l <strong>语言相似度检索</strong></p>
+<p>​ l <strong>RAG</strong></p>
 <ul>
 <li><strong>架构设计能力</strong></li>
 </ul>
-<p>​       l <strong>系统高可用设计</strong></p>
-<p>​       l <strong>系统高扩展设计</strong></p>
+<p>​ l <strong>系统高可用设计</strong></p>
+<p>​ l <strong>系统高扩展设计</strong></p>
 <ul>
 <li><strong>系统调优</strong></li>
 </ul>
-<p>​       l <strong>LLM 性能调优</strong></p>
-<p>​       l <strong>向量数据库索引调优</strong></p>
+<p>​ l <strong>LLM 性能调优</strong></p>
+<p>​ l <strong>向量数据库索引调优</strong></p>
 
     </div>
 
@@ -526,7 +496,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于-LangChain-构建智能客服-AI-Agent-案例实践"><span class="nav-number">1.</span> <span class="nav-text">基于 LangChain 构建智能客服 AI Agent 案例实践</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于-AI-Agent-案例实践几个思考"><span class="nav-number">2.</span> <span class="nav-text">基于  AI Agent 案例实践几个思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发-Agent-必备技能"><span class="nav-number">3.</span> <span class="nav-text">开发 Agent 必备技能</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于-langchain-构建智能客服-ai-agent-案例实践"><span class="nav-number">1.</span> <span class="nav-text">基于 LangChain 构建智能客服 AI Agent 案例实践</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于-ai-agent-案例实践几个思考"><span class="nav-number">2.</span> <span class="nav-text">基于 AI Agent 案例实践几个思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发-agent-必备技能"><span class="nav-number">3.</span> <span class="nav-text">开发 Agent 必备技能</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

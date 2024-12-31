@@ -236,43 +236,46 @@
         <p>本文是对著名对话机器人开源框架Rasa NLU Sklearn classifier架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU Sklearn classifier做细节上的说明。</p>
 <p>本文更多关注算法，主要内容如下：</p>
 <a id="more"></a>
-
 <ul>
 <li>Sklearn classifier架构</li>
 <li>模型支持说明</li>
 <li>配置样例</li>
 <li>核心代码解析</li>
 </ul>
-<h3 id="Sklearn-classifier架构"><a href="#Sklearn-classifier架构" class="headerlink" title="Sklearn classifier架构"></a>Sklearn classifier架构</h3><p>313</p>
-<h3 id="模型支持说明"><a href="#模型支持说明" class="headerlink" title="模型支持说明"></a>模型支持说明</h3><p>Rasa 对 Sklearn中的所有分类器都支持，包括并不限于以下：</p>
+<h3 id="sklearn-classifier架构">Sklearn classifier架构</h3>
+<p>313</p>
+<h3 id="模型支持说明">模型支持说明</h3>
+<p>Rasa 对 Sklearn中的所有分类器都支持，包括并不限于以下：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>模型名称</th>
 <th>是否支持</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>LogisticRegression</td>
 <td>支持</td>
 </tr>
-<tr>
+<tr class="even">
 <td>RandomForestClassifier</td>
 <td>支持</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>DecisionTreeClassifier</td>
 <td>支持</td>
 </tr>
-<tr>
+<tr class="even">
 <td>MultinomialNB</td>
 <td>支持</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>GradientBoostingClassifier</td>
 <td>支持</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>SVM原理简介：</p>
 <p>SVM是找到不同类别之间的分界面，使得两类样本尽量落在面的两边，而且离分界面尽量远。SVM是平面的，局限很大， 这时就利用到核函数。</p>
 <p>核函数在解决线性不可分问题的时候，采取的方式是：使用低维特征空间上的计算来避免在高维特征空间中向量内积的恐怖计算量；也就是说此时SVM模型可以应用在高维特征空间中数据可线性分割的优点，同时又避免了引入这个高维特征空间恐怖的内积计算量。</p>
@@ -284,22 +287,18 @@
 <p>思想：按一定规律统一改变样本的特征数据得到新的样本，新的样本按新的特征数据能更好的分类，由于新的样本的特征数据与原始样本的特征数据呈一定规律的对应关系，因此根据新的样本的分布及分类情况，得出原始样本的分类情况。</p>
 <p>高斯核本质是在衡量样本和样本之间的“相似度”，在一个刻画“相似度”的空间中，让同类样本更好的聚在一起，进而线性可分。</p>
 <p><strong>限制：</strong>(1) SVM算法对大规模训练样本难以实施*</p>
-<p>​           <em>(2) 用SVM解决多分类问题存在困难</em></p>
-<h3 id="配置样例"><a href="#配置样例" class="headerlink" title="配置样例"></a>配置样例</h3><p>1315</p>
+<p>​ <em>(2) 用SVM解决多分类问题存在困难</em></p>
+<h3 id="配置样例">配置样例</h3>
+<p>1315</p>
 <p>1397</p>
-<h3 id="核心代码解析"><a href="#核心代码解析" class="headerlink" title="核心代码解析"></a>核心代码解析</h3><ul>
-<li><p>LabelEncoder()函数： 标签编码，类别标签数值化</p>
-</li>
-<li><p>transform_labels_str2num() 函数： 标签到数值</p>
-</li>
-<li><p>transform_labels_() 函数： 输入数值，输出标签文本</p>
-</li>
-<li><p>GridSearchCV() 函数：网格搜索参数，通过循环遍历，尝试每一种参数组合，返回最好的得分值的参数组合。</p>
-</li>
-<li><p>SVC() 函数： 创建模型训练器</p>
-</li>
-<li><p>process()函数： 模型推理</p>
-</li>
+<h3 id="核心代码解析">核心代码解析</h3>
+<ul>
+<li><p>LabelEncoder()函数： 标签编码，类别标签数值化</p></li>
+<li><p>transform_labels_str2num() 函数： 标签到数值</p></li>
+<li><p>transform_labels_() 函数： 输入数值，输出标签文本</p></li>
+<li><p>GridSearchCV() 函数：网格搜索参数，通过循环遍历，尝试每一种参数组合，返回最好的得分值的参数组合。</p></li>
+<li><p>SVC() 函数： 创建模型训练器</p></li>
+<li><p>process()函数： 模型推理</p></li>
 </ul>
 
     </div>
@@ -390,7 +389,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sklearn-classifier架构"><span class="nav-number">1.</span> <span class="nav-text">Sklearn classifier架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型支持说明"><span class="nav-number">2.</span> <span class="nav-text">模型支持说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置样例"><span class="nav-number">3.</span> <span class="nav-text">配置样例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心代码解析"><span class="nav-number">4.</span> <span class="nav-text">核心代码解析</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#sklearn-classifier架构"><span class="nav-number">1.</span> <span class="nav-text">Sklearn classifier架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型支持说明"><span class="nav-number">2.</span> <span class="nav-text">模型支持说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置样例"><span class="nav-number">3.</span> <span class="nav-text">配置样例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心代码解析"><span class="nav-number">4.</span> <span class="nav-text">核心代码解析</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
