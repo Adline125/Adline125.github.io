@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第二部分。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-08-10T06:54:36.000Z">
-<meta property="article:modified_time" content="2024-12-31T06:57:12.761Z">
+<meta property="article:modified_time" content="2024-12-31T07:01:55.250Z">
 <meta property="article:author" content="Adline125">
 <meta name="twitter:card" content="summary">
 
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-12-31 14:57:12" itemprop="dateModified" datetime="2024-12-31T14:57:12+08:00">2024-12-31</time>
+                <time title="Modified: 2024-12-31 15:01:55" itemprop="dateModified" datetime="2024-12-31T15:01:55+08:00">2024-12-31</time>
               </span>
 
           
@@ -270,7 +270,8 @@
 <p>用数学术语来说，通过公式1.1 的变换，<span class="math inline">\(v\in[v_{min},v_{max}]\to v_{norm}\in [0,1]\)</span>将输入域<span class="math inline">\([v_{min},v_{max}]\)</span>中的值<span class="math inline">\(v\)</span>映射到范围为[0,1]的输出值<span class="math inline">\(v_{norm}\)</span>。 用一个二维向量<span class="math inline">\(\vec{x}=\begin{bmatrix}x_0\\x_1\end{bmatrix}\in[0,1]^2\)</span>简洁地表示单个输入实例。</p>
 <h5 id="输出决策">1.3.2 输出决策</h5>
 <p>本例是一个多分类任务，可以采用以下三个可能值之一：0，表示逃离猫面前的物体；1，表示忽略物体；2，表示靠近物体并发出呼噜声。在机器学习中，本例可以按分类任务直接计算类别。但是，在这个例子中，我们将让模型估计一个威胁分数。它被解释如下：威胁分数为较大的正数= 逃跑，威胁接近零= 忽略，威胁为较小的负数= 接近并发出呼噜声（威胁分数为较小的负数表明该物体对猫具有吸引力）。</p>
-<p>我们可以根据威胁分数做出最终的决策（逃跑/忽略/接近），通过将威胁分数 y 与阈值𝛿进行比较，如下所示： <span class="math inline">\(y\left\{\begin{array}{l}&gt;\delta \rightarrow \text {高威胁,逃跑}\\ &gt;=-\delta \text { and }&lt;=\delta \rightarrow \text {威胁接近零,忽略}\\ &lt;-\delta \rightarrow \text {没有威胁,靠近并发出呼噜声}\end{array}\right.\)</span>（1.2）</p>
+<p>我们可以根据威胁分数做出最终的决策（逃跑/忽略/接近），通过将威胁分数 y 与阈值𝛿进行比较，如下所示：</p>
+<p><span class="math inline">\(y\left\{\begin{array}{l}&gt;\delta \rightarrow \text {高威胁,逃跑}\\ &gt;=-\delta \text { and }&lt;=\delta \rightarrow \text {威胁接近零,忽略}\\ &lt;-\delta \rightarrow \text {没有威胁,靠近并发出呼噜声}\end{array}\right.\)</span></p>
 <h5 id="模型估计">1.3.3 模型估计</h5>
 <p>现在到了最重要的一步：我们需要估计出一个函数用来将输入向量转换为输出。我们将用<span class="math inline">\(y\)</span>表示该函数的输出。用数学符号来表示的话，我们要估计的就是<span class="math inline">\(y(\vec{x})\)</span>。</p>
 <p>当然，我们不知道理想的函数是什么。我们将尝试从训练数据中估计出这个未知函数，使其接近理想函数。这分为两个步骤：</p>
@@ -299,8 +300,7 @@
 <p>假设<span class="math inline">\(\vec{w}\)</span>表示模型的（目前未知的）最佳参数。然后，给定任意输入<span class="math inline">\(\vec{x}\)</span>，机器将估计出威胁值$ y_{predicted}=<sup>T+b<span class="math inline">\(。在第 i 个训练数据对\)</span>(</sup>{(i)},y_{gt}^{(i)})$上，机器将给出估计</p>
 <p>​ <span class="math inline">\(y_{\text {predicted }}^{(i)}=\vec{w}^T \vec{x}^{(i)}+b\)</span></p>
 <p>而期望输出是<span class="math inline">\(y_{\text {gt}}^{(i)}\)</span>。因此，机器在第 i 个训练数据实例上产生的平方误差（又称损失）是 <span class="math inline">\(e_i^2=\left(y_{\text {predicted }}^{(i)}-y_{g t}^{(i)}\right)^2\)</span></p>
-<p>整个训练数据集的总体损失是通过将每个单独的训练数据实例的损失相加而获得的：</p>
-<p>​ <span class="math inline">\(E^2=\sum_{i=0}^{i=N} e_i^2=\sum_{i=0}^{i=N}\left(y_{\text {predicted }}^{(i)}-y_{g t}^{(i)}\right)^2=\sum_{i=0}^{i=N}\left(\vec{w}^T \vec{x}_i+b-y_{g t}^{(i)}\right)^2\)</span></p>
+<p>整个训练数据集的总体损失是通过将每个单独的训练数据实例的损失相加而获得的：<span class="math inline">\(E^2=\sum_{i=0}^{i=N} e_i^2=\sum_{i=0}^{i=N}\left(y_{\text {predicted }}^{(i)}-y_{g t}^{(i)}\right)^2=\sum_{i=0}^{i=N}\left(\vec{w}^T \vec{x}_i+b-y_{g t}^{(i)}\right)^2\)</span></p>
 <p>训练的目标是找到一组模型参数（又称权重）<span class="math inline">\(\vec{w}\)</span>，使总误差 E 最小化。具体如何做到这一点将在后面描述。</p>
 <p>在大多数情况下，不可能得出最优<span class="math inline">\(\vec{w}\)</span>、b 的闭式解。因此，我们采用算法1.1 中描述的迭代方法。</p>
 <blockquote>
@@ -323,7 +323,7 @@
 </table>
 <p>在这个算法中，我们从随机参数值开始，并不断调整参数，这样总误差至少会下降一点。我们一直这样做，直到误差变得足够小。从纯粹的数学意义上讲，我们继续迭代，直到误差最小。但在实践中，我们经常在结果对于要解决的问题足够准确时停止。值得再次强调的是，这里的误差仅指训练数据上的误差。</p>
 <h5 id="推理">1.3.6 推理</h5>
-<p>最后，一个经过训练的模型（具有最优参数<span class="math inline">\(\vec{w}_∗\)</span>，<span class="math inline">\(b_∗\)</span>）被部署到现实世界中。它将接收新的输入<span class="math inline">\(\vec{x}并推断出\)</span><span class="math inline">\(y_{predicted}\left(\vec{x}\right)=\vec{w}_{*}^{T}\vec{x}+b_{*}\)</span>。分类将通过对<span class="math inline">\(y_{predicted}\)</span>进行阈值处理来实现，如公式1.2 所示。</p>
+<p>最后，一个经过训练的模型（具有最优参数<span class="math inline">\(\vec{w}_∗\)</span><span class="math inline">\(b_∗\)</span>）被部署到现实世界中。它将接收新的输入<span class="math inline">\(\vec{x}\)</span>并推断出 <span class="math inline">\(y_{predicted}\left(\vec{x}\right)=\vec{w}_{*}^{T}\vec{x}+b_{*}\)</span>.分类将通过对<span class="math inline">\(y_{predicted}\)</span>进行阈值处理来实现，如公式1.2 所示。</p>
 
     </div>
 
