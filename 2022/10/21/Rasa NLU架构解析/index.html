@@ -236,22 +236,24 @@
         <p>本文是对著名对话机器人开源框架Rasa NLU架构的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU各部分做细节上的说明。</p>
 <p>本文更多关注算法，主要内容如下：</p>
 <a id="more"></a>
-
 <ul>
 <li>Rasa NLU总体架构图</li>
 <li>Rasa NLU训练流程解析</li>
 <li>Rasa NLU推理流程解析</li>
 </ul>
-<h1 id="Rasa-NLU-总体架构图"><a href="#Rasa-NLU-总体架构图" class="headerlink" title="Rasa NLU 总体架构图"></a>Rasa NLU 总体架构图</h1><p>274</p>
+<h1 id="rasa-nlu-总体架构图">Rasa NLU 总体架构图</h1>
+<p>274</p>
 <p><strong>注：（1）FallbackClassifier应出现在某一个意图分类器之后，利用其输出的结果，即intent、confidence、intent ranking，如果意图的置信度比预设的threshold低，或排名前两位的意图的置信度的差距小于预设的ambiguity_threshold，则将该输入的意图分类为“nlu_fallback”</strong></p>
-<h1 id="Rasa-NLU训练流程解析"><a href="#Rasa-NLU训练流程解析" class="headerlink" title="Rasa NLU训练流程解析"></a><strong>Rasa NLU训练流程解析</strong></h1><p>571</p>
+<h1 id="rasa-nlu训练流程解析"><strong>Rasa NLU训练流程解析</strong></h1>
+<p>571</p>
 <p><strong>rasa.model_training.train_async</strong>: 读取config, domain和训练data到file_importer: TrainingDataImporter, 并输入到_train_async_internal训练Rasa model (nlu and core).</p>
 <p><strong>rasa.model_training._train_async_internal:</strong> 判定模型需要重新训练的部分并将判定结果写入fingerprint_comparison作为_do_training方法的参数fingerprint_comparison_result的值输入_do_training完成相应部分的训练, 训练结束后将模型打包成trained_model，通过trained_model输入TrainingResult返回回至上层。</p>
 <p><strong>rasa.model_training._do_training:</strong> 通过fingerprint_comparison_result带入的结果判断是否重新训练nlu, core和nlg, 并进入相应模块进行训练。</p>
 <p><strong>rasa.model_training._train_nlu_with_validated_data：</strong>按rasa.nlu.train.train各参数要求读取和整理参数值，输入rasa.nlu.train.train开始nlu模块的训练。</p>
-<p><strong>rasa.nlu.train.train:</strong> 通过初始化trainer=rasa.nlu.model.Trainer(…), 构建config.yml中pipeline下的所有组件。读取TrainingDataImporter中的nlu数据后，将数据输入trainer.train开始训练。</p>
+<p><strong>rasa.nlu.train.train:</strong> 通过初始化trainer=rasa.nlu.model.Trainer(...), 构建config.yml中pipeline下的所有组件。读取TrainingDataImporter中的nlu数据后，将数据输入trainer.train开始训练。</p>
 <p><strong>rasa.nlu.model.Trainer.train:</strong> 遍历pipeline所有components，对每个component调用component.train方法完成训练。</p>
-<h1 id="Rasa-NLU推理流程解析"><a href="#Rasa-NLU推理流程解析" class="headerlink" title="Rasa NLU推理流程解析"></a>Rasa NLU推理流程解析</h1><p>1552</p>
+<h1 id="rasa-nlu推理流程解析">Rasa NLU推理流程解析</h1>
+<p>1552</p>
 <p><strong>rasa.model_testing.test_nlu：</strong>nlu测试入口，使用get_model函数加载model并解压（unpack），创建结果输出目录，调用测试过程</p>
 <p><strong>rasa.nlu.test.run_evaluation：</strong>测试过程入口函数，加载nlu模型初始化Interpreter实例，加载测试数据，调用get_eval_data进行测试</p>
 <p><strong>rasa.nlu.test.get_eval_data：</strong>在测试数据上运行模型，并提取真实标签和预测结果，输入interpreter实例和测试数据，返回意图测试结果（包括意图的标签和预测结果，原始消息，即message，及预测结果的置信度），response测试结果（包括response的目标值和预测结果），还有实体测试结果（实体的目标值，预测结果，和对应的token）</p>
@@ -347,7 +349,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Rasa-NLU-总体架构图"><span class="nav-number">1.</span> <span class="nav-text">Rasa NLU 总体架构图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Rasa-NLU训练流程解析"><span class="nav-number">2.</span> <span class="nav-text">Rasa NLU训练流程解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Rasa-NLU推理流程解析"><span class="nav-number">3.</span> <span class="nav-text">Rasa NLU推理流程解析</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#rasa-nlu-总体架构图"><span class="nav-number">1.</span> <span class="nav-text">Rasa NLU 总体架构图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rasa-nlu训练流程解析"><span class="nav-number">2.</span> <span class="nav-text">Rasa NLU训练流程解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rasa-nlu推理流程解析"><span class="nav-number">3.</span> <span class="nav-text">Rasa NLU推理流程解析</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

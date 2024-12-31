@@ -236,111 +236,103 @@
         <p>本文是对著名对话机器人开源框架Rasa NLU classifier中最受欢迎的DIET Classifier的解析。Rasa是一套开源机器学习框架，用于构建基于上下文的AI小助手和聊天机器人。Rasa有两个主要模块：Rasa NLU 用于对用户消息内容的语义理解；Rasa Core 用于对话管理（Dialogue management）。本文主要针对Rasa NLU classifier 中的DIET Classifier做详细的说明。</p>
 <p>本文更多关注算法，主要内容如下：</p>
 <a id="more"></a>
-
 <ul>
 <li>Rasa NLU Classifier架构</li>
 <li>主流技术支持情况</li>
 </ul>
-<h3 id="DIET-Classifier架构"><a href="#DIET-Classifier架构" class="headerlink" title="DIET Classifier架构"></a>DIET Classifier架构</h3><h4 id="321"><a href="#321" class="headerlink" title="321"></a>321</h4><h3 id="模型支持说明"><a href="#模型支持说明" class="headerlink" title="模型支持说明"></a>模型支持说明</h3><p>DIET支持的Huggingface模型类型如下表：</p>
+<h3 id="diet-classifier架构">DIET Classifier架构</h3>
+<h4 id="section">321</h4>
+<h3 id="模型支持说明">模型支持说明</h3>
+<p>DIET支持的Huggingface模型类型如下表：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th><strong>模型类型</strong></th>
 <th><strong>模型名称</strong></th>
 <th><strong>默认加载的预训练模型</strong></th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>BERT</td>
 <td>bert</td>
 <td>rasa/LaBSE ( bert-base-uncased )</td>
 </tr>
-<tr>
+<tr class="even">
 <td>GPT</td>
 <td>gpt</td>
 <td>openai-gpt</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>GPT2</td>
 <td>gpt2</td>
 <td>gpt2</td>
 </tr>
-<tr>
+<tr class="even">
 <td>XLNet</td>
 <td>xlnet</td>
 <td>xlnet-base-cased</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>DistilBERT</td>
 <td>distilbert</td>
 <td>distilbert-base-uncased</td>
 </tr>
-<tr>
+<tr class="even">
 <td>RoBERTa</td>
 <td>roberta</td>
 <td>roberta-base</td>
 </tr>
-</tbody></table>
-<p>对在HuggingFace 中上传的所有预训练模型（<a href="https://huggingface.co/models?pipeline_tag=text-classification&sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>），Rasa DIET可以支持满足以下条件的所有模型：</p>
-<p>点击<a href="https://huggingface.co/models?pipeline_tag=text-classification&sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>-&gt;选中一个模型-&gt;点击进入模型页面-&gt;点击Files and version</p>
+</tbody>
+</table>
+<p>对在HuggingFace 中上传的所有预训练模型（<a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>），Rasa DIET可以支持满足以下条件的所有模型：</p>
+<p>点击<a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>-&gt;选中一个模型-&gt;点击进入模型页面-&gt;点击Files and version</p>
 <ul>
 <li>检查 config.json 中的 model_type 是否列在上表的 <strong>模型名称</strong> 列中</li>
 <li>检查文件 tf_model.h5 是否存在</li>
 <li>模型使用默认tokenizer, config.json 中不包含支持自定义的 tokenizer_class</li>
 </ul>
 <p>对满足上述条件的模型，通过2.1.3.3中描述的方式可开箱即用。</p>
-<h3 id="DIET支持Huggingface的配置样例"><a href="#DIET支持Huggingface的配置样例" class="headerlink" title="DIET支持Huggingface的配置样例"></a>DIET支持Huggingface的配置样例</h3><p>在Rasa2.0中，若想在DIET架构中使用Huggingface提供的预训练模型，除在rasa的config文件中指定使用DIETClassifier外，还需要配合使用对应的模块：</p>
-<ol>
+<h3 id="diet支持huggingface的配置样例">DIET支持Huggingface的配置样例</h3>
+<p>在Rasa2.0中，若想在DIET架构中使用Huggingface提供的预训练模型，除在rasa的config文件中指定使用DIETClassifier外，还需要配合使用对应的模块：</p>
+<ol type="1">
 <li>HFTransformersNLP</li>
 </ol>
 <p>主要参数：model_name: 预训练模型config.json 中的 model_type的值</p>
-<p>​                  model_weights: <a href="https://huggingface.co/models?pipeline_tag=text-classification&sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>提供的预训练模型名称 </p>
-<ol>
+<p>​ model_weights: <a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=downloads" target="_blank" rel="noopener">Huggingface模型列表</a>提供的预训练模型名称</p>
+<ol type="1">
 <li>LanguageModelTokenizer：确保训练数据token对应的token_id与预训练模型的token_id保持一致</li>
 <li>LanguageModelFeaturizer：生成经预训练模型转换后的特征向量，做为架构后续模块的输入。</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">language: en</span><br><span class="line">pipeline:</span><br><span class="line">- name: HFTransformersNLP</span><br><span class="line">  model_weights: &quot;rasa&#x2F;LaBSE&quot;</span><br><span class="line">  model_name: &quot;bert&quot;</span><br><span class="line">- name: LanguageModelTokenizer</span><br><span class="line">- name: LanguageModelFeaturizer</span><br><span class="line">- name: DIETClassifier</span><br><span class="line">  epochs: 20</span><br><span class="line">  num_transformer_layers: 2</span><br><span class="line">  transfomer_size: 256</span><br><span class="line">  use_masked_language_model: True</span><br><span class="line">  drop_rate: 0.25</span><br><span class="line">  weight_sparsity: 0.7</span><br><span class="line">  batch_size: [64, 256]</span><br><span class="line">  embedding_dimension: 100</span><br><span class="line">  hidden_layer_sizes:</span><br><span class="line">    text: [512, 128]</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>DIET样例代码包位置：examples/hf_demo</li>
 <li>DIET样例代码调用方式：项目根目录/main.py</li>
 <li>涉及的源码改动：</li>
 </ul>
-<p>如按 ‘样例代码调用方式’ 直接跑报错… set from_pt=true, 请修改:  项目根目录/rasa/nlu/utils/hugging_face/hf_transformers.py: class HFTransformersNLP中的def _load_model_instance中 </p>
+<p>如按 ‘样例代码调用方式’ 直接跑报错... set from_pt=true, 请修改: 项目根目录/rasa/nlu/utils/hugging_face/hf_transformers.py: class HFTransformersNLP中的def _load_model_instance中</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.model &#x3D; model_class_dict[self.model_name].from_pretrained(self.model_weights, cache_dir&#x3D;self.cache_dir)</span><br></pre></td></tr></table></figure>
-
 <p>改为</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.model &#x3D; model_class_dict[self.model_name].from_pretrained(self.model_weights, cache_dir&#x3D;self.cache_dir, from_pt&#x3D;True)</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="DIET核心代码解析"><a href="#DIET核心代码解析" class="headerlink" title="DIET核心代码解析"></a>DIET核心代码解析</h3><p><strong>rasa.nlu.model.Trainer.train：</strong>遍历pipeline所有components，对每个component调用component.train方法完成训练。在component遍历到DIETClassifier之前，HFTransformersNLP等组件已经提取好了DIETClassifier训练需要的特征。遍历至DIETClassifier后，DIETClassifier开始利用已经提取好的特征进入训练。</p>
+<h3 id="diet核心代码解析">DIET核心代码解析</h3>
+<p><strong>rasa.nlu.model.Trainer.train：</strong>遍历pipeline所有components，对每个component调用component.train方法完成训练。在component遍历到DIETClassifier之前，HFTransformersNLP等组件已经提取好了DIETClassifier训练需要的特征。遍历至DIETClassifier后，DIETClassifier开始利用已经提取好的特征进入训练。</p>
 <p><strong>rasa.nlu.classifiers.DIETClassifier.train:</strong> 该方法主要完成三件事：</p>
 <ul>
-<li><p>语料准备：通过DIETClassifier类中的方法preprocess_train_data，将训练数据和之前提取的特征整理成符合RasaModelData格式的model_data。RasaModelData格式为。。。。。之后将整理好的model_data按batch_size整理成data_generator供batch训练用。</p>
-</li>
-<li><p>指定模型：将DIETClassifier类的成员self.model通过初始化DIET类完成指定DIET模型训练。</p>
-</li>
+<li><p>语料准备：通过DIETClassifier类中的方法preprocess_train_data，将训练数据和之前提取的特征整理成符合RasaModelData格式的model_data。RasaModelData格式为。。。。。之后将整理好的model_data按batch_size整理成data_generator供batch训练用。</p></li>
+<li><p>指定模型：将DIETClassifier类的成员self.model通过初始化DIET类完成指定DIET模型训练。</p></li>
 <li><ul>
-<li><p>DIET模型类继承自TransformerRasaModel类：自定义了</p>
-</li>
-<li><p>TransformerRasaModel继承自RasaModel：自定义了。。。 要求实现。。。</p>
-</li>
-<li><p>RasaModel继承自TmpKerasModel：通过重写tf.keras.Model中的train_step(), test_step(), predict_step(), save()和load()方法，实现自定义的Rasa模型.</p>
-</li>
+<li><p>DIET模型类继承自TransformerRasaModel类：自定义了</p></li>
+<li><p>TransformerRasaModel继承自RasaModel：自定义了。。。 要求实现。。。</p></li>
+<li><p>RasaModel继承自TmpKerasModel：通过重写tf.keras.Model中的train_step(), test_step(), predict_step(), save()和load()方法，实现自定义的Rasa模型.</p></li>
 <li><ul>
 <li>train_step()使用自定义的batch_loss并对该loss做了正则化。batch_loss需由其子类实现。</li>
 <li>predict_step()使用自定义的batch_predict()。需由其子类实现。</li>
 <li>save()只使用tf.keras.Model.save_weights()。</li>
 <li>load()生成模型结构后加载weights.</li>
-</ul>
-</li>
-<li><p>TmpKerasModel继承自tf.keras.models.Model：重写了tf.keras.models.Model的fit方法来使用自定义的数据适配器。将数据转写成CustomDataHandler后由其处理迭代 epoch 级别的 <code>tf.data.Iterator</code> 对象。</p>
-</li>
-</ul>
-</li>
-<li><p>训练</p>
-</li>
+</ul></li>
+<li><p>TmpKerasModel继承自tf.keras.models.Model：重写了tf.keras.models.Model的fit方法来使用自定义的数据适配器。将数据转写成CustomDataHandler后由其处理迭代 epoch 级别的 <code>tf.data.Iterator</code> 对象。</p></li>
+</ul></li>
+<li><p>训练</p></li>
 </ul>
 
     </div>
@@ -431,7 +423,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DIET-Classifier架构"><span class="nav-number">1.</span> <span class="nav-text">DIET Classifier架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#321"><span class="nav-number">1.1.</span> <span class="nav-text">321</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型支持说明"><span class="nav-number">2.</span> <span class="nav-text">模型支持说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DIET支持Huggingface的配置样例"><span class="nav-number">3.</span> <span class="nav-text">DIET支持Huggingface的配置样例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DIET核心代码解析"><span class="nav-number">4.</span> <span class="nav-text">DIET核心代码解析</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#diet-classifier架构"><span class="nav-number">1.</span> <span class="nav-text">DIET Classifier架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#section"><span class="nav-number">1.1.</span> <span class="nav-text">321</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型支持说明"><span class="nav-number">2.</span> <span class="nav-text">模型支持说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diet支持huggingface的配置样例"><span class="nav-number">3.</span> <span class="nav-text">DIET支持Huggingface的配置样例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diet核心代码解析"><span class="nav-number">4.</span> <span class="nav-text">DIET核心代码解析</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
