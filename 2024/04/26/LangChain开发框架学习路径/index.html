@@ -251,95 +251,115 @@
       
         <p>本文是对LangChain应用开发框架的总体架构和关键技术的解读。以大纲的形式，辅以图形展示出LangChain开发框架的主要技术学习路径，做为初始接触该技术的学习者的入门指南。</p>
 <a id="more"></a>
+
 <p>本文的主要内容包括：</p>
 <ul>
 <li><strong>LangChain 总体架构深度剖析</strong></li>
 <li><strong>LangChain 核心模块关键技术解读</strong></li>
 <li><strong>基于 LangChain 构建智能客服 AI Agent 案例实践</strong></li>
 </ul>
-<h3 id="langchain-总体架构深度剖析"><strong>LangChain 总体架构深度剖析</strong></h3>
-<hr />
+<h3 id="LangChain-总体架构深度剖析"><a href="#LangChain-总体架构深度剖析" class="headerlink" title="LangChain 总体架构深度剖析"></a><strong>LangChain 总体架构深度剖析</strong></h3><hr>
 <p>LangChian是将 LLM 模型、向量数据库、交互层 Prompt、外部知识、外部工具整合到一起，进而可以自由构建 LLM 应用的应用开发框架。</p>
 <p><strong>为什么需要 LangChain？</strong></p>
 <ul>
-<li><p>提供了RAG过程中的所需模块的支持</p></li>
-<li><p>帮助开发者快速开发LLM应用</p></li>
-<li><p>Model I/O、 Retrieval、Chains、 Memory、Agents、Callbacks</p></li>
+<li><p>提供了RAG过程中的所需模块的支持</p>
+</li>
+<li><p>帮助开发者快速开发LLM应用</p>
+</li>
+<li><p>Model I/O、 Retrieval、Chains、 Memory、Agents、Callbacks</p>
+</li>
 </ul>
 <p><strong>LangChain 整体组成部分</strong></p>
 <img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618112519688.png" class="" title="This is an test image">
+
 <img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618112519688.png" class="" alt="图片">
+
+
+
 <ul>
 <li><strong>LangSmith</strong></li>
 </ul>
-<p>​ l <strong>LLMOPS 平台</strong></p>
+<p>​          l <strong>LLMOPS 平台</strong></p>
 <ul>
 <li><strong>LangServe</strong></li>
 </ul>
-<p>​ l <strong>快速将应用部署为 REST API 的服务</strong></p>
+<p>​          l <strong>快速将应用部署为 REST API 的服务</strong></p>
 <ul>
 <li><strong>Templates</strong></li>
 </ul>
-<p>​ l <strong>Langchain 的应用模版</strong></p>
+<p>​          l <strong>Langchain 的应用模版</strong></p>
 <p><strong>LangChain 整体架构剖析</strong></p>
 <img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618112809604.png" class="" alt="图片">
+
 <ul>
-<li><p><strong>模块更加独立</strong></p></li>
-<li><p><strong>职责更加明确</strong></p></li>
-<li><p><strong>保证核心部分的稳定性</strong></p></li>
-<li><p><strong>减少外部依赖</strong></p></li>
-<li><p><strong>维护更为容易</strong></p></li>
+<li><p><strong>模块更加独立</strong></p>
+</li>
+<li><p><strong>职责更加明确</strong></p>
+</li>
+<li><p><strong>保证核心部分的稳定性</strong></p>
+</li>
+<li><p><strong>减少外部依赖</strong></p>
+</li>
+<li><p><strong>维护更为容易</strong></p>
+</li>
 </ul>
-<h3 id="langchain-核心模块关键技术解读"><strong>LangChain 核心模块关键技术解读</strong></h3>
-<hr />
+<h3 id="LangChain-核心模块关键技术解读"><a href="#LangChain-核心模块关键技术解读" class="headerlink" title="LangChain 核心模块关键技术解读"></a><strong>LangChain 核心模块关键技术解读</strong></h3><hr>
 <p><strong>LangChain 关键技术之—Retrieval</strong></p>
 <img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113123519.png" class="" alt="图片">
+
 <ul>
 <li><strong>文档加载器（Document loaders）</strong></li>
 </ul>
-<p>​ l <strong>csv、html、json、md、PDF文件读取</strong></p>
-<p>​ l <strong>转化为document格式</strong></p>
+<p>​       l <strong>csv、html、json、md、PDF文件读取</strong></p>
+<p>​       l <strong>转化为document格式</strong></p>
 <img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113218406.png" class="" alt="图片">
+
 <ul>
 <li><strong>文档转换器（Document transformers）</strong></li>
 </ul>
-<p>​ l <strong>将文档数据结构化/分块(Text Splitter</strong>)</p>
+<p>​       l <strong>将文档数据结构化/分块(Text Splitter</strong>)</p>
 <img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113330215.png" class="" alt="图片">
+
 <ul>
 <li><strong>文档转换器（Document transformers)</strong></li>
 </ul>
-<p>​ l <strong>自定义字符</strong></p>
-<p>​ l <strong>基于句子</strong></p>
-<p>​ l <strong>基于语义</strong></p>
+<p>​       l <strong>自定义字符</strong></p>
+<p>​       l <strong>基于句子</strong></p>
+<p>​       l <strong>基于语义</strong></p>
 <ul>
 <li><strong>文本嵌入模型（Embed）</strong></li>
 </ul>
-<p>​ l <strong>将文档向量化</strong></p>
+<p>​       l <strong>将文档向量化</strong></p>
 <img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113624028.png" class="" alt="图片">
+
 <ul>
 <li><strong>文本嵌入模型（Embed）</strong></li>
 </ul>
-<p>​ l <strong>将文档向量化</strong></p>
+<p>​        l <strong>将文档向量化</strong></p>
 <img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113733790.png" class="" alt="图片">
+
 <ul>
-<li><p><strong>向量存储&amp;检索（Vector stores）</strong></p></li>
+<li><p><strong>向量存储&amp;检索（Vector stores）</strong></p>
+</li>
 <li><img src="/2024/04/26/LangChain%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/image-20240618113857413.png" class="" alt="图片">
-<ul>
-<li><strong>MultiQueryRetriever</strong></li>
+
+
+
+</li>
 </ul>
-<p>​ l <strong>使用 LLM 从不同角度为给定的查询生成多个查询</strong></p>
 <ul>
-<li><strong>上下文压缩</strong></li>
-</ul>
-<p>​ l <strong>将检索结果进行压缩缩率</strong></p>
-<ul>
-<li><strong>MultiVector Retriever</strong></li>
-</ul>
+<li><p><strong>MultiQueryRetriever</strong></p>
+<p>​       l <strong>使用 LLM 从不同角度为给定的查询生成多个查询</strong></p>
+</li>
+<li><p><strong>上下文压缩</strong></p>
+<p>​       l <strong>将检索结果进行压缩缩率</strong></p>
+</li>
+<li><p><strong>MultiVector Retriever</strong></p>
 <p>l <strong>分块/摘要/文档加假设问题</strong></p>
-<ul>
-<li><strong>Time-weighted vector store retriever</strong></li>
-</ul>
-<p>​ l <strong>语义相似性 + 时间衰减</strong></p></li>
+</li>
+<li><p><strong>Time-weighted vector store retriever</strong></p>
+<p>​       l <strong>语义相似性 + 时间衰减</strong></p>
+</li>
 </ul>
 
     </div>
@@ -430,7 +450,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#langchain-总体架构深度剖析"><span class="nav-number">1.</span> <span class="nav-text">LangChain 总体架构深度剖析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#langchain-核心模块关键技术解读"><span class="nav-number">2.</span> <span class="nav-text">LangChain 核心模块关键技术解读</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#LangChain-总体架构深度剖析"><span class="nav-number">1.</span> <span class="nav-text">LangChain 总体架构深度剖析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LangChain-核心模块关键技术解读"><span class="nav-number">2.</span> <span class="nav-text">LangChain 核心模块关键技术解读</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

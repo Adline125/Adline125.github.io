@@ -241,89 +241,67 @@
       
         <p>本文是基于《深度学习中的数学》一书中的思想，旨在从本文起系列阐述深度学习技术背后的数学原理，给想要对深度学习更进一步了解的读者提供一个可以查阅的底层原理资料。本文共分为四个部分，此为第二部分。</p>
 <a id="more"></a>
+
 <p>本文的主要内容包括：</p>
 <ul>
 <li><strong>机器学习的函数逼近视角</strong></li>
 <li><strong>一个简单的机器学习模型：猫脑</strong></li>
 </ul>
-<h4 id="机器学习的函数逼近视角模型和训练">1.2 机器学习的函数逼近视角：模型和训练</h4>
-<p>如第1.1 节所述，要创建一个能够进行分类或估计的类脑机器，我们必须找到一个数学函数（模型），将输入转换为对应的期望输出。然而，遗憾的是，在典型的现实生活中，我们不知道这个转换函数是什么。例如，我们并不知道能接受历史价格、新闻事件等特征并能估计出股票未来价格的函数——这就让我们建立股票价格估算器来致富变得很困难。我们拥有的只是训练数据——一组已知输出的输入。那么我们该怎样利用好它们来完成上面的任务呢？答案是，我们将尝试对这个未知函数进行建模。这意味着我们将创建一个函数作为那个未知函数的近似代理或替代品。从这个角度来看，机器学习只不过是函数近似——我们只是试图逼近那个未知的分类或估计函数。</p>
+<h4 id="1-2-机器学习的函数逼近视角：模型和训练"><a href="#1-2-机器学习的函数逼近视角：模型和训练" class="headerlink" title="1.2 机器学习的函数逼近视角：模型和训练"></a>1.2 机器学习的函数逼近视角：模型和训练</h4><p>如第1.1 节所述，要创建一个能够进行分类或估计的类脑机器，我们必须找到一个数学函数（模型），将输入转换为对应的期望输出。然而，遗憾的是，在典型的现实生活中，我们不知道这个转换函数是什么。例如，我们并不知道能接受历史价格、新闻事件等特征并能估计出股票未来价格的函数——这就让我们建立股票价格估算器来致富变得很困难。我们拥有的只是训练数据——一组已知输出的输入。那么我们该怎样利用好它们来完成上面的任务呢？答案是，我们将尝试对这个未知函数进行建模。这意味着我们将创建一个函数作为那个未知函数的近似代理或替代品。从这个角度来看，机器学习只不过是函数近似——我们只是试图逼近那个未知的分类或估计函数。</p>
 <p>让我们简要回顾一下上一节的主要思想。在机器学习中，我们试图解决的问题可以抽象地看作是将一组输入转换为输出。输出要么是一个类，要么是一个估计值。由于我们不知道真正的转换函数，我们试图提出一个模型函数。我们首先利用我们对问题的物理理解，设计一个具有可调参数值的模型函数，该模型函数可以作为真实函数的代理。这就是模型架构，可调参数也称为权重。最简单的模型架构是输出等于输入值的加权和。确定模型架构并不能完全确定模型——我们仍然需要确定实际的参数值（权重）。这就是训练的用武之地。在训练过程中，我们找到一组最佳权重，将该组权重应用到模型架构中确定一个模型，通过该模型将训练输入转换为模型输出，使模型输出尽可能接近训练输入在训练样本中对应的训练输出。训练完成后，我们部署好训练好的模型：它的权重已经确定，模型也因此已经确定，因此对于任何输入，它只需应用该模型并生成输出，这便是推理。当然，训练输入只是所有可能输入的一小部分，因此不能保证推理会在所有实际输入上产生所需的结果。模型的成功取决于所选模型架构的适当性以及训练数据的质量和数量。</p>
 <table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>获取训练数据<br/>掌握机器学习后，最大的困难就是获取训练数据。当从业者能够负担得起时，通常的做法是使用人工手动生成与训练数据输入相对应的输出（这些目标输出有时被称为基本事实）。这个过程被称为人工标记或人工管理，需要一大群人查看大量的训练数据输入并生成相应的基本事实输出。对于一些经过充分研究的问题，我们可能很幸运地能够在互联网上获得训练数据；否则它将成为一项艰巨的挑战。稍后会详细介绍。</th>
 </tr>
 </thead>
-<tbody>
-</tbody>
 </table>
 <p>现在我们通过一个具体的例子来研究一下模型构建的过程：参见图1.1所示的猫脑。</p>
-<h4 id="一个简单的机器学习模型猫脑">1.3 一个简单的机器学习模型：猫脑</h4>
-<p>为了简单和具体，我们将以一只假想的猫为例，它一生中只需要做出一个决定：是逃离面前的物体、忽略它，还是靠近并发出呼噜声。它仅根据与面前物体有关的两个定量输入来做出这一决定（如图1.1 所示）。注意：本章是对机器/深度学习的轻量级概述。因此，它依赖于我们稍后将介绍的一些数学概念。尽管如此，我们还是鼓励您现在阅读本章，并在消化关于向量和矩阵的章节后再回来重新复习本章。</p>
-<h5 id="输入特征">1.31 输入特征</h5>
-<p>输入特征为<span class="math inline">\(x_0\)</span>表示硬度和$ x_1<span class="math inline">\(表示锋利度。在不失一般性的情况下，我们可以对输入进行归一化。这是一个非常流行的技巧，即将介于最小可能值\)</span>v_{min}<span class="math inline">\(和最大可能值\)</span>v_{max}<span class="math inline">\(之间的输入值转换为0 到1 之间的值。要将任意输入值\)</span>v$转换为归一化值 <span class="math inline">\(v_{norm}\)</span>，我们使用公式</p>
-<p>​ <span class="math inline">\(v_{\text {norm }}=\frac{\left(v-v_{\min }\right)}{\left(v_{\max }-v_{\min }\right)}\)</span> (1.1)</p>
-<p>用数学术语来说，通过公式1.1 的变换，<span class="math inline">\(v\in[v_{min},v_{max}]\to v_{norm}\in [0,1]\)</span>将输入域<span class="math inline">\([v_{min},v_{max}]\)</span>中的值<span class="math inline">\(v\)</span>映射到范围为[0,1]的输出值<span class="math inline">\(v_{norm}\)</span>。 用一个二维向量<span class="math inline">\(\vec{x}=\begin{bmatrix}x_0\\x_1\end{bmatrix}\in[0,1]^2\)</span>简洁地表示单个输入实例。</p>
-<h5 id="输出决策">1.3.2 输出决策</h5>
-<p>本例是一个多分类任务，可以采用以下三个可能值之一：0，表示逃离猫面前的物体；1，表示忽略物体；2，表示靠近物体并发出呼噜声。在机器学习中，本例可以按分类任务直接计算类别。但是，在这个例子中，我们将让模型估计一个威胁分数。它被解释如下：威胁分数为较大的正数= 逃跑，威胁接近零= 忽略，威胁为较小的负数= 接近并发出呼噜声（威胁分数为较小的负数表明该物体对猫具有吸引力）。</p>
+<h4 id="1-3-一个简单的机器学习模型：猫脑"><a href="#1-3-一个简单的机器学习模型：猫脑" class="headerlink" title="1.3 一个简单的机器学习模型：猫脑"></a>1.3 一个简单的机器学习模型：猫脑</h4><p>为了简单和具体，我们将以一只假想的猫为例，它一生中只需要做出一个决定：是逃离面前的物体、忽略它，还是靠近并发出呼噜声。它仅根据与面前物体有关的两个定量输入来做出这一决定（如图1.1 所示）。注意：本章是对机器/深度学习的轻量级概述。因此，它依赖于我们稍后将介绍的一些数学概念。尽管如此，我们还是鼓励您现在阅读本章，并在消化关于向量和矩阵的章节后再回来重新复习本章。</p>
+<h5 id="1-31-输入特征"><a href="#1-31-输入特征" class="headerlink" title="1.31 输入特征"></a>1.31 输入特征</h5><p>输入特征为$x_0$表示硬度和$ x_1$表示锋利度。在不失一般性的情况下，我们可以对输入进行归一化。这是一个非常流行的技巧，即将介于最小可能值$v_{min}$和最大可能值$v_{max}$之间的输入值转换为0 到1 之间的值。要将任意输入值$v$转换为归一化值 $v_{norm}$，我们使用公式</p>
+<p>​                                $v_{\text {norm }}=\frac{\left(v-v_{\min }\right)}{\left(v_{\max }-v_{\min }\right)}$                        (1.1)</p>
+<p>用数学术语来说，通过公式1.1 的变换，$v\in[v_{min},v_{max}]\to v_{norm}\in [0,1]$将输入域$[v_{min},v_{max}]$中的值$v$映射到范围为[0,1]的输出值$v_{norm}$。<br>用一个二维向量$\vec{x}=\begin{bmatrix}x_0\x_1\end{bmatrix}\in[0,1]^2$简洁地表示单个输入实例。</p>
+<h5 id="1-3-2-输出决策"><a href="#1-3-2-输出决策" class="headerlink" title="1.3.2 输出决策"></a>1.3.2 输出决策</h5><p>本例是一个多分类任务，可以采用以下三个可能值之一：0，表示逃离猫面前的物体；1，表示忽略物体；2，表示靠近物体并发出呼噜声。在机器学习中，本例可以按分类任务直接计算类别。但是，在这个例子中，我们将让模型估计一个威胁分数。它被解释如下：威胁分数为较大的正数= 逃跑，威胁接近零= 忽略，威胁为较小的负数= 接近并发出呼噜声（威胁分数为较小的负数表明该物体对猫具有吸引力）。</p>
 <p>我们可以根据威胁分数做出最终的决策（逃跑/忽略/接近），通过将威胁分数 y 与阈值𝛿进行比较，如下所示：</p>
-<p><span class="math inline">\(y\left\{\begin{array}{l}&gt;\delta \rightarrow \text {高威胁,逃跑}\\ &gt;=-\delta \text { and }&lt;=\delta \rightarrow \text {威胁接近零,忽略}\\ &lt;-\delta \rightarrow \text {没有威胁,靠近并发出呼噜声}\end{array}\right.\)</span></p>
-<h5 id="模型估计">1.3.3 模型估计</h5>
-<p>现在到了最重要的一步：我们需要估计出一个函数用来将输入向量转换为输出。我们将用<span class="math inline">\(y\)</span>表示该函数的输出。用数学符号来表示的话，我们要估计的就是<span class="math inline">\(y(\vec{x})\)</span>。</p>
+<p>$y\left{\begin{array}{l}&gt;\delta \rightarrow \text {高威胁,逃跑}\ &gt;=-\delta \text { and }&lt;=\delta \rightarrow \text {威胁接近零,忽略}\ &lt;-\delta \rightarrow \text {没有威胁,靠近并发出呼噜声}\end{array}\right.$</p>
+<h5 id="1-3-3-模型估计"><a href="#1-3-3-模型估计" class="headerlink" title="1.3.3 模型估计"></a>1.3.3 模型估计</h5><p>现在到了最重要的一步：我们需要估计出一个函数用来将输入向量转换为输出。我们将用$y$表示该函数的输出。用数学符号来表示的话，我们要估计的就是$y(\vec{x})$。</p>
 <p>当然，我们不知道理想的函数是什么。我们将尝试从训练数据中估计出这个未知函数，使其接近理想函数。这分为两个步骤：</p>
 <p>1.模型架构选择——设计一个我们期望的参数化函数，它是未知理想函数的近似代理</p>
 <p>2.训练——估计所选函数的参数，使得训练输入通过该函数的输出尽可能接近其对应的期望输出</p>
-<h5 id="模型架构选择">1.3.4 模型架构选择</h5>
-<p>这是各种机器学习方法之所以成为不同方法的关键步骤。在这个简单猫脑示例中，我们将使用最简单的模型。我们的模型有三个参数，<span class="math inline">\(w_0\)</span>、<span class="math inline">\(w_1\)</span>、<span class="math inline">\(b\)</span>。它们可以用一个二维向量紧凑地表示为<span class="math inline">\(w =\vec{w}=\left[\begin{array}{l}w_0 \\ w_1\end{array}\right]\in \mathbb{R}^2\)</span>和一个常数偏差<span class="math inline">\(b\)</span>∈ℝ（这里，ℝ表示所有实数的集合，<span class="math inline">\(ℝ_2\)</span>表示两个元素都是实数的二维向量的集合，依此类推）。这个模型可以输出威胁分数 y，计算如下$ y(x_0, x_1)=w_0 x_0+w_1 x_1+b=+b=^T +b$ (1.3)</p>
-<p>请注意，<span class="math inline">\(b\)</span>是一个特殊的参数。它是一个常数，不会与任何输入相乘。在机器学习中，通常将其称为偏差；其他参数作为权重与输入相乘。</p>
-<h5 id="模型训练">1.3.5 模型训练</h5>
-<p>一旦选择了模型架构，我们就知道了确定的参数化函数，我们将使用该参数化函数来建模未知函数<span class="math inline">\(y(\vec{x})\)</span>，从而将输入转换为输出。我们在这里仍然需要估计函数的参数。现在，我们有一个具有未知参数的函数，并且这些参数将会从一组具有已知输出（训练数据）的输入中估计出来。我们最终将选择一组最优参数，使得训练数据的输入通过具有最优参数的模型后，产出的模型输出尽可能接近训练数据中的输出。</p>
+<h5 id="1-3-4-模型架构选择"><a href="#1-3-4-模型架构选择" class="headerlink" title="1.3.4 模型架构选择"></a>1.3.4 模型架构选择</h5><p>这是各种机器学习方法之所以成为不同方法的关键步骤。在这个简单猫脑示例中，我们将使用最简单的模型。我们的模型有三个参数，$w_0$、$w_1$、$b$。它们可以用一个二维向量紧凑地表示为$w =\vec{w}=\left[\begin{array}{l}w_0 \ w_1\end{array}\right]\in \mathbb{R}^2$和一个常数偏差$b$∈ℝ（这里，ℝ表示所有实数的集合，$ℝ_2$表示两个元素都是实数的二维向量的集合，依此类推）。这个模型可以输出威胁分数 y，计算如下$ y\left(x_0, x_1\right)=w_0 x_0+w_1 x_1+b=\left[\begin{array}{ll}w_0 &amp; w_1\end{array}\right]\left[\begin{array}{l}x_0 \ x_1\end{array}\right]+b=\vec{w}^T \vec{x}+b$      (1.3)</p>
+<p>请注意，$b$是一个特殊的参数。它是一个常数，不会与任何输入相乘。在机器学习中，通常将其称为偏差；其他参数作为权重与输入相乘。</p>
+<h5 id="1-3-5-模型训练"><a href="#1-3-5-模型训练" class="headerlink" title="1.3.5 模型训练"></a>1.3.5 模型训练</h5><p>一旦选择了模型架构，我们就知道了确定的参数化函数，我们将使用该参数化函数来建模未知函数$y(\vec{x})$，从而将输入转换为输出。我们在这里仍然需要估计函数的参数。现在，我们有一个具有未知参数的函数，并且这些参数将会从一组具有已知输出（训练数据）的输入中估计出来。我们最终将选择一组最优参数，使得训练数据的输入通过具有最优参数的模型后，产出的模型输出尽可能接近训练数据中的输出。</p>
 <table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>迭代训练<br/>这个问题已经被数学家研究过，在数学中被称为函数拟合问题。然而，随着机器学习的出现，其规模发生了变化。在机器学习中，我们处理的训练数据包括数以百万计的样本。这就需要解决方案的理念也随之改变。数学家使用闭式解作为解决方案，通过直接求解涉及所有训练数据项的方程来估计参数。在机器学习中，我们寻求迭代解决方案，一次处理几个训练数据项（或者可能只有一个）。在迭代解决方案中，没有必要将所有训练数据保存在计算机的内存中。我们只需一次加载一小部分并仅处理该部分。我们将以猫脑为例来说明这一点。</th>
 </tr>
 </thead>
-<tbody>
-</tbody>
 </table>
-<p>具体来说，训练过程的目标是估计参数<span class="math inline">\(w_0\)</span>、<span class="math inline">\(w_1\)</span>、<span class="math inline">\(b\)</span>，或者，根据公式1.3 估计向量<span class="math inline">\(\vec{w}\)</span>和常数<span class="math inline">\(b\)</span>，使得训练数据的输入<span class="math inline">\((x_0, x_1)\)</span>对应的输出<span class="math inline">\(y(x_0, x_1)\)</span>尽可能与相应的已知训练数据输出（又称基本事实[GT]）匹配。</p>
-<p>假设训练数据由N +1个输入<span class="math inline">\(\vec{x}^{(0)},\vec{x}^{(1)},···\vec{x}^{(N)}\)</span>组成。这里，每个<span class="math inline">\(\vec{x}^{(i)}\)</span>都是一个2 ×1 向量，表示单个训练数据输入实例。其对应的威胁值（输出）为<span class="math inline">\(y_{g t}^{(0)}, y_{g t}^{(1)},··· y_{g t}^{(N)}\)</span>（这里，下标 gt 表示基本事实）。同样，我们可以说训练数据由 N +1 个(输入，输出)对组成：</p>
-<p>​ <span class="math inline">\(\left(\vec{x}^{(0)}, y_{g t}^{(0)}\right),\left(\vec{x}^{(1)}, y_{g t}^{(1)}\right)\cdots\left(\vec{x}^{(N)}, y_{g t}^{(N)}\right)\)</span></p>
-<p>假设<span class="math inline">\(\vec{w}\)</span>表示模型的（目前未知的）最佳参数。然后，给定任意输入<span class="math inline">\(\vec{x}\)</span>，机器将估计出威胁值$ y_{predicted}=<sup>T+b<span class="math inline">\(。在第 i 个训练数据对\)</span>(</sup>{(i)},y_{gt}^{(i)})$上，机器将给出估计</p>
-<p>​ <span class="math inline">\(y_{\text {predicted }}^{(i)}=\vec{w}^T \vec{x}^{(i)}+b\)</span></p>
-<p>而期望输出是<span class="math inline">\(y_{\text {gt}}^{(i)}\)</span>。因此，机器在第 i 个训练数据实例上产生的平方误差（又称损失）是 <span class="math inline">\(e_i^2=\left(y_{\text {predicted }}^{(i)}-y_{g t}^{(i)}\right)^2\)</span></p>
-<p>整个训练数据集的总体损失是通过将每个单独的训练数据实例的损失相加而获得的：<span class="math inline">\(E^2=\sum_{i=0}^{i=N} e_i^2=\sum_{i=0}^{i=N}\left(y_{\text {predicted }}^{(i)}-y_{g t}^{(i)}\right)^2=\sum_{i=0}^{i=N}\left(\vec{w}^T \vec{x}_i+b-y_{g t}^{(i)}\right)^2\)</span></p>
-<p>训练的目标是找到一组模型参数（又称权重）<span class="math inline">\(\vec{w}\)</span>，使总误差 E 最小化。具体如何做到这一点将在后面描述。</p>
-<p>在大多数情况下，不可能得出最优<span class="math inline">\(\vec{w}\)</span>、b 的闭式解。因此，我们采用算法1.1 中描述的迭代方法。</p>
+<p>具体来说，训练过程的目标是估计参数$w_0$、$w_1$、$b$，或者，根据公式1.3 估计向量$\vec{w}$和常数$b$，使得训练数据的输入$(x_0, x_1)$对应的输出$y(x_0, x_1)$尽可能与相应的已知训练数据输出（又称基本事实[GT]）匹配。</p>
+<p>假设训练数据由N +1个输入$\vec{x}^{(0)},\vec{x}^{(1)},···\vec{x}^{(N)}$组成。这里，每个$\vec{x}^{(i)}$都是一个2 ×1 向量，表示单个训练数据输入实例。其对应的威胁值（输出）为$y_{g t}^{(0)}, y_{g t}^{(1)},··· y_{g t}^{(N)}$（这里，下标 gt 表示基本事实）。同样，我们可以说训练数据由 N +1 个(输入，输出)对组成：</p>
+<p>​                                $\left(\vec{x}^{(0)}, y_{g t}^{(0)}\right),\left(\vec{x}^{(1)}, y_{g t}^{(1)}\right)\cdots\left(\vec{x}^{(N)}, y_{g t}^{(N)}\right)$</p>
+<p>假设$\vec{w}$表示模型的（目前未知的）最佳参数。然后，给定任意输入$\vec{x}$，机器将估计出威胁值$ y_{predicted}=\vec{w}^T\vec{x}+b$。在第 i 个训练数据对$\left(\vec{x}^{(i)},y_{gt}^{(i)}\right)$上，机器将给出估计</p>
+<p>​                                $y_{\text {predicted }}^{(i)}=\vec{w}^T \vec{x}^{(i)}+b$</p>
+<p>而期望输出是$y_{\text {gt}}^{(i)}$。因此，机器在第 i 个训练数据实例上产生的平方误差（又称损失）是<br>                                $e_i^2=\left(y_{\text {predicted }}^{(i)}-y_{g t}^{(i)}\right)^2$</p>
+<p>整个训练数据集的总体损失是通过将每个单独的训练数据实例的损失相加而获得的：$E^2=\sum_{i=0}^{i=N} e_i^2=\sum_{i=0}^{i=N}\left(y_{\text {predicted }}^{(i)}-y_{g t}^{(i)}\right)^2=\sum_{i=0}^{i=N}\left(\vec{w}^T \vec{x}<em>i+b-y</em>{g t}^{(i)}\right)^2$</p>
+<p>训练的目标是找到一组模型参数（又称权重）$\vec{w}$，使总误差 E 最小化。具体如何做到这一点将在后面描述。</p>
+<p>在大多数情况下，不可能得出最优$\vec{w}$、b 的闭式解。因此，我们采用算法1.1 中描述的迭代方法。</p>
 <blockquote>
 <p>第9页脚注：2 在这种情况下，请注意，将误差/损失做平方，以使其与符号无关是一种常见做法。如果我们希望输出为10，那么如果输出为9.5 或10.5，我们会同样高兴/不高兴。因此，+5 或−5 的误差实际上是相同的；因此我们要使误差与符号无关。</p>
 </blockquote>
 <table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>算法1.1 训练一个监督模型</th>
 </tr>
 </thead>
-<tbody>
-<tr class="odd">
-<td>用随机值初始化参数 w,b，当误差不够小时进行迭代<br><span class="math inline">\(\mathbf{while}\quad(E^2=\sum_{i=0}^{i=N}\left(\vec{w}^T\vec{x}_i+b-y_{gt}^{(i)}\right)^2&gt;threshold)\quad\mathbf{do}\)</span><br> 迭代所有训练数据实例 <br/> <span class="math inline">\(\text{for }\forall i\in[0,N]\quad\mathbf{do}\)</span><br/> 第3.3 节提供了详细信息，引入梯度后，调整<span class="math inline">\(\vec{w}\)</span>，b 以减少<span class="math inline">\(E^2\)</span><br/> <span class="math inline">\(\mathbf{end}\ \mathbf{for}\)</span><br/><span class="math inline">\(\mathbf{end}\ \mathbf{while}\)</span><br/>记住最终参数值为最优<br/><span class="math inline">\(\vec{w}_*\leftarrow\vec{w},\ b_*\leftarrow b\)</span></td>
+<tbody><tr>
+<td>用随机值初始化参数 w,b，当误差不够小时进行迭代<br>$\mathbf{while}\quad(E^2=\sum_{i=0}^{i=N}\left(\vec{w}^T\vec{x}<em>i+b-y</em>{gt}^{(i)}\right)^2&gt;threshold)\quad\mathbf{do}$<br>        迭代所有训练数据实例 <br/>        $\text{for }\forall i\in[0,N]\quad\mathbf{do}$<br/>                第3.3 节提供了详细信息，引入梯度后，调整$\vec{w}$，b 以减少$E^2$<br/>        $\mathbf{end}\ \mathbf{for}$<br/>$\mathbf{end}\ \mathbf{while}$<br/>记住最终参数值为最优<br/>$\vec{w}<em>*\leftarrow\vec{w},\ b</em>*\leftarrow b$</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>在这个算法中，我们从随机参数值开始，并不断调整参数，这样总误差至少会下降一点。我们一直这样做，直到误差变得足够小。从纯粹的数学意义上讲，我们继续迭代，直到误差最小。但在实践中，我们经常在结果对于要解决的问题足够准确时停止。值得再次强调的是，这里的误差仅指训练数据上的误差。</p>
-<h5 id="推理">1.3.6 推理</h5>
-<p>最后，一个经过训练的模型（具有最优参数<span class="math inline">\(\vec{w}_∗\)</span><span class="math inline">\(b_∗\)</span>）被部署到现实世界中。它将接收新的输入<span class="math inline">\(\vec{x}\)</span>并推断出 <span class="math inline">\(y_{predicted}\left(\vec{x}\right)=\vec{w}_{*}^{T}\vec{x}+b_{*}\)</span>.分类将通过对<span class="math inline">\(y_{predicted}\)</span>进行阈值处理来实现，如公式1.2 所示。</p>
+<h5 id="1-3-6-推理"><a href="#1-3-6-推理" class="headerlink" title="1.3.6 推理"></a>1.3.6 推理</h5><p>最后，一个经过训练的模型（具有最优参数$\vec{w}<em>∗$$b_∗$）被部署到现实世界中。它将接收新的输入$\vec{x}$并推断出 $y</em>{predicted}\left(\vec{x}\right)=\vec{w}<em>{*}^{T}\vec{x}+b</em>{*}$.分类将通过对$y_{predicted}$进行阈值处理来实现，如公式1.2 所示。</p>
 
     </div>
 
@@ -413,7 +391,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#机器学习的函数逼近视角模型和训练"><span class="nav-number">1.</span> <span class="nav-text">1.2 机器学习的函数逼近视角：模型和训练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个简单的机器学习模型猫脑"><span class="nav-number">2.</span> <span class="nav-text">1.3 一个简单的机器学习模型：猫脑</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#输入特征"><span class="nav-number">2.1.</span> <span class="nav-text">1.31 输入特征</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输出决策"><span class="nav-number">2.2.</span> <span class="nav-text">1.3.2 输出决策</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模型估计"><span class="nav-number">2.3.</span> <span class="nav-text">1.3.3 模型估计</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模型架构选择"><span class="nav-number">2.4.</span> <span class="nav-text">1.3.4 模型架构选择</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模型训练"><span class="nav-number">2.5.</span> <span class="nav-text">1.3.5 模型训练</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#推理"><span class="nav-number">2.6.</span> <span class="nav-text">1.3.6 推理</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-机器学习的函数逼近视角：模型和训练"><span class="nav-number">1.</span> <span class="nav-text">1.2 机器学习的函数逼近视角：模型和训练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-一个简单的机器学习模型：猫脑"><span class="nav-number">2.</span> <span class="nav-text">1.3 一个简单的机器学习模型：猫脑</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-31-输入特征"><span class="nav-number">2.1.</span> <span class="nav-text">1.31 输入特征</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-2-输出决策"><span class="nav-number">2.2.</span> <span class="nav-text">1.3.2 输出决策</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-3-模型估计"><span class="nav-number">2.3.</span> <span class="nav-text">1.3.3 模型估计</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-4-模型架构选择"><span class="nav-number">2.4.</span> <span class="nav-text">1.3.4 模型架构选择</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-5-模型训练"><span class="nav-number">2.5.</span> <span class="nav-text">1.3.5 模型训练</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-6-推理"><span class="nav-number">2.6.</span> <span class="nav-text">1.3.6 推理</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
